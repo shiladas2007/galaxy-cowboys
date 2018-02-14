@@ -1,17 +1,23 @@
 (function() {
-    function Init() {
+    let canvas = document.getElementById("canvas");
+    let stage:createjs.Stage;
 
+    function Init():void {
+        Start();
     }
 
-    function Start() {
-
+    function Start():void {
+        stage = new createjs.Stage(canvas);
+        createjs.Ticker.framerate = 60;
+        createjs.Ticker.on("tick", Update);
+        Main();
     }
 
-    function Update() {
-
+    function Update():void {
+        stage.update();
     }
 
-    function Main() {
+    function Main():void {
 
     }
 
