@@ -1,5 +1,5 @@
 module animate {
-    export class Player {
+    export class Player extends Animate {
         
     }
 }
