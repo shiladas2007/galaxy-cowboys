@@ -6,5 +6,6 @@ module objects {
         
         public static readonly WIDTH = 640;
         public static readonly HEIGHT = 480;
+        public static readonly FPS = 60;
     }
 }
