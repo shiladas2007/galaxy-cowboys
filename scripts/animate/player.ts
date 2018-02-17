@@ -9,10 +9,8 @@ module animate {
         }
 
         public CheckBounds():void {
-            let canvasHeight: number;
-
             // Checking bottom boundary
-            if (this.y >= canvasHeight + this.height) {
+            if (this.y >= objects.Game.HEIGHT + this.height) {
 
             }
 
