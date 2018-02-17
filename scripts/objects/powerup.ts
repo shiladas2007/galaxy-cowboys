@@ -1,5 +1,5 @@
 module objects {
-    export class Powerup extends Inanimate {
+    export class Powerup {
         
     }
 }
