@@ -1,4 +1,4 @@
-module inanimate {
+module objects {
     export class Desctructible extends Inanimate {
         
     }

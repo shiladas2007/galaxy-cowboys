@@ -1,4 +1,4 @@
-module weapon {
+module objects {
     export class Weapon {
         
     }
