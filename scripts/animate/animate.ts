@@ -1,21 +1,29 @@
 module animate {
-    export abstract class Animate {
-        private _hp: number;
-        private _mvspd: number;
-        public posX: number;
-        public posY: number;
+    export abstract class Animate extends objects.GameObject {
+        protected _mvspd: number; // 0.0 to 2.0 (0% to 200%)
 
-        constructor(hp:number, mvspd:number=1) {
-            this._hp = hp;
+        public Hp: number;
+
+        constructor(assetManager:createjs.LoadQueue, imageUrl:string, hp:number, mvspd:number=1) {
+            super(assetManager, imageUrl);
+            this.Hp = hp;
             this._mvspd = mvspd;
         }
 
-        public move() {
+        public Reset():void {
 
         }
 
-        public attack() {
+        public CheckBounds():void {
+
+        }
+
+        public Move() {
             
+        }
+
+        public Attack() {
+
         }
     }
 }
