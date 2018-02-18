@@ -7,6 +7,7 @@ module objects {
         public height: number;
         public halfWidth: number;
         public halfHeight: number;
+        public position: createjs.Point;
 
         constructor(assetManager:createjs.LoadQueue, imageName:string) {
             super(assetManager.getResult(imageName));
