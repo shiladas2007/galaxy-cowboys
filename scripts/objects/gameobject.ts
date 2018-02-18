@@ -8,8 +8,8 @@ module objects {
         public halfWidth: number;
         public halfHeight: number;
 
-        constructor(assetManager:createjs.LoadQueue, imageUrl:string) {
-            super(assetManager.getResult(imageUrl));
+        constructor(assetManager:createjs.LoadQueue, imageName:string) {
+            super(assetManager.getResult(imageName));
             this._initialize();
         }
 

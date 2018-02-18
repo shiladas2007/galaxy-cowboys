@@ -4,8 +4,8 @@ module animate {
 
         public Hp: number;
 
-        constructor(assetManager:createjs.LoadQueue, imageUrl:string, hp:number, mvspd:number=1) {
-            super(assetManager, imageUrl);
+        constructor(assetManager:createjs.LoadQueue, imageName:string, hp:number, mvspd:number=1) {
+            super(assetManager, imageName);
             this.Hp = hp;
             this._mvspd = mvspd;
         }

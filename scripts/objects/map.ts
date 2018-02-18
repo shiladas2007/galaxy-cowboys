@@ -2,8 +2,8 @@ module objects {
     export class Map extends createjs.Bitmap {
         private _dy: number;
 
-        constructor(assetManager:createjs.LoadQueue, imageUrl:string) {
-            super(assetManager.getResult(imageUrl));
+        constructor(assetManager:createjs.LoadQueue, imageName:string) {
+            super(assetManager.getResult(imageName));
             this.Start();
         }
 
