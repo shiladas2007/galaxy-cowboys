@@ -21,6 +21,7 @@ module objects {
             this.halfHeight = this.height * 0.5;
             this.regX = this.halfWidth;
             this.regY = this.halfHeight;
+            this.position = new createjs.Point(this.x, this.y);
         }
 
         public Reset():void { }
