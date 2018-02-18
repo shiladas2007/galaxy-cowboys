@@ -8,9 +8,12 @@ module objects {
         public halfWidth: number;
         public halfHeight: number;
         public position: createjs.Point;
+        public isColliding: boolean;
 
         constructor(assetManager:createjs.LoadQueue, imageName:string) {
             super(assetManager.getResult(imageName));
+            this.name = imageName;
+            
             this._initialize();
         }
 
@@ -22,6 +25,7 @@ module objects {
             this.regX = this.halfWidth;
             this.regY = this.halfHeight;
             this.position = new createjs.Point(this.x, this.y);
+            this.isColliding = false;
         }
 
         public Reset():void { }
