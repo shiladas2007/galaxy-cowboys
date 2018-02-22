@@ -9,8 +9,8 @@ module scenes {
 
         }
 
-        public Update():void {
-
+        public Update():number {
+            return 0;
         }
 
         public Main():void {
