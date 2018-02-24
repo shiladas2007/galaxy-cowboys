@@ -1,7 +1,7 @@
 module ui {
     export class Button extends createjs.Bitmap {
-        constructor(imageUrl:string, x:number=0, y:number=0, isCentered=false) {
-            super(imageUrl);
+        constructor(assetManager:createjs.LoadQueue, imageString:string, x:number=0, y:number=0, isCentered=false) {
+            super(assetManager.getResult(imageString));
 
             this.x = x;
             this.y = y;

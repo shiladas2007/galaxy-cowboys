@@ -10,7 +10,7 @@ module scenes {
 
         public Start():void {
             this._welcomeLabel = new ui.Label("Welcome to Galaxy CowBoys", "60px", "Consolas", "#000000", 320, 240, true);
-            this._startButton = new ui.Button("startButton", 320, 300);
+            this._startButton = new ui.Button(this.assetManager, "startButton", 320, 300);
             this.Main();
         }
 
