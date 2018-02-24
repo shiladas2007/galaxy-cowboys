@@ -1,8 +1,8 @@
 module config {
     export class Key {
-        public static UP:string[] = ["w"];
-        public static DOWN:string[] = ["s"];
-        public static LEFT:string[] = ["a"];
-        public static RIGHT:string[] = ["d"];
+        public static W:string = "w";
+        public static S:string = "s";
+        public static A:string = "a";
+        public static D:string = "d";
     }
 }
