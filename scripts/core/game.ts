@@ -10,10 +10,7 @@
 
 
     assetManifest = [
-        {id: "clickMeButton", src:"./assets/images/clickMeButton.png"},
         {id: "startButton", src:"./assets/images/startButton.png"},
-        {id: "nextMeButton", src:"./assets/images/nextButton.png"},
-        {id: "backButton", src:"./assets/images/backButton.png"}
       ];
 
     function Init():void {
