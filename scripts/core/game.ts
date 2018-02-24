@@ -4,29 +4,38 @@
     let assetManager: createjs.LoadQueue;
     let assetManifest: any[];
     let currentScene: objects.Scene;
+    let helloLabel: ui.Label;
+    let clickMeButton: ui.Button;
+    let currentState: number;
+
 
     assetManifest = [
-        
-    ];
+        {id: "clickMeButton", src:"./assets/images/clickMeButton.png"},
+        {id: "startButton", src:"./assets/images/startButton.png"},
+        {id: "nextMeButton", src:"./assets/images/nextButton.png"},
+        {id: "backButton", src:"./assets/images/backButton.png"}
+      ];
 
-    function Init() {
+    function Init():void {
+        console.log("Initializing...");
         assetManager = new createjs.LoadQueue();
         assetManager.installPlugin(createjs.Sound);
         assetManager.loadManifest(assetManifest);
         assetManager.on("complete", Start, this);
     }
 
-    function Start() {
+    function Start():void {
+        console.log("Starting application...");
         stage = new createjs.Stage(canvas);
         stage.enableMouseOver(20);
-        createjs.Ticker.framerate = objects.Game.FPS;
+        createjs.Ticker.framerate = 60;
         createjs.Ticker.on("tick", Update);
 
         objects.Game.currentScene = config.Scene.START;
         Main();
     }
 
-    function Update() {
+    function Update():void {
         if (currentScene.Update() != objects.Game.currentScene) {
             Main();
         }
@@ -34,14 +43,20 @@
         stage.update();
     }
 
-    function Main() {
+    function Main():void {
         stage.removeAllChildren();
+        console.log("rip children");
         
         switch (objects.Game.currentScene) {
             case config.Scene.START:
+                console.log("Start scene");
+                currentScene = new scenes.StartScene(assetManager);
                 break;
         }
+        currentState = objects.Game.currentScene;
+        stage.addChild(currentScene);
     }
 
-    window.addEventListener("onload", Init)
-})
+    window.onload = Init;
+
+})();
