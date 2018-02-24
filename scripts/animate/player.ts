@@ -35,6 +35,7 @@ module animate {
         }
 
         public Update() {
+            this.Move();
             this.CheckBounds();
         }
 
