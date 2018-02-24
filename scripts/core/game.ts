@@ -7,6 +7,7 @@
     let helloLabel: ui.Label;
     let clickMeButton: ui.Button;
     let currentState: number;
+    let keyboardManager: managers.Keyboard;
 
 
     assetManifest = [
@@ -28,7 +29,12 @@
         createjs.Ticker.framerate = 60;
         createjs.Ticker.on("tick", Update);
 
+        objects.Game.stage stage;
         objects.Game.currentScene = config.Scene.START;
+        currentState = config.Scene.START;
+        
+        keyboardManager = new managers.Keyboard();
+
         Main();
     }
 
