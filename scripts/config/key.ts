@@ -1,8 +1,8 @@
 module config {
     export class Key {
-        public static readonly UP:string[] = ["w"];
-        public static readonly DOWN:string[] = ["s"];
-        public static readonly LEFT:string[] = ["a"];
-        public static readonly RIGHT:string[] = ["d"];
+        public static UP:string[] = ["w"];
+        public static DOWN:string[] = ["s"];
+        public static LEFT:string[] = ["a"];
+        public static RIGHT:string[] = ["d"];
     }
 }
