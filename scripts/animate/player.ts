@@ -10,7 +10,7 @@ module animate {
 
         public CheckBounds():void {
             // Checking bottom boundary
-            if (this.y >= objects.Game.HEIGHT + this.height) {
+            if (this.position.y >= objects.Game.HEIGHT + this.height) {
 
             }
 
@@ -20,7 +20,18 @@ module animate {
         }
 
         public Move() {
-            
+            if (objects.Game.keyboardManager.moveForward) {
+                this.position.y += 5;
+            }
+            if (objects.Game.keyboardManager.moveBackward) {
+                this.position.y -= 5;
+            }
+            if (objects.Game.keyboardManager.moveLeft) {
+                this.position.y -= 5;
+            }
+            if (objects.Game.keyboardManager.moveRight) {
+                this.position.x += 5;
+            }
         }
 
         public Update() {
