@@ -24,15 +24,14 @@
         stage.enableMouseOver(20);
         createjs.Ticker.framerate = 60;
         createjs.Ticker.on("tick", Update);
-        objects.Game.stage;
-        stage;
+        objects.Game.stage = stage;
         objects.Game.currentScene = config.Scene.START;
         currentState = config.Scene.START;
         keyboardManager = new managers.Keyboard();
         Main();
     }
     function Update() {
-        if (currentScene.Update() != objects.Game.currentScene) {
+        if (currentState != objects.Game.currentScene) {
             Main();
         }
         stage.update();

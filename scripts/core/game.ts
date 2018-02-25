@@ -29,7 +29,7 @@
         createjs.Ticker.framerate = 60;
         createjs.Ticker.on("tick", Update);
 
-        objects.Game.stage stage;
+        objects.Game.stage = stage;
         objects.Game.currentScene = config.Scene.START;
         currentState = config.Scene.START;
         
@@ -39,7 +39,7 @@
     }
 
     function Update():void {
-        if (currentScene.Update() != objects.Game.currentScene) {
+        if (currentState != objects.Game.currentScene) {
             Main();
         }
 
