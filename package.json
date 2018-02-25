@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/LeicaSimile/galaxy-cowboys/issues"
   },
-  "homepage": "https://github.com/LeicaSimile/galaxy-cowboys#readme",
+  "homepage": "https://leicasimile.github.io/galaxy-cowboys/",
   "dependencies": {
     "@types/easeljs": "^1.0.0",
     "@types/preloadjs": "^0.6.32",
