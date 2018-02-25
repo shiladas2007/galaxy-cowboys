@@ -25,7 +25,7 @@ var objects;
             this.halfHeight = this.height * 0.5;
             this.regX = this.halfWidth;
             this.regY = this.halfHeight;
-            this.position = new createjs.Point(this.x, this.y);
+            this.position = new math.Vec2(this.x, this.y);
             this.isColliding = false;
         };
         GameObject.prototype.Reset = function () { };

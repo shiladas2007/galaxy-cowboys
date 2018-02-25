@@ -10,22 +10,22 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var scenes;
 (function (scenes) {
-    var PlayScene = /** @class */ (function (_super) {
-        __extends(PlayScene, _super);
-        function PlayScene(assetManager) {
+    var GameOverScene = /** @class */ (function (_super) {
+        __extends(GameOverScene, _super);
+        function GameOverScene(assetManager) {
             var _this = _super.call(this, assetManager) || this;
             _this.Start();
             return _this;
         }
-        PlayScene.prototype.Start = function () {
+        GameOverScene.prototype.Start = function () {
         };
-        PlayScene.prototype.Update = function () {
+        GameOverScene.prototype.Update = function () {
             return 0;
         };
-        PlayScene.prototype.Main = function () {
+        GameOverScene.prototype.Main = function () {
         };
-        return PlayScene;
+        return GameOverScene;
     }(objects.Scene));
-    scenes.PlayScene = PlayScene;
+    scenes.GameOverScene = GameOverScene;
 })(scenes || (scenes = {}));
-//# sourceMappingURL=play.js.map
+//# sourceMappingURL=gameover.js.map

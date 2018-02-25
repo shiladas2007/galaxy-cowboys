@@ -7,11 +7,9 @@
     var helloLabel;
     var clickMeButton;
     var currentState;
+    var keyboardManager;
     assetManifest = [
-        { id: "clickMeButton", src: "./assets/images/clickMeButton.png" },
         { id: "startButton", src: "./assets/images/startButton.png" },
-        { id: "nextMeButton", src: "./assets/images/nextButton.png" },
-        { id: "backButton", src: "./assets/images/backButton.png" }
     ];
     function Init() {
         console.log("Initializing...");
@@ -26,7 +24,11 @@
         stage.enableMouseOver(20);
         createjs.Ticker.framerate = 60;
         createjs.Ticker.on("tick", Update);
+        objects.Game.stage;
+        stage;
         objects.Game.currentScene = config.Scene.START;
+        currentState = config.Scene.START;
+        keyboardManager = new managers.Keyboard();
         Main();
     }
     function Update() {

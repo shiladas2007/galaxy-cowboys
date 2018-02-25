@@ -20,15 +20,28 @@ var animate;
         };
         Player.prototype.CheckBounds = function () {
             // Checking bottom boundary
-            if (this.y >= objects.Game.HEIGHT + this.height) {
+            if (this.position.y >= objects.Game.HEIGHT + this.height) {
             }
             // Checking top boundary
             // Checking right boundary
             // Checking left boundary
         };
         Player.prototype.Move = function () {
+            if (objects.Game.keyboardManager.moveForward) {
+                this.position.y += 5;
+            }
+            if (objects.Game.keyboardManager.moveBackward) {
+                this.position.y -= 5;
+            }
+            if (objects.Game.keyboardManager.moveLeft) {
+                this.position.y -= 5;
+            }
+            if (objects.Game.keyboardManager.moveRight) {
+                this.position.x += 5;
+            }
         };
         Player.prototype.Update = function () {
+            this.Move();
             this.CheckBounds();
         };
         Player.prototype.Attack = function () {

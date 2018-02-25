@@ -53,20 +53,20 @@ var animate;
         };
         // reset the objects location to some value
         Enemy.prototype.Reset = function () {
-            this.x = Math.floor((Math.random() * (640 - this.width)) + this.halfWidth);
-            this.y = -this.height;
+            this.position.x = Math.floor((Math.random() * (640 - this.width)) + this.halfWidth);
+            this.position.y = -this.height;
             this._dx = Math.floor((Math.random() * 5) - 2);
             this._dy = Math.floor((Math.random() * 6) + 5);
         };
         // move the object to some new location
         Enemy.prototype.Move = function () {
-            this.y += this._dy;
-            this.x += this._dx;
+            this.position.y += this._dy;
+            this.position.x += this._dx;
         };
         // check to see if some boundary has been passed
         Enemy.prototype.CheckBounds = function () {
             // check lower bounds
-            if (this.y >= 480 + this.height) {
+            if (this.position.y >= 480 + this.height) {
                 this.Reset();
             }
         };
