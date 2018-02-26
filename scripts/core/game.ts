@@ -10,8 +10,8 @@
     let keyboardManager: managers.Keyboard;
     assetManifest = [
         {id: "startButton", src:"./assets/images/startButton.png"},
-        {id: "background", src:"./assets/images/background.png"},
-        {id: "mapLevel1", src:"./assets/images/mapLevel1.png"},
+        {id: "background", src:"./asets/images/background.png"},
+        {id: "mapLevel1", src:"./asets/images/mapLevel1.png"},
         {id: "enemy1", src:"./assets/images/enemy1.jpg"},
         {id: "enemy2", src:"./assets/images/enemy2.jpg"},
         {id:  "enemy3", src:"./assets/images/enemy3.jpg"}
