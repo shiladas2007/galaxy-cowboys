@@ -1,7 +1,7 @@
 module animate {
     export class Player extends Animate {
         constructor(assetManager:createjs.LoadQueue, imageName:string, hp:number, mvspd:number=1) {
-            super(assetManager, imageName, hp, mvspd);
+            super(assetManager, "pl", hp, mvspd);
         }
 
         public Reset():void {
