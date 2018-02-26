@@ -10,7 +10,7 @@ module scenes {
 
         public Start():void {
             this._background = new ui.Background(this.assetManager);
-            this._startButton = new ui.Button(this.assetManager, "startButton", 180, 300);
+            this._startButton = new ui.Button(this.assetManager, "startButton", 300, 240);
             this.Main();
         }
 

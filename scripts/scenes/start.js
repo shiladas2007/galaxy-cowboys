@@ -19,7 +19,7 @@ var scenes;
         }
         StartScene.prototype.Start = function () {
             this._background = new ui.Background(this.assetManager);
-            this._startButton = new ui.Button(this.assetManager, "startButton", 180, 300);
+            this._startButton = new ui.Button(this.assetManager, "startButton", 300, 240);
             this.Main();
         };
         StartScene.prototype.Update = function () {
