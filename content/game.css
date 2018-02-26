@@ -1,4 +1,16 @@
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+body {
+    background: rgb(150,140,130);
+}
+
 canvas {
+    background: rgb(220,220,220);
     display: block;
     margin: 100px auto;
 }
