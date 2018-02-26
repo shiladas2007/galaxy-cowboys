@@ -14,36 +14,29 @@ var animate;
         __extends(Enemy, _super);
         // public properties
         // Constructor
-        function Enemy(assetManager) {
-            var _this = _super.call(this, assetManager, "Alien Guard", 400, 1) || this;
-            _this.enemyHealth = 100;
-            _this.explosionIterator = 1;
-            _this.explosionDelay = 0;
+        //here we can add heath point as 1 and speed as 0 for not moving in level1 and level2
+        // but for for level3 and level4, we have to mention speed
+        function Enemy(assetManager, enemyImg, hp, mvspd, px, py) {
+            if (hp === void 0) { hp = 1; }
+            if (mvspd === void 0) { mvspd = 0; }
+            var _this = _super.call(this, assetManager, enemyImg, hp, mvspd) || this;
+            console.log("constructor of enemy");
+            _this.Hp = hp;
+            _this.Mvspd = mvspd;
+            _this.position.x = px;
+            _this.position.y = py;
             _this.Start();
             return _this;
         }
         // private methods
         // public methods
-        Enemy.prototype.getSpeed = function () {
-            return this.speed;
-        };
         Enemy.prototype.isDead = function () {
             return this.enemyIsDead;
         };
-        Enemy.prototype.getPosX = function () {
-            return this.enemyPosX;
-        };
-        Enemy.prototype.getPosY = function () {
-            return this.enemyPosY;
-        };
-        Enemy.prototype.getWidth = function () {
-            return this.enemyWidth;
-        };
-        Enemy.prototype.getHeight = function () {
-            return this.enemyHeight;
-        };
         // Initializes variables and creates new objects
         Enemy.prototype.Start = function () {
+            console.log("start of enemy");
+            this._dy = 5;
             this.Reset();
         };
         // updates the game object every frame
@@ -53,22 +46,24 @@ var animate;
         };
         // reset the objects location to some value
         Enemy.prototype.Reset = function () {
-            this.position.x = Math.floor((Math.random() * (640 - this.width)) + this.halfWidth);
+            this.position.x = Math.floor((Math.random() * (objects.Game.WIDTH - this.width)) + this.halfWidth);
             this.position.y = -this.height;
-            this._dx = Math.floor((Math.random() * 5) - 2);
-            this._dy = Math.floor((Math.random() * 6) + 5);
+            //this._dx = Math.floor((Math.random() * 5) - 2);
+            //this._dy = Math.floor((Math.random() * 6) + 5);
         };
         // move the object to some new location
         Enemy.prototype.Move = function () {
             this.position.y += this._dy;
-            this.position.x += this._dx;
         };
         // check to see if some boundary has been passed
         Enemy.prototype.CheckBounds = function () {
             // check lower bounds
-            if (this.position.y >= 480 + this.height) {
+            if (this.position.y >= objects.Game.HEIGHT + this.height) {
                 this.Reset();
             }
+        };
+        Enemy.prototype.Attack = function () {
+            console.log("attack");
         };
         return Enemy;
     }(animate.Animate));

@@ -19,6 +19,11 @@ var scenes;
         }
         Level1.prototype.Start = function () {
             this._mapLevel1 = new objects.MapLevel1(this.assetManager);
+            console.log("before initiate enemy");
+            this._enemy11 = new animate.Enemy(this.assetManager, "enemy1", 1, 0, 100, 100);
+            //this._enemy12=new animate.Enemy(this.assetManager,"enemy1",1,1,220,180);
+            //this._enemy13=new animate.Enemy(this.assetManager,"enemy1",1,1,400,150);
+            console.log("initiate enemy done");
             this.Main();
         };
         Level1.prototype.Update = function () {
@@ -26,6 +31,9 @@ var scenes;
         };
         Level1.prototype.Main = function () {
             this.addChild(this._mapLevel1);
+            this.addChild(this._enemy11);
+            this.addChild(this._enemy12);
+            this.addChild(this._enemy13);
         };
         return Level1;
     }(objects.Scene));
