@@ -19,7 +19,8 @@ var scenes;
         }
         StartScene.prototype.Start = function () {
             this._background = new ui.Background(this.assetManager);
-            this._startButton = new ui.Button(this.assetManager, "startButton", 300, 240);
+            this._startButton2 = new ui.Button(this.assetManager, "startButton2", 300, 240);
+            this._startButton = new ui.Button(this.assetManager, "startButton", 300, 240, 0.1);
             this.Main();
         };
         StartScene.prototype.Update = function () {
@@ -27,6 +28,7 @@ var scenes;
         };
         StartScene.prototype.Main = function () {
             this.addChild(this._background);
+            this.addChild(this._startButton2);
             this.addChild(this._startButton);
             this._startButton.on("click", this._startButtonClick);
         };

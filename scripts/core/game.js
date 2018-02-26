@@ -10,6 +10,7 @@
     var keyboardManager;
     assetManifest = [
         { id: "startButton", src: "./assets/images/startButton.png" },
+        { id: "startButton2", src: "./assets/images/startButton2.png" },
         { id: "background", src: "./assets/images/background.png" },
         { id: "mapLevel1", src: "./assets/images/mapLevel1.png" },
         { id: "enemy1", src: "./assets/images/enemy1.png" },

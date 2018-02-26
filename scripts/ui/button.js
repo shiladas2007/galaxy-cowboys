@@ -12,22 +12,24 @@ var ui;
 (function (ui) {
     var Button = /** @class */ (function (_super) {
         __extends(Button, _super);
-        function Button(assetManager, imageString, x, y, isCentered) {
+        function Button(assetManager, imageString, x, y, mouseOverAlpha, isCentered) {
             if (x === void 0) { x = 0; }
             if (y === void 0) { y = 0; }
+            if (mouseOverAlpha === void 0) { mouseOverAlpha = 1; }
             if (isCentered === void 0) { isCentered = false; }
             var _this = _super.call(this, assetManager.getResult(imageString)) || this;
             _this.x = x;
             _this.y = y;
+            _this._mouseOverAlpha = mouseOverAlpha;
             _this.on("mouseover", _this.mouseOver);
             _this.on("mouseout", _this.mouseOut);
             return _this;
         }
         Button.prototype.mouseOver = function () {
-            // mouseover effect
+            this.alpha = this._mouseOverAlpha;
         };
         Button.prototype.mouseOut = function () {
-            // mouseout effect
+            this.alpha = 1;
         };
         return Button;
     }(createjs.Bitmap));
