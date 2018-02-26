@@ -20,6 +20,7 @@ var scenes;
         PlayScene.prototype.Start = function () {
         };
         PlayScene.prototype.Update = function () {
+            this._map.Update();
             return 0;
         };
         PlayScene.prototype.Main = function () {

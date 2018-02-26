@@ -1,5 +1,7 @@
 module scenes {
     export abstract class PlayScene extends objects.Scene {
+        protected _map: objects.Map;
+
         constructor(assetManager: createjs.LoadQueue) {
             super(assetManager);
             this.Start();
@@ -10,6 +12,7 @@ module scenes {
         }
 
         public Update():number {
+            this._map.Update();
             return 0;
         }
 
