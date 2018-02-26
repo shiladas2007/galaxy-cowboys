@@ -11,11 +11,13 @@ var managers;
                 if (!object2.isColliding) {
                     console.log("Collision with" + object2.name);
                     object2.isColliding = true;
+                    return true;
                 }
             }
             else {
                 object2.isColliding = false;
             }
+            return false;
         };
         return Collision;
     }());
