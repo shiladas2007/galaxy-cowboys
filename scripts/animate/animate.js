@@ -16,9 +16,26 @@ var animate;
             if (mvspd === void 0) { mvspd = 1; }
             var _this = _super.call(this, assetManager, imageName) || this;
             _this.Hp = hp;
-            _this._mvspd = mvspd;
+            _this.Mvspd = mvspd;
             return _this;
         }
+        Object.defineProperty(Animate.prototype, "Mvspd", {
+            get: function () {
+                return this._mvspd;
+            },
+            set: function (mvspd) {
+                this._mvspd = mvspd;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Animate.prototype, "MovementAmount", {
+            get: function () {
+                return objects.Game.BASE_MVSPD * this.Mvspd;
+            },
+            enumerable: true,
+            configurable: true
+        });
         Animate.prototype.Reset = function () {
         };
         Animate.prototype.CheckBounds = function () {

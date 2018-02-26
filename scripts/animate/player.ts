@@ -21,16 +21,16 @@ module animate {
 
         public Move() {
             if (objects.Game.keyboardManager.moveForward) {
-                this.position.y += 5;
+                this.position.y += this.MovementAmount;
             }
             if (objects.Game.keyboardManager.moveBackward) {
-                this.position.y -= 5;
+                this.position.y -= this.MovementAmount;
             }
             if (objects.Game.keyboardManager.moveLeft) {
-                this.position.y -= 5;
+                this.position.y -= this.MovementAmount;
             }
             if (objects.Game.keyboardManager.moveRight) {
-                this.position.x += 5;
+                this.position.x += this.MovementAmount;
             }
         }
 

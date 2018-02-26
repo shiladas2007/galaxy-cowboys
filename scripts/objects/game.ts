@@ -14,5 +14,8 @@ module objects {
         public static readonly BOTTOM_BOUNDARY = Game.HEIGHT - 20; // move down
         public static readonly LEFT_BOUNDARY = 10; // move left
         public static readonly RIGHT_BOUNDARY = Game.WIDTH - 10; // move right
+
+        // Measured in pixels
+        public static readonly BASE_MVSPD = 5;
     }
 }

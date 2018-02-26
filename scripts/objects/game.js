@@ -11,6 +11,8 @@ var objects;
         Game.BOTTOM_BOUNDARY = Game.HEIGHT - 20; // move down
         Game.LEFT_BOUNDARY = 10; // move left
         Game.RIGHT_BOUNDARY = Game.WIDTH - 10; // move right
+        // Measured in pixels
+        Game.BASE_MVSPD = 5;
         return Game;
     }());
     objects.Game = Game;
