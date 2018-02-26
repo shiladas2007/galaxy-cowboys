@@ -10,6 +10,8 @@
     var keyboardManager;
     assetManifest = [
         { id: "startButton", src: "./assets/images/startButton.png" },
+        { id: "background", src: "./Assets/images/background.png" },
+        { id: "mapLevel1", src: "./Assets/images/mapLevel1.png" },
     ];
     function Init() {
         console.log("Initializing...");
@@ -43,6 +45,9 @@
             case config.Scene.START:
                 console.log("Start scene");
                 currentScene = new scenes.StartScene(assetManager);
+                break;
+            case config.Scene.LEVEL1:
+                currentScene = new scenes.Level1(assetManager);
                 break;
         }
         currentState = objects.Game.currentScene;

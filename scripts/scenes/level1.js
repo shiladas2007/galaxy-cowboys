@@ -18,11 +18,14 @@ var scenes;
             return _this;
         }
         Level1.prototype.Start = function () {
+            this._mapLevel1 = new objects.MapLevel1(this.assetManager);
+            this.Main();
         };
         Level1.prototype.Update = function () {
             return 0;
         };
         Level1.prototype.Main = function () {
+            this.addChild(this._mapLevel1);
         };
         return Level1;
     }(objects.Scene));
