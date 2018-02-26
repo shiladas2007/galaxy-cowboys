@@ -13,7 +13,9 @@
         {id: "startButton", src:"./assets/images/startButton.png"},
         {id: "background", src:"./Assets/images/background.png"},
         {id: "mapLevel1", src:"./Assets/images/mapLevel1.png"},
-
+       {id: "enemy1", src:"./Assets/images/enemy1.jpg"},
+        {id: "enemy2", src:"./Assets/images/enemy2.jpg"},
+        {id:  "enemy3", src:"./Assets/images/enemy3.jpg"}
 
       ];
 
