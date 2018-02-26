@@ -9,7 +9,6 @@
     let currentState: number;
     let keyboardManager: managers.Keyboard;
 
-
     assetManifest = [
         {id: "startButton", src:"./assets/images/startButton.png"},
       ];
