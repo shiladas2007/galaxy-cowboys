@@ -5,6 +5,7 @@ module config {
         LEVEL2,
         LEVEL3,
         BOSS,
+        GAMEOVER,
         END
     }
 }

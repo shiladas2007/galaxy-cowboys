@@ -1,13 +1,24 @@
 module animate {
     export abstract class Animate extends objects.GameObject {
-        protected _mvspd: number; // 0.0 to 2.0 (0% to 200%)
+        private _mvspd: number; // multiplier; 1 = 100%
 
         public Hp: number;
+
+        get Mvspd():number {
+            return this._mvspd;
+        }
+        set Mvspd(mvspd:number) {
+            this._mvspd = mvspd;
+        }
+
+        get MovementAmount():number {
+            return objects.Game.BASE_MVSPD * this.Mvspd;
+        }
 
         constructor(assetManager:createjs.LoadQueue, imageName:string, hp:number, mvspd:number=1) {
             super(assetManager, imageName);
             this.Hp = hp;
-            this._mvspd = mvspd;
+            this.Mvspd = mvspd;
         }
 
         public Reset():void {
