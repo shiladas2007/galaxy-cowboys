@@ -13,13 +13,12 @@ var scenes;
     var Level1 = /** @class */ (function (_super) {
         __extends(Level1, _super);
         function Level1(assetManager) {
-            var _this = _super.call(this, assetManager) || this;
+            var _this = _super.call(this, assetManager, "mapLevel1") || this;
             _this._hasPlayerMoved = false;
             _this.Start();
             return _this;
         }
         Level1.prototype.Start = function () {
-            this._map = new objects.Map(this.assetManager, "mapLevel1");
             console.log("Initializing enemies...");
             this._enemies = [
                 new animate.Enemy(this.assetManager, "enemy1", 1, 1, 100, 50),
@@ -34,19 +33,7 @@ var scenes;
             this.Main();
         };
         Level1.prototype.Update = function () {
-            var _this = this;
-            this._player.Update();
-            this._map.Update();
-            // Check for collisions
-            this._enemies.forEach(function (enemy) {
-                enemy.Update();
-                if (managers.Collision.Check(_this._player, enemy)) {
-                    _this._player.Hp -= 1;
-                    if (_this._player.Hp <= 0) {
-                        objects.Game.currentScene = config.Scene.GAMEOVER;
-                    }
-                }
-            });
+            _super.prototype.Update.call(this);
             // Make controls intro bubble disappear when player moves
             if (!this._hasPlayerMoved) {
                 if (objects.Game.keyboardManager.moveForward || objects.Game.keyboardManager.moveBackward
