@@ -1,8 +1,8 @@
 module scenes {
     export class StartScene extends objects.Scene {
-        private _startButton: ui.Button;
-        private _startButton2: ui.Button;
-        private _background: ui.Background;
+        protected _startButton: ui.Button;
+        protected _startButton2: ui.Button;
+        protected _background: ui.Background;
         
         constructor(assetManager: createjs.LoadQueue) {
             super(assetManager);
