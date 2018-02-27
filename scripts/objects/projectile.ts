@@ -1,5 +1,5 @@
 module objects {
-    export class Projectile {
+    export class Projectile extends objects.GameObject {
         
     }
 }
