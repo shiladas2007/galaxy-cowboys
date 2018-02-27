@@ -14,9 +14,9 @@
         {id: "background", src:"./assets/images/background.png"},
         {id: "gameover", src:"./assets/images/gameover.png"},
         {id: "mapLevel1", src:"./assets/images/mapLevel1.png"},
-        {id: "enemy1", src:"./assets/images/enemy1.png"},
-        {id: "enemy2", src:"./assets/images/enemy2.png"},
-        {id:  "enemy3", src:"./assets/images/enemy3.png"},
+        {id: "enemyGuard", src:"./assets/images/enemyGuard.png"},
+        {id: "enemyWatcher", src:"./assets/images/enemyWatcher.png"},
+        {id:  "enemyPatroller", src:"./assets/images/enemyPatroller.png"},
         {id:  "cowboy1", src:"./assets/images/cowboy1.png"},
         {id:  "controlsIntroduck", src:"./assets/images/controlsIntroduck.png"}
     ];

@@ -21,9 +21,9 @@ var scenes;
         Level1.prototype.Start = function () {
             console.log("Initializing enemies...");
             this._enemies = [
-                new animate.Enemy(this.assetManager, "enemy1", 1, 1, 100, 50),
-                new animate.Enemy(this.assetManager, "enemy2", 1, 1, 220, 180),
-                new animate.Enemy(this.assetManager, "enemy3", 1, 1, 540, 150)
+                new animate.Enemy(this.assetManager, config.Enemy.GUARD, 100, 50),
+                new animate.Enemy(this.assetManager, config.Enemy.WATCHER, 220, 180),
+                new animate.Enemy(this.assetManager, config.Enemy.PATROLLER, 540, 150)
             ];
             console.log("Enemies initialized.");
             console.log("Initializing player...");
