@@ -20,7 +20,7 @@ module scenes {
             console.log("Enemies initialized.");
 
             console.log("Initializing player...");
-            this._player = new animate.Player(this.assetManager, "cowboy1", 1, 1);
+            this._player = new animate.Player(this.assetManager, "cowboy1", 1, 1, 100, 420);
             console.log("Player initialized.");
 
             this.Main();

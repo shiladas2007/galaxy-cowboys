@@ -11,12 +11,10 @@ module animate {
         //here we can add heath point as 1 and speed as 0 for not moving in level1 and level2
         // but for for level3 and level4, we have to mention speed
         constructor(assetManager:createjs.LoadQueue,enemyImg:string, hp:number=1, mvspd:number=0,px:number,py:number) {
-            super(assetManager, enemyImg, hp, mvspd);
+            super(assetManager, enemyImg, hp, mvspd, px, py);
             console.log("constructor of enemy");
             this.Hp=hp;
             this.Mvspd=mvspd;
-            this.position.x=px;            
-            this.position.y=py;
             this.Start();
         }
         

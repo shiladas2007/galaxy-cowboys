@@ -15,10 +15,12 @@ module animate {
             return objects.Game.BASE_MVSPD * this.Mvspd;
         }
 
-        constructor(assetManager:createjs.LoadQueue, imageName:string, hp:number, mvspd:number=1) {
+        constructor(assetManager:createjs.LoadQueue, imageName:string, hp:number, mvspd:number=1, px:number, py:number) {
             super(assetManager, imageName);
             this.Hp = hp;
             this.Mvspd = mvspd;
+            this.x = px;
+            this.y = py;
         }
 
         public Reset():void {

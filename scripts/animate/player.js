@@ -12,40 +12,44 @@ var animate;
 (function (animate) {
     var Player = /** @class */ (function (_super) {
         __extends(Player, _super);
-        function Player(assetManager, imageName, hp, mvspd) {
+        function Player(assetManager, imageName, hp, mvspd, px, py) {
             if (mvspd === void 0) { mvspd = 1; }
-            return _super.call(this, assetManager, imageName, hp, mvspd) || this;
+            return _super.call(this, assetManager, imageName, hp, mvspd, px, py) || this;
         }
         Player.prototype.Reset = function () {
         };
         Player.prototype.CheckBounds = function () {
             // Checking vertical boundaries
-            if (this.position.y >= objects.Game.BOTTOM_BOUNDARY - this.halfHeight) {
-                this.position.y = objects.Game.BOTTOM_BOUNDARY - this.halfHeight;
+            if (this.y >= objects.Game.BOTTOM_BOUNDARY - this.halfHeight) {
+                this.y = objects.Game.BOTTOM_BOUNDARY - this.halfHeight;
+                console.log("Reached the bottom!");
             }
-            else if (this.position.y >= objects.Game.TOP_BOUNDARY + this.halfHeight) {
-                this.position.y = this.halfHeight;
+            else if (this.y <= objects.Game.TOP_BOUNDARY + this.halfHeight) {
+                this.y = this.halfHeight;
+                console.log("Reached the top!");
             }
             // Checking horizontal boundaries
-            if (this.position.y >= objects.Game.RIGHT_BOUNDARY - this.halfWidth) {
-                this.position.y = objects.Game.RIGHT_BOUNDARY - this.halfWidth;
+            if (this.x >= objects.Game.RIGHT_BOUNDARY - this.halfWidth) {
+                this.x = objects.Game.RIGHT_BOUNDARY - this.halfWidth;
+                console.log("Reached the right!");
             }
-            else if (this.position.y <= objects.Game.LEFT_BOUNDARY + this.halfWidth) {
-                this.position.y = this.halfWidth;
+            else if (this.x <= objects.Game.LEFT_BOUNDARY + this.halfWidth) {
+                this.x = this.halfWidth;
+                console.log("Reached the left!");
             }
         };
         Player.prototype.Move = function () {
             if (objects.Game.keyboardManager.moveForward) {
-                this.position.y += this.MovementAmount;
+                this.y -= this.MovementAmount;
             }
             if (objects.Game.keyboardManager.moveBackward) {
-                this.position.y -= this.MovementAmount;
+                this.y += this.MovementAmount;
             }
             if (objects.Game.keyboardManager.moveLeft) {
-                this.position.y -= this.MovementAmount;
+                this.x -= this.MovementAmount;
             }
             if (objects.Game.keyboardManager.moveRight) {
-                this.position.x += this.MovementAmount;
+                this.x += this.MovementAmount;
             }
         };
         Player.prototype.Update = function () {

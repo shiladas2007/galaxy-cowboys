@@ -12,11 +12,13 @@ var animate;
 (function (animate) {
     var Animate = /** @class */ (function (_super) {
         __extends(Animate, _super);
-        function Animate(assetManager, imageName, hp, mvspd) {
+        function Animate(assetManager, imageName, hp, mvspd, px, py) {
             if (mvspd === void 0) { mvspd = 1; }
             var _this = _super.call(this, assetManager, imageName) || this;
             _this.Hp = hp;
             _this.Mvspd = mvspd;
+            _this.x = px;
+            _this.y = py;
             return _this;
         }
         Object.defineProperty(Animate.prototype, "Mvspd", {

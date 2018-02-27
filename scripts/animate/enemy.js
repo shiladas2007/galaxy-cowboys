@@ -19,12 +19,10 @@ var animate;
         function Enemy(assetManager, enemyImg, hp, mvspd, px, py) {
             if (hp === void 0) { hp = 1; }
             if (mvspd === void 0) { mvspd = 0; }
-            var _this = _super.call(this, assetManager, enemyImg, hp, mvspd) || this;
+            var _this = _super.call(this, assetManager, enemyImg, hp, mvspd, px, py) || this;
             console.log("constructor of enemy");
             _this.Hp = hp;
             _this.Mvspd = mvspd;
-            _this.position.x = px;
-            _this.position.y = py;
             _this.Start();
             return _this;
         }

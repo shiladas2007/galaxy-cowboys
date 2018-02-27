@@ -1,7 +1,7 @@
 module animate {
     export class Player extends Animate {
-        constructor(assetManager:createjs.LoadQueue, imageName:string, hp:number, mvspd:number=1) {
-            super(assetManager, imageName, hp, mvspd);
+        constructor(assetManager:createjs.LoadQueue, imageName:string, hp:number, mvspd:number=1, px:number, py:number) {
+            super(assetManager, imageName, hp, mvspd, px, py);
         }
 
         public Reset():void {
@@ -10,32 +10,36 @@ module animate {
 
         public CheckBounds():void {
             // Checking vertical boundaries
-            if (this.position.y >= objects.Game.BOTTOM_BOUNDARY - this.halfHeight) {
-                this.position.y = objects.Game.BOTTOM_BOUNDARY - this.halfHeight;
-            } else if (this.position.y >= objects.Game.TOP_BOUNDARY + this.halfHeight) {
-                this.position.y = this.halfHeight;
+            if (this.y >= objects.Game.BOTTOM_BOUNDARY - this.halfHeight) {
+                this.y = objects.Game.BOTTOM_BOUNDARY - this.halfHeight;
+                console.log("Reached the bottom!");
+            } else if (this.y <= objects.Game.TOP_BOUNDARY + this.halfHeight) {
+                this.y = this.halfHeight;
+                console.log("Reached the top!");
             }
 
             // Checking horizontal boundaries
-            if (this.position.y >= objects.Game.RIGHT_BOUNDARY - this.halfWidth) {
-                this.position.y = objects.Game.RIGHT_BOUNDARY - this.halfWidth
-            } else if (this.position.y <= objects.Game.LEFT_BOUNDARY + this.halfWidth) {
-                this.position.y = this.halfWidth
+            if (this.x >= objects.Game.RIGHT_BOUNDARY - this.halfWidth) {
+                this.x = objects.Game.RIGHT_BOUNDARY - this.halfWidth
+                console.log("Reached the right!");
+            } else if (this.x <= objects.Game.LEFT_BOUNDARY + this.halfWidth) {
+                this.x = this.halfWidth
+                console.log("Reached the left!");
             }
         }
 
         public Move() {
             if (objects.Game.keyboardManager.moveForward) {
-                this.position.y += this.MovementAmount;
+                this.y -= this.MovementAmount;
             }
             if (objects.Game.keyboardManager.moveBackward) {
-                this.position.y -= this.MovementAmount;
+                this.y += this.MovementAmount;
             }
             if (objects.Game.keyboardManager.moveLeft) {
-                this.position.y -= this.MovementAmount;
+                this.x -= this.MovementAmount;
             }
             if (objects.Game.keyboardManager.moveRight) {
-                this.position.x += this.MovementAmount;
+                this.x += this.MovementAmount;
             }
         }
 
