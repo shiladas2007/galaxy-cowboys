@@ -14,7 +14,7 @@ var animate;
         __extends(Player, _super);
         function Player(assetManager, imageName, hp, mvspd) {
             if (mvspd === void 0) { mvspd = 1; }
-            return _super.call(this, assetManager, "pl", hp, mvspd) || this;
+            return _super.call(this, assetManager, imageName, hp, mvspd) || this;
         }
         Player.prototype.Reset = function () {
         };

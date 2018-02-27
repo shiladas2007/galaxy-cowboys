@@ -19,11 +19,14 @@ var scenes;
         }
         Level1.prototype.Start = function () {
             this._mapLevel1 = new objects.MapLevel1(this.assetManager);
-            console.log("before initiate enemy");
-            this._enemy11 = new animate.Enemy(this.assetManager, "enemy1", 1, 0, 100, 100);
-            //this._enemy12=new animate.Enemy(this.assetManager,"enemy1",1,1,220,180);
-            //this._enemy13=new animate.Enemy(this.assetManager,"enemy1",1,1,400,150);
-            console.log("initiate enemy done");
+            console.log("Initializing enemies...");
+            this._enemy11 = new animate.Enemy(this.assetManager, "enemy1", 1, 0, 200, 200);
+            this._enemy12 = new animate.Enemy(this.assetManager, "enemy2", 1, 1, 220, 180);
+            this._enemy13 = new animate.Enemy(this.assetManager, "enemy3", 1, 1, 400, 150);
+            console.log("Enemies initialized.");
+            console.log("Initializing player...");
+            this._player = new animate.Player(this.assetManager, "cowboy1", 1, 1);
+            console.log("Player initialized.");
             this.Main();
         };
         Level1.prototype.Update = function () {
@@ -34,6 +37,7 @@ var scenes;
             this.addChild(this._enemy11);
             this.addChild(this._enemy12);
             this.addChild(this._enemy13);
+            this.addChild(this._player);
         };
         return Level1;
     }(objects.Scene));
