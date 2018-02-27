@@ -17,12 +17,7 @@ var ui;
             if (y === void 0) { y = 0; }
             if (mouseOverAlpha === void 0) { mouseOverAlpha = 1; }
             if (isCentered === void 0) { isCentered = false; }
-            var _this = _super.call(this, assetManager.getResult(imageString)) || this;
-            _this.x = x;
-            _this.y = y;
-            if (isCentered) {
-                _this.x -= _this.getBounds().width / 2;
-            }
+            var _this = _super.call(this, assetManager, imageString, x, y, isCentered) || this;
             _this._mouseOverAlpha = mouseOverAlpha;
             _this.on("mouseover", _this.mouseOver);
             _this.on("mouseout", _this.mouseOut);
@@ -35,7 +30,7 @@ var ui;
             this.alpha = 1;
         };
         return Button;
-    }(createjs.Bitmap));
+    }(ui.Image));
     ui.Button = Button;
 })(ui || (ui = {}));
 //# sourceMappingURL=button.js.map
