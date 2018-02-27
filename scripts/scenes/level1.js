@@ -14,6 +14,7 @@ var scenes;
         __extends(Level1, _super);
         function Level1(assetManager) {
             var _this = _super.call(this, assetManager) || this;
+            _this._hasPlayerMoved = false;
             _this.Start();
             return _this;
         }
@@ -29,12 +30,14 @@ var scenes;
             console.log("Initializing player...");
             this._player = new animate.Player(this.assetManager, "cowboy1", 1, 1, 100, 420);
             console.log("Player initialized.");
+            this._controlsIntroduck = new ui.Image(this.assetManager, "controlsIntroduck", 120, 280);
             this.Main();
         };
         Level1.prototype.Update = function () {
             var _this = this;
             this._player.Update();
             this._map.Update();
+            // Check for collisions
             this._enemies.forEach(function (enemy) {
                 enemy.Update();
                 if (managers.Collision.Check(_this._player, enemy)) {
@@ -44,7 +47,15 @@ var scenes;
                     }
                 }
             });
-            return 0;
+            // Make controls intro bubble disappear when player moves
+            if (!this._hasPlayerMoved) {
+                if (objects.Game.keyboardManager.moveForward || objects.Game.keyboardManager.moveBackward
+                    || objects.Game.keyboardManager.moveLeft || objects.Game.keyboardManager.moveRight) {
+                    this._hasPlayerMoved = true;
+                    this.removeChild(this._controlsIntroduck);
+                }
+            }
+            return objects.Game.currentScene;
         };
         Level1.prototype.Main = function () {
             var _this = this;
@@ -53,6 +64,7 @@ var scenes;
                 _this.addChild(enemy);
             });
             this.addChild(this._player);
+            this.addChild(this._controlsIntroduck);
         };
         return Level1;
     }(objects.Scene));
