@@ -16,8 +16,6 @@ var animate;
             if (mvspd === void 0) { mvspd = 1; }
             return _super.call(this, assetManager, imageName, hp, mvspd, px, py) || this;
         }
-        Player.prototype.Reset = function () {
-        };
         Player.prototype.CheckBounds = function () {
             // Checking vertical boundaries
             if (this.y >= objects.Game.BOTTOM_BOUNDARY - this.halfHeight) {

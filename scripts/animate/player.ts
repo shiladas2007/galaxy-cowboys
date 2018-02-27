@@ -4,10 +4,6 @@ module animate {
             super(assetManager, imageName, hp, mvspd, px, py);
         }
 
-        public Reset():void {
-
-        }
-
         public CheckBounds():void {
             // Checking vertical boundaries
             if (this.y >= objects.Game.BOTTOM_BOUNDARY - this.halfHeight) {
