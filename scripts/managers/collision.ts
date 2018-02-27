@@ -1,8 +1,8 @@
 module managers {
     export class Collision {
         public static Check(object1:objects.GameObject, object2:objects.GameObject):boolean {
-            let pointA = new math.Vec2(object1.position.x, object1.position.y);
-            let pointB = new math.Vec2(object2.position.x, object2.position.y);
+            let pointA = new math.Vec2(object1.x, object1.y);
+            let pointB = new math.Vec2(object2.x, object2.y);
 
             // Check for collision
             if (math.Vec2.Distance(pointA, pointB) < (object1.halfHeight + object2.halfHeight)) {

@@ -18,7 +18,7 @@ var scenes;
             return _this;
         }
         Level1.prototype.Start = function () {
-            this._mapLevel1 = new objects.MapLevel1(this.assetManager);
+            this._map = new objects.MapLevel1(this.assetManager);
             console.log("Initializing enemies...");
             this._enemies = [
                 new animate.Enemy(this.assetManager, "enemy1", 1, 1, 100, 50),
@@ -32,12 +32,23 @@ var scenes;
             this.Main();
         };
         Level1.prototype.Update = function () {
+            var _this = this;
             this._player.Update();
+            this._map.Update();
+            this._enemies.forEach(function (enemy) {
+                enemy.Update();
+                if (managers.Collision.Check(_this._player, enemy)) {
+                    _this._player.Hp -= 1;
+                    if (_this._player.Hp <= 0) {
+                        objects.Game.currentScene = config.Scene.GAMEOVER;
+                    }
+                }
+            });
             return 0;
         };
         Level1.prototype.Main = function () {
             var _this = this;
-            this.addChild(this._mapLevel1);
+            this.addChild(this._map);
             this._enemies.forEach(function (enemy) {
                 _this.addChild(enemy);
             });

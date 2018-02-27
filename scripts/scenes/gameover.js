@@ -18,11 +18,22 @@ var scenes;
             return _this;
         }
         GameOverScene.prototype.Start = function () {
+            this._background = new ui.Background(this.assetManager, "gameover");
+            this._startButton2 = new ui.Button(this.assetManager, "startButton2", objects.Game.WIDTH / 2, 320, 1, true);
+            this._startButton = new ui.Button(this.assetManager, "startButton", objects.Game.WIDTH / 2, 320, 0.1, true);
+            this.Main();
         };
         GameOverScene.prototype.Update = function () {
-            return 0;
+            return objects.Game.currentScene;
         };
         GameOverScene.prototype.Main = function () {
+            this.addChild(this._background);
+            this.addChild(this._startButton2);
+            this.addChild(this._startButton);
+            this._startButton.on("click", this._startButtonClick);
+        };
+        GameOverScene.prototype._startButtonClick = function () {
+            objects.Game.currentScene = config.Scene.LEVEL1;
         };
         return GameOverScene;
     }(objects.Scene));

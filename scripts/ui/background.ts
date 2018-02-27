@@ -5,8 +5,8 @@ module ui {
       // public properties
   
       // Constructor
-      constructor(assetManager: createjs.LoadQueue) {
-        super(assetManager.getResult("background"));
+      constructor(assetManager: createjs.LoadQueue, imageString) {
+        super(assetManager.getResult(imageString));
         this.Start();
       }
   

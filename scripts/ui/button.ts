@@ -7,6 +7,10 @@ module ui {
 
             this.x = x;
             this.y = y;
+            if (isCentered) {
+                this.x -= this.getBounds().width / 2;
+            }
+
             this._mouseOverAlpha = mouseOverAlpha;
             
             this.on("mouseover", this.mouseOver);

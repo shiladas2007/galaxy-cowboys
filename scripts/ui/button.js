@@ -20,6 +20,9 @@ var ui;
             var _this = _super.call(this, assetManager.getResult(imageString)) || this;
             _this.x = x;
             _this.y = y;
+            if (isCentered) {
+                _this.x -= _this.getBounds().width / 2;
+            }
             _this._mouseOverAlpha = mouseOverAlpha;
             _this.on("mouseover", _this.mouseOver);
             _this.on("mouseout", _this.mouseOut);

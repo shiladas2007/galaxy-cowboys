@@ -15,8 +15,8 @@ var ui;
         // private instance variables
         // public properties
         // Constructor
-        function Background(assetManager) {
-            var _this = _super.call(this, assetManager.getResult("background")) || this;
+        function Background(assetManager, imageString) {
+            var _this = _super.call(this, assetManager.getResult(imageString)) || this;
             _this.Start();
             return _this;
         }

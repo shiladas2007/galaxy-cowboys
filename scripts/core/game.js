@@ -12,6 +12,7 @@
         { id: "startButton", src: "./assets/images/startButton.png" },
         { id: "startButton2", src: "./assets/images/startButton2.png" },
         { id: "background", src: "./assets/images/background.png" },
+        { id: "gameover", src: "./assets/images/gameover.png" },
         { id: "mapLevel1", src: "./assets/images/mapLevel1.png" },
         { id: "enemy1", src: "./assets/images/enemy1.png" },
         { id: "enemy2", src: "./assets/images/enemy2.png" },
@@ -47,14 +48,15 @@
     }
     function Main() {
         stage.removeAllChildren();
-        console.log("rip children");
         switch (objects.Game.currentScene) {
             case config.Scene.START:
-                console.log("Start scene");
                 currentScene = new scenes.StartScene(assetManager);
                 break;
             case config.Scene.LEVEL1:
                 currentScene = new scenes.Level1(assetManager);
+                break;
+            case config.Scene.GAMEOVER:
+                currentScene = new scenes.GameOverScene(assetManager);
                 break;
         }
         currentState = objects.Game.currentScene;
