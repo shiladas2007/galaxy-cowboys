@@ -1,6 +1,5 @@
 module scenes {
-    export class Level1 extends objects.Scene {
-        private _map: objects.MapLevel1;
+    export class Level1 extends scenes.PlayScene {
         private _enemies: animate.Enemy[];
         private _player: animate.Player;
         private _controlsIntroduck: ui.Image;
@@ -12,7 +11,7 @@ module scenes {
         }
 
         public Start():void {
-            this._map = new objects.MapLevel1(this.assetManager);
+            this._map = new objects.Map(this.assetManager, "mapLevel1");
             console.log("Initializing enemies...");            
             this._enemies = [
                 new animate.Enemy(this.assetManager,"enemy1",1,1,100,50),

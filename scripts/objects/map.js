@@ -10,27 +10,27 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var objects;
 (function (objects) {
-    var MapLevel1 = /** @class */ (function (_super) {
-        __extends(MapLevel1, _super);
-        function MapLevel1(assetManager) {
-            var _this = _super.call(this, assetManager.getResult("mapLevel1")) || this;
+    var Map = /** @class */ (function (_super) {
+        __extends(Map, _super);
+        function Map(assetManager, imageString) {
+            var _this = _super.call(this, assetManager.getResult(imageString)) || this;
             _this.Start();
             return _this;
         }
-        MapLevel1.prototype._checkBounds = function () {
+        Map.prototype._checkBounds = function () {
             if (this.y >= 0) {
             }
         };
-        MapLevel1.prototype._move = function () {
+        Map.prototype._move = function () {
             this.y += this._dy;
         };
-        MapLevel1.prototype.Start = function () {
+        Map.prototype.Start = function () {
             this._dy = 5;
         };
-        MapLevel1.prototype.Update = function () {
+        Map.prototype.Update = function () {
         };
-        return MapLevel1;
+        return Map;
     }(createjs.Bitmap));
-    objects.MapLevel1 = MapLevel1;
+    objects.Map = Map;
 })(objects || (objects = {}));
-//# sourceMappingURL=mapLevel1.js.map
+//# sourceMappingURL=map.js.map

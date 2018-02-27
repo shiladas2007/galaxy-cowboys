@@ -19,7 +19,7 @@ var scenes;
             return _this;
         }
         Level1.prototype.Start = function () {
-            this._map = new objects.MapLevel1(this.assetManager);
+            this._map = new objects.Map(this.assetManager, "mapLevel1");
             console.log("Initializing enemies...");
             this._enemies = [
                 new animate.Enemy(this.assetManager, "enemy1", 1, 1, 100, 50),
@@ -67,7 +67,7 @@ var scenes;
             this.addChild(this._controlsIntroduck);
         };
         return Level1;
-    }(objects.Scene));
+    }(scenes.PlayScene));
     scenes.Level1 = Level1;
 })(scenes || (scenes = {}));
 //# sourceMappingURL=level1.js.map
