@@ -24,6 +24,7 @@ var managers;
                     this.moveRight = true;
                     break;
             }
+            console.log("Key down: " + event.key);
         };
         Keyboard.prototype.onKeyUp = function (event) {
             switch (event.key) {

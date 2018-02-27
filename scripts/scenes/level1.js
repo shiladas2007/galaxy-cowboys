@@ -30,6 +30,7 @@ var scenes;
             this.Main();
         };
         Level1.prototype.Update = function () {
+            this._player.Update();
             return 0;
         };
         Level1.prototype.Main = function () {

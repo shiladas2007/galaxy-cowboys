@@ -37,12 +37,14 @@
         currentState = config.Scene.START;
         
         keyboardManager = new managers.Keyboard();
+        objects.Game.keyboardManager = keyboardManager;
         Main();
     }
     function Update():void {
         if (currentState != objects.Game.currentScene) {
             Main();
         }
+        currentScene.Update();
         stage.update();
     }
     function Main():void {

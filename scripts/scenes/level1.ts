@@ -27,6 +27,7 @@ module scenes {
         }
 
         public Update():number {
+            this._player.Update();
             return 0;
         }
 
