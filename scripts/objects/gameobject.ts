@@ -7,12 +7,13 @@ module objects {
         public height: number;
         public halfWidth: number;
         public halfHeight: number;
-        public position: createjs.Point;
         public isColliding: boolean;
 
-        constructor(assetManager:createjs.LoadQueue, imageName:string) {
+        constructor(assetManager:createjs.LoadQueue, imageName:string, px:number, py:number) {
             super(assetManager.getResult(imageName));
             this.name = imageName;
+            this.x = px;
+            this.y = py;
             
             this._initialize();
         }
@@ -24,7 +25,6 @@ module objects {
             this.halfHeight = this.height * 0.5;
             this.regX = this.halfWidth;
             this.regY = this.halfHeight;
-            this.position = new math.Vec2(this.x, this.y);
             this.isColliding = false;
         }
 

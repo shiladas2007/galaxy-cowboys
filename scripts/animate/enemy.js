@@ -34,29 +34,24 @@ var animate;
         // Initializes variables and creates new objects
         Enemy.prototype.Start = function () {
             console.log("start of enemy");
-            this._dy = 5;
-            this.Reset();
         };
         // updates the game object every frame
         Enemy.prototype.Update = function () {
             this.Move();
             this.CheckBounds();
         };
-        // reset the objects location to some value
+        // reset the object's location to some value
         Enemy.prototype.Reset = function () {
-            this.position.x = Math.floor((Math.random() * (objects.Game.WIDTH - this.width)) + this.halfWidth);
-            this.position.y = -this.height;
-            //this._dx = Math.floor((Math.random() * 5) - 2);
-            //this._dy = Math.floor((Math.random() * 6) + 5);
+            this.x = Math.floor((Math.random() * (objects.Game.WIDTH - this.width)) + this.halfWidth);
+            this.y = -this.height;
         };
         // move the object to some new location
         Enemy.prototype.Move = function () {
-            this.position.y += this._dy;
         };
         // check to see if some boundary has been passed
         Enemy.prototype.CheckBounds = function () {
             // check lower bounds
-            if (this.position.y >= objects.Game.HEIGHT + this.height) {
+            if (this.y >= objects.Game.HEIGHT + this.height) {
                 this.Reset();
             }
         };

@@ -16,11 +16,9 @@ module animate {
         }
 
         constructor(assetManager:createjs.LoadQueue, imageName:string, hp:number, mvspd:number=1, px:number, py:number) {
-            super(assetManager, imageName);
+            super(assetManager, imageName, px, py);
             this.Hp = hp;
             this.Mvspd = mvspd;
-            this.x = px;
-            this.y = py;
         }
 
         public Reset():void {

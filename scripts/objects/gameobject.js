@@ -12,9 +12,11 @@ var objects;
 (function (objects) {
     var GameObject = /** @class */ (function (_super) {
         __extends(GameObject, _super);
-        function GameObject(assetManager, imageName) {
+        function GameObject(assetManager, imageName, px, py) {
             var _this = _super.call(this, assetManager.getResult(imageName)) || this;
             _this.name = imageName;
+            _this.x = px;
+            _this.y = py;
             _this._initialize();
             return _this;
         }
@@ -25,7 +27,6 @@ var objects;
             this.halfHeight = this.height * 0.5;
             this.regX = this.halfWidth;
             this.regY = this.halfHeight;
-            this.position = new math.Vec2(this.x, this.y);
             this.isColliding = false;
         };
         GameObject.prototype.Reset = function () { };

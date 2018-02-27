@@ -27,8 +27,6 @@ module animate {
         // Initializes variables and creates new objects
         public Start():void {
             console.log("start of enemy");
-            this._dy = 5;
-            this.Reset();
         }
     
         // updates the game object every frame
@@ -36,23 +34,22 @@ module animate {
             this.Move();
             this.CheckBounds();
         }
-        // reset the objects location to some value
+        
+        // reset the object's location to some value
         public Reset():void {
-            this.position.x = Math.floor((Math.random() * (objects.Game.WIDTH - this.width)) + this.halfWidth);
-            this.position.y = -this.height;
-            //this._dx = Math.floor((Math.random() * 5) - 2);
-            //this._dy = Math.floor((Math.random() * 6) + 5);
+            this.x = Math.floor((Math.random() * (objects.Game.WIDTH - this.width)) + this.halfWidth);
+            this.y = -this.height;
         }
     
         // move the object to some new location
         public Move():void {
-            this.position.y += this._dy;            
+                        
         }
     
         // check to see if some boundary has been passed
         public CheckBounds():void {
             // check lower bounds
-            if (this.position.y >= objects.Game.HEIGHT + this.height) {
+            if (this.y >= objects.Game.HEIGHT + this.height) {
                 this.Reset();
             }         
         }

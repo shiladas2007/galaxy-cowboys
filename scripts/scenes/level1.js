@@ -45,12 +45,7 @@ var scenes;
             return objects.Game.currentScene;
         };
         Level1.prototype.Main = function () {
-            var _this = this;
-            this.addChild(this._map);
-            this._enemies.forEach(function (enemy) {
-                _this.addChild(enemy);
-            });
-            this.addChild(this._player);
+            _super.prototype.Main.call(this);
             this.addChild(this._controlsIntroduck);
         };
         return Level1;

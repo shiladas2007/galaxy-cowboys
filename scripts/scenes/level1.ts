@@ -42,11 +42,7 @@ module scenes {
         }
 
         public Main():void {
-            this.addChild(this._map);
-            this._enemies.forEach(enemy => {
-                this.addChild(enemy);
-            });
-            this.addChild(this._player);
+            super.Main();
             this.addChild(this._controlsIntroduck);
         }
     }
