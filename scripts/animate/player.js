@@ -22,20 +22,16 @@ var animate;
             // Checking vertical boundaries
             if (this.y >= objects.Game.BOTTOM_BOUNDARY - this.halfHeight) {
                 this.y = objects.Game.BOTTOM_BOUNDARY - this.halfHeight;
-                console.log("Reached the bottom!");
             }
             else if (this.y <= objects.Game.TOP_BOUNDARY + this.halfHeight) {
                 this.y = this.halfHeight;
-                console.log("Reached the top!");
             }
             // Checking horizontal boundaries
             if (this.x >= objects.Game.RIGHT_BOUNDARY - this.halfWidth) {
                 this.x = objects.Game.RIGHT_BOUNDARY - this.halfWidth;
-                console.log("Reached the right!");
             }
             else if (this.x <= objects.Game.LEFT_BOUNDARY + this.halfWidth) {
                 this.x = this.halfWidth;
-                console.log("Reached the left!");
             }
         };
         Player.prototype.Move = function () {

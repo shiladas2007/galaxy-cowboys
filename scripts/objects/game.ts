@@ -22,6 +22,6 @@ module objects {
         public static readonly RIGHT_BOUNDARY = Game.WIDTH;
 
         // Measured in pixels
-        public static readonly BASE_MVSPD = 5;
+        public static readonly BASE_MVSPD = 3;
     }
 }

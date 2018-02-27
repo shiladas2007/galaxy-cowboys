@@ -17,7 +17,7 @@ var objects;
         Game.LEFT_BOUNDARY = 0;
         Game.RIGHT_BOUNDARY = Game.WIDTH;
         // Measured in pixels
-        Game.BASE_MVSPD = 5;
+        Game.BASE_MVSPD = 3;
         return Game;
     }());
     objects.Game = Game;

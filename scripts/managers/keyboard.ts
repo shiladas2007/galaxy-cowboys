@@ -35,7 +35,6 @@ module managers {
                     this.moveRight = true;
                     break;
             }
-            console.log("Key down: " + event.key);
         }
 
         public onKeyUp(event:KeyboardEvent):void {
