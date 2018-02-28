@@ -1,5 +1,5 @@
 module objects {
-    export class Inanimate {
+    export class Obstacle extends objects.GameObject {
         
     }
 }
