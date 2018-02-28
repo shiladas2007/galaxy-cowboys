@@ -37,5 +37,7 @@ module objects {
         public Start():void { }
 
         public Update():void { }
+
+        public Collide(other:objects.GameObject):void { }
     }
 }

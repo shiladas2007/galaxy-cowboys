@@ -10,13 +10,13 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var objects;
 (function (objects) {
-    var Desctructible = /** @class */ (function (_super) {
-        __extends(Desctructible, _super);
-        function Desctructible() {
+    var Destructible = /** @class */ (function (_super) {
+        __extends(Destructible, _super);
+        function Destructible() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        return Desctructible;
+        return Destructible;
     }(objects.Obstacle));
-    objects.Desctructible = Desctructible;
+    objects.Destructible = Destructible;
 })(objects || (objects = {}));
 //# sourceMappingURL=destructible.js.map

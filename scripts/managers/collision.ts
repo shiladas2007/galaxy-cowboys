@@ -9,6 +9,7 @@ module managers {
                 if (!object2.isColliding) {
                     console.log("Collision with" + object2.name);
                     object2.isColliding = true;
+                    object1.Collide(object2);
                     
                     return true;
                 }
