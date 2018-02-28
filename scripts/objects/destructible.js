@@ -16,7 +16,7 @@ var objects;
             return _super !== null && _super.apply(this, arguments) || this;
         }
         return Desctructible;
-    }(Inanimate));
+    }(objects.Obstacle));
     objects.Desctructible = Desctructible;
 })(objects || (objects = {}));
 //# sourceMappingURL=destructible.js.map

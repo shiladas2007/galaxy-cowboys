@@ -1,5 +1,5 @@
 module objects {
-    export class Desctructible extends Inanimate {
+    export class Desctructible extends Obstacle {
         
     }
 }
