@@ -34,6 +34,7 @@ var objects;
         GameObject.prototype.Move = function () { };
         GameObject.prototype.Start = function () { };
         GameObject.prototype.Update = function () { };
+        GameObject.prototype.Collide = function (other) { };
         return GameObject;
     }(createjs.Bitmap));
     objects.GameObject = GameObject;

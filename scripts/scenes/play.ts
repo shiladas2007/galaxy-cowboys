@@ -20,13 +20,7 @@ module scenes {
             // Check for collisions
             this._enemies.forEach(enemy => {
                 enemy.Update();
-                
-                if (managers.Collision.Check(this._player, enemy)) {
-                    this._player.Hp -= 1;
-                    if (this._player.Hp <= 0) {
-                        objects.Game.currentScene = config.Scene.GAMEOVER;
-                    }
-                }
+                managers.Collision.Check(this._player, enemy);
             });
 
             return objects.Game.currentScene;

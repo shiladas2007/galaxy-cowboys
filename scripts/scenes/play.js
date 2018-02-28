@@ -26,12 +26,7 @@ var scenes;
             // Check for collisions
             this._enemies.forEach(function (enemy) {
                 enemy.Update();
-                if (managers.Collision.Check(_this._player, enemy)) {
-                    _this._player.Hp -= 1;
-                    if (_this._player.Hp <= 0) {
-                        objects.Game.currentScene = config.Scene.GAMEOVER;
-                    }
-                }
+                managers.Collision.Check(_this._player, enemy);
             });
             return objects.Game.currentScene;
         };

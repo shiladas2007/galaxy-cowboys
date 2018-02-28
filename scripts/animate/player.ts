@@ -40,6 +40,15 @@ module animate {
             this.CheckBounds();
         }
 
+        public Collide(other:objects.GameObject) {
+            if (other instanceof animate.Enemy) {
+                this.Hp -= 1
+                if (this.Hp <= 0) {
+                    objects.Game.currentScene = config.Scene.GAMEOVER;
+                }
+            }
+        }
+
         public Attack() {
 
         }

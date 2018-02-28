@@ -50,6 +50,14 @@ var animate;
             this.Move();
             this.CheckBounds();
         };
+        Player.prototype.Collide = function (other) {
+            if (other instanceof animate.Enemy) {
+                this.Hp -= 1;
+                if (this.Hp <= 0) {
+                    objects.Game.currentScene = config.Scene.GAMEOVER;
+                }
+            }
+        };
         Player.prototype.Attack = function () {
         };
         return Player;
