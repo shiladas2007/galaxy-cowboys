@@ -20,7 +20,7 @@ var ui;
             _this.x = x;
             _this.y = y;
             if (isCentered) {
-                _this.x -= _this.getBounds().width / 2;
+                _this.x -= _this.getBounds().width * 0.5;
             }
             return _this;
         }
