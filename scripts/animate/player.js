@@ -16,8 +16,9 @@ var animate;
             if (mvspd === void 0) { mvspd = 1; }
             return _super.call(this, assetManager, imageName, hp, mvspd, px, py) || this;
         }
-        Player.prototype.CheckBounds = function (other) {
-            _super.prototype.CheckBounds.call(this, other);
+        Player.prototype.checkBounds = function (other) {
+            if (other === void 0) { other = null; }
+            _super.prototype.checkBounds.call(this, other);
             // Checking vertical boundaries
             if (this.y >= objects.Game.BOTTOM_BOUNDARY - this.halfHeight) {
                 this.y = objects.Game.BOTTOM_BOUNDARY - this.halfHeight;
@@ -33,34 +34,34 @@ var animate;
                 this.x = this.halfWidth;
             }
         };
-        Player.prototype.Move = function () {
+        Player.prototype.move = function () {
             if (objects.Game.keyboardManager.moveForward) {
-                this.y -= this.MovementAmount;
+                this.y -= this.movementAmount;
             }
             if (objects.Game.keyboardManager.moveBackward) {
-                this.y += this.MovementAmount;
+                this.y += this.movementAmount;
             }
             if (objects.Game.keyboardManager.moveLeft) {
-                this.x -= this.MovementAmount;
+                this.x -= this.movementAmount;
             }
             if (objects.Game.keyboardManager.moveRight) {
-                this.x += this.MovementAmount;
+                this.x += this.movementAmount;
             }
         };
-        Player.prototype.Update = function () {
-            this.Move();
-            this.CheckBounds();
+        Player.prototype.update = function () {
+            this.move();
+            this.checkBounds();
         };
-        Player.prototype.Collide = function (other) {
-            _super.prototype.Collide.call(this, other);
+        Player.prototype.collide = function (other) {
+            _super.prototype.collide.call(this, other);
             if (other instanceof animate.Enemy) {
-                this.Hp -= 1;
+                this.hp -= 1;
             }
-            if (this.Hp <= 0) {
+            if (this.hp <= 0) {
                 objects.Game.currentScene = config.Scene.GAMEOVER;
             }
         };
-        Player.prototype.Attack = function () {
+        Player.prototype.attack = function () {
         };
         return Player;
     }(animate.Animate));

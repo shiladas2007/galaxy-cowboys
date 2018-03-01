@@ -4,7 +4,7 @@ module objects {
 
         constructor(assetManager:createjs.LoadQueue, imageString:string) {
             super(assetManager.getResult(imageString));
-            this.Start();
+            this.start();
         }
 
         private _checkBounds():void {
@@ -17,11 +17,11 @@ module objects {
             this.y += this._dy;
         }
 
-        public Start():void {
+        public start():void {
             this._dy = 5;
         }
 
-        public Update():void {
+        public update():void {
 
         }
     }

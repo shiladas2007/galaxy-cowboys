@@ -5,10 +5,10 @@ module scenes {
 
         constructor(assetManager:createjs.LoadQueue) {
             super(assetManager, "mapLevel1");
-            this.Start();
+            this.start();
         }
 
-        public Start():void {
+        public start():void {
             console.log("Initializing enemies...");            
             this._enemies = [
                 new animate.Enemy(this.assetManager,config.Enemy.GUARD,100,50),
@@ -23,11 +23,11 @@ module scenes {
 
             this._controlsIntroduck = new ui.Image(this.assetManager, "controlsIntroduck", 120, 280);
 
-            this.Main();
+            this.main();
         }
 
-        public Update():number {
-            super.Update();
+        public update():number {
+            super.update();
 
             // Make controls intro bubble disappear when player moves
             if (!this._hasPlayerMoved) {
@@ -41,8 +41,8 @@ module scenes {
             return objects.Game.currentScene;
         }
 
-        public Main():void {
-            super.Main();
+        public main():void {
+            super.main();
             this.addChild(this._controlsIntroduck);
         }
     }

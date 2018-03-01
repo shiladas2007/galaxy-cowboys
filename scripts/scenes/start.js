@@ -14,19 +14,19 @@ var scenes;
         __extends(StartScene, _super);
         function StartScene(assetManager) {
             var _this = _super.call(this, assetManager) || this;
-            _this.Start();
+            _this.start();
             return _this;
         }
-        StartScene.prototype.Start = function () {
+        StartScene.prototype.start = function () {
             this._background = new ui.Background(this.assetManager, "background");
             this._startButton2 = new ui.Button(this.assetManager, "startButton2", 300, 240);
             this._startButton = new ui.Button(this.assetManager, "startButton", 300, 240, 0.1);
-            this.Main();
+            this.main();
         };
-        StartScene.prototype.Update = function () {
+        StartScene.prototype.update = function () {
             return objects.Game.currentScene;
         };
-        StartScene.prototype.Main = function () {
+        StartScene.prototype.main = function () {
             this.addChild(this._background);
             this.addChild(this._startButton2);
             this.addChild(this._startButton);

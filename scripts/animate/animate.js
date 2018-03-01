@@ -15,11 +15,11 @@ var animate;
         function Animate(assetManager, imageName, hp, mvspd, px, py) {
             if (mvspd === void 0) { mvspd = 1; }
             var _this = _super.call(this, assetManager, imageName, px, py) || this;
-            _this.Hp = hp;
-            _this.Mvspd = mvspd;
+            _this.hp = hp;
+            _this.mvspd = mvspd;
             return _this;
         }
-        Object.defineProperty(Animate.prototype, "Mvspd", {
+        Object.defineProperty(Animate.prototype, "mvspd", {
             get: function () {
                 return this._mvspd;
             },
@@ -29,24 +29,24 @@ var animate;
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(Animate.prototype, "MovementAmount", {
+        Object.defineProperty(Animate.prototype, "movementAmount", {
             get: function () {
-                return objects.Game.BASE_MVSPD * this.Mvspd;
+                return objects.Game.BASE_MVSPD * this.mvspd;
             },
             enumerable: true,
             configurable: true
         });
-        Animate.prototype.Reset = function () { };
-        Animate.prototype.CheckBounds = function (other) {
+        Animate.prototype.reset = function () { };
+        Animate.prototype.checkBounds = function (other) {
             if (other === void 0) { other = null; }
             if (other) {
                 // Checking vertical boundaries
                 // Checking horizontal boundaries
             }
         };
-        Animate.prototype.Move = function () { };
-        Animate.prototype.Attack = function () { };
-        Animate.prototype.Collide = function (other) {
+        Animate.prototype.move = function () { };
+        Animate.prototype.attack = function () { };
+        Animate.prototype.collide = function (other) {
             if (other instanceof objects.Obstacle) {
             }
         };

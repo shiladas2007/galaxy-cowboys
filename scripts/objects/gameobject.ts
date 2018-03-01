@@ -28,16 +28,16 @@ module objects {
             this.isColliding = false;
         }
 
-        public Reset():void { }
+        public reset():void { }
 
-        public CheckBounds(other:objects.GameObject=null):void { }
+        public checkBounds(other:objects.GameObject=null):void { }
 
-        public Move():void { }
+        public move():void { }
 
-        public Start():void { }
+        public start():void { }
 
-        public Update():void { }
+        public update():void { }
 
-        public Collide(other:objects.GameObject):void { }
+        public collide(other:objects.GameObject):void { }
     }
 }

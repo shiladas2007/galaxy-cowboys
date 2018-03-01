@@ -14,18 +14,18 @@ var scenes;
         __extends(GameOverScene, _super);
         function GameOverScene(assetManager) {
             var _this = _super.call(this, assetManager) || this;
-            _this.Start();
+            _this.start();
             return _this;
         }
-        GameOverScene.prototype.Start = function () {
-            _super.prototype.Start.call(this);
+        GameOverScene.prototype.start = function () {
+            _super.prototype.start.call(this);
             this._background = new ui.Background(this.assetManager, "gameover");
             this._startButton2 = new ui.Button(this.assetManager, "startButton2", objects.Game.WIDTH * 0.5, 320, 1, true);
             this._startButton = new ui.Button(this.assetManager, "startButton", objects.Game.WIDTH * 0.5, 320, 0.1, true);
-            this.Main();
+            this.main();
         };
         GameOverScene.prototype.Main = function () {
-            _super.prototype.Main.call(this);
+            _super.prototype.main.call(this);
         };
         return GameOverScene;
     }(scenes.StartScene));

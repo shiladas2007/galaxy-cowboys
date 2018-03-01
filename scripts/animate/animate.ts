@@ -2,28 +2,28 @@ module animate {
     export abstract class Animate extends objects.GameObject {
         private _mvspd: number; // multiplier; 1 = 100%
 
-        public Hp: number;
+        public hp: number;
 
-        get Mvspd():number {
+        get mvspd():number {
             return this._mvspd;
         }
-        set Mvspd(mvspd:number) {
+        set mvspd(mvspd:number) {
             this._mvspd = mvspd;
         }
 
-        get MovementAmount():number {
-            return objects.Game.BASE_MVSPD * this.Mvspd;
+        get movementAmount():number {
+            return objects.Game.BASE_MVSPD * this.mvspd;
         }
 
         constructor(assetManager:createjs.LoadQueue, imageName:string, hp:number, mvspd:number=1, px:number, py:number) {
             super(assetManager, imageName, px, py);
-            this.Hp = hp;
-            this.Mvspd = mvspd;
+            this.hp = hp;
+            this.mvspd = mvspd;
         }
 
-        public Reset():void {}
+        public reset():void {}
 
-        public CheckBounds(other:objects.GameObject=null):void {
+        public checkBounds(other:objects.GameObject=null):void {
             if (other) {
                 // Checking vertical boundaries
 
@@ -31,11 +31,11 @@ module animate {
             }
         }
 
-        public Move() {}
+        public move() {}
 
-        public Attack() {}
+        public attack() {}
 
-        public Collide(other:objects.GameObject) {
+        public collide(other:objects.GameObject) {
             if (other instanceof objects.Obstacle) {
                 
             }

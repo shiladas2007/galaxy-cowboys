@@ -29,14 +29,14 @@ var objects;
             this.regY = this.halfHeight;
             this.isColliding = false;
         };
-        GameObject.prototype.Reset = function () { };
-        GameObject.prototype.CheckBounds = function (other) {
+        GameObject.prototype.reset = function () { };
+        GameObject.prototype.checkBounds = function (other) {
             if (other === void 0) { other = null; }
         };
-        GameObject.prototype.Move = function () { };
-        GameObject.prototype.Start = function () { };
-        GameObject.prototype.Update = function () { };
-        GameObject.prototype.Collide = function (other) { };
+        GameObject.prototype.move = function () { };
+        GameObject.prototype.start = function () { };
+        GameObject.prototype.update = function () { };
+        GameObject.prototype.collide = function (other) { };
         return GameObject;
     }(createjs.Bitmap));
     objects.GameObject = GameObject;

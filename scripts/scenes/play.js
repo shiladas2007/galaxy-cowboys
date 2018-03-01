@@ -17,20 +17,20 @@ var scenes;
             _this._map = new objects.Map(_this.assetManager, mapString);
             return _this;
         }
-        PlayScene.prototype.Start = function () {
+        PlayScene.prototype.start = function () {
         };
-        PlayScene.prototype.Update = function () {
+        PlayScene.prototype.update = function () {
             var _this = this;
-            this._map.Update();
-            this._player.Update();
+            this._map.update();
+            this._player.update();
             // Check for collisions
             this._enemies.forEach(function (enemy) {
-                enemy.Update();
-                managers.Collision.Check(_this._player, enemy);
+                enemy.update();
+                managers.Collision.check(_this._player, enemy);
             });
             return objects.Game.currentScene;
         };
-        PlayScene.prototype.Main = function () {
+        PlayScene.prototype.main = function () {
             var _this = this;
             this.addChild(this._map);
             this._enemies.forEach(function (enemy) {

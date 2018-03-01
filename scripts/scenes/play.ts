@@ -9,24 +9,24 @@ module scenes {
             this._map = new objects.Map(this.assetManager, mapString);
         }
 
-        public Start():void {
+        public start():void {
             
         }
 
-        public Update():number {
-            this._map.Update();
-            this._player.Update();
+        public update():number {
+            this._map.update();
+            this._player.update();
 
             // Check for collisions
             this._enemies.forEach(enemy => {
-                enemy.Update();
-                managers.Collision.Check(this._player, enemy);
+                enemy.update();
+                managers.Collision.check(this._player, enemy);
             });
 
             return objects.Game.currentScene;
         }
 
-        public Main():void {
+        public main():void {
             this.addChild(this._map);
             this._enemies.forEach(enemy => {
                 this.addChild(enemy);

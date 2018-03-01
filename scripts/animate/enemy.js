@@ -34,9 +34,9 @@ var animate;
             }
             _this = _super.call(this, assetManager, enemyImg, hp, mvspd, px, py) || this;
             console.log("constructor of enemy");
-            _this.Hp = hp;
-            _this.Mvspd = mvspd;
-            _this.Start();
+            _this.hp = hp;
+            _this.mvspd = mvspd;
+            _this.start();
             return _this;
         }
         // private methods
@@ -45,30 +45,30 @@ var animate;
             return this.enemyIsDead;
         };
         // Initializes variables and creates new objects
-        Enemy.prototype.Start = function () {
+        Enemy.prototype.start = function () {
             console.log("start of enemy");
         };
         // updates the game object every frame
-        Enemy.prototype.Update = function () {
-            this.Move();
-            this.CheckBounds();
+        Enemy.prototype.update = function () {
+            this.move();
+            this.checkBounds();
         };
         // reset the object's location to some value
-        Enemy.prototype.Reset = function () {
+        Enemy.prototype.reset = function () {
             this.x = Math.floor((Math.random() * (objects.Game.WIDTH - this.width)) + this.halfWidth);
             this.y = -this.height;
         };
         // move the object to some new location
-        Enemy.prototype.Move = function () {
+        Enemy.prototype.move = function () {
         };
         // check to see if some boundary has been passed
-        Enemy.prototype.CheckBounds = function () {
+        Enemy.prototype.checkBounds = function () {
             // check lower bounds
             if (this.y >= objects.Game.HEIGHT + this.height) {
-                this.Reset();
+                this.reset();
             }
         };
-        Enemy.prototype.Attack = function () {
+        Enemy.prototype.attack = function () {
             console.log("attack");
         };
         return Enemy;

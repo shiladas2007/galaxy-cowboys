@@ -3,19 +3,19 @@ module scenes {
 
         constructor(assetManager: createjs.LoadQueue) {
             super(assetManager);
-            this.Start();
+            this.start();
         }
 
-        public Start():void {
-            super.Start();
+        public start():void {
+            super.start();
             this._background = new ui.Background(this.assetManager, "gameover");
             this._startButton2 = new ui.Button(this.assetManager, "startButton2", objects.Game.WIDTH * 0.5, 320, 1, true);
             this._startButton = new ui.Button(this.assetManager, "startButton", objects.Game.WIDTH * 0.5, 320, 0.1, true); 
-            this.Main();
+            this.main();
         }
 
         public Main():void {
-            super.Main();
+            super.main();
         }
     }
 }

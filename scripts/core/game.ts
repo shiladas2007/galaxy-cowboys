@@ -21,35 +21,35 @@
         {id:  "controlsIntroduck", src:"./assets/images/controlsIntroduck.png"}
     ];
 
-    function Init():void {
+    function init():void {
         console.log("Initializing...");
         assetManager = new createjs.LoadQueue();
         assetManager.installPlugin(createjs.Sound);
         assetManager.loadManifest(assetManifest);
-        assetManager.on("complete", Start, this);
+        assetManager.on("complete", start, this);
     }
-    function Start():void {
+    function start():void {
         console.log("Starting application...");
         stage = new createjs.Stage(canvas);
         stage.enableMouseOver(20);
         createjs.Ticker.framerate = 60;
-        createjs.Ticker.on("tick", Update);
+        createjs.Ticker.on("tick", update);
         objects.Game.stage = stage;
         objects.Game.currentScene = config.Scene.START;
         currentState = config.Scene.START;
         
         keyboardManager = new managers.Keyboard();
         objects.Game.keyboardManager = keyboardManager;
-        Main();
+        main();
     }
-    function Update():void {
+    function update():void {
         if (currentState != objects.Game.currentScene) {
-            Main();
+            main();
         }
-        currentScene.Update();
+        currentScene.update();
         stage.update();
     }
-    function Main():void {
+    function main():void {
         stage.removeAllChildren();
         
         switch (objects.Game.currentScene) {
@@ -66,5 +66,5 @@
         currentState = objects.Game.currentScene;
         stage.addChild(currentScene);
     }
-    window.onload = Init;
+    window.onload = init;
 })();

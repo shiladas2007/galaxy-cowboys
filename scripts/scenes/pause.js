@@ -14,15 +14,15 @@ var scenes;
         __extends(PauseScene, _super);
         function PauseScene(assetManager) {
             var _this = _super.call(this, assetManager) || this;
-            _this.Start();
+            _this.start();
             return _this;
         }
-        PauseScene.prototype.Start = function () {
+        PauseScene.prototype.start = function () {
         };
-        PauseScene.prototype.Update = function () {
+        PauseScene.prototype.update = function () {
             return 0;
         };
-        PauseScene.prototype.Main = function () {
+        PauseScene.prototype.main = function () {
         };
         return PauseScene;
     }(objects.Scene));

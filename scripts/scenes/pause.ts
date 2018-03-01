@@ -2,18 +2,18 @@ module scenes {
     export class PauseScene extends objects.Scene {
         constructor(assetManager: createjs.LoadQueue) {
             super(assetManager);
-            this.Start();
+            this.start();
         }
 
-        public Start():void {
+        public start():void {
 
         }
 
-        public Update():number {
+        public update():number {
             return 0;
         }
 
-        public Main():void {
+        public main():void {
             
         }
     }

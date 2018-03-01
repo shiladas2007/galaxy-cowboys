@@ -17,11 +17,11 @@ var objects;
             _this.assetManager = assetManager;
             return _this;
         }
-        Scene.prototype.Start = function () { };
-        Scene.prototype.Update = function () {
+        Scene.prototype.start = function () { };
+        Scene.prototype.update = function () {
             return 0;
         };
-        Scene.prototype.Main = function () { };
+        Scene.prototype.main = function () { };
         return Scene;
     }(createjs.Container));
     objects.Scene = Scene;

@@ -7,12 +7,12 @@ module objects {
             this.assetManager = assetManager;
         }
     
-        public Start():void { }
+        public start():void { }
 
-        public Update():number { 
+        public update():number { 
             return 0;
         }
 
-        public Main():void { }
+        public main():void { }
     }
 }

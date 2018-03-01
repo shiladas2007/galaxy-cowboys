@@ -29,9 +29,9 @@ module animate {
 
             super(assetManager, enemyImg, hp, mvspd, px, py);
             console.log("constructor of enemy");
-            this.Hp=hp;
-            this.Mvspd=mvspd;
-            this.Start();
+            this.hp=hp;
+            this.mvspd=mvspd;
+            this.start();
         }
         
         // private methods
@@ -41,35 +41,35 @@ module animate {
         }
        
         // Initializes variables and creates new objects
-        public Start():void {
+        public start():void {
             console.log("start of enemy");
         }
     
         // updates the game object every frame
-        public Update():void {
-            this.Move();
-            this.CheckBounds();
+        public update():void {
+            this.move();
+            this.checkBounds();
         }
         
         // reset the object's location to some value
-        public Reset():void {
+        public reset():void {
             this.x = Math.floor((Math.random() * (objects.Game.WIDTH - this.width)) + this.halfWidth);
             this.y = -this.height;
         }
     
         // move the object to some new location
-        public Move():void {
+        public move():void {
                         
         }
     
         // check to see if some boundary has been passed
-        public CheckBounds():void {
+        public checkBounds():void {
             // check lower bounds
             if (this.y >= objects.Game.HEIGHT + this.height) {
-                this.Reset();
+                this.reset();
             }         
         }
-        public Attack():void {
+        public attack():void {
             console.log("attack");
         }
     }

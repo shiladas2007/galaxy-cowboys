@@ -14,7 +14,7 @@ var objects;
         __extends(Map, _super);
         function Map(assetManager, imageString) {
             var _this = _super.call(this, assetManager.getResult(imageString)) || this;
-            _this.Start();
+            _this.start();
             return _this;
         }
         Map.prototype._checkBounds = function () {
@@ -24,10 +24,10 @@ var objects;
         Map.prototype._move = function () {
             this.y += this._dy;
         };
-        Map.prototype.Start = function () {
+        Map.prototype.start = function () {
             this._dy = 5;
         };
-        Map.prototype.Update = function () {
+        Map.prototype.update = function () {
         };
         return Map;
     }(createjs.Bitmap));

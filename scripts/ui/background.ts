@@ -7,7 +7,7 @@ module ui {
       // Constructor
       constructor(assetManager: createjs.LoadQueue, imageString) {
         super(assetManager.getResult(imageString));
-        this.Start();
+        this.start();
       }
   
       // private methods
@@ -18,12 +18,12 @@ module ui {
       // public methods
   
       // Initializes variables and creates new objects
-      public Start():void {
+      public start():void {
       
       }
   
       // updates the game object every frame
-      public Update():void {
+      public update():void {
      
       }
     }

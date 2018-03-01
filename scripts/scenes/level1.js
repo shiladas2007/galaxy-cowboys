@@ -15,10 +15,10 @@ var scenes;
         function Level1(assetManager) {
             var _this = _super.call(this, assetManager, "mapLevel1") || this;
             _this._hasPlayerMoved = false;
-            _this.Start();
+            _this.start();
             return _this;
         }
-        Level1.prototype.Start = function () {
+        Level1.prototype.start = function () {
             console.log("Initializing enemies...");
             this._enemies = [
                 new animate.Enemy(this.assetManager, config.Enemy.GUARD, 100, 50),
@@ -30,10 +30,10 @@ var scenes;
             this._player = new animate.Player(this.assetManager, "cowboy1", 1, 1, 100, 420);
             console.log("Player initialized.");
             this._controlsIntroduck = new ui.Image(this.assetManager, "controlsIntroduck", 120, 280);
-            this.Main();
+            this.main();
         };
-        Level1.prototype.Update = function () {
-            _super.prototype.Update.call(this);
+        Level1.prototype.update = function () {
+            _super.prototype.update.call(this);
             // Make controls intro bubble disappear when player moves
             if (!this._hasPlayerMoved) {
                 if (objects.Game.keyboardManager.moveForward || objects.Game.keyboardManager.moveBackward
@@ -44,8 +44,8 @@ var scenes;
             }
             return objects.Game.currentScene;
         };
-        Level1.prototype.Main = function () {
-            _super.prototype.Main.call(this);
+        Level1.prototype.main = function () {
+            _super.prototype.main.call(this);
             this.addChild(this._controlsIntroduck);
         };
         return Level1;

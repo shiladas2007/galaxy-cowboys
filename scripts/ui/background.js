@@ -17,17 +17,17 @@ var ui;
         // Constructor
         function Background(assetManager, imageString) {
             var _this = _super.call(this, assetManager.getResult(imageString)) || this;
-            _this.Start();
+            _this.start();
             return _this;
         }
         // private methods
         // reset the objects location to some value
         // public methods
         // Initializes variables and creates new objects
-        Background.prototype.Start = function () {
+        Background.prototype.start = function () {
         };
         // updates the game object every frame
-        Background.prototype.Update = function () {
+        Background.prototype.update = function () {
         };
         return Background;
     }(createjs.Bitmap));

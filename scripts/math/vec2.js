@@ -18,7 +18,7 @@ var math;
             return _super.call(this, x, y) || this;
         }
         // Get distance between two Vec2 objects
-        Vec2.Distance = function (pointA, pointB) {
+        Vec2.distance = function (pointA, pointB) {
             return Math.floor(Math.sqrt(Math.pow(pointB.x - pointA.x, 2) + Math.pow(pointB.y - pointA.y, 2)));
         };
         return Vec2;

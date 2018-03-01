@@ -6,21 +6,21 @@ module scenes {
         
         constructor(assetManager: createjs.LoadQueue) {
             super(assetManager);
-            this.Start();
+            this.start();
         }
 
-        public Start():void {
+        public start():void {
             this._background = new ui.Background(this.assetManager, "background");
             this._startButton2 = new ui.Button(this.assetManager, "startButton2", 300, 240);
             this._startButton = new ui.Button(this.assetManager, "startButton", 300, 240, 0.1); 
-            this.Main();
+            this.main();
         }
 
-        public Update():number {
+        public update():number {
             return objects.Game.currentScene;
         }
 
-        public Main():void {
+        public main():void {
             this.addChild(this._background);
             this.addChild(this._startButton2);
             this.addChild(this._startButton);
