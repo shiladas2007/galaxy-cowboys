@@ -30,7 +30,7 @@ module objects {
 
         public Reset():void { }
 
-        public CheckBounds():void { }
+        public CheckBounds(other:objects.GameObject=null):void { }
 
         public Move():void { }
 

@@ -30,7 +30,9 @@ var objects;
             this.isColliding = false;
         };
         GameObject.prototype.Reset = function () { };
-        GameObject.prototype.CheckBounds = function () { };
+        GameObject.prototype.CheckBounds = function (other) {
+            if (other === void 0) { other = null; }
+        };
         GameObject.prototype.Move = function () { };
         GameObject.prototype.Start = function () { };
         GameObject.prototype.Update = function () { };

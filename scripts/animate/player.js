@@ -16,7 +16,8 @@ var animate;
             if (mvspd === void 0) { mvspd = 1; }
             return _super.call(this, assetManager, imageName, hp, mvspd, px, py) || this;
         }
-        Player.prototype.CheckBounds = function () {
+        Player.prototype.CheckBounds = function (other) {
+            _super.prototype.CheckBounds.call(this, other);
             // Checking vertical boundaries
             if (this.y >= objects.Game.BOTTOM_BOUNDARY - this.halfHeight) {
                 this.y = objects.Game.BOTTOM_BOUNDARY - this.halfHeight;
@@ -51,6 +52,7 @@ var animate;
             this.CheckBounds();
         };
         Player.prototype.Collide = function (other) {
+            _super.prototype.Collide.call(this, other);
             if (other instanceof animate.Enemy) {
                 this.Hp -= 1;
             }

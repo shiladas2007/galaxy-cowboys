@@ -4,7 +4,9 @@ module animate {
             super(assetManager, imageName, hp, mvspd, px, py);
         }
 
-        public CheckBounds():void {
+        public CheckBounds(other?:objects.GameObject):void {
+            super.CheckBounds(other);
+            
             // Checking vertical boundaries
             if (this.y >= objects.Game.BOTTOM_BOUNDARY - this.halfHeight) {
                 this.y = objects.Game.BOTTOM_BOUNDARY - this.halfHeight;
@@ -41,6 +43,7 @@ module animate {
         }
 
         public Collide(other:objects.GameObject) {
+            super.Collide(other);
             if (other instanceof animate.Enemy) {
                 this.Hp -= 1
             }

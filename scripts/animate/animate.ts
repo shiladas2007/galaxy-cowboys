@@ -21,20 +21,24 @@ module animate {
             this.Mvspd = mvspd;
         }
 
-        public Reset():void {
+        public Reset():void {}
 
+        public CheckBounds(other:objects.GameObject=null):void {
+            if (other) {
+                // Checking vertical boundaries
+
+                // Checking horizontal boundaries
+            }
         }
 
-        public CheckBounds():void {
+        public Move() {}
 
-        }
+        public Attack() {}
 
-        public Move() {
-            
-        }
-
-        public Attack() {
-
+        public Collide(other:objects.GameObject) {
+            if (other instanceof objects.Obstacle) {
+                
+            }
         }
     }
 }

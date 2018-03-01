@@ -36,13 +36,19 @@ var animate;
             enumerable: true,
             configurable: true
         });
-        Animate.prototype.Reset = function () {
+        Animate.prototype.Reset = function () { };
+        Animate.prototype.CheckBounds = function (other) {
+            if (other === void 0) { other = null; }
+            if (other) {
+                // Checking vertical boundaries
+                // Checking horizontal boundaries
+            }
         };
-        Animate.prototype.CheckBounds = function () {
-        };
-        Animate.prototype.Move = function () {
-        };
-        Animate.prototype.Attack = function () {
+        Animate.prototype.Move = function () { };
+        Animate.prototype.Attack = function () { };
+        Animate.prototype.Collide = function (other) {
+            if (other instanceof objects.Obstacle) {
+            }
         };
         return Animate;
     }(objects.GameObject));
