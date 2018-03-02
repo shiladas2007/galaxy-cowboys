@@ -20,6 +20,34 @@ var objects;
             _this._initialize();
             return _this;
         }
+        Object.defineProperty(GameObject.prototype, "leftX", {
+            get: function () {
+                return this.x - this.halfWidth;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(GameObject.prototype, "rightX", {
+            get: function () {
+                return this.x + this.halfWidth;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(GameObject.prototype, "topY", {
+            get: function () {
+                return this.y - this.halfHeight;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(GameObject.prototype, "bottomY", {
+            get: function () {
+                return this.y + this.halfHeight;
+            },
+            enumerable: true,
+            configurable: true
+        });
         GameObject.prototype._initialize = function () {
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;

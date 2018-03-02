@@ -9,6 +9,20 @@ module objects {
         public halfHeight: number;
         public isColliding: boolean;
 
+        get leftX():number {
+            return this.x - this.halfWidth;
+        }
+        get rightX():number {
+            return this.x + this.halfWidth;
+        }
+
+        get topY():number {
+            return this.y - this.halfHeight;
+        }
+        get bottomY():number {
+            return this.y + this.halfHeight;
+        }
+
         constructor(assetManager:createjs.LoadQueue, imageName:string, px:number, py:number) {
             super(assetManager.getResult(imageName));
             this.name = imageName;
