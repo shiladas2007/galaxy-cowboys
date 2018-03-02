@@ -3,7 +3,7 @@ module animate {
         private _mvspd: number; // multiplier; 1 = 100%
 
         public hp: number;
-
+        
         get mvspd():number {
             return this._mvspd;
         }
@@ -19,15 +19,14 @@ module animate {
             super(assetManager, imageName, px, py);
             this.hp = hp;
             this.mvspd = mvspd;
+            this.lastValidPosition = new math.Vec2(px, py);
         }
 
         public reset():void {}
 
         public checkBounds(other:objects.GameObject=null):void {
             if (other) {
-                // Checking vertical boundaries
-
-                // Checking horizontal boundaries
+                
             }
         }
 
@@ -36,8 +35,13 @@ module animate {
         public attack() {}
 
         public collide(other:objects.GameObject) {
-            if (other instanceof objects.Obstacle) {
-                
+            if (other instanceof objects.GameObject) {
+                console.log(this.lastValidPosition);
+                this.x = this.lastValidPosition.x;
+                this.y = this.lastValidPosition.y;
+            } else {
+                this.lastValidPosition.x = this.x;
+                this.lastValidPosition.y = this.y;
             }
         }
     }

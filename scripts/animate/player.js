@@ -16,9 +16,7 @@ var animate;
             if (mvspd === void 0) { mvspd = 1; }
             return _super.call(this, assetManager, imageName, hp, mvspd, px, py) || this;
         }
-        Player.prototype.checkBounds = function (other) {
-            if (other === void 0) { other = null; }
-            _super.prototype.checkBounds.call(this, other);
+        Player.prototype.checkBounds = function () {
             // Checking vertical boundaries
             if (this.y >= objects.Game.BOTTOM_BOUNDARY - this.halfHeight) {
                 this.y = objects.Game.BOTTOM_BOUNDARY - this.halfHeight;
@@ -58,7 +56,7 @@ var animate;
                 this.hp -= 1;
             }
             if (this.hp <= 0) {
-                objects.Game.currentScene = config.Scene.GAMEOVER;
+                //objects.Game.currentScene = config.Scene.GAMEOVER;
             }
         };
         Player.prototype.attack = function () {

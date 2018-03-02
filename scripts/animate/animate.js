@@ -17,6 +17,7 @@ var animate;
             var _this = _super.call(this, assetManager, imageName, px, py) || this;
             _this.hp = hp;
             _this.mvspd = mvspd;
+            _this.lastValidPosition = new math.Vec2(px, py);
             return _this;
         }
         Object.defineProperty(Animate.prototype, "mvspd", {
@@ -40,14 +41,19 @@ var animate;
         Animate.prototype.checkBounds = function (other) {
             if (other === void 0) { other = null; }
             if (other) {
-                // Checking vertical boundaries
-                // Checking horizontal boundaries
             }
         };
         Animate.prototype.move = function () { };
         Animate.prototype.attack = function () { };
         Animate.prototype.collide = function (other) {
-            if (other instanceof objects.Obstacle) {
+            if (other instanceof objects.GameObject) {
+                console.log(this.lastValidPosition);
+                this.x = this.lastValidPosition.x;
+                this.y = this.lastValidPosition.y;
+            }
+            else {
+                this.lastValidPosition.x = this.x;
+                this.lastValidPosition.y = this.y;
             }
         };
         return Animate;

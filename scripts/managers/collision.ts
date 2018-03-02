@@ -6,18 +6,17 @@ module managers {
 
             // Check for collision
             if (math.Vec2.distance(pointA, pointB) < (object1.halfHeight + object2.halfHeight)) {
+                object1.collide(object2);
                 if (!object2.isColliding) {
                     console.log("Collision with" + object2.name);
                     object2.isColliding = true;
-                    object1.collide(object2);
                     
                     return true;
                 }
-            }
-            else {
+            } else {
                 object2.isColliding = false;
             }
-
+            
             return false;
         }
     }

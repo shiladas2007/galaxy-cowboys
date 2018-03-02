@@ -21,13 +21,21 @@ var scenes;
         };
         PlayScene.prototype.update = function () {
             var _this = this;
+            // TODO: centralize collision check
+            var k = true;
             this._map.update();
             this._player.update();
             // Check for collisions
             this._enemies.forEach(function (enemy) {
                 enemy.update();
-                managers.Collision.check(_this._player, enemy);
+                if (managers.Collision.check(_this._player, enemy)) {
+                    k = true;
+                }
             });
+            if (k) {
+                this._player.lastValidPosition.x = this._player.x;
+                this._player.lastValidPosition.y = this._player.y;
+            }
             return objects.Game.currentScene;
         };
         PlayScene.prototype.main = function () {

@@ -4,9 +4,7 @@ module animate {
             super(assetManager, imageName, hp, mvspd, px, py);
         }
 
-        public checkBounds(other:objects.GameObject=null):void {
-            super.checkBounds(other);
-
+        public checkBounds():void {
             // Checking vertical boundaries
             if (this.y >= objects.Game.BOTTOM_BOUNDARY - this.halfHeight) {
                 this.y = objects.Game.BOTTOM_BOUNDARY - this.halfHeight;
@@ -48,7 +46,7 @@ module animate {
                 this.hp -= 1
             }
             if (this.hp <= 0) {
-                objects.Game.currentScene = config.Scene.GAMEOVER;
+                //objects.Game.currentScene = config.Scene.GAMEOVER;
             }
         }
 

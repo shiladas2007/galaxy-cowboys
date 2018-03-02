@@ -14,14 +14,22 @@ module scenes {
         }
 
         public update():number {
+            // TODO: centralize collision check
+            let k: boolean = true;
             this._map.update();
             this._player.update();
 
             // Check for collisions
             this._enemies.forEach(enemy => {
                 enemy.update();
-                managers.Collision.check(this._player, enemy);
+                if (managers.Collision.check(this._player, enemy)) {
+                    k = true;
+                }
             });
+            if (k) {
+                this._player.lastValidPosition.x = this._player.x;
+                this._player.lastValidPosition.y = this._player.y;
+            }
 
             return objects.Game.currentScene;
         }
