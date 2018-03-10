@@ -36,7 +36,7 @@ var scenes;
                 this._player.lastValidPosition.x = this._player.x;
                 this._player.lastValidPosition.y = this._player.y;
             }
-            return objects.Game.currentScene;
+            return managers.Game.currentScene;
         };
         PlayScene.prototype.main = function () {
             var _this = this;

@@ -53,7 +53,7 @@ module animate {
         
         // reset the object's location to some value
         public reset():void {
-            this.x = Math.floor((Math.random() * (objects.Game.WIDTH - this.width)) + this.halfWidth);
+            this.x = Math.floor((Math.random() * (managers.Game.WIDTH - this.width)) + this.halfWidth);
             this.y = -this.height;
         }
     
@@ -65,7 +65,7 @@ module animate {
         // check to see if some boundary has been passed
         public checkBounds():void {
             // check lower bounds
-            if (this.y >= objects.Game.HEIGHT + this.height) {
+            if (this.y >= managers.Game.HEIGHT + this.height) {
                 this.reset();
             }         
         }

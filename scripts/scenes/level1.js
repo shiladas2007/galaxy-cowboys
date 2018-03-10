@@ -36,13 +36,13 @@ var scenes;
             _super.prototype.update.call(this);
             // Make controls intro bubble disappear when player moves
             if (!this._hasPlayerMoved) {
-                if (objects.Game.keyboardManager.moveForward || objects.Game.keyboardManager.moveBackward
-                    || objects.Game.keyboardManager.moveLeft || objects.Game.keyboardManager.moveRight) {
+                if (managers.Game.keyboardManager.moveForward || managers.Game.keyboardManager.moveBackward
+                    || managers.Game.keyboardManager.moveLeft || managers.Game.keyboardManager.moveRight) {
                     this._hasPlayerMoved = true;
                     this.removeChild(this._controlsIntroduck);
                 }
             }
-            return objects.Game.currentScene;
+            return managers.Game.currentScene;
         };
         Level1.prototype.main = function () {
             _super.prototype.main.call(this);

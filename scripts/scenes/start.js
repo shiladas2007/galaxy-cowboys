@@ -24,7 +24,7 @@ var scenes;
             this.main();
         };
         StartScene.prototype.update = function () {
-            return objects.Game.currentScene;
+            return managers.Game.currentScene;
         };
         StartScene.prototype.main = function () {
             this.addChild(this._background);
@@ -33,7 +33,7 @@ var scenes;
             this._startButton.on("click", this._startButtonClick);
         };
         StartScene.prototype._startButtonClick = function () {
-            objects.Game.currentScene = config.Scene.LEVEL1;
+            managers.Game.currentScene = config.Scene.LEVEL1;
         };
         return StartScene;
     }(objects.Scene));

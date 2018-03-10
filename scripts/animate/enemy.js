@@ -55,7 +55,7 @@ var animate;
         };
         // reset the object's location to some value
         Enemy.prototype.reset = function () {
-            this.x = Math.floor((Math.random() * (objects.Game.WIDTH - this.width)) + this.halfWidth);
+            this.x = Math.floor((Math.random() * (managers.Game.WIDTH - this.width)) + this.halfWidth);
             this.y = -this.height;
         };
         // move the object to some new location
@@ -64,7 +64,7 @@ var animate;
         // check to see if some boundary has been passed
         Enemy.prototype.checkBounds = function () {
             // check lower bounds
-            if (this.y >= objects.Game.HEIGHT + this.height) {
+            if (this.y >= managers.Game.HEIGHT + this.height) {
                 this.reset();
             }
         };

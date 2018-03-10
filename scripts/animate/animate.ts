@@ -12,7 +12,7 @@ module animate {
         }
 
         get movementAmount():number {
-            return objects.Game.BASE_MVSPD * this.mvspd;
+            return managers.Game.BASE_MVSPD * this.mvspd;
         }
 
         constructor(assetManager:createjs.LoadQueue, imageName:string, hp:number, mvspd:number=1, px:number, py:number) {

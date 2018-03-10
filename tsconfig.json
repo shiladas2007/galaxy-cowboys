@@ -5,6 +5,13 @@
         "sourceMap": true
     },
     "include": [
-        "scripts/**/*.ts"
+        "scripts/config/*.ts",
+        "scripts/math/*.ts",
+        "scripts/ui/*.ts",
+        "scripts/objects/*.ts",
+        "scripts/animate/*.ts",
+        "scripts/managers/*.ts",
+        "scripts/scenes/*.ts",
+        "scripts/core/*.ts",
     ]
 }

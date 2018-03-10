@@ -17,7 +17,7 @@ module scenes {
         }
 
         public update():number {
-            return objects.Game.currentScene;
+            return managers.Game.currentScene;
         }
 
         public main():void {
@@ -28,7 +28,7 @@ module scenes {
         }
 
         private _startButtonClick():void {
-            objects.Game.currentScene = config.Scene.LEVEL1;
+            managers.Game.currentScene = config.Scene.LEVEL1;
         }
     }
 }

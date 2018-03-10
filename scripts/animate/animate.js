@@ -32,7 +32,7 @@ var animate;
         });
         Object.defineProperty(Animate.prototype, "movementAmount", {
             get: function () {
-                return objects.Game.BASE_MVSPD * this.mvspd;
+                return managers.Game.BASE_MVSPD * this.mvspd;
             },
             enumerable: true,
             configurable: true

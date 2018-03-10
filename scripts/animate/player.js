@@ -18,31 +18,31 @@ var animate;
         }
         Player.prototype.checkBounds = function () {
             // Checking vertical boundaries
-            if (this.y >= objects.Game.BOTTOM_BOUNDARY - this.halfHeight) {
-                this.y = objects.Game.BOTTOM_BOUNDARY - this.halfHeight;
+            if (this.y >= managers.Game.BOTTOM_BOUNDARY - this.halfHeight) {
+                this.y = managers.Game.BOTTOM_BOUNDARY - this.halfHeight;
             }
-            else if (this.y <= objects.Game.TOP_BOUNDARY + this.halfHeight) {
+            else if (this.y <= managers.Game.TOP_BOUNDARY + this.halfHeight) {
                 this.y = this.halfHeight;
             }
             // Checking horizontal boundaries
-            if (this.x >= objects.Game.RIGHT_BOUNDARY - this.halfWidth) {
-                this.x = objects.Game.RIGHT_BOUNDARY - this.halfWidth;
+            if (this.x >= managers.Game.RIGHT_BOUNDARY - this.halfWidth) {
+                this.x = managers.Game.RIGHT_BOUNDARY - this.halfWidth;
             }
-            else if (this.x <= objects.Game.LEFT_BOUNDARY + this.halfWidth) {
+            else if (this.x <= managers.Game.LEFT_BOUNDARY + this.halfWidth) {
                 this.x = this.halfWidth;
             }
         };
         Player.prototype.move = function () {
-            if (objects.Game.keyboardManager.moveForward) {
+            if (managers.Game.keyboardManager.moveForward) {
                 this.y -= this.movementAmount;
             }
-            if (objects.Game.keyboardManager.moveBackward) {
+            if (managers.Game.keyboardManager.moveBackward) {
                 this.y += this.movementAmount;
             }
-            if (objects.Game.keyboardManager.moveLeft) {
+            if (managers.Game.keyboardManager.moveLeft) {
                 this.x -= this.movementAmount;
             }
-            if (objects.Game.keyboardManager.moveRight) {
+            if (managers.Game.keyboardManager.moveRight) {
                 this.x += this.movementAmount;
             }
         };
@@ -56,7 +56,7 @@ var animate;
                 this.hp -= 1;
             }
             if (this.hp <= 0) {
-                //objects.Game.currentScene = config.Scene.GAMEOVER;
+                //managers.Game.currentScene = config.Scene.GAMEOVER;
             }
         };
         Player.prototype.attack = function () {

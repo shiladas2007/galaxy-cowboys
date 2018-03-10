@@ -31,7 +31,7 @@ module scenes {
                 this._player.lastValidPosition.y = this._player.y;
             }
 
-            return objects.Game.currentScene;
+            return managers.Game.currentScene;
         }
 
         public main():void {

@@ -33,15 +33,15 @@
         stage.enableMouseOver(20);
         createjs.Ticker.framerate = 60;
         createjs.Ticker.on("tick", update);
-        objects.Game.stage = stage;
-        objects.Game.currentScene = config.Scene.START;
+        managers.Game.stage = stage;
+        managers.Game.currentScene = config.Scene.START;
         currentState = config.Scene.START;
         keyboardManager = new managers.Keyboard();
-        objects.Game.keyboardManager = keyboardManager;
+        managers.Game.keyboardManager = keyboardManager;
         main();
     }
     function update() {
-        if (currentState != objects.Game.currentScene) {
+        if (currentState != managers.Game.currentScene) {
             main();
         }
         currentScene.update();
@@ -49,7 +49,7 @@
     }
     function main() {
         stage.removeAllChildren();
-        switch (objects.Game.currentScene) {
+        switch (managers.Game.currentScene) {
             case config.Scene.START:
                 currentScene = new scenes.StartScene(assetManager);
                 break;
@@ -60,7 +60,7 @@
                 currentScene = new scenes.GameOverScene(assetManager);
                 break;
         }
-        currentState = objects.Game.currentScene;
+        currentState = managers.Game.currentScene;
         stage.addChild(currentScene);
     }
     window.onload = init;
