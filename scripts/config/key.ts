@@ -4,5 +4,6 @@ module config {
         public static S:string = "s";
         public static A:string = "a";
         public static D:string = "d";
+        public static SPACE:string = " ";
     }
 }
