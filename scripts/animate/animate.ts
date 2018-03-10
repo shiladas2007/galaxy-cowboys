@@ -24,11 +24,7 @@ module animate {
 
         public reset():void {}
 
-        public checkBounds(other:objects.GameObject=null):void {
-            if (other) {
-                
-            }
-        }
+        public checkBounds(other:objects.GameObject=null):void {}
 
         public move() {}
 
