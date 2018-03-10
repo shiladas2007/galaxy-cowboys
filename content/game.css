@@ -7,6 +7,7 @@ html, body {
 
 body {
     background: rgb(150,140,130);
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
 }
 
 canvas {
@@ -16,4 +17,10 @@ canvas {
     border-radius: 10px;
     display: block;
     margin: 100px auto;
+}
+
+footer {
+    display: block;
+    margin: 1em auto;
+    text-align: center;
 }
