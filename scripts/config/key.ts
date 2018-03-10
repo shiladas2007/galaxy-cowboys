@@ -4,6 +4,10 @@ module config {
         public static S:string = "s";
         public static A:string = "a";
         public static D:string = "d";
+        public static ARROW_UP:string = "ArrowUp";
+        public static ARROW_DOWN:string = "ArrowDown";
+        public static ARROW_LEFT:string = "ArrowLeft";
+        public static ARROW_RIGHT:string = "ArrowRight";
         public static SPACE:string = " ";
     }
 }

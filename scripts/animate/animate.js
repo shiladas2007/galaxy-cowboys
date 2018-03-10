@@ -40,8 +40,6 @@ var animate;
         Animate.prototype.reset = function () { };
         Animate.prototype.checkBounds = function (other) {
             if (other === void 0) { other = null; }
-            if (other) {
-            }
         };
         Animate.prototype.move = function () { };
         Animate.prototype.attack = function () { };
