@@ -12,8 +12,8 @@ var scenes;
 (function (scenes) {
     var PauseScene = /** @class */ (function (_super) {
         __extends(PauseScene, _super);
-        function PauseScene(assetManager) {
-            var _this = _super.call(this, assetManager) || this;
+        function PauseScene() {
+            var _this = _super.call(this) || this;
             _this.start();
             return _this;
         }

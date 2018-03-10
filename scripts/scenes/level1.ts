@@ -3,8 +3,8 @@ module scenes {
         private _controlsIntroduck: ui.Image;
         private _hasPlayerMoved: boolean = false;
 
-        constructor(assetManager:createjs.LoadQueue) {
-            super(assetManager, "mapLevel1");
+        constructor() {
+            super("mapLevel1");
             this.start();
         }
 

@@ -12,9 +12,9 @@ var objects;
 (function (objects) {
     var Scene = /** @class */ (function (_super) {
         __extends(Scene, _super);
-        function Scene(assetManager) {
+        function Scene() {
             var _this = _super.call(this) || this;
-            _this.assetManager = assetManager;
+            _this.assetManager = managers.Game.assetManager;
             return _this;
         }
         Scene.prototype.start = function () { };

@@ -2,9 +2,9 @@ module objects {
     export abstract class Scene extends createjs.Container {
         public assetManager;
 
-        constructor(assetManager: createjs.LoadQueue) {
+        constructor() {
             super();
-            this.assetManager = assetManager;
+            this.assetManager = managers.Game.assetManager;
         }
     
         public start():void { }

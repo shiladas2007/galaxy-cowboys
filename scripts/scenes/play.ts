@@ -4,8 +4,8 @@ module scenes {
         protected _enemies: animate.Enemy[];
         protected _player: animate.Player;
 
-        constructor(assetManager:createjs.LoadQueue, mapString:string) {
-            super(assetManager);
+        constructor(mapString:string) {
+            super();
             this._map = new objects.Map(this.assetManager, mapString);
         }
 

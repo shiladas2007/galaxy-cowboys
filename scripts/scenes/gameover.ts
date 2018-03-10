@@ -1,8 +1,8 @@
 module scenes {
     export class GameOverScene extends scenes.StartScene {
 
-        constructor(assetManager: createjs.LoadQueue) {
-            super(assetManager);
+        constructor() {
+            super();
             this.start();
         }
 

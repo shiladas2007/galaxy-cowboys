@@ -4,8 +4,8 @@ module scenes {
         protected _startButton2: ui.Button;
         protected _background: ui.Background;
         
-        constructor(assetManager: createjs.LoadQueue) {
-            super(assetManager);
+        constructor() {
+            super();
             this.start();
         }
 

@@ -12,8 +12,8 @@ var scenes;
 (function (scenes) {
     var Level1 = /** @class */ (function (_super) {
         __extends(Level1, _super);
-        function Level1(assetManager) {
-            var _this = _super.call(this, assetManager, "mapLevel1") || this;
+        function Level1() {
+            var _this = _super.call(this, "mapLevel1") || this;
             _this._hasPlayerMoved = false;
             _this.start();
             return _this;

@@ -36,7 +36,7 @@
         createjs.Ticker.on("tick", update);
         managers.Game.stage = stage;
         managers.Game.currentScene = config.Scene.START;
-        currentState = config.Scene.START;
+        managers.Game.assetManager = assetManager;
         
         keyboardManager = new managers.Keyboard();
         managers.Game.keyboardManager = keyboardManager;
@@ -54,13 +54,13 @@
         
         switch (managers.Game.currentScene) {
             case config.Scene.START:
-                currentScene = new scenes.StartScene(assetManager);
+                currentScene = new scenes.StartScene();
                 break;
             case config.Scene.LEVEL1:
-                currentScene = new scenes.Level1(assetManager);
+                currentScene = new scenes.Level1();
                 break;
             case config.Scene.GAMEOVER:
-                currentScene = new scenes.GameOverScene(assetManager);
+                currentScene = new scenes.GameOverScene();
                 break;
         }
         currentState = managers.Game.currentScene;

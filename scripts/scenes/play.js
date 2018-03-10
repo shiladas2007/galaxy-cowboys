@@ -12,8 +12,8 @@ var scenes;
 (function (scenes) {
     var PlayScene = /** @class */ (function (_super) {
         __extends(PlayScene, _super);
-        function PlayScene(assetManager, mapString) {
-            var _this = _super.call(this, assetManager) || this;
+        function PlayScene(mapString) {
+            var _this = _super.call(this) || this;
             _this._map = new objects.Map(_this.assetManager, mapString);
             return _this;
         }
