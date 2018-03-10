@@ -15,7 +15,7 @@ module scenes {
 
         public update():number {
             // TODO: centralize collision check
-            let k: boolean = true;
+            let hasCollided: boolean = false;
             this._map.update();
             this._player.update();
 
@@ -23,10 +23,10 @@ module scenes {
             this._enemies.forEach(enemy => {
                 enemy.update();
                 if (managers.Collision.check(this._player, enemy)) {
-                    k = true;
+                    hasCollided = true;
                 }
             });
-            if (k) {
+            if (!hasCollided) {
                 this._player.lastValidPosition.x = this._player.x;
                 this._player.lastValidPosition.y = this._player.y;
             }
