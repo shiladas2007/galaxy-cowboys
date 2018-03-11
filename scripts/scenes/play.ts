@@ -6,7 +6,7 @@ module scenes {
 
         constructor(mapString:string) {
             super();
-            this._map = new objects.Map(this.assetManager, mapString);
+            this._map = new objects.Map(mapString);
         }
 
         public start():void {

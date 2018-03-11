@@ -25,8 +25,8 @@ module objects {
             return this.y + this.halfHeight;
         }
 
-        constructor(assetManager:createjs.LoadQueue, imageName:string, px:number, py:number) {
-            super(assetManager.getResult(imageName));
+        constructor(imageName:string, px:number, py:number) {
+            super(managers.Game.assetManager.getResult(imageName));
             this.name = imageName;
             this.x = px;
             this.y = py;

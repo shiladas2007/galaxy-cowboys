@@ -15,8 +15,8 @@ module animate {
             return managers.Game.BASE_MVSPD * this.mvspd;
         }
 
-        constructor(assetManager:createjs.LoadQueue, imageName:string, hp:number, mvspd:number=1, px:number, py:number) {
-            super(assetManager, imageName, px, py);
+        constructor(imageName:string, hp:number, mvspd:number=1, px:number, py:number) {
+            super(imageName, px, py);
             this.hp = hp;
             this.mvspd = mvspd;
             this.lastValidPosition = new math.Vec2(px, py);

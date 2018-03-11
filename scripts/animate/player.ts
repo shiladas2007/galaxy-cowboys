@@ -1,7 +1,7 @@
 module animate {
     export class Player extends Animate {
-        constructor(assetManager:createjs.LoadQueue, imageName:string, hp:number, mvspd:number=1, px:number, py:number) {
-            super(assetManager, imageName, hp, mvspd, px, py);
+        constructor(imageName:string, hp:number, mvspd:number=1, px:number, py:number) {
+            super(imageName, hp, mvspd, px, py);
         }
 
         public checkBounds():void {

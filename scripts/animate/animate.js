@@ -12,9 +12,9 @@ var animate;
 (function (animate) {
     var Animate = /** @class */ (function (_super) {
         __extends(Animate, _super);
-        function Animate(assetManager, imageName, hp, mvspd, px, py) {
+        function Animate(imageName, hp, mvspd, px, py) {
             if (mvspd === void 0) { mvspd = 1; }
-            var _this = _super.call(this, assetManager, imageName, px, py) || this;
+            var _this = _super.call(this, imageName, px, py) || this;
             _this.hp = hp;
             _this.mvspd = mvspd;
             _this.lastValidPosition = new math.Vec2(px, py);

@@ -12,9 +12,9 @@ var animate;
 (function (animate) {
     var Player = /** @class */ (function (_super) {
         __extends(Player, _super);
-        function Player(assetManager, imageName, hp, mvspd, px, py) {
+        function Player(imageName, hp, mvspd, px, py) {
             if (mvspd === void 0) { mvspd = 1; }
-            return _super.call(this, assetManager, imageName, hp, mvspd, px, py) || this;
+            return _super.call(this, imageName, hp, mvspd, px, py) || this;
         }
         Player.prototype.checkBounds = function () {
             // Checking vertical boundaries

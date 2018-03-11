@@ -5,8 +5,8 @@ module ui {
       // public properties
   
       // Constructor
-      constructor(assetManager: createjs.LoadQueue, imageString) {
-        super(assetManager.getResult(imageString));
+      constructor(imageString) {
+        super(managers.Game.assetManager.getResult(imageString));
         this.start();
       }
   

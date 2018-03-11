@@ -16,7 +16,7 @@ var animate;
         // Constructor
         //here we can add heath point as 1 and speed as 0 for not moving in level1 and level2
         // but for for level3 and level4, we have to mention speed
-        function Enemy(assetManager, enemyType, px, py) {
+        function Enemy(enemyType, px, py) {
             var _this = this;
             var enemyImg = "enemyGuard";
             var hp = 1;
@@ -32,7 +32,7 @@ var animate;
                     enemyImg = "enemyPatroller";
                     break;
             }
-            _this = _super.call(this, assetManager, enemyImg, hp, mvspd, px, py) || this;
+            _this = _super.call(this, enemyImg, hp, mvspd, px, py) || this;
             console.log("constructor of enemy");
             _this.hp = hp;
             _this.mvspd = mvspd;

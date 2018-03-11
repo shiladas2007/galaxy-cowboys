@@ -12,8 +12,8 @@ var objects;
 (function (objects) {
     var Projectile = /** @class */ (function (_super) {
         __extends(Projectile, _super);
-        function Projectile() {
-            return _super !== null && _super.apply(this, arguments) || this;
+        function Projectile(imageName, px, py) {
+            return _super.call(this, imageName, px, py) || this;
         }
         return Projectile;
     }(objects.GameObject));

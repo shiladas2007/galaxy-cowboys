@@ -14,7 +14,7 @@ var scenes;
         __extends(PlayScene, _super);
         function PlayScene(mapString) {
             var _this = _super.call(this) || this;
-            _this._map = new objects.Map(_this.assetManager, mapString);
+            _this._map = new objects.Map(mapString);
             return _this;
         }
         PlayScene.prototype.start = function () {

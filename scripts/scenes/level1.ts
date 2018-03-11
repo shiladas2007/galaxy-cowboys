@@ -11,17 +11,17 @@ module scenes {
         public start():void {
             console.log("Initializing enemies...");            
             this._enemies = [
-                new animate.Enemy(this.assetManager,config.Enemy.GUARD,100,50),
-                new animate.Enemy(this.assetManager,config.Enemy.WATCHER,220,180),
-                new animate.Enemy(this.assetManager,config.Enemy.PATROLLER,540,150)
+                new animate.Enemy(config.Enemy.GUARD,100,50),
+                new animate.Enemy(config.Enemy.WATCHER,220,180),
+                new animate.Enemy(config.Enemy.PATROLLER,540,150)
             ];
             console.log("Enemies initialized.");
 
             console.log("Initializing player...");
-            this._player = new animate.Player(this.assetManager, "cowboy1", 1, 1, 100, 420);
+            this._player = new animate.Player("cowboy1", 1, 1, 100, 420);
             console.log("Player initialized.");
 
-            this._controlsIntroduck = new ui.Image(this.assetManager, "controlsIntroduck", 120, 280);
+            this._controlsIntroduck = new ui.Image("controlsIntroduck", 120, 280);
 
             this.main();
         }

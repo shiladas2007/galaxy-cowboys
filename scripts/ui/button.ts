@@ -2,8 +2,8 @@ module ui {
     export class Button extends ui.Image {
         private _mouseOverAlpha: number;
 
-        constructor(assetManager:createjs.LoadQueue, imageString:string, x:number=0, y:number=0, mouseOverAlpha:number=1, isCentered=false) {
-            super(assetManager, imageString, x, y, isCentered);
+        constructor(imageString:string, x:number=0, y:number=0, mouseOverAlpha:number=1, isCentered=false) {
+            super(imageString, x, y, isCentered);
 
             this._mouseOverAlpha = mouseOverAlpha;
             
