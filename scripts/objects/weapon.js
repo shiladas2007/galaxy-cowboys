@@ -3,7 +3,6 @@ var objects;
     var Weapon = /** @class */ (function () {
         function Weapon(weaponType) {
             var fireRate; // Seconds to wait before firing again
-            var projectile;
             switch (weaponType) {
                 // Set fire rate and projectile based on weapon type:
                 case config.Weapon.REVOLVER:
@@ -14,7 +13,6 @@ var objects;
                     break;
             }
             this.fireRate = fireRate;
-            this.projectile = projectile;
         }
         return Weapon;
     }());

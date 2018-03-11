@@ -21,6 +21,16 @@ var math;
         Vec2.distance = function (pointA, pointB) {
             return Math.floor(Math.sqrt(Math.pow(pointB.x - pointA.x, 2) + Math.pow(pointB.y - pointA.y, 2)));
         };
+        // For calculating paths
+        Vec2.slope = function (pointA, pointB) {
+            return Vec2.rise(pointA, pointB) / Vec2.run(pointA, pointB);
+        };
+        Vec2.rise = function (pointA, pointB) {
+            return pointB.y - pointA.y;
+        };
+        Vec2.run = function (pointA, pointB) {
+            return pointB.x - pointA.x;
+        };
         return Vec2;
     }(createjs.Point));
     math.Vec2 = Vec2;
