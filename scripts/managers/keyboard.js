@@ -3,11 +3,20 @@ var managers;
     var Keyboard = /** @class */ (function () {
         // Constructors
         function Keyboard() {
+            this.paused = false;
             this.enabled = false;
             document.addEventListener("keydown", this.onKeyDown.bind(this), false);
             document.addEventListener("keyup", this.onKeyUp.bind(this), false);
         }
         // Private methods
+        Keyboard.prototype.togglePause = function () {
+            if (this.paused) {
+                this.paused = false;
+            }
+            else {
+                this.paused = true;
+            }
+        };
         // Public methods
         Keyboard.prototype.onKeyDown = function (event) {
             switch (event.key) {
@@ -26,6 +35,10 @@ var managers;
                 case config.Key.D:
                 case config.Key.ARROW_RIGHT:
                     this.moveRight = true;
+                    break;
+                case config.Key.ESCAPE:
+                    // TODO: check if play scene is active before toggling
+                    this.togglePause();
                     break;
             }
         };

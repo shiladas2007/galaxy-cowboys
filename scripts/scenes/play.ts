@@ -14,6 +14,10 @@ module scenes {
         }
 
         public update():number {
+            if (managers.Game.keyboardManager.paused) {
+                return managers.Game.currentScene;
+            }
+
             // TODO: centralize collision check
             this._player.isColliding = false;
             this._map.update();

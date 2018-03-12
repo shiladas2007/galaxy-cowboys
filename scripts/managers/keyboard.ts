@@ -8,7 +8,7 @@ module managers {
         public moveLeft: boolean;
         public moveRight: boolean;
         public enabled: boolean;
-        public paused: boolean;
+        public paused: boolean = false;
 
         // Constructors
         constructor() {
@@ -18,6 +18,13 @@ module managers {
         }
 
         // Private methods
+        private togglePause():void {
+            if (this.paused) {
+                this.paused = false; 
+            } else {
+                this.paused = true;
+            }
+        }
 
         // Public methods
         public onKeyDown(event:KeyboardEvent):void {
@@ -37,6 +44,10 @@ module managers {
                 case config.Key.D:
                 case config.Key.ARROW_RIGHT:
                     this.moveRight = true;
+                    break;
+                case config.Key.ESCAPE:
+                    // TODO: check if play scene is active before toggling
+                    this.togglePause();
                     break;
             }
         }

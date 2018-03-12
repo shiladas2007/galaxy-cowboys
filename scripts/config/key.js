@@ -12,6 +12,7 @@ var config;
         Key.ARROW_LEFT = "ArrowLeft";
         Key.ARROW_RIGHT = "ArrowRight";
         Key.SPACE = " ";
+        Key.ESCAPE = "Escape";
         return Key;
     }());
     config.Key = Key;

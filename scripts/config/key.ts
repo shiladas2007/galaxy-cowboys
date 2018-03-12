@@ -9,5 +9,6 @@ module config {
         public static ARROW_LEFT:string = "ArrowLeft";
         public static ARROW_RIGHT:string = "ArrowRight";
         public static SPACE:string = " ";
+        public static ESCAPE:string = "Escape";
     }
 }
