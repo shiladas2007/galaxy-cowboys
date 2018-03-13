@@ -51,6 +51,7 @@
     }
     function main():void {
         stage.removeAllChildren();
+        managers.Game.isPlaying = false;  // set to true when a PlayScene is initialized
         
         switch (managers.Game.currentScene) {
             case config.Scene.START:

@@ -15,6 +15,7 @@ var scenes;
         function PlayScene(mapString) {
             var _this = _super.call(this) || this;
             _this._map = new objects.Map(mapString);
+            managers.Game.isPlaying = true;
             return _this;
         }
         PlayScene.prototype.start = function () {

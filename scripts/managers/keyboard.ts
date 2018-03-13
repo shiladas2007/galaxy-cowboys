@@ -46,8 +46,9 @@ module managers {
                     this.moveRight = true;
                     break;
                 case config.Key.ESCAPE:
-                    // TODO: check if play scene is active before toggling
-                    this.togglePause();
+                    if (managers.Game.isPlaying) {
+                        this.togglePause();
+                    }
                     break;
             }
         }

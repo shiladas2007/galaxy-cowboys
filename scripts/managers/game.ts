@@ -4,6 +4,7 @@ module managers {
         public static assetManager: createjs.LoadQueue;
         public static currentScene: number;
         public static keyboardManager: managers.Keyboard;
+        public static isPlaying: boolean = false;
         
         public static readonly WIDTH = 640;
         public static readonly HEIGHT = 480;

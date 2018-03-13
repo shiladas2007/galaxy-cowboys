@@ -3,6 +3,7 @@ var managers;
     var Game = /** @class */ (function () {
         function Game() {
         }
+        Game.isPlaying = false;
         Game.WIDTH = 640;
         Game.HEIGHT = 480;
         Game.FPS = 60;

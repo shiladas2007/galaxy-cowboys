@@ -7,6 +7,7 @@ module scenes {
         constructor(mapString:string) {
             super();
             this._map = new objects.Map(mapString);
+            managers.Game.isPlaying = true;
         }
 
         public start():void {
