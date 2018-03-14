@@ -27,15 +27,22 @@ module scenes {
             this._player.update();
 
             if (this._projectiles.length) {
-                this._projectiles.forEach(projectile => {
+                let keepers: objects.Projectile[] = [];
+                this._projectiles.forEach((projectile, index) => {
                     projectile.update();
-                    if (this.y >= managers.Game.BOTTOM_BOUNDARY - projectile.halfHeight ||
-                        this.y <= managers.Game.TOP_BOUNDARY + projectile.halfHeight ||
-                        this.x >= managers.Game.RIGHT_BOUNDARY - projectile.halfWidth ||
-                        this.x <= managers.Game.LEFT_BOUNDARY + projectile.halfWidth) {
-                            
+
+                    // If off-screen, remove projectile
+                    if (projectile.y >= managers.Game.BOTTOM_BOUNDARY + projectile.halfHeight ||
+                        projectile.y <= managers.Game.TOP_BOUNDARY - projectile.halfHeight ||
+                        projectile.x >= managers.Game.RIGHT_BOUNDARY + projectile.halfWidth ||
+                        projectile.x <= managers.Game.LEFT_BOUNDARY - projectile.halfWidth) {
+                            this.removeChild(projectile);
                     }
-                })
+                    else {
+                        keepers.push(projectile);
+                    }
+                });
+                this._projectiles = keepers;
             }
             
             // Check for collisions

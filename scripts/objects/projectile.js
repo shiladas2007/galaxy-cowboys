@@ -13,7 +13,7 @@ var objects;
     var Projectile = /** @class */ (function (_super) {
         __extends(Projectile, _super);
         function Projectile(imageName, origin, destination, mvspd) {
-            if (mvspd === void 0) { mvspd = 1; }
+            if (mvspd === void 0) { mvspd = 2; }
             var _this = _super.call(this, imageName, origin.x, origin.y) || this;
             _this._origin = origin;
             _this._destination = destination;

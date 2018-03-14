@@ -3,7 +3,7 @@ module objects {
         private _origin: math.Vec2;
         private _destination: math.Vec2;
 
-        constructor(imageName:string, origin:math.Vec2, destination:math.Vec2, mvspd:number=1) {
+        constructor(imageName:string, origin:math.Vec2, destination:math.Vec2, mvspd:number=2) {
             super(imageName, origin.x, origin.y);
             this._origin = origin;
             this._destination = destination;
