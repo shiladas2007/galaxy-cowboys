@@ -25,8 +25,15 @@ module objects {
             c = Math.sqrt(Math.pow(run, 2) + Math.pow(rise, 2));
             divisor = c / this.movementAmount;
 
-            run /= divisor;
-            rise /= divisor;
+            run = Math.abs(run / divisor);
+            rise = Math.abs(rise / divisor);
+
+            if (this._destination.x < this._origin.x) {
+                run *= -1; // move left
+            }
+            if (this._destination.y < this._origin.y) {
+                rise *= -1; // move down
+            }
             
             newX = Math.round(this.x + run);
             newY = Math.round(this.y + rise);
