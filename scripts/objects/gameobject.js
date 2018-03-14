@@ -48,6 +48,23 @@ var objects;
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(GameObject.prototype, "mvspd", {
+            get: function () {
+                return this._mvspd;
+            },
+            set: function (mvspd) {
+                this._mvspd = mvspd;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(GameObject.prototype, "movementAmount", {
+            get: function () {
+                return managers.Game.BASE_MVSPD * this.mvspd;
+            },
+            enumerable: true,
+            configurable: true
+        });
         GameObject.prototype._initialize = function () {
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;

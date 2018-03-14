@@ -2,6 +2,7 @@ module objects {
     export abstract class GameObject extends createjs.Bitmap {
         protected _dy: number;
         protected _dx: number;
+        private _mvspd: number; // multiplier; 1 = 100%
 
         public width: number;
         public height: number;
@@ -23,6 +24,17 @@ module objects {
         }
         get bottomY():number {
             return this.y + this.halfHeight;
+        }
+
+        get mvspd():number {
+            return this._mvspd;
+        }
+        set mvspd(mvspd:number) {
+            this._mvspd = mvspd;
+        }
+
+        get movementAmount():number {
+            return managers.Game.BASE_MVSPD * this.mvspd;
         }
 
         constructor(imageName:string, px:number, py:number) {

@@ -20,24 +20,22 @@ var objects;
             _this.mvspd = mvspd;
             return _this;
         }
-        Object.defineProperty(Projectile.prototype, "mvspd", {
-            get: function () {
-                return this._mvspd;
-            },
-            set: function (mvspd) {
-                this._mvspd = mvspd;
-            },
-            enumerable: true,
-            configurable: true
-        });
         Projectile.prototype.update = function () {
             this.move();
         };
         Projectile.prototype.getNextPosition = function () {
             var newX;
             var newY;
-            newX = this.x + (math.Vec2.run(this._origin, this._destination) * this.mvspd);
-            newY = this.y + (math.Vec2.rise(this._origin, this._destination) * this.mvspd);
+            var run = math.Vec2.run(this._origin, this._destination);
+            var rise = math.Vec2.rise(this._origin, this._destination);
+            var c;
+            var divisor;
+            c = Math.sqrt(Math.pow(run, 2) + Math.pow(rise, 2));
+            divisor = c / this.movementAmount;
+            run /= divisor;
+            rise /= divisor;
+            newX = Math.round(this.x + run);
+            newY = Math.round(this.y + rise);
             return new math.Vec2(newX, newY);
         };
         Projectile.prototype.move = function () {
