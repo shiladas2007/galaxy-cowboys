@@ -26,24 +26,7 @@ module scenes {
             this._map.update();
             this._player.update();
 
-            if (this._projectiles.length) {
-                let keepers: objects.Projectile[] = [];
-                this._projectiles.forEach((projectile, index) => {
-                    projectile.update();
-
-                    // If off-screen, remove projectile
-                    if (projectile.y >= managers.Game.BOTTOM_BOUNDARY + projectile.halfHeight ||
-                        projectile.y <= managers.Game.TOP_BOUNDARY - projectile.halfHeight ||
-                        projectile.x >= managers.Game.RIGHT_BOUNDARY + projectile.halfWidth ||
-                        projectile.x <= managers.Game.LEFT_BOUNDARY - projectile.halfWidth) {
-                            this.removeChild(projectile);
-                    }
-                    else {
-                        keepers.push(projectile);
-                    }
-                });
-                this._projectiles = keepers;
-            }
+            this.updateProjectiles();
             
             // Check for collisions
             this._enemies.forEach(enemy => {
@@ -74,6 +57,27 @@ module scenes {
             let newProjectile = new objects.Projectile("bullet", playerPos, targetPos);
             this._projectiles.push(newProjectile);
             this.addChild(newProjectile);
+        }
+
+        private updateProjectiles() {
+            if (this._projectiles.length) {
+                let keepers: objects.Projectile[] = [];
+                this._projectiles.forEach((projectile, index) => {
+                    projectile.update();
+
+                    // If off-screen, remove projectile
+                    if (projectile.y >= managers.Game.BOTTOM_BOUNDARY + projectile.halfHeight ||
+                        projectile.y <= managers.Game.TOP_BOUNDARY - projectile.halfHeight ||
+                        projectile.x >= managers.Game.RIGHT_BOUNDARY + projectile.halfWidth ||
+                        projectile.x <= managers.Game.LEFT_BOUNDARY - projectile.halfWidth) {
+                            this.removeChild(projectile);
+                    }
+                    else {
+                        keepers.push(projectile);
+                    }
+                });
+                this._projectiles = keepers;
+            }
         }
     }
 }

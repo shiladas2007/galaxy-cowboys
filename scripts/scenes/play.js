@@ -31,23 +31,7 @@ var scenes;
             this._player.isColliding = false;
             this._map.update();
             this._player.update();
-            if (this._projectiles.length) {
-                var keepers_1 = [];
-                this._projectiles.forEach(function (projectile, index) {
-                    projectile.update();
-                    // If off-screen, remove projectile
-                    if (projectile.y >= managers.Game.BOTTOM_BOUNDARY + projectile.halfHeight ||
-                        projectile.y <= managers.Game.TOP_BOUNDARY - projectile.halfHeight ||
-                        projectile.x >= managers.Game.RIGHT_BOUNDARY + projectile.halfWidth ||
-                        projectile.x <= managers.Game.LEFT_BOUNDARY - projectile.halfWidth) {
-                        _this.removeChild(projectile);
-                    }
-                    else {
-                        keepers_1.push(projectile);
-                    }
-                });
-                this._projectiles = keepers_1;
-            }
+            this.updateProjectiles();
             // Check for collisions
             this._enemies.forEach(function (enemy) {
                 enemy.update();
@@ -75,6 +59,26 @@ var scenes;
             var newProjectile = new objects.Projectile("bullet", playerPos, targetPos);
             this._projectiles.push(newProjectile);
             this.addChild(newProjectile);
+        };
+        PlayScene.prototype.updateProjectiles = function () {
+            var _this = this;
+            if (this._projectiles.length) {
+                var keepers_1 = [];
+                this._projectiles.forEach(function (projectile, index) {
+                    projectile.update();
+                    // If off-screen, remove projectile
+                    if (projectile.y >= managers.Game.BOTTOM_BOUNDARY + projectile.halfHeight ||
+                        projectile.y <= managers.Game.TOP_BOUNDARY - projectile.halfHeight ||
+                        projectile.x >= managers.Game.RIGHT_BOUNDARY + projectile.halfWidth ||
+                        projectile.x <= managers.Game.LEFT_BOUNDARY - projectile.halfWidth) {
+                        _this.removeChild(projectile);
+                    }
+                    else {
+                        keepers_1.push(projectile);
+                    }
+                });
+                this._projectiles = keepers_1;
+            }
         };
         return PlayScene;
     }(objects.Scene));
