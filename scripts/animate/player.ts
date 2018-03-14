@@ -1,6 +1,18 @@
 module animate {
     export class Player extends Animate {
-        constructor(imageName:string, hp:number, mvspd:number=1, px:number, py:number) {
+        constructor(character:config.Character, px:number, py:number) {
+            let imageName: string = "cowboy1";
+            let hp: number = 1;
+            let mvspd: number;
+
+            switch (character) {
+                case config.Character.GUNSLINGER:
+                    mvspd = 1;
+                    break;
+                case config.Character.QUICKSILVER:
+                    mvspd = 1.5;
+                    break;
+            }
             super(imageName, hp, mvspd, px, py);
         }
 

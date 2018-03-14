@@ -14,8 +14,10 @@ var scenes;
         __extends(PlayScene, _super);
         function PlayScene(mapString) {
             var _this = _super.call(this) || this;
+            _this._projectiles = [];
             _this._map = new objects.Map(mapString);
             managers.Game.isPlaying = true;
+            _this.on("click", _this.onClick);
             return _this;
         }
         PlayScene.prototype.start = function () {
@@ -29,6 +31,16 @@ var scenes;
             this._player.isColliding = false;
             this._map.update();
             this._player.update();
+            if (this._projectiles.length) {
+                this._projectiles.forEach(function (projectile) {
+                    projectile.update();
+                    if (_this.y >= managers.Game.BOTTOM_BOUNDARY - projectile.halfHeight ||
+                        _this.y <= managers.Game.TOP_BOUNDARY + projectile.halfHeight ||
+                        _this.x >= managers.Game.RIGHT_BOUNDARY - projectile.halfWidth ||
+                        _this.x <= managers.Game.LEFT_BOUNDARY + projectile.halfWidth) {
+                    }
+                });
+            }
             // Check for collisions
             this._enemies.forEach(function (enemy) {
                 enemy.update();
@@ -49,6 +61,13 @@ var scenes;
                 _this.addChild(enemy);
             });
             this.addChild(this._player);
+        };
+        PlayScene.prototype.onClick = function () {
+            var playerPos = new math.Vec2(this._player.x, this._player.y);
+            var targetPos = new math.Vec2(managers.Game.stage.mouseX, managers.Game.stage.mouseY);
+            var newProjectile = new objects.Projectile("bullet", playerPos, targetPos);
+            this._projectiles.push(newProjectile);
+            this.addChild(newProjectile);
         };
         return PlayScene;
     }(objects.Scene));

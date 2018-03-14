@@ -27,7 +27,7 @@ var scenes;
             ];
             console.log("Enemies initialized.");
             console.log("Initializing player...");
-            this._player = new animate.Player("cowboy1", 1, 1, 100, 420);
+            this._player = new animate.Player(config.Character.GUNSLINGER, 100, 420);
             console.log("Player initialized.");
             this._controlsIntroduck = new ui.Image("controlsIntroduck", 120, 280);
             this.main();

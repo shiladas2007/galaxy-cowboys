@@ -18,6 +18,10 @@ module objects {
             this.mvspd = mvspd;
         }
 
+        public update() {
+            this.move();
+        }
+
         private getNextPosition():math.Vec2 {
             let newX: number;
             let newY: number;

@@ -12,9 +12,21 @@ var animate;
 (function (animate) {
     var Player = /** @class */ (function (_super) {
         __extends(Player, _super);
-        function Player(imageName, hp, mvspd, px, py) {
-            if (mvspd === void 0) { mvspd = 1; }
-            return _super.call(this, imageName, hp, mvspd, px, py) || this;
+        function Player(character, px, py) {
+            var _this = this;
+            var imageName = "cowboy1";
+            var hp = 1;
+            var mvspd;
+            switch (character) {
+                case config.Character.GUNSLINGER:
+                    mvspd = 1;
+                    break;
+                case config.Character.QUICKSILVER:
+                    mvspd = 1.5;
+                    break;
+            }
+            _this = _super.call(this, imageName, hp, mvspd, px, py) || this;
+            return _this;
         }
         Player.prototype.checkBounds = function () {
             // Checking vertical boundaries

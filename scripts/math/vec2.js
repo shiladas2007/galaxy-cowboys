@@ -17,19 +17,29 @@ var math;
             if (y === void 0) { y = 0; }
             return _super.call(this, x, y) || this;
         }
+        Vec2.getGcd = function (x, y) {
+            return y ? math.Vec2.getGcd(y, x % y) : x;
+        };
+        // Adapted from https://stackoverflow.com/a/4652513
+        Vec2.reduce = function (numerator, denominator) {
+            var gcd = math.Vec2.getGcd(numerator, denominator);
+            return [numerator / gcd, denominator / gcd];
+        };
         // Get distance between two Vec2 objects
         Vec2.distance = function (pointA, pointB) {
             return Math.floor(Math.sqrt(Math.pow(pointB.x - pointA.x, 2) + Math.pow(pointB.y - pointA.y, 2)));
         };
         // For calculating paths
         Vec2.slope = function (pointA, pointB) {
-            return Vec2.rise(pointA, pointB) / Vec2.run(pointA, pointB);
+            return math.Vec2.reduce(pointB.y - pointA.y, pointB.x - pointA.x);
         };
         Vec2.rise = function (pointA, pointB) {
-            return pointB.y - pointA.y;
+            var y = math.Vec2.slope(pointA, pointB)[0];
+            return y;
         };
         Vec2.run = function (pointA, pointB) {
-            return pointB.x - pointA.x;
+            var x = math.Vec2.slope(pointA, pointB)[1];
+            return x;
         };
         return Vec2;
     }(createjs.Point));

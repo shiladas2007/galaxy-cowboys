@@ -30,6 +30,9 @@ var objects;
             enumerable: true,
             configurable: true
         });
+        Projectile.prototype.update = function () {
+            this.move();
+        };
         Projectile.prototype.getNextPosition = function () {
             var newX;
             var newY;
