@@ -7,6 +7,8 @@ module managers {
         public moveBackward: boolean;
         public moveLeft: boolean;
         public moveRight: boolean;
+        public nextTutorial: boolean;
+        public closeTutorial: boolean;
         public enabled: boolean;
         public paused: boolean = false;
 
@@ -18,16 +20,16 @@ module managers {
         }
 
         // Private methods
-        private togglePause():void {
+        private togglePause(): void {
             if (this.paused) {
-                this.paused = false; 
+                this.paused = false;
             } else {
                 this.paused = true;
             }
         }
 
         // Public methods
-        public onKeyDown(event:KeyboardEvent):void {
+        public onKeyDown(event: KeyboardEvent): void {
             switch (event.key) {
                 case config.Key.W:
                 case config.Key.ARROW_UP:
@@ -45,6 +47,12 @@ module managers {
                 case config.Key.ARROW_RIGHT:
                     this.moveRight = true;
                     break;
+                case config.Key.N:
+                    this.nextTutorial = true;
+                    break;
+                case config.Key.C:
+                    this.closeTutorial = true;
+                    break;
                 case config.Key.ESCAPE:
                     if (managers.Game.isPlaying) {
                         this.togglePause();
@@ -53,7 +61,7 @@ module managers {
             }
         }
 
-        public onKeyUp(event:KeyboardEvent):void {
+        public onKeyUp(event: KeyboardEvent): void {
             switch (event.key) {
                 case config.Key.W:
                 case config.Key.ARROW_UP:
@@ -70,6 +78,12 @@ module managers {
                 case config.Key.D:
                 case config.Key.ARROW_RIGHT:
                     this.moveRight = false;
+                    break;
+                case config.Key.N:
+                    this.nextTutorial = false;
+                    break;
+                case config.Key.C:
+                    this.closeTutorial = false;
                     break;
             }
         }
