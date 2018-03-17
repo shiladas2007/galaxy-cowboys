@@ -2,6 +2,10 @@ module animate {
     export abstract class Animate extends objects.GameObject {
         public hp: number;
 
+        get movementAmount():number {
+            return managers.Game.BASE_MVSPD * this.mvspd;
+        }
+
         constructor(imageName:string, hp:number, mvspd:number=1, px:number, py:number) {
             super(imageName, px, py);
             this.hp = hp;
