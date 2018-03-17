@@ -46,5 +46,11 @@ module objects {
             this.x = newPosition.x;
             this.y = newPosition.y;
         }
+
+        public collide(other:objects.GameObject) {
+            if (other instanceof animate.Animate) {
+                other.hp -= 1; // TODO: Decrease according to damage
+            }
+        }
     }
 }
