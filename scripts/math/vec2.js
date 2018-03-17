@@ -34,12 +34,10 @@ var math;
             return math.Vec2.reduce(pointB.y - pointA.y, pointB.x - pointA.x);
         };
         Vec2.rise = function (pointA, pointB) {
-            var y = math.Vec2.slope(pointA, pointB)[0];
-            return y;
+            return pointB.y - pointA.y;
         };
         Vec2.run = function (pointA, pointB) {
-            var x = math.Vec2.slope(pointA, pointB)[1];
-            return x;
+            return pointB.x - pointA.x;
         };
         return Vec2;
     }(createjs.Point));

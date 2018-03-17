@@ -9,8 +9,9 @@ var managers;
             // Check for collision
             if (math.Vec2.distance(pointA, pointB) < (object1.halfHeight + object2.halfHeight)) {
                 object1.collide(object2);
+                object2.collide(object1);
                 if (!object2.isColliding) {
-                    console.log("Collision with" + object2.name);
+                    console.log("Collision with " + object2.name);
                     object2.isColliding = true;
                     return true;
                 }

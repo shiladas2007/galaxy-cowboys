@@ -25,8 +25,6 @@ module scenes {
             this._player.isColliding = false;
             this._map.update();
             this._player.update();
-
-            this.updateProjectiles();
             
             // Check for collisions
             this._enemies.forEach(enemy => {
@@ -34,11 +32,21 @@ module scenes {
                 if (managers.Collision.check(this._player, enemy)) {
                     this._player.isColliding = true;
                 }
+
+                this._projectiles.forEach(projectile => {
+                    if (managers.Collision.check(enemy, projectile)) {
+                        this.removeChild(projectile);
+                    }
+                });
             });
+
+            this.updateProjectiles();
+
             if (!this._player.isColliding) {
                 this._player.lastValidPosition.x = this._player.x;
                 this._player.lastValidPosition.y = this._player.y;
             }
+
 
             return managers.Game.currentScene;
         }
@@ -62,7 +70,7 @@ module scenes {
         private updateProjectiles() {
             if (this._projectiles.length) {
                 let keepers: objects.Projectile[] = [];
-                this._projectiles.forEach((projectile, index) => {
+                this._projectiles.forEach(projectile => {
                     projectile.update();
 
                     // If off-screen, remove projectile
@@ -71,8 +79,7 @@ module scenes {
                         projectile.x >= managers.Game.RIGHT_BOUNDARY + projectile.halfWidth ||
                         projectile.x <= managers.Game.LEFT_BOUNDARY - projectile.halfWidth) {
                             this.removeChild(projectile);
-                    }
-                    else {
+                    } else {
                         keepers.push(projectile);
                     }
                 });

@@ -20,23 +20,6 @@ var animate;
             _this.lastValidPosition = new math.Vec2(px, py);
             return _this;
         }
-        Object.defineProperty(Animate.prototype, "mvspd", {
-            get: function () {
-                return this._mvspd;
-            },
-            set: function (mvspd) {
-                this._mvspd = mvspd;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(Animate.prototype, "movementAmount", {
-            get: function () {
-                return managers.Game.BASE_MVSPD * this.mvspd;
-            },
-            enumerable: true,
-            configurable: true
-        });
         Animate.prototype.reset = function () { };
         Animate.prototype.checkBounds = function (other) {
             if (other === void 0) { other = null; }

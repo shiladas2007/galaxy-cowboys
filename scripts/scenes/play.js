@@ -31,14 +31,19 @@ var scenes;
             this._player.isColliding = false;
             this._map.update();
             this._player.update();
-            this.updateProjectiles();
             // Check for collisions
             this._enemies.forEach(function (enemy) {
                 enemy.update();
                 if (managers.Collision.check(_this._player, enemy)) {
                     _this._player.isColliding = true;
                 }
+                _this._projectiles.forEach(function (projectile) {
+                    if (managers.Collision.check(enemy, projectile)) {
+                        _this.removeChild(projectile);
+                    }
+                });
             });
+            this.updateProjectiles();
             if (!this._player.isColliding) {
                 this._player.lastValidPosition.x = this._player.x;
                 this._player.lastValidPosition.y = this._player.y;
@@ -64,7 +69,7 @@ var scenes;
             var _this = this;
             if (this._projectiles.length) {
                 var keepers_1 = [];
-                this._projectiles.forEach(function (projectile, index) {
+                this._projectiles.forEach(function (projectile) {
                     projectile.update();
                     // If off-screen, remove projectile
                     if (projectile.y >= managers.Game.BOTTOM_BOUNDARY + projectile.halfHeight ||

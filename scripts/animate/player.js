@@ -68,7 +68,7 @@ var animate;
                 this.hp -= 1;
             }
             if (this.hp <= 0) {
-                //managers.Game.currentScene = config.Scene.GAMEOVER;
+                managers.Game.currentScene = config.Scene.GAMEOVER;
             }
         };
         Player.prototype.attack = function () {

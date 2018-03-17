@@ -25,13 +25,11 @@ module math {
         }
 
         public static rise(pointA:Vec2, pointB:Vec2):number {
-            let y = math.Vec2.slope(pointA, pointB)[0];
-            return y;
+            return pointB.y - pointA.y;
         }
 
         public static run(pointA:Vec2, pointB:Vec2):number {
-            let x = math.Vec2.slope(pointA, pointB)[1];
-            return x;
+            return pointB.x - pointA.x;
         }
     }
 }
