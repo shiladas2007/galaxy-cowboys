@@ -36,6 +36,12 @@ var managers;
                 case config.Key.ARROW_RIGHT:
                     this.moveRight = true;
                     break;
+                case config.Key.N:
+                    this.nextTutorial = true;
+                    break;
+                case config.Key.C:
+                    this.closeTutorial = true;
+                    break;
                 case config.Key.ESCAPE:
                     if (managers.Game.isPlaying) {
                         this.togglePause();
@@ -60,6 +66,12 @@ var managers;
                 case config.Key.D:
                 case config.Key.ARROW_RIGHT:
                     this.moveRight = false;
+                    break;
+                case config.Key.N:
+                    this.nextTutorial = false;
+                    break;
+                case config.Key.C:
+                    this.closeTutorial = false;
                     break;
             }
         };

@@ -7,6 +7,8 @@ var config;
         Key.S = "s";
         Key.A = "a";
         Key.D = "d";
+        Key.N = "n";
+        Key.C = "c";
         Key.ARROW_UP = "ArrowUp";
         Key.ARROW_DOWN = "ArrowDown";
         Key.ARROW_LEFT = "ArrowLeft";

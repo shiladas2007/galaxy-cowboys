@@ -20,17 +20,13 @@ var animate;
             _this.lastValidPosition = new math.Vec2(px, py);
             return _this;
         }
-        Object.defineProperty(Animate.prototype, "mvspd", {
-            get: function () {
-                return this._mvspd;
-            },
-            set: function (mvspd) {
-                this._mvspd = mvspd;
-            },
-            enumerable: true,
-            configurable: true
-        });
         Object.defineProperty(Animate.prototype, "movementAmount", {
+            /*get mvspd():number {
+                return this._mvspd;
+            }
+            set mvspd(mvspd:number) {
+                this._mvspd = mvspd;
+            }*/
             get: function () {
                 return managers.Game.BASE_MVSPD * this.mvspd;
             },
