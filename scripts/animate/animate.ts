@@ -1,15 +1,15 @@
 module animate {
     export abstract class Animate extends objects.GameObject {
-        private _mvspd: number; // multiplier; 1 = 100%
+       // private _mvspd: number; // multiplier; 1 = 100%
 
         public hp: number;
         
-        get mvspd():number {
+        /*get mvspd():number {
             return this._mvspd;
         }
         set mvspd(mvspd:number) {
             this._mvspd = mvspd;
-        }
+        }*/
 
         get movementAmount():number {
             return managers.Game.BASE_MVSPD * this.mvspd;
