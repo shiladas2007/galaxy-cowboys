@@ -60,11 +60,16 @@ var scenes;
                 if (managers.Collision.check(_this._player, enemy)) {
                     _this._player.isColliding = true;
                 }
+                var pKeepers = [];
                 _this._projectiles.forEach(function (projectile) {
                     if (managers.Collision.check(enemy, projectile)) {
                         _this.removeChild(projectile);
                     }
+                    else {
+                        pKeepers.push(projectile);
+                    }
                 });
+                _this._projectiles = pKeepers;
                 if (enemy.hp <= 0) {
                     _this.removeChild(enemy);
                 }

@@ -1,6 +1,6 @@
 module scenes {
     export class Level2 extends scenes.PlayScene {
-        protected _tooltip:ui.Tooltip;
+        private _tooltip:ui.Tooltip;
 
         constructor() {
             super("mapLevel2");
@@ -10,8 +10,8 @@ module scenes {
         public start():void {
             console.log("Initializing enemies...");            
             this._enemies = [
-                new animate.Enemy(config.Enemy.GUARD,310,40),
-                new animate.Enemy(config.Enemy.WATCHER,260,120),
+                new animate.Enemy(config.Enemy.GUARD,150,100),
+                new animate.Enemy(config.Enemy.WATCHER,220,160),
                 new animate.Enemy(config.Enemy.PATROLLER,560,190)
             ];
             console.log("Enemies initialized.");
@@ -30,7 +30,7 @@ module scenes {
             if (managers.Game.keyboardManager.nextTutorial)
             {               
                 this.removeChild(this._tooltip);
-                this._tooltip = new ui.Tooltip("tooltipBg",430,370,"Use Left-click to shoot. Press 'c' for closing this tutorial",false);
+                //this._tooltip = new ui.Tooltip("tooltipBg",430,370,"Use Left-click to shoot. Press 'c' for closing this tutorial",false);
                 this.addChild(this._tooltip);
             }
             if (managers.Game.keyboardManager.closeTutorial)
@@ -39,7 +39,7 @@ module scenes {
             }
 
             if (!this._enemies.length) {
-                managers.Game.currentScene = config.Scene.LEVEL2;
+                //managers.Game.currentScene = config.Scene.LEVEL2;
             }
 
             return managers.Game.currentScene;
@@ -47,8 +47,8 @@ module scenes {
 
         public main():void {
             super.main();
-            this._tooltip = new ui.Tooltip("tooltipBg", 430, 370, "Use WASD and arrow keys to move. Press 'n' for next tutorial. Or 'c' for closing this tutorial.");                    
-            this.addChild(this._tooltip);
+            //this._tooltip = new ui.Tooltip("tooltipBg", 430, 370, "Use WASD and arrow keys to move. Press 'n' for next tutorial. Or 'c' for closing this tutorial.");                    
+            //this.addChild(this._tooltip);
         }
     }
 }

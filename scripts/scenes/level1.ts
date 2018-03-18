@@ -2,7 +2,7 @@ module scenes {
     export class Level1 extends scenes.PlayScene {
         private _controlsIntroduck: ui.Image;
         private _hasPlayerMoved: boolean = false;
-        protected _tooltip:ui.Tooltip;
+        private _tooltip:ui.Tooltip;
 
         constructor() {
             super("mapLevel1");

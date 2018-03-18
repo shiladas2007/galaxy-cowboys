@@ -31,7 +31,6 @@ module scenes {
                 this._player.lastValidPosition.y = this._player.y;
             }
 
-
             return managers.Game.currentScene;
         }
 
@@ -60,11 +59,15 @@ module scenes {
                     this._player.isColliding = true;
                 }
 
+                let pKeepers: objects.Projectile[] = [];
                 this._projectiles.forEach(projectile => {
                     if (managers.Collision.check(enemy, projectile)) {
                         this.removeChild(projectile);
+                    } else {
+                        pKeepers.push(projectile);
                     }
                 });
+                this._projectiles = pKeepers;
 
                 if (enemy.hp <= 0) {
                     this.removeChild(enemy);
