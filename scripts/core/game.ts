@@ -14,6 +14,7 @@
         {id: "background", src:"./assets/images/background.png"},
         {id: "gameover", src:"./assets/images/gameover.png"},
         {id: "mapLevel1", src:"./assets/images/mapLevel1.png"},
+        {id: "mapLevel2", src:"./assets/images/mapLevel2.png"},
         {id: "enemyGuard", src:"./assets/images/enemyGuard.png"},
         {id: "enemyWatcher", src:"./assets/images/enemyWatcher.png"},
         {id: "enemyPatroller", src:"./assets/images/enemyPatroller.png"},
