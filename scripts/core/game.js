@@ -23,7 +23,8 @@
         { id: "bullet", src: "./assets/images/bombSmall.png" },
         { id: "close", src: "./assets/images/close.png" },
         { id: "next", src: "./assets/images/next.png" },
-        { id: "tooltipBg", src: "./assets/images/tooltipBg.png" }
+        { id: "tooltipBg", src: "./assets/images/tooltipBg.png" },
+        { id: "shot", src: "./Assets/audio/Shoot.wav" }
     ];
     function init() {
         console.log("Initializing...");

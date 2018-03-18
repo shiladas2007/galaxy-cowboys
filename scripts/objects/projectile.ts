@@ -8,6 +8,7 @@ module objects {
             this._origin = origin;
             this._destination = destination;
             this.mvspd = mvspd;
+            createjs.Sound.play("shot");
         }
 
         public update() {

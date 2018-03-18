@@ -18,6 +18,7 @@ var objects;
             _this._origin = origin;
             _this._destination = destination;
             _this.mvspd = mvspd;
+            createjs.Sound.play("shot");
             return _this;
         }
         Projectile.prototype.update = function () {
