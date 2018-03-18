@@ -64,6 +64,9 @@
             case config.Scene.LEVEL1:
                 currentScene = new scenes.Level1();
                 break;
+            case config.Scene.LEVEL2:
+                currentScene = new scenes.Level2();
+                break;
             case config.Scene.GAMEOVER:
                 currentScene = new scenes.GameOverScene();
                 break;

@@ -10,15 +10,14 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var scenes;
 (function (scenes) {
-    var Level1 = /** @class */ (function (_super) {
-        __extends(Level1, _super);
-        function Level1() {
-            var _this = _super.call(this, "mapLevel1") || this;
-            _this._hasPlayerMoved = false;
+    var Level2 = /** @class */ (function (_super) {
+        __extends(Level2, _super);
+        function Level2() {
+            var _this = _super.call(this, "mapLevel2") || this;
             _this.start();
             return _this;
         }
-        Level1.prototype.start = function () {
+        Level2.prototype.start = function () {
             console.log("Initializing enemies...");
             this._enemies = [
                 new animate.Enemy(config.Enemy.GUARD, 310, 40),
@@ -29,19 +28,10 @@ var scenes;
             console.log("Initializing player...");
             this._player = new animate.Player(config.Character.GUNSLINGER, 100, 420);
             console.log("Player initialized.");
-            this._controlsIntroduck = new ui.Image("controlsIntroduck", 120, 280);
             this.main();
         };
-        Level1.prototype.update = function () {
+        Level2.prototype.update = function () {
             _super.prototype.update.call(this);
-            // Make controls intro bubble disappear when player moves
-            if (!this._hasPlayerMoved) {
-                if (managers.Game.keyboardManager.moveForward || managers.Game.keyboardManager.moveBackward
-                    || managers.Game.keyboardManager.moveLeft || managers.Game.keyboardManager.moveRight) {
-                    this._hasPlayerMoved = true;
-                    this.removeChild(this._controlsIntroduck);
-                }
-            }
             // Manage tooltip
             if (managers.Game.keyboardManager.nextTutorial) {
                 this.removeChild(this._tooltip);
@@ -56,14 +46,13 @@ var scenes;
             }
             return managers.Game.currentScene;
         };
-        Level1.prototype.main = function () {
+        Level2.prototype.main = function () {
             _super.prototype.main.call(this);
-            this.addChild(this._controlsIntroduck);
             this._tooltip = new ui.Tooltip("tooltipBg", 430, 370, "Use WASD and arrow keys to move. Press 'n' for next tutorial. Or 'c' for closing this tutorial.");
             this.addChild(this._tooltip);
         };
-        return Level1;
+        return Level2;
     }(scenes.PlayScene));
-    scenes.Level1 = Level1;
+    scenes.Level2 = Level2;
 })(scenes || (scenes = {}));
-//# sourceMappingURL=level1.js.map
+//# sourceMappingURL=level2.js.map
