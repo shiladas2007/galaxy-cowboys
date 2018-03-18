@@ -12,10 +12,6 @@ module scenes {
             this.on("click", this.onClick);
         }
 
-        public start():void {
-            
-        }
-
         public update():number {
             if (managers.Game.keyboardManager.paused) {
                 return managers.Game.currentScene;
@@ -27,20 +23,8 @@ module scenes {
             this._player.update();
             
             // Check for collisions
-            this._enemies.forEach(enemy => {
-                enemy.update();
-                if (managers.Collision.check(this._player, enemy)) {
-                    this._player.isColliding = true;
-                }
-
-                this._projectiles.forEach(projectile => {
-                    if (managers.Collision.check(enemy, projectile)) {
-                        this.removeChild(projectile);
-                    }
-                });
-            });
-
-            this.updateProjectiles();
+            this._updateEnemies();
+            this._updateProjectiles();
 
             if (!this._player.isColliding) {
                 this._player.lastValidPosition.x = this._player.x;
@@ -67,7 +51,22 @@ module scenes {
             this.addChild(newProjectile);
         }
 
-        private updateProjectiles() {
+        private _updateEnemies() {
+            this._enemies.forEach(enemy => {
+                enemy.update();
+                if (managers.Collision.check(this._player, enemy)) {
+                    this._player.isColliding = true;
+                }
+
+                this._projectiles.forEach(projectile => {
+                    if (managers.Collision.check(enemy, projectile)) {
+                        this.removeChild(projectile);
+                    }
+                });
+            });
+        }
+
+        private _updateProjectiles() {
             if (this._projectiles.length) {
                 let keepers: objects.Projectile[] = [];
                 this._projectiles.forEach(projectile => {

@@ -20,10 +20,7 @@ var scenes;
             _this.on("click", _this.onClick);
             return _this;
         }
-        PlayScene.prototype.start = function () {
-        };
         PlayScene.prototype.update = function () {
-            var _this = this;
             if (managers.Game.keyboardManager.paused) {
                 return managers.Game.currentScene;
             }
@@ -32,18 +29,8 @@ var scenes;
             this._map.update();
             this._player.update();
             // Check for collisions
-            this._enemies.forEach(function (enemy) {
-                enemy.update();
-                if (managers.Collision.check(_this._player, enemy)) {
-                    _this._player.isColliding = true;
-                }
-                _this._projectiles.forEach(function (projectile) {
-                    if (managers.Collision.check(enemy, projectile)) {
-                        _this.removeChild(projectile);
-                    }
-                });
-            });
-            this.updateProjectiles();
+            this._updateEnemies();
+            this._updateProjectiles();
             if (!this._player.isColliding) {
                 this._player.lastValidPosition.x = this._player.x;
                 this._player.lastValidPosition.y = this._player.y;
@@ -65,7 +52,21 @@ var scenes;
             this._projectiles.push(newProjectile);
             this.addChild(newProjectile);
         };
-        PlayScene.prototype.updateProjectiles = function () {
+        PlayScene.prototype._updateEnemies = function () {
+            var _this = this;
+            this._enemies.forEach(function (enemy) {
+                enemy.update();
+                if (managers.Collision.check(_this._player, enemy)) {
+                    _this._player.isColliding = true;
+                }
+                _this._projectiles.forEach(function (projectile) {
+                    if (managers.Collision.check(enemy, projectile)) {
+                        _this.removeChild(projectile);
+                    }
+                });
+            });
+        };
+        PlayScene.prototype._updateProjectiles = function () {
             var _this = this;
             if (this._projectiles.length) {
                 var keepers_1 = [];
