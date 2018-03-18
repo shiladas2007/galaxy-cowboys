@@ -54,6 +54,7 @@ var scenes;
         };
         PlayScene.prototype._updateEnemies = function () {
             var _this = this;
+            var keepers = [];
             this._enemies.forEach(function (enemy) {
                 enemy.update();
                 if (managers.Collision.check(_this._player, enemy)) {
@@ -64,7 +65,14 @@ var scenes;
                         _this.removeChild(projectile);
                     }
                 });
+                if (enemy.hp <= 0) {
+                    _this.removeChild(enemy);
+                }
+                else {
+                    keepers.push(enemy);
+                }
             });
+            this._enemies = keepers;
         };
         PlayScene.prototype._updateProjectiles = function () {
             var _this = this;

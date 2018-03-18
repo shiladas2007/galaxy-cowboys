@@ -52,6 +52,8 @@ module scenes {
         }
 
         private _updateEnemies() {
+            let keepers: animate.Enemy[] = [];
+
             this._enemies.forEach(enemy => {
                 enemy.update();
                 if (managers.Collision.check(this._player, enemy)) {
@@ -63,7 +65,15 @@ module scenes {
                         this.removeChild(projectile);
                     }
                 });
+
+                if (enemy.hp <= 0) {
+                    this.removeChild(enemy);
+                } else {
+                    keepers.push(enemy);
+                }
             });
+
+            this._enemies = keepers;
         }
 
         private _updateProjectiles() {
