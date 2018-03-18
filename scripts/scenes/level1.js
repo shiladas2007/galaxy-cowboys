@@ -42,6 +42,7 @@ var scenes;
                     this.removeChild(this._controlsIntroduck);
                 }
             }
+            // Manage tooltip
             if (managers.Game.keyboardManager.nextTutorial) {
                 this.removeChild(this._tooltip);
                 this._tooltip = new ui.Tooltip("tooltipBg", 430, 370, "Use Left-click to shoot. Press 'c' for closing this tutorial", false);

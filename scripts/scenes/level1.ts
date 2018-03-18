@@ -36,26 +36,28 @@ module scenes {
                     || managers.Game.keyboardManager.moveLeft || managers.Game.keyboardManager.moveRight) {
                     this._hasPlayerMoved = true;
                     this.removeChild(this._controlsIntroduck);
-                   
                 }
             }
+
+            // Manage tooltip
             if(managers.Game.keyboardManager.nextTutorial)
             {               
-             this.removeChild(this._tooltip);
-             this._tooltip=new ui.Tooltip("tooltipBg",430,370,"Use Left-click to shoot. Press 'c' for closing this tutorial",false);
-             this.addChild(this._tooltip);
+                this.removeChild(this._tooltip);
+                this._tooltip = new ui.Tooltip("tooltipBg",430,370,"Use Left-click to shoot. Press 'c' for closing this tutorial",false);
+                this.addChild(this._tooltip);
             }
             if(managers.Game.keyboardManager.closeTutorial)
             {               
-             this.removeChild(this._tooltip);
+                this.removeChild(this._tooltip);
             }
+
             return managers.Game.currentScene;
         }
 
         public main():void {
             super.main();
             this.addChild(this._controlsIntroduck);
-            this._tooltip = new ui.Tooltip("tooltipBg",430,370,"Use WASD and arrow keys to move. Press 'n' for next tutorial. Or 'c' for closing this tutorial.");                    
+            this._tooltip = new ui.Tooltip("tooltipBg", 430, 370, "Use WASD and arrow keys to move. Press 'n' for next tutorial. Or 'c' for closing this tutorial.");                    
             this.addChild(this._tooltip);
         }
     }

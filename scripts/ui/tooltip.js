@@ -25,12 +25,13 @@ var ui;
             return _this;
         }
         Tooltip.prototype.start = function () {
-            this._tooltipLabel = new ui.Label(this._msg, "14px", "SportingGrotesque", "#000000");
+            this._tooltipLabel = new ui.Label(this._msg, "12px", "Sporting Grotesque", "#000000");
             this._tooltipLabel.lineWidth = 170;
             this._bgImg = new ui.Image("tooltipBg");
             this._nextButton = new ui.Button("next", 100, 75);
-            if (!this._needNextButton)
+            if (!this._needNextButton) {
                 this._nextButton.visible = false;
+            }
             this._closeButton = new ui.Button("close", 165, 0);
             this.main();
         };
