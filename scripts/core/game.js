@@ -24,7 +24,8 @@
         { id: "close", src: "./assets/images/close.png" },
         { id: "next", src: "./assets/images/next.png" },
         { id: "tooltipBg", src: "./assets/images/tooltipBg.png" },
-        { id: "shot", src: "./Assets/audio/Shoot.wav" }
+        { id: "shot", src: "./Assets/audio/Shoot.wav" },
+        { id: "dying", src: "./Assets/audio/dying.wav" }
     ];
     function init() {
         console.log("Initializing...");

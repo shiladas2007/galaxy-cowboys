@@ -12,6 +12,7 @@ var managers;
                 object2.collide(object1);
                 if (!object2.isColliding) {
                     console.log("Collision with " + object2.name);
+                    createjs.Sound.play("dying");
                     object2.isColliding = true;
                     return true;
                 }
