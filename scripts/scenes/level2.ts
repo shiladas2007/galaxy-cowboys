@@ -10,9 +10,9 @@ module scenes {
         public start():void {
             console.log("Initializing enemies...");            
             this._enemies = [
-                new animate.Enemy(config.Enemy.GUARD,150,100),
-                new animate.Enemy(config.Enemy.WATCHER,220,160),
-                new animate.Enemy(config.Enemy.PATROLLER,560,190)
+                new animate.Enemy(config.Enemy.GUARD,120,140),
+                new animate.Enemy(config.Enemy.WATCHER,320,340),
+                new animate.Enemy(config.Enemy.PATROLLER,500,100)
             ];
             console.log("Enemies initialized.");
 
