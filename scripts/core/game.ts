@@ -9,6 +9,30 @@
     let clickMeButton: ui.Button;
     let currentState: number;
     let keyboardManager: managers.Keyboard;
+    let textureAtlasData: any;
+    let textureAtlas: createjs.SpriteSheet;
+    textureAtlasData = {
+
+        "images": [
+            "./assets/sprites/texture.png"
+            //"./Assets/sprites/textureAtlas.png"
+        ],
+    
+        "frames": [
+            [0, 0, 32, 32, 0, 0, 0],
+            [32, 0, 32, 32, 0, 0, 0],
+            [64, 0, 32, 32, 0, 0, 0],
+            [96, 0, 32, 32, 0, 0, 0],
+            [128, 0, 32, 32, 0, 0, 0],
+            [160, 0, 32, 32, 0, 0, 0]
+      ],
+    
+      "animations": {
+        "smallexplosion": { "frames": [0,1,2,3,4,5], "speed": 0.16 }
+    }
+    
+        };
+    
     assetManifest = [
         {id: "startButton", src:"./assets/images/startButton.png"},
         {id: "startButton2", src:"./assets/images/startButton2.png"},
@@ -38,6 +62,8 @@
     }
     function start():void {
         console.log("Starting application...");
+        //textureAtlasData.images = [ assetManager.getResult("textureAtlas") ];
+        textureAtlas = new createjs.SpriteSheet(textureAtlasData);
         stage = new createjs.Stage(canvas);
         stage.enableMouseOver(20);
         createjs.Ticker.framerate = 60;
@@ -45,7 +71,7 @@
         managers.Game.stage = stage;
         managers.Game.currentScene = config.Scene.START;
         managers.Game.assetManager = assetManager;
-        
+        managers.Game.textureAtlas = textureAtlas;
         keyboardManager = new managers.Keyboard();
         managers.Game.keyboardManager = keyboardManager;
         main();

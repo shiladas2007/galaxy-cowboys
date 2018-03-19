@@ -1,0 +1,27 @@
+{
+
+"images": [
+    "texture.png"
+],
+
+
+"frames": [
+    [0, 0, 32, 32, 0, 0, 0],
+    [32, 0, 32, 32, 0, 0, 0],
+    [64, 0, 32, 32, 0, 0, 0],
+    [96, 0, 32, 32, 0, 0, 0],
+    [128, 0, 32, 32, 0, 0, 0],
+    [160, 0, 32, 32, 0, 0, 0]
+],
+
+"animations": {
+    "smallexplosion": { "frames": [0,1,2,3,4,5], "speed": 0.16 }
+    
+},
+
+"texturepacker": [
+        "SmartUpdateHash: $TexturePacker:SmartUpdate:65c1dc4c488cbc0877a9dd21f08c2387:da1deb03759a1a0daa44f4499a700030:658dc78be165e93e229d48c461815c7c$",
+        "Created with TexturePacker (https://www.codeandweb.com/texturepacker) for EaselJS"
+]
+
+}

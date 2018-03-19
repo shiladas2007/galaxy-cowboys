@@ -5,6 +5,7 @@ module managers {
         public static currentScene: number;
         public static currentSceneObject: objects.Scene;
         public static keyboardManager: managers.Keyboard;
+        public static textureAtlas: createjs.SpriteSheet;
         public static isPlaying: boolean = false;
         
         public static readonly WIDTH = 640;
