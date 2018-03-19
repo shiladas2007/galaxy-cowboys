@@ -4,6 +4,7 @@
     let assetManager: createjs.LoadQueue;
     let assetManifest: any[];
     let currentScene: objects.Scene;
+    
     let helloLabel: ui.Label;
     let clickMeButton: ui.Button;
     let currentState: number;
@@ -75,6 +76,7 @@
                 break;
         }
         currentState = managers.Game.currentScene;
+        managers.Game.currentSceneObject = currentScene;
         stage.addChild(currentScene);
     }
     window.onload = init;
