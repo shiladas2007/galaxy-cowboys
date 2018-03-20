@@ -49,8 +49,7 @@
         {id: "close", src:"./assets/images/close.png"},
         {id: "next", src:"./assets/images/next.png"},
         {id: "tooltipBg", src:"./assets/images/tooltipBg.png"},
-        {id: "shot", src:"./assets/audio/Shoot.wav"},
-        {id: "dying", src:"./assets/audio/dying.wav"}
+        
     ];
 
     function init():void {
