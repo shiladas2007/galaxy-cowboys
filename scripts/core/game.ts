@@ -12,24 +12,22 @@
     let textureAtlasData: any;
     let textureAtlas: createjs.SpriteSheet;
     textureAtlasData = {
-
-        "images": [
-            "./assets/sprites/texture.png"
-        ],
-    
-        "frames": [
-            [0, 0, 32, 32, 0, 0, 0],
-            [32, 0, 32, 32, 0, 0, 0],
-            [64, 0, 32, 32, 0, 0, 0],
-            [96, 0, 32, 32, 0, 0, 0],
-            [128, 0, 32, 32, 0, 0, 0],
-            [160, 0, 32, 32, 0, 0, 0]
-      ],
-    
-      "animations": {
-        "smallexplosion": { "frames": [0,1,2,3,4,5], "speed": 0.16 }
-    }
-    
+            "images": [
+                "./assets/sprites/texture.png"
+            ],
+            
+            "frames": [
+                [0, 0, 32, 32, 0, 0, 0],
+                [32, 0, 32, 32, 0, 0, 0],
+                [64, 0, 32, 32, 0, 0, 0],
+                [96, 0, 32, 32, 0, 0, 0],
+                [128, 0, 32, 32, 0, 0, 0],
+                [160, 0, 32, 32, 0, 0, 0]
+                ],
+            
+            "animations": {
+                "smallexplosion": { "frames": [0,1,2,3,4,5], "speed": 0.16 }
+            }
         };
     
     assetManifest = [
