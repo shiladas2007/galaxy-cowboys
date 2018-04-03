@@ -13,7 +13,6 @@
     textureAtlasData = {
         "images": [
             "./assets/sprites/texture.png"
-            //"./Assets/sprites/textureAtlas.png"
         ],
         "frames": [
             [0, 0, 32, 32, 0, 0, 0],

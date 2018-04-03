@@ -15,7 +15,6 @@
 
         "images": [
             "./assets/sprites/texture.png"
-            //"./Assets/sprites/textureAtlas.png"
         ],
     
         "frames": [
