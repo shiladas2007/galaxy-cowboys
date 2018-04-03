@@ -29,8 +29,22 @@ var objects;
             return _this;
         }
         Powerup.getRandomType = function () {
+            /* ======== Powerup chances ========
+                        Super speed chance = 47.5%
+                       Super armour chance = 47.5%
+               Warship fire support chance = 5%
+            */
             var randomType;
-            // generate random type
+            var random = Math.random();
+            if (random < 0.475) {
+                randomType = config.Powerup.SUPERSPEED;
+            }
+            else if (random < 0.95) {
+                randomType = config.Powerup.SUPERARMOUR;
+            }
+            else {
+                randomType = config.Powerup.WARSHIP;
+            }
             return randomType;
         };
         Powerup.prototype._checkBounds = function () { };

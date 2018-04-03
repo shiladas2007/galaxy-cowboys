@@ -3,9 +3,22 @@ module objects {
         public powerupType: config.Powerup;
 
         public static getRandomType():config.Powerup {
+            /* ======== Powerup chances ========
+                        Super speed chance = 47.5%
+                       Super armour chance = 47.5%
+               Warship fire support chance = 5%
+            */
             let randomType: config.Powerup;
-            // generate random type
+            let random: number = Math.random();
             
+            if (random < 0.475) {
+                randomType = config.Powerup.SUPERSPEED;
+            } else if (random < 0.95) {
+                randomType = config.Powerup.SUPERARMOUR;
+            } else {
+                randomType = config.Powerup.WARSHIP;
+            }
+
             return randomType;
         }
 
