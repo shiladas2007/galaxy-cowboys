@@ -38,7 +38,17 @@ module objects {
             this.start();
         }
 
-        private _checkBounds():void {}
+        private activateSuperSpeed() {
+
+        }
+
+        private activateSuperArmour() {
+            
+        }
+
+        private activateWarship() {
+            
+        }
 
         public start():void {
             
@@ -46,6 +56,21 @@ module objects {
 
         public update():void {
 
+        }
+
+        public activate() {
+            // Activate powerup
+            switch (this.powerupType) {
+                case config.Powerup.SUPERSPEED:
+                    this.activateSuperSpeed();
+                    break;
+                case config.Powerup.SUPERARMOUR:
+                    this.activateSuperArmour();
+                    break;
+                case config.Powerup.WARSHIP:
+                    this.activateWarship();
+                    break;
+            }
         }
     }
 }

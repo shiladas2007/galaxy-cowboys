@@ -47,10 +47,29 @@ var objects;
             }
             return randomType;
         };
-        Powerup.prototype._checkBounds = function () { };
+        Powerup.prototype.activateSuperSpeed = function () {
+        };
+        Powerup.prototype.activateSuperArmour = function () {
+        };
+        Powerup.prototype.activateWarship = function () {
+        };
         Powerup.prototype.start = function () {
         };
         Powerup.prototype.update = function () {
+        };
+        Powerup.prototype.activate = function () {
+            // Activate powerup
+            switch (this.powerupType) {
+                case config.Powerup.SUPERSPEED:
+                    this.activateSuperSpeed();
+                    break;
+                case config.Powerup.SUPERARMOUR:
+                    this.activateSuperArmour();
+                    break;
+                case config.Powerup.WARSHIP:
+                    this.activateWarship();
+                    break;
+            }
         };
         return Powerup;
     }(createjs.Bitmap));
