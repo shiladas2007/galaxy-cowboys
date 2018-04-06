@@ -12,7 +12,7 @@ var objects;
 (function (objects) {
     var Powerup = /** @class */ (function (_super) {
         __extends(Powerup, _super);
-        function Powerup(powerupType) {
+        function Powerup(powerupType, scene) {
             var _this = this;
             var imageString;
             switch (powerupType) {
@@ -25,11 +25,12 @@ var objects;
             }
             _this = _super.call(this, managers.Game.assetManager.getResult(imageString)) || this;
             _this.powerupType = powerupType;
+            _this.scene = scene;
             _this.start();
             return _this;
         }
         Powerup.getRandomType = function () {
-            /* ======== Powerup chances ========
+            /* ======== Powerup chances ==========
                         Super speed chance = 47.5%
                        Super armour chance = 47.5%
                Warship fire support chance = 5%
@@ -48,28 +49,36 @@ var objects;
             return randomType;
         };
         Powerup.prototype.activateSuperSpeed = function () {
+            this.scene.player.mvspd *= 2;
         };
         Powerup.prototype.activateSuperArmour = function () {
+            this.scene.player.hp += 1;
         };
         Powerup.prototype.activateWarship = function () {
         };
         Powerup.prototype.start = function () {
+            switch (this.powerupType) {
+                case config.Powerup.SUPERSPEED:
+                    this.activationFunction = this.activateSuperSpeed;
+                    this.duration = 10;
+                    break;
+                case config.Powerup.SUPERARMOUR:
+                    this.activationFunction = this.activateSuperArmour;
+                    this.duration = -1;
+                    break;
+                case config.Powerup.WARSHIP:
+                    this.activationFunction = this.activateWarship;
+                    this.duration = -1;
+                    break;
+            }
+            this.activate();
         };
         Powerup.prototype.update = function () {
         };
         Powerup.prototype.activate = function () {
             // Activate powerup
-            switch (this.powerupType) {
-                case config.Powerup.SUPERSPEED:
-                    this.activateSuperSpeed();
-                    break;
-                case config.Powerup.SUPERARMOUR:
-                    this.activateSuperArmour();
-                    break;
-                case config.Powerup.WARSHIP:
-                    this.activateWarship();
-                    break;
-            }
+            this.activationTime = new Date().getMilliseconds();
+            this.activationFunction();
         };
         return Powerup;
     }(createjs.Bitmap));
