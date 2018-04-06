@@ -12,7 +12,21 @@ module objects {
         }
 
         private _checkBounds() {
-            
+            if (this.x < 0) {
+                // Left boundary
+                this.x = 0;
+            } else if (this.x > this.width - managers.Game.WIDTH) {
+                // Right boundary
+                this.x = this.width - managers.Game.WIDTH;
+            }
+
+            if (this.y > 0) {
+                // Top boundary
+                this.y = 0;
+            } else if (this.y < this.startY) {
+                // Bottom boundary
+                this.y = this.startY;
+            }
         }
 
         private _reset() {
@@ -23,6 +37,7 @@ module objects {
 
         private _move():void {
             this.y += this._dy;
+            this._checkBounds();
         }
 
         public start():void {

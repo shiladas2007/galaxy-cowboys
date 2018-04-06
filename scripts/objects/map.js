@@ -18,6 +18,22 @@ var objects;
             return _this;
         }
         Map.prototype._checkBounds = function () {
+            if (this.x < 0) {
+                // Left boundary
+                this.x = 0;
+            }
+            else if (this.x > this.width - managers.Game.WIDTH) {
+                // Right boundary
+                this.x = this.width - managers.Game.WIDTH;
+            }
+            if (this.y > 0) {
+                // Top boundary
+                this.y = 0;
+            }
+            else if (this.y < this.startY) {
+                // Bottom boundary
+                this.y = this.startY;
+            }
         };
         Map.prototype._reset = function () {
             // Start at the bottom left of the map
@@ -26,6 +42,7 @@ var objects;
         };
         Map.prototype._move = function () {
             this.y += this._dy;
+            this._checkBounds();
         };
         Map.prototype.start = function () {
             this._dy = 5;
