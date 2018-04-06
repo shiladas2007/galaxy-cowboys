@@ -1,6 +1,8 @@
 module objects {
     export class Map extends createjs.Bitmap {
         private _dy: number;
+        private startX: number;
+        private startY: number;
         public width: number;
         public height: number;
 
@@ -9,12 +11,14 @@ module objects {
             this.start();
         }
 
-        private _checkBounds():void {}
+        private _checkBounds() {
+            
+        }
 
         private _reset() {
             // Start at the bottom left of the map
-            this.x = 0;
-            this.y = -this.height + managers.Game.HEIGHT;
+            this.x = this.startX;
+            this.y = this.startY;
         }
 
         private _move():void {
@@ -25,6 +29,8 @@ module objects {
             this._dy = 5;
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
+            this.startX = 0;
+            this.startY = -this.height + managers.Game.HEIGHT;
             this._reset();
         }
 
