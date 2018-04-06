@@ -5,6 +5,13 @@ module scenes {
         protected _projectiles: objects.Projectile[] = [];
         protected _player: animate.Player;
 
+        get enemies(): animate.Enemy[] {
+            return this._enemies;
+        }
+        get player(): animate.Player {
+            return this._player;
+        }
+
         constructor(mapString:string) {
             super();
             this._map = new objects.Map(mapString);

@@ -20,6 +20,20 @@ var scenes;
             _this.on("click", _this.onClick);
             return _this;
         }
+        Object.defineProperty(PlayScene.prototype, "enemies", {
+            get: function () {
+                return this._enemies;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(PlayScene.prototype, "player", {
+            get: function () {
+                return this._player;
+            },
+            enumerable: true,
+            configurable: true
+        });
         PlayScene.prototype.update = function () {
             if (managers.Game.keyboardManager.paused) {
                 return managers.Game.currentScene;
