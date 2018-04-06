@@ -43,6 +43,7 @@ var scenes;
             this._player.isColliding = false;
             this._map.update();
             this._player.update();
+            this._checkBounds();
             this._tooltips.forEach(function (tooltip) {
                 tooltip.update();
             });
@@ -65,6 +66,13 @@ var scenes;
             this._tooltips.forEach(function (tooltip) {
                 _this.addChild(tooltip);
             });
+        };
+        PlayScene.prototype._checkBounds = function () {
+            if (this._player.y <= managers.Game.TOP_ANCHOR) {
+                if (managers.Game.keyboardManager.moveForward) {
+                    this._map.move();
+                }
+            }
         };
         PlayScene.prototype.onClick = function () {
             var playerPos = new math.Vec2(this._player.x, this._player.y);

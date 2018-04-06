@@ -35,7 +35,7 @@ module objects {
             this.y = this.startY;
         }
 
-        private _move():void {
+        public move() {
             this.y += this._dy;
             this._checkBounds();
         }

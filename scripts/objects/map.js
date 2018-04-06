@@ -40,7 +40,7 @@ var objects;
             this.x = this.startX;
             this.y = this.startY;
         };
-        Map.prototype._move = function () {
+        Map.prototype.move = function () {
             this.y += this._dy;
             this._checkBounds();
         };

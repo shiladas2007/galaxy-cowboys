@@ -29,6 +29,7 @@ module scenes {
             this._player.isColliding = false;
             this._map.update();
             this._player.update();
+            this._checkBounds();
 
             this._tooltips.forEach(tooltip => {
                 tooltip.update();
@@ -55,6 +56,14 @@ module scenes {
             this._tooltips.forEach(tooltip => {
                 this.addChild(tooltip);
             });
+        }
+
+        private _checkBounds() {
+            if (this._player.y <= managers.Game.TOP_ANCHOR) {
+                if (managers.Game.keyboardManager.moveForward) {
+                    this._map.move();
+                }
+            }
         }
 
         private onClick() {
