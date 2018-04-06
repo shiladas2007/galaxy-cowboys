@@ -18,11 +18,19 @@ var objects;
             return _this;
         }
         Map.prototype._checkBounds = function () { };
+        Map.prototype._reset = function () {
+            // Start at the bottom left of the map
+            this.x = 0;
+            this.y = -this.height + managers.Game.HEIGHT;
+        };
         Map.prototype._move = function () {
             this.y += this._dy;
         };
         Map.prototype.start = function () {
             this._dy = 5;
+            this.width = this.getBounds().width;
+            this.height = this.getBounds().height;
+            this._reset();
         };
         Map.prototype.update = function () {
         };

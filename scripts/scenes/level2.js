@@ -32,15 +32,6 @@ var scenes;
         };
         Level2.prototype.update = function () {
             _super.prototype.update.call(this);
-            // Manage tooltip
-            if (managers.Game.keyboardManager.nextTutorial) {
-                this.removeChild(this._tooltip);
-                //this._tooltip = new ui.Tooltip("tooltipBg",430,370,"Use Left-click to shoot. Press 'c' for closing this tutorial",false);
-                this.addChild(this._tooltip);
-            }
-            if (managers.Game.keyboardManager.closeTutorial) {
-                this.removeChild(this._tooltip);
-            }
             if (!this._enemies.length) {
                 //managers.Game.currentScene = config.Scene.LEVEL2;
             }
@@ -48,8 +39,6 @@ var scenes;
         };
         Level2.prototype.main = function () {
             _super.prototype.main.call(this);
-            //this._tooltip = new ui.Tooltip("tooltipBg", 430, 370, "Use WASD and arrow keys to move. Press 'n' for next tutorial. Or 'c' for closing this tutorial.");                    
-            //this.addChild(this._tooltip);
         };
         return Level2;
     }(scenes.PlayScene));
