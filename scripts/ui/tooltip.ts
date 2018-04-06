@@ -40,11 +40,11 @@ module ui {
         }
 
         public update() {
-            if (managers.Game.keyboardManager.nextTutorial)
+            if (managers.Game.keyboardManager.nextTooltip)
             {               
                 this.displayNextPage();
             }
-            if (managers.Game.keyboardManager.closeTutorial)
+            if (managers.Game.keyboardManager.closeTooltip)
             {               
                 managers.Game.currentSceneObject.removeChild(this);
             }

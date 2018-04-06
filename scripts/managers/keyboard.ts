@@ -7,8 +7,8 @@ module managers {
         public moveBackward: boolean;
         public moveLeft: boolean;
         public moveRight: boolean;
-        public nextTutorial: boolean;
-        public closeTutorial: boolean;
+        public nextTooltip: boolean;
+        public closeTooltip: boolean;
         public enabled: boolean;
         public paused: boolean = false;
 
@@ -48,10 +48,10 @@ module managers {
                     this.moveRight = true;
                     break;
                 case config.Key.N:
-                    this.nextTutorial = true;
+                    this.nextTooltip = true;
                     break;
                 case config.Key.C:
-                    this.closeTutorial = true;
+                    this.closeTooltip = true;
                     break;
                 case config.Key.ESCAPE:
                     if (managers.Game.isPlaying) {
@@ -80,10 +80,10 @@ module managers {
                     this.moveRight = false;
                     break;
                 case config.Key.N:
-                    this.nextTutorial = false;
+                    this.nextTooltip = false;
                     break;
                 case config.Key.C:
-                    this.closeTutorial = false;
+                    this.closeTooltip = false;
                     break;
             }
         }
