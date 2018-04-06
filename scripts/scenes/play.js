@@ -42,6 +42,9 @@ var scenes;
             this._player.isColliding = false;
             this._map.update();
             this._player.update();
+            this._tooltips.forEach(function (tooltip) {
+                tooltip.update();
+            });
             // Check for collisions
             this._updateEnemies();
             this._updateProjectiles();
@@ -58,6 +61,9 @@ var scenes;
                 _this.addChild(enemy);
             });
             this.addChild(this._player);
+            this._tooltips.forEach(function (tooltip) {
+                _this.addChild(tooltip);
+            });
         };
         PlayScene.prototype.onClick = function () {
             var playerPos = new math.Vec2(this._player.x, this._player.y);

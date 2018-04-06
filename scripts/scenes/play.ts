@@ -1,6 +1,7 @@
 module scenes {
     export abstract class PlayScene extends objects.Scene {
         private _map: objects.Map;
+        protected _tooltips: ui.Tooltip[];
         protected _enemies: animate.Enemy[];
         protected _projectiles: objects.Projectile[] = [];
         protected _player: animate.Player;
@@ -28,6 +29,9 @@ module scenes {
             this._player.isColliding = false;
             this._map.update();
             this._player.update();
+            this._tooltips.forEach(tooltip => {
+                tooltip.update();
+            });
             
             // Check for collisions
             this._updateEnemies();
@@ -47,6 +51,9 @@ module scenes {
                 this.addChild(enemy);
             });
             this.addChild(this._player);
+            this._tooltips.forEach(tooltip => {
+                this.addChild(tooltip);
+            });
         }
 
         private onClick() {

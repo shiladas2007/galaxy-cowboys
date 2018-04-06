@@ -5,24 +5,21 @@ module ui {
         private _closeButton: Button;
         private _needNextButton: boolean;
         private _bgImg: Image;
-        private _msg: string;
+        private _messages: string[];
+        private _currentIndex: number = 0;
         
-        constructor(imageString:string, x:number=0, y:number=0,msg:string,needNextButton=true) {
+        constructor(imageString:string, messages:string[], x:number=0, y:number=0) {
             super();
             this.x = x;
             this.y = y;
-            this._msg = msg;
-            this._needNextButton = needNextButton;
+            this._messages = messages;
             this.start();
         }       
         public start():void {
-            this._tooltipLabel = new Label(this._msg, "12px","Sporting Grotesque", "#000000");            
+            this._tooltipLabel = new Label(this._messages[0], "12px","Sporting Grotesque", "#000000");            
             this._tooltipLabel.lineWidth = 170;
             this._bgImg = new Image("tooltipBg");
             this._nextButton = new Button("next",100,75);
-            if (!this._needNextButton) {
-                this._nextButton.visible=false;
-            }
             this._closeButton = new Button("close",165,0);
             
             this.main();
@@ -33,17 +30,49 @@ module ui {
             this.addChild(this._nextButton);
             this.addChild(this._closeButton);
             this.addChild(this._tooltipLabel);
-            this._nextButton.on("click", this._nextButtonClick);
-            this._closeButton.on("click", this._closeButtonClick);
+            this.displayPage(0);
+            this._nextButton.addEventListener("click", () => {
+                this.displayNextPage();
+            });
+            this._closeButton.addEventListener("click", () => {
+                this.close();
+            });
         }
 
-        private _nextButtonClick():void {
-           console.log("t");
+        public update() {
+            if (managers.Game.keyboardManager.nextTutorial)
+            {               
+                this.displayNextPage();
+            }
+            if (managers.Game.keyboardManager.closeTutorial)
+            {               
+                managers.Game.currentSceneObject.removeChild(this);
+            }
         }
 
-        private _closeButtonClick():void {
-            console.log("close in");
-            //managers.Game.currentSceneObject.removeChild(this);
-        }   
+        public addPage(message:string) {
+            this._messages.push(message);
+        }
+
+        private displayPage(index:number) {
+            if (index >= this._messages.length) {
+                return;
+            }
+            
+            this._tooltipLabel.text = this._messages[index];
+            if (index == this._messages.length - 1) {
+                // Last page
+                this._nextButton.visible = false;
+            }
+        }
+
+        private displayNextPage() {
+            this._currentIndex++;
+            this.displayPage(this._currentIndex);
+        }
+
+        private close() {
+            managers.Game.currentSceneObject.removeChild(this);
+        }
     }
 }

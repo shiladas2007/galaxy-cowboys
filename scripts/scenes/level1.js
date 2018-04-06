@@ -29,6 +29,14 @@ var scenes;
             console.log("Initializing player...");
             this._player = new animate.Player(config.Character.GUNSLINGER, 100, 420);
             console.log("Player initialized.");
+            // Initialize
+            var tooltipMessages = [
+                "Use WASD and arrow keys to move. Press 'n' for next tutorial. Or 'c' to close this tutorial.",
+                "Left-click to shoot. Press 'c' to close this tutorial"
+            ];
+            this._tooltips = [
+                new ui.Tooltip("tooltipBg", tooltipMessages, 430, 370)
+            ];
             this._controlsIntroduck = new ui.Image("controlsIntroduck", 120, 280);
             this.main();
         };
@@ -42,15 +50,6 @@ var scenes;
                     this.removeChild(this._controlsIntroduck);
                 }
             }
-            // Manage tooltip
-            if (managers.Game.keyboardManager.nextTutorial) {
-                this.removeChild(this._tooltip);
-                this._tooltip = new ui.Tooltip("tooltipBg", 430, 370, "Use Left-click to shoot. Press 'c' for closing this tutorial", false);
-                this.addChild(this._tooltip);
-            }
-            if (managers.Game.keyboardManager.closeTutorial) {
-                this.removeChild(this._tooltip);
-            }
             if (!this._enemies.length) {
                 managers.Game.currentScene = config.Scene.LEVEL2;
             }
@@ -59,8 +58,6 @@ var scenes;
         Level1.prototype.main = function () {
             _super.prototype.main.call(this);
             this.addChild(this._controlsIntroduck);
-            this._tooltip = new ui.Tooltip("tooltipBg", 430, 370, "Use WASD and arrow keys to move. Press 'n' for next tutorial. Or 'c' for closing this tutorial.");
-            this.addChild(this._tooltip);
         };
         return Level1;
     }(scenes.PlayScene));

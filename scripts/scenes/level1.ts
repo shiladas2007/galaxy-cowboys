@@ -2,7 +2,6 @@ module scenes {
     export class Level1 extends scenes.PlayScene {
         private _controlsIntroduck: ui.Image;
         private _hasPlayerMoved: boolean = false;
-        private _tooltip:ui.Tooltip;
 
         constructor() {
             super("mapLevel1");
@@ -22,7 +21,17 @@ module scenes {
             this._player = new animate.Player(config.Character.GUNSLINGER, 100, 420);
             console.log("Player initialized.");
 
+            // Initialize
+            let tooltipMessages: string[] = [
+                "Use WASD and arrow keys to move. Press 'n' for next tutorial. Or 'c' to close this tutorial.",
+                "Left-click to shoot. Press 'c' to close this tutorial"
+            ]; 
+            this._tooltips = [
+                new ui.Tooltip("tooltipBg", tooltipMessages, 430, 370)
+            ];
+
             this._controlsIntroduck = new ui.Image("controlsIntroduck", 120, 280);
+            
 
             this.main();
         }
@@ -39,18 +48,6 @@ module scenes {
                 }
             }
 
-            // Manage tooltip
-            if (managers.Game.keyboardManager.nextTutorial)
-            {               
-                this.removeChild(this._tooltip);
-                this._tooltip = new ui.Tooltip("tooltipBg",430,370,"Use Left-click to shoot. Press 'c' for closing this tutorial",false);
-                this.addChild(this._tooltip);
-            }
-            if (managers.Game.keyboardManager.closeTutorial)
-            {               
-                this.removeChild(this._tooltip);
-            }
-
             if (!this._enemies.length) {
                 managers.Game.currentScene = config.Scene.LEVEL2;
             }
@@ -61,8 +58,6 @@ module scenes {
         public main():void {
             super.main();
             this.addChild(this._controlsIntroduck);
-            this._tooltip = new ui.Tooltip("tooltipBg", 430, 370, "Use WASD and arrow keys to move. Press 'n' for next tutorial. Or 'c' for closing this tutorial.");                    
-            this.addChild(this._tooltip);
         }
     }
 }
