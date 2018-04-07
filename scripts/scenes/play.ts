@@ -5,6 +5,8 @@ module scenes {
         private _bottomAnchor: number;
         private _leftAnchor: number;
         private _rightAnchor: number;
+        private _dx: number = 5;
+        private _dy: number = 5;
 
         protected _tooltips: ui.Tooltip[] = [];
         protected _enemies: animate.Enemy[];
@@ -15,7 +17,7 @@ module scenes {
             return this._topAnchor - managers.Game.TOP_ANCHOR;
         }
         get bottomBoundary(): number {
-            return this._bottomAnchor + managers.Game.BOTTOM_ANCHOR;
+            return this._bottomAnchor + (managers.Game.HEIGHT - managers.Game.BOTTOM_ANCHOR);
         }
         get leftBoundary(): number {
             return this._leftAnchor - managers.Game.LEFT_ANCHOR;
@@ -87,15 +89,15 @@ module scenes {
             let moveY: number = 0;
             if (this._player.y <= this._topAnchor) {
                 if (managers.Game.keyboardManager.moveForward) {
-                    if (!(this.y > this._map.height - managers.Game.HEIGHT)) {
-                        moveY = 5;
+                    if (!(this.y + this._dy > this._map.height - managers.Game.HEIGHT)) {
+                        moveY = this._dy;
                     }
                 }
             }
             if (this._player.y >= this._bottomAnchor) {
                 if (managers.Game.keyboardManager.moveBackward) {
-                    if (!(this.y < 0)) {
-                        moveY = -5;
+                    if (!(this.y - this._dy < 0)) {
+                        moveY = -this._dy;
                     }
                 }
             }

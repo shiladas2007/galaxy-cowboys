@@ -14,6 +14,8 @@ var scenes;
         __extends(PlayScene, _super);
         function PlayScene(mapString) {
             var _this = _super.call(this) || this;
+            _this._dx = 5;
+            _this._dy = 5;
             _this._tooltips = [];
             _this._projectiles = [];
             _this._map = new objects.Map(mapString);
@@ -30,7 +32,7 @@ var scenes;
         });
         Object.defineProperty(PlayScene.prototype, "bottomBoundary", {
             get: function () {
-                return this._bottomAnchor + managers.Game.BOTTOM_ANCHOR;
+                return this._bottomAnchor + (managers.Game.HEIGHT - managers.Game.BOTTOM_ANCHOR);
             },
             enumerable: true,
             configurable: true
@@ -105,15 +107,15 @@ var scenes;
             var moveY = 0;
             if (this._player.y <= this._topAnchor) {
                 if (managers.Game.keyboardManager.moveForward) {
-                    if (!(this.y > this._map.height - managers.Game.HEIGHT)) {
-                        moveY = 5;
+                    if (!(this.y + this._dy > this._map.height - managers.Game.HEIGHT)) {
+                        moveY = this._dy;
                     }
                 }
             }
             if (this._player.y >= this._bottomAnchor) {
                 if (managers.Game.keyboardManager.moveBackward) {
-                    if (!(this.y < 0)) {
-                        moveY = -5;
+                    if (!(this.y - this._dy < 0)) {
+                        moveY = -this._dy;
                     }
                 }
             }
