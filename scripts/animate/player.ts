@@ -18,10 +18,12 @@ module animate {
 
         public checkBounds():void {
             // Checking vertical boundaries
-            if (this.y >= managers.Game.BOTTOM_BOUNDARY - this.halfHeight) {
-                this.y = managers.Game.BOTTOM_BOUNDARY - this.halfHeight;
-            } else if (this.y <= managers.Game.TOP_BOUNDARY + this.halfHeight) {
-                this.y = this.halfHeight;
+            let bottom: number = managers.Game.currentSceneObject.bottomBoundary - this.halfHeight;
+            let top: number = managers.Game.currentSceneObject.topBoundary + this.halfHeight;
+            if (this.y > bottom) {
+                this.y = bottom;
+            } else if (this.y < top) {
+                this.y = top;
             }
 
             // Checking horizontal boundaries

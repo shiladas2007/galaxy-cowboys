@@ -101,7 +101,8 @@ module scenes {
                 moveX = 0;
             }
 
-            if (this.y > this._map.height - managers.Game.HEIGHT || this.y < 0) {
+            if ((this.y > this._map.height - managers.Game.HEIGHT && managers.Game.keyboardManager.moveForward)
+                || (this.y < 0 && managers.Game.keyboardManager.moveBackward)) {
                 // Top & bottom boundary
                 moveY = 0;
             }
