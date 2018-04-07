@@ -10,10 +10,21 @@ module managers {
                 object2.collide(object1);
                 if (!object2.isColliding) {
                     console.log("Collision with " + object2.name);
-                    let explosion = new objects.explosion(object1.x,object1.y);
-                      
+                    if(object2.name=="bullet")
+                    {
+                    let explosion = new objects.explosion(object1.x,object1.y);                      
                     managers.Game.currentSceneObject.addChild(explosion);
-                    createjs.Sound.play("dying");
+                    createjs.Sound.play("dying");                    
+                    }
+                    else if (object2.name=="enemyWatcher")
+                    {
+                        createjs.Sound.play("dying");    
+                    }
+                    else if(object2.name=="crate")
+                    {
+                        console.log("crate");
+                        createjs.Sound.play("dying");    
+                    }
                     object2.isColliding = true;
                     
                     return true;

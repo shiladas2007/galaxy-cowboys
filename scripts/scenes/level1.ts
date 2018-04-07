@@ -32,7 +32,13 @@ module scenes {
             ];
 
             this._controlsIntroduck = new ui.Image("controlsIntroduck", 120, 280);
-            
+            //this things should be on level 3
+            this._obstra=[
+                new  objects.Destructible("crate",1,310,140),
+                new  objects.Destructible("crate",1,260,220),
+                new  objects.Destructible("crate",1,560,90)
+            ];
+                        
 
             this.main();
         }
@@ -58,7 +64,7 @@ module scenes {
 
         public main():void {
             super.main();
-            this.addChild(this._controlsIntroduck);
+            this.addChild(this._controlsIntroduck);           
         }
     }
 }

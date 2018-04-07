@@ -16,6 +16,7 @@ var scenes;
             var _this = _super.call(this) || this;
             _this._tooltips = [];
             _this._projectiles = [];
+            _this._obstra = []; //for handling multiple crate object
             _this._map = new objects.Map(mapString);
             managers.Game.isPlaying = true;
             _this.on("click", _this.onClick);
@@ -70,6 +71,9 @@ var scenes;
             this.addChild(this._player);
             this._tooltips.forEach(function (tooltip) {
                 _this.addChild(tooltip);
+            });
+            this._obstra.forEach(function (obstr) {
+                _this.addChild(obstr);
             });
         };
         PlayScene.prototype._checkBounds = function () {
@@ -128,6 +132,12 @@ var scenes;
                     else {
                         pKeepers.push(projectile);
                     }
+                    _this._obstra.forEach(function (obstra) {
+                        if (managers.Collision.check(projectile, obstra)) {
+                            //this.removeChild(projectile);
+                            _this.removeChild(obstra);
+                        }
+                    });
                 });
                 _this._projectiles = pKeepers;
                 if (enemy.hp <= 0) {

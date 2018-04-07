@@ -36,6 +36,7 @@
         { id: "enemyGuard", src: "./assets/images/enemyGuard.png" },
         { id: "enemyWatcher", src: "./assets/images/enemyWatcher.png" },
         { id: "enemyPatroller", src: "./assets/images/enemyPatroller.png" },
+        { id: "crate", src: "./assets/images/crate.png" },
         { id: "cowboy1", src: "./assets/images/cowboy1.png" },
         { id: "controlsIntroduck", src: "./assets/images/controlsIntroduck.png" },
         { id: "bullet", src: "./assets/images/bombSmall.png" },

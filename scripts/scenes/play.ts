@@ -9,6 +9,7 @@ module scenes {
         protected _tooltips: ui.Tooltip[] = [];
         protected _enemies: animate.Enemy[];
         protected _projectiles: objects.Projectile[] = [];
+        protected _obstra:objects.Destructible[]=[]; //for handling multiple crate object
         protected _player: animate.Player;
 
         get enemies(): animate.Enemy[] {
@@ -67,6 +68,9 @@ module scenes {
             this._tooltips.forEach(tooltip => {
                 this.addChild(tooltip);
             });
+            this._obstra.forEach(obstr => {
+                this.addChild(obstr);
+            });
         }
 
         private _checkBounds() {
@@ -123,14 +127,21 @@ module scenes {
                     this._player.isColliding = true;
                 }
 
-                let pKeepers: objects.Projectile[] = [];
+                let pKeepers: objects.Projectile[] = [];                
                 this._projectiles.forEach(projectile => {
                     if (managers.Collision.check(enemy, projectile)) {
                         this.removeChild(projectile);
                     } else {
                         pKeepers.push(projectile);
                     }
+                    this._obstra.forEach(obstra=>{
+                        if (managers.Collision.check(projectile,obstra)) {
+                            //this.removeChild(projectile);
+                            this.removeChild(obstra);
+                        } 
+                    });
                 });
+              
                 this._projectiles = pKeepers;
 
                 if (enemy.hp <= 0) {
