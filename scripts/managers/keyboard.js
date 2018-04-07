@@ -36,7 +36,7 @@ var managers;
                 case config.Key.ARROW_RIGHT:
                     this.moveRight = true;
                     break;
-                case config.Key.N:
+                case config.Key.SPACE:
                     this.nextTooltip = true;
                     break;
                 case config.Key.C:
@@ -67,7 +67,7 @@ var managers;
                 case config.Key.ARROW_RIGHT:
                     this.moveRight = false;
                     break;
-                case config.Key.N:
+                case config.Key.SPACE:
                     this.nextTooltip = false;
                     break;
                 case config.Key.C:

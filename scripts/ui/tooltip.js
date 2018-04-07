@@ -24,11 +24,13 @@ var ui;
             return _this;
         }
         Tooltip.prototype.start = function () {
-            this._tooltipLabel = new ui.Label(this._messages[0], "12px", "Sporting Grotesque", "#000000");
-            this._tooltipLabel.lineWidth = 170;
             this._bgImg = new ui.Image("tooltipBg");
-            this._nextButton = new ui.Button("next", 100, 75);
-            this._closeButton = new ui.Button("close", 165, 0);
+            this.width = this._bgImg.width;
+            this.height = this._bgImg.height;
+            this._tooltipLabel = new ui.Label(this._messages[0], "12px", "Sporting Grotesque", "#fff");
+            this._nextButton = new ui.Button("next");
+            this._closeButton = new ui.Button("close");
+            this._arrange();
             this.main();
         };
         Tooltip.prototype.main = function () {
@@ -55,6 +57,17 @@ var ui;
         };
         Tooltip.prototype.addPage = function (message) {
             this._messages.push(message);
+        };
+        Tooltip.prototype._arrange = function () {
+            var marginX = 5;
+            var marginY = 5;
+            this._closeButton.x = this.width - this._closeButton.width - marginX;
+            this._closeButton.y = marginY;
+            this._nextButton.x = this.width - this._nextButton.width - marginX;
+            this._nextButton.y = this.height - this._nextButton.height - marginY;
+            this._tooltipLabel.x = marginX;
+            this._tooltipLabel.y = marginY;
+            this._tooltipLabel.lineWidth = this.width - this._closeButton.width - (marginX * 2);
         };
         Tooltip.prototype.displayPage = function (index) {
             if (index >= this._messages.length) {

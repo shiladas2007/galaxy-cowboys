@@ -32,8 +32,8 @@ var scenes;
             console.log("Player initialized.");
             // Initialize
             var tooltipMessages = [
-                "Use WASD and arrow keys to move. Press 'n' for next tutorial. Or 'c' to close this tutorial.",
-                "Left-click to shoot. Press 'c' to close this tutorial"
+                "Use WASD and arrow keys to move. Press SPACE for the next tip.",
+                "Left-click to shoot. Shoot the aliens to move on."
             ];
             this._tooltips = [
                 new ui.Tooltip("tooltipBg", tooltipMessages, 430, 370)

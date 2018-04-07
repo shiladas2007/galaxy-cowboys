@@ -7,6 +7,9 @@ module ui {
         private _bgImg: Image;
         private _messages: string[];
         private _currentIndex: number = 0;
+
+        public width: number;
+        public height: number;
         
         constructor(imageString:string, messages:string[], x:number=0, y:number=0) {
             super();
@@ -16,11 +19,15 @@ module ui {
             this.start();
         }       
         public start():void {
-            this._tooltipLabel = new Label(this._messages[0], "12px","Sporting Grotesque", "#000000");            
-            this._tooltipLabel.lineWidth = 170;
             this._bgImg = new Image("tooltipBg");
-            this._nextButton = new Button("next",100,75);
-            this._closeButton = new Button("close",165,0);
+
+            this.width = this._bgImg.width;
+            this.height = this._bgImg.height;
+
+            this._tooltipLabel = new Label(this._messages[0], "12px","Sporting Grotesque", "#fff"); 
+            this._nextButton = new Button("next");
+            this._closeButton = new Button("close");
+            this._arrange();
             
             this.main();
         }
@@ -52,6 +59,21 @@ module ui {
 
         public addPage(message:string) {
             this._messages.push(message);
+        }
+
+        private _arrange() {
+            let marginX: number = 5;
+            let marginY: number = 5;
+            
+            this._closeButton.x = this.width - this._closeButton.width - marginX;
+            this._closeButton.y = marginY;
+
+            this._nextButton.x = this.width - this._nextButton.width - marginX;
+            this._nextButton.y = this.height - this._nextButton.height - marginY;
+
+            this._tooltipLabel.x = marginX;
+            this._tooltipLabel.y = marginY;
+            this._tooltipLabel.lineWidth = this.width - this._closeButton.width - (marginX * 2);
         }
 
         private displayPage(index:number) {

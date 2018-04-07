@@ -19,8 +19,10 @@ var ui;
             var _this = _super.call(this, managers.Game.assetManager.getResult(imageString)) || this;
             _this.x = x;
             _this.y = y;
+            _this.width = _this.getBounds().width;
+            _this.height = _this.getBounds().height;
             if (isCentered) {
-                _this.x -= _this.getBounds().width * 0.5;
+                _this.x -= _this.width * 0.5;
             }
             return _this;
         }
