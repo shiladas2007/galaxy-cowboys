@@ -134,8 +134,12 @@ var scenes;
                     }
                     _this._obstra.forEach(function (obstra) {
                         if (managers.Collision.check(projectile, obstra)) {
-                            //this.removeChild(projectile);
+                            _this.removeChild(projectile);
                             _this.removeChild(obstra);
+                        }
+                        else if (managers.Collision.check(obstra, _this._player)) {
+                            //we need to reset the position of player
+                            console.log("player with crate");
                         }
                     });
                 });

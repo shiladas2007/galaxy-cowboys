@@ -17,6 +17,7 @@ module objects {
         public collide(other:objects.GameObject) {
             if (other instanceof objects.GameObject) {
                 console.log(this.lastValidPosition);
+                this.hp=0;
                 //this.x = this.lastValidPosition.x;
                 //this.y = this.lastValidPosition.y;
             } else {

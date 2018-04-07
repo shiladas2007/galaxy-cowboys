@@ -27,6 +27,7 @@ var objects;
         Destructible.prototype.collide = function (other) {
             if (other instanceof objects.GameObject) {
                 console.log(this.lastValidPosition);
+                this.hp = 0;
                 //this.x = this.lastValidPosition.x;
                 //this.y = this.lastValidPosition.y;
             }

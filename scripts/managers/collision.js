@@ -20,10 +20,21 @@ var managers;
                     else if (object2.name == "enemyWatcher") {
                         createjs.Sound.play("dying");
                     }
+                    else if (object2.name == "enemyGuard") {
+                        createjs.Sound.play("dying");
+                    }
+                    else if (object2.name == "enemyPatroller") {
+                        createjs.Sound.play("dying");
+                    }
                     else if (object2.name == "crate") {
                         console.log("crate");
                         createjs.Sound.play("dying");
+                        //add 25% chance to drop a powerup
+                        //this._powerup=new objects.Powerup()
+                        // managers.Game.currentSceneObject.
                     }
+                    //else (object1.name=="" && object2.name=="crate")
+                    console.log(object1.name + "" + object2.name);
                     object2.isColliding = true;
                     return true;
                 }

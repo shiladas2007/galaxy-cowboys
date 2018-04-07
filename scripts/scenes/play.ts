@@ -11,6 +11,7 @@ module scenes {
         protected _projectiles: objects.Projectile[] = [];
         protected _obstra:objects.Destructible[]=[]; //for handling multiple crate object
         protected _player: animate.Player;
+        protected _powerup:objects.Powerup;
 
         get enemies(): animate.Enemy[] {
             return this._enemies;
@@ -136,9 +137,14 @@ module scenes {
                     }
                     this._obstra.forEach(obstra=>{
                         if (managers.Collision.check(projectile,obstra)) {
-                            //this.removeChild(projectile);
-                            this.removeChild(obstra);
+                            this.removeChild(projectile);
+                            this.removeChild(obstra);                                                    
                         } 
+                        else if(managers.Collision.check(obstra,this._player))
+                        {
+                            //we need to reset the position of player
+                            console.log("player with crate");
+                        }
                     });
                 });
               
