@@ -5,6 +5,7 @@ module scenes {
         private _bottomAnchor: number;
         private _leftAnchor: number;
         private _rightAnchor: number;
+        private _scoreBoard: managers.ScoreBoard;
 
         protected _tooltips: ui.Tooltip[] = [];
         protected _enemies: animate.Enemy[];
@@ -58,6 +59,8 @@ module scenes {
             this._bottomAnchor = managers.Game.BOTTOM_ANCHOR;
             this._leftAnchor = managers.Game.LEFT_ANCHOR;
             this._rightAnchor = managers.Game.RIGHT_ANCHOR;
+            this._scoreBoard = new managers.ScoreBoard();
+            managers.Game.scoreBoard = this._scoreBoard;
         }
 
         public main():void {
@@ -72,6 +75,8 @@ module scenes {
             this._obstra.forEach(obstr => {
                 this.addChild(obstr);
             });
+            this.addChild(this._scoreBoard.LivesLabel);
+            this.addChild(this._scoreBoard.ScoreLabel);
         }
 
         private _checkBounds() {

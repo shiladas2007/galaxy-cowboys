@@ -7,6 +7,7 @@ module managers {
         public static keyboardManager: managers.Keyboard;
         public static textureAtlas: createjs.SpriteSheet;
         public static isPlaying: boolean = false;
+        public static scoreBoard: managers.ScoreBoard;
         
         public static readonly WIDTH = 640;
         public static readonly HEIGHT = 480;

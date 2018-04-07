@@ -61,6 +61,8 @@ var scenes;
             this._bottomAnchor = managers.Game.BOTTOM_ANCHOR;
             this._leftAnchor = managers.Game.LEFT_ANCHOR;
             this._rightAnchor = managers.Game.RIGHT_ANCHOR;
+            this._scoreBoard = new managers.ScoreBoard();
+            managers.Game.scoreBoard = this._scoreBoard;
         };
         PlayScene.prototype.main = function () {
             var _this = this;
@@ -75,6 +77,8 @@ var scenes;
             this._obstra.forEach(function (obstr) {
                 _this.addChild(obstr);
             });
+            this.addChild(this._scoreBoard.LivesLabel);
+            this.addChild(this._scoreBoard.ScoreLabel);
         };
         PlayScene.prototype._checkBounds = function () {
             var moveX = 0;
