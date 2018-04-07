@@ -105,22 +105,21 @@ var scenes;
             var moveY = 0;
             if (this._player.y <= this._topAnchor) {
                 if (managers.Game.keyboardManager.moveForward) {
-                    moveY = 5;
+                    if (!(this.y > this._map.height - managers.Game.HEIGHT)) {
+                        moveY = 5;
+                    }
                 }
             }
             if (this._player.y >= this._bottomAnchor) {
                 if (managers.Game.keyboardManager.moveBackward) {
-                    moveY = -5;
+                    if (!(this.y < 0)) {
+                        moveY = -5;
+                    }
                 }
             }
             if (this.x < 0 || this.x > this._map.width - managers.Game.WIDTH) {
                 // Left & right boundary
                 moveX = 0;
-            }
-            if ((this.y > this._map.height - managers.Game.HEIGHT && managers.Game.keyboardManager.moveForward)
-                || (this.y < 0 && managers.Game.keyboardManager.moveBackward)) {
-                // Top & bottom boundary
-                moveY = 0;
             }
             this._move(moveX, moveY);
         };
