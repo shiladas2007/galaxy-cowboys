@@ -1,6 +1,11 @@
 module scenes {
     export abstract class PlayScene extends objects.Scene {
         private _map: objects.Map;
+        private _topAnchor: number;
+        private _bottomAnchor: number;
+        private _leftAnchor: number;
+        private _rightAnchor: number;
+
         protected _tooltips: ui.Tooltip[] = [];
         protected _enemies: animate.Enemy[];
         protected _projectiles: objects.Projectile[] = [];
@@ -27,7 +32,6 @@ module scenes {
 
             // TODO: centralize collision check
             this._player.isColliding = false;
-            this._map.update();
             this._player.update();
             this._checkBounds();
 
@@ -47,6 +51,13 @@ module scenes {
             return managers.Game.currentScene;
         }
 
+        public start() {
+            this._topAnchor = managers.Game.TOP_ANCHOR;
+            this._bottomAnchor = managers.Game.BOTTOM_ANCHOR;
+            this._leftAnchor = managers.Game.LEFT_ANCHOR;
+            this._rightAnchor = managers.Game.RIGHT_ANCHOR;
+        }
+
         public main():void {
             this.addChild(this._map);
             this._enemies.forEach(enemy => {
@@ -59,11 +70,40 @@ module scenes {
         }
 
         private _checkBounds() {
-            if (this._player.y <= managers.Game.TOP_ANCHOR) {
+            let moveX: number = 0;
+            let moveY: number = 0;
+            if (this._player.y <= this._topAnchor) {
                 if (managers.Game.keyboardManager.moveForward) {
-                    this._map.move();
+                    moveY = 5;
                 }
             }
+            if (this._player.y >= this._bottomAnchor) {
+                if (managers.Game.keyboardManager.moveBackward) {
+                    moveY = -5;
+                }
+            }
+
+            if (this.x < 0 || this.x > this._map.width - managers.Game.WIDTH) {
+                // Left & right boundary
+                moveX = 0;
+            }
+
+            if (this.y > this._map.height - managers.Game.HEIGHT || this.y < 0) {
+                // Top & bottom boundary
+                moveY = 0;
+            }
+
+            this._move(moveX, moveY);
+        }
+
+        private _move(x:number=0, y:number=0) {
+            this.x += x;
+            this._leftAnchor -= x;
+            this._rightAnchor -= x;
+
+            this.y += y;
+            this._topAnchor -= y;
+            this._bottomAnchor -= y;
         }
 
         private onClick() {

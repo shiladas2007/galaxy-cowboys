@@ -41,7 +41,6 @@ var scenes;
             }
             // TODO: centralize collision check
             this._player.isColliding = false;
-            this._map.update();
             this._player.update();
             this._checkBounds();
             this._tooltips.forEach(function (tooltip) {
@@ -56,6 +55,12 @@ var scenes;
             }
             return managers.Game.currentScene;
         };
+        PlayScene.prototype.start = function () {
+            this._topAnchor = managers.Game.TOP_ANCHOR;
+            this._bottomAnchor = managers.Game.BOTTOM_ANCHOR;
+            this._leftAnchor = managers.Game.LEFT_ANCHOR;
+            this._rightAnchor = managers.Game.RIGHT_ANCHOR;
+        };
         PlayScene.prototype.main = function () {
             var _this = this;
             this.addChild(this._map);
@@ -68,11 +73,37 @@ var scenes;
             });
         };
         PlayScene.prototype._checkBounds = function () {
-            if (this._player.y <= managers.Game.TOP_ANCHOR) {
+            var moveX = 0;
+            var moveY = 0;
+            if (this._player.y <= this._topAnchor) {
                 if (managers.Game.keyboardManager.moveForward) {
-                    this._map.move();
+                    moveY = 5;
                 }
             }
+            if (this._player.y >= this._bottomAnchor) {
+                if (managers.Game.keyboardManager.moveBackward) {
+                    moveY = -5;
+                }
+            }
+            if (this.x < 0 || this.x > this._map.width - managers.Game.WIDTH) {
+                // Left & right boundary
+                moveX = 0;
+            }
+            if (this.y > this._map.height - managers.Game.HEIGHT || this.y < 0) {
+                // Top & bottom boundary
+                moveY = 0;
+            }
+            this._move(moveX, moveY);
+        };
+        PlayScene.prototype._move = function (x, y) {
+            if (x === void 0) { x = 0; }
+            if (y === void 0) { y = 0; }
+            this.x += x;
+            this._leftAnchor -= x;
+            this._rightAnchor -= x;
+            this.y += y;
+            this._topAnchor -= y;
+            this._bottomAnchor -= y;
         };
         PlayScene.prototype.onClick = function () {
             var playerPos = new math.Vec2(this._player.x, this._player.y);

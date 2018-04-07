@@ -13,7 +13,7 @@ module managers {
         public static readonly FPS = 60;
 
         // Points that the player has to reach to start moving around the map
-        public static readonly TOP_ANCHOR = 200; // move up
+        public static readonly TOP_ANCHOR = 150; // move up
         public static readonly BOTTOM_ANCHOR = Game.HEIGHT - 20; // move down
         public static readonly LEFT_ANCHOR = 10; // move left
         public static readonly RIGHT_ANCHOR = Game.WIDTH - 10; // move right

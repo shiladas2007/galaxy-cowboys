@@ -19,6 +19,7 @@ var scenes;
             return _this;
         }
         Level1.prototype.start = function () {
+            _super.prototype.start.call(this);
             console.log("Initializing enemies...");
             this._enemies = [
                 new animate.Enemy(config.Enemy.GUARD, 310, 40),

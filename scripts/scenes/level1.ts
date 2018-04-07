@@ -9,6 +9,7 @@ module scenes {
         }
 
         public start():void {
+            super.start();
             console.log("Initializing enemies...");            
             this._enemies = [
                 new animate.Enemy(config.Enemy.GUARD,310,40),

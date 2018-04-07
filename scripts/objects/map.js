@@ -17,42 +17,32 @@ var objects;
             _this.start();
             return _this;
         }
-        Map.prototype._checkBounds = function () {
-            if (this.x < 0) {
-                // Left boundary
-                this.x = 0;
-            }
-            else if (this.x > this.width - managers.Game.WIDTH) {
-                // Right boundary
-                this.x = this.width - managers.Game.WIDTH;
-            }
-            if (this.y > 0) {
-                // Top boundary
-                this.y = 0;
-            }
-            else if (this.y < this.startY) {
-                // Bottom boundary
-                this.y = this.startY;
-            }
-        };
+        Object.defineProperty(Map.prototype, "startX", {
+            get: function () {
+                return this._startX;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Map.prototype, "startY", {
+            get: function () {
+                return this._startY;
+            },
+            enumerable: true,
+            configurable: true
+        });
         Map.prototype._reset = function () {
             // Start at the bottom left of the map
             this.x = this.startX;
             this.y = this.startY;
         };
-        Map.prototype.move = function () {
-            this.y += this._dy;
-            this._checkBounds();
-        };
         Map.prototype.start = function () {
             this._dy = 5;
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
-            this.startX = 0;
-            this.startY = -this.height + managers.Game.HEIGHT;
+            this._startX = 0;
+            this._startY = -this.height + managers.Game.HEIGHT;
             this._reset();
-        };
-        Map.prototype.update = function () {
         };
         return Map;
     }(createjs.Bitmap));
