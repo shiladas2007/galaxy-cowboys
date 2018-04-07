@@ -37,7 +37,7 @@ module scenes {
             super();
             this._map = new objects.Map(mapString);
             managers.Game.isPlaying = true;
-            this.on("click", this.onClick);
+            this.on("click", this._onClick);
         }
 
         public update():number {
@@ -96,7 +96,7 @@ module scenes {
             }
             if (this._player.y >= this._bottomAnchor) {
                 if (managers.Game.keyboardManager.moveBackward) {
-                    if (!(this.y - this._dy < 0)) {
+                    if (!(this.y - this._dy < this.bottomBoundary)) {
                         moveY = -this._dy;
                     }
                 }
@@ -120,9 +120,12 @@ module scenes {
             this._bottomAnchor -= y;
         }
 
-        private onClick() {
+        private _onClick() {
             let playerPos = new math.Vec2(this._player.x, this._player.y);
-            let targetPos = new math.Vec2(managers.Game.stage.mouseX, managers.Game.stage.mouseY);
+            let targetX: number = this.stage.mouseX - this.x;
+            let targetY: number = this.stage.mouseY - this.y;
+            let targetPos = new math.Vec2(targetX, targetY);
+            
             let newProjectile = new objects.Projectile("bullet", playerPos, targetPos);
             this._projectiles.push(newProjectile);
             this.addChild(newProjectile);
@@ -164,10 +167,10 @@ module scenes {
                     projectile.update();
 
                     // If off-screen, remove projectile
-                    if (projectile.y >= managers.Game.BOTTOM_BOUNDARY + projectile.halfHeight ||
-                        projectile.y <= managers.Game.TOP_BOUNDARY - projectile.halfHeight ||
-                        projectile.x >= managers.Game.RIGHT_BOUNDARY + projectile.halfWidth ||
-                        projectile.x <= managers.Game.LEFT_BOUNDARY - projectile.halfWidth) {
+                    if (projectile.y >= this.bottomBoundary + projectile.halfHeight ||
+                        projectile.y <= this.topBoundary - projectile.halfHeight ||
+                        projectile.x >= this.rightBoundary + projectile.halfWidth ||
+                        projectile.x <= this.leftBoundary - projectile.halfWidth) {
                             this.removeChild(projectile);
                     } else {
                         keepers.push(projectile);

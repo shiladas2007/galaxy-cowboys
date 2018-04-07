@@ -20,7 +20,7 @@ var scenes;
             _this._projectiles = [];
             _this._map = new objects.Map(mapString);
             managers.Game.isPlaying = true;
-            _this.on("click", _this.onClick);
+            _this.on("click", _this._onClick);
             return _this;
         }
         Object.defineProperty(PlayScene.prototype, "topBoundary", {
@@ -114,7 +114,7 @@ var scenes;
             }
             if (this._player.y >= this._bottomAnchor) {
                 if (managers.Game.keyboardManager.moveBackward) {
-                    if (!(this.y - this._dy < 0)) {
+                    if (!(this.y - this._dy < this.bottomBoundary)) {
                         moveY = -this._dy;
                     }
                 }
@@ -135,9 +135,11 @@ var scenes;
             this._topAnchor -= y;
             this._bottomAnchor -= y;
         };
-        PlayScene.prototype.onClick = function () {
+        PlayScene.prototype._onClick = function () {
             var playerPos = new math.Vec2(this._player.x, this._player.y);
-            var targetPos = new math.Vec2(managers.Game.stage.mouseX, managers.Game.stage.mouseY);
+            var targetX = this.stage.mouseX - this.x;
+            var targetY = this.stage.mouseY - this.y;
+            var targetPos = new math.Vec2(targetX, targetY);
             var newProjectile = new objects.Projectile("bullet", playerPos, targetPos);
             this._projectiles.push(newProjectile);
             this.addChild(newProjectile);
@@ -176,10 +178,10 @@ var scenes;
                 this._projectiles.forEach(function (projectile) {
                     projectile.update();
                     // If off-screen, remove projectile
-                    if (projectile.y >= managers.Game.BOTTOM_BOUNDARY + projectile.halfHeight ||
-                        projectile.y <= managers.Game.TOP_BOUNDARY - projectile.halfHeight ||
-                        projectile.x >= managers.Game.RIGHT_BOUNDARY + projectile.halfWidth ||
-                        projectile.x <= managers.Game.LEFT_BOUNDARY - projectile.halfWidth) {
+                    if (projectile.y >= _this.bottomBoundary + projectile.halfHeight ||
+                        projectile.y <= _this.topBoundary - projectile.halfHeight ||
+                        projectile.x >= _this.rightBoundary + projectile.halfWidth ||
+                        projectile.x <= _this.leftBoundary - projectile.halfWidth) {
                         _this.removeChild(projectile);
                     }
                     else {
