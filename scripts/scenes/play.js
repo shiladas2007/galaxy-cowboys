@@ -21,6 +21,34 @@ var scenes;
             _this.on("click", _this.onClick);
             return _this;
         }
+        Object.defineProperty(PlayScene.prototype, "topBoundary", {
+            get: function () {
+                return this._topAnchor - managers.Game.TOP_ANCHOR;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(PlayScene.prototype, "bottomBoundary", {
+            get: function () {
+                return this._bottomAnchor + managers.Game.BOTTOM_ANCHOR;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(PlayScene.prototype, "leftBoundary", {
+            get: function () {
+                return this._leftAnchor - managers.Game.LEFT_ANCHOR;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(PlayScene.prototype, "rightBoundary", {
+            get: function () {
+                return this._rightAnchor + managers.Game.RIGHT_ANCHOR;
+            },
+            enumerable: true,
+            configurable: true
+        });
         Object.defineProperty(PlayScene.prototype, "enemies", {
             get: function () {
                 return this._enemies;

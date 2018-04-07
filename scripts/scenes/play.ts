@@ -11,6 +11,19 @@ module scenes {
         protected _projectiles: objects.Projectile[] = [];
         protected _player: animate.Player;
 
+        get topBoundary(): number {
+            return this._topAnchor - managers.Game.TOP_ANCHOR;
+        }
+        get bottomBoundary(): number {
+            return this._bottomAnchor + managers.Game.BOTTOM_ANCHOR;
+        }
+        get leftBoundary(): number {
+            return this._leftAnchor - managers.Game.LEFT_ANCHOR;
+        }
+        get rightBoundary(): number {
+            return this._rightAnchor + managers.Game.RIGHT_ANCHOR;
+        }
+        
         get enemies(): animate.Enemy[] {
             return this._enemies;
         }

@@ -17,6 +17,34 @@ var objects;
             _this.assetManager = managers.Game.assetManager;
             return _this;
         }
+        Object.defineProperty(Scene.prototype, "topBoundary", {
+            get: function () {
+                return this.y;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Scene.prototype, "bottomBoundary", {
+            get: function () {
+                return this.y + managers.Game.HEIGHT;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Scene.prototype, "leftBoundary", {
+            get: function () {
+                return this.x;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Scene.prototype, "rightBoundary", {
+            get: function () {
+                return this.x + managers.Game.WIDTH;
+            },
+            enumerable: true,
+            configurable: true
+        });
         Scene.prototype.start = function () { };
         Scene.prototype.update = function () {
             return 0;
