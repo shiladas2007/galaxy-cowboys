@@ -1,6 +1,9 @@
 module managers {
     export class Collision {
         public static check(object1:objects.GameObject, object2:objects.GameObject):boolean {
+            if (object1 == null || object2 == null)
+                return;
+                
             let pointA = new math.Vec2(object1.x, object1.y);
             let pointB = new math.Vec2(object2.x, object2.y);
 

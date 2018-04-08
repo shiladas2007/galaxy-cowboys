@@ -178,35 +178,16 @@ var scenes;
                 if (managers.Collision.check(_this._player, enemy)) {
                     _this._player.isColliding = true;
                 }
-                var pKeepers = [];
                 _this._projectiles.forEach(function (projectile) {
                     if (projectile.name == "bullet") {
                         if (managers.Collision.check(enemy, projectile)) {
-                            _this.removeChild(projectile);
-                            projectile = null;
-                        }
-                        else {
-                            pKeepers.push(projectile);
+                            _this.removeObject(projectile);
                         }
                     }
-                    else {
-                        pKeepers.push(projectile);
-                    }
-                    _this._obstra.forEach(function (obstra) {
-                        if (managers.Collision.check(projectile, obstra)) {
-                            _this.removeChild(projectile);
-                            _this.removeChild(obstra);
-                        }
-                        else if (managers.Collision.check(obstra, _this._player)) {
-                            //we need to reset the position of player
-                            console.log("player with crate");
-                        }
-                    });
                 });
-                _this._projectiles = pKeepers;
                 if (enemy.hp <= 0) {
                     enemy.die();
-                    _this.removeChild(enemy);
+                    _this.removeObject(enemy);
                 }
                 else {
                     keepers.push(enemy);
@@ -215,20 +196,11 @@ var scenes;
             this._enemies = keepers;
         };
         PlayScene.prototype._updateProjectiles = function () {
-            var _this = this;
             if (this._projectiles.length) {
                 var keepers_1 = [];
                 this._projectiles.forEach(function (projectile) {
                     projectile.update();
-                    // If off-screen, remove projectile
-                    if (projectile.y >= _this.bottomBoundary + projectile.halfHeight ||
-                        projectile.y <= _this.topBoundary - projectile.halfHeight ||
-                        projectile.x >= _this.rightBoundary + projectile.halfWidth ||
-                        projectile.x <= _this.leftBoundary - projectile.halfWidth) {
-                        _this.removeChild(projectile);
-                        projectile = null;
-                    }
-                    else {
+                    if (projectile != null) {
                         keepers_1.push(projectile);
                     }
                 });

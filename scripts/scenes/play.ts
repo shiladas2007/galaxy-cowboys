@@ -160,37 +160,18 @@ module scenes {
                 if (managers.Collision.check(this._player, enemy)) {
                     this._player.isColliding = true;
                 }
-
-                let pKeepers: objects.Projectile[] = [];                
+             
                 this._projectiles.forEach(projectile => {
                     if (projectile.name == "bullet") {
                         if (managers.Collision.check(enemy, projectile)) {
-                            this.removeChild(projectile);
-                            projectile = null;
-                        } else {
-                            pKeepers.push(projectile);
+                            this.removeObject(projectile);
                         }
-                    } else {
-                        pKeepers.push(projectile);
                     }
-                    this._obstra.forEach(obstra=>{
-                        if (managers.Collision.check(projectile,obstra)) {
-                            this.removeChild(projectile);
-                            this.removeChild(obstra);                                                    
-                        } 
-                        else if(managers.Collision.check(obstra,this._player))
-                        {
-                            //we need to reset the position of player
-                            console.log("player with crate");
-                        }
-                    });
                 });
-              
-                this._projectiles = pKeepers;
 
                 if (enemy.hp <= 0) {
                     enemy.die();
-                    this.removeChild(enemy);
+                    this.removeObject(enemy);
                 } else {
                     keepers.push(enemy);
                 }
@@ -205,14 +186,7 @@ module scenes {
                 this._projectiles.forEach(projectile => {
                     projectile.update();
 
-                    // If off-screen, remove projectile
-                    if (projectile.y >= this.bottomBoundary + projectile.halfHeight ||
-                        projectile.y <= this.topBoundary - projectile.halfHeight ||
-                        projectile.x >= this.rightBoundary + projectile.halfWidth ||
-                        projectile.x <= this.leftBoundary - projectile.halfWidth) {
-                            this.removeChild(projectile);
-                            projectile = null;
-                    } else {
+                    if (projectile != null) {
                         keepers.push(projectile);
                     }
                 });
