@@ -96,8 +96,7 @@ module scenes {
             this._obstra.forEach(obstr => {
                 this.addChild(obstr);
             });
-            this.addChild(this._scoreBoard.LivesLabel);
-            this.addChild(this._scoreBoard.ScoreLabel);
+            this.addChild(this._scoreBoard);
         }
 
         public addProjectile(projectile:objects.Projectile) {
@@ -139,6 +138,7 @@ module scenes {
             this.y += y;
             this._topAnchor -= y;
             this._bottomAnchor -= y;
+            this._scoreBoard.y -= y;
         }
 
         private _onClick() {
@@ -170,7 +170,7 @@ module scenes {
                 });
 
                 if (enemy.hp <= 0) {
-                    enemy.die();
+                    enemy.destroy();
                     this.removeObject(enemy);
                 } else {
                     keepers.push(enemy);

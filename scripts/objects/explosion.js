@@ -15,11 +15,8 @@ var objects;
         // private instance variables
         // public properties
         // constructors
-        function explosion(px, py) {
-            var _this = this;
-            console.log("t");
-            console.log(managers.Game.textureAtlas);
-            _this = _super.call(this, managers.Game.textureAtlas, "smallexplosion") || this;
+        function explosion(px, py, imageName) {
+            var _this = _super.call(this, managers.Game.textureAtlas, imageName) || this;
             _this.x = px;
             _this.y = py;
             _this.Start();

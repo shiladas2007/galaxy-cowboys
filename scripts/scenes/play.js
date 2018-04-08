@@ -121,8 +121,7 @@ var scenes;
             this._obstra.forEach(function (obstr) {
                 _this.addChild(obstr);
             });
-            this.addChild(this._scoreBoard.LivesLabel);
-            this.addChild(this._scoreBoard.ScoreLabel);
+            this.addChild(this._scoreBoard);
         };
         PlayScene.prototype.addProjectile = function (projectile) {
             this._projectiles.push(projectile);
@@ -160,6 +159,7 @@ var scenes;
             this.y += y;
             this._topAnchor -= y;
             this._bottomAnchor -= y;
+            this._scoreBoard.y -= y;
         };
         PlayScene.prototype._onClick = function () {
             var playerPos = new math.Vec2(this._player.x, this._player.y);
@@ -186,7 +186,7 @@ var scenes;
                     }
                 });
                 if (enemy.hp <= 0) {
-                    enemy.die();
+                    enemy.destroy();
                     _this.removeObject(enemy);
                 }
                 else {

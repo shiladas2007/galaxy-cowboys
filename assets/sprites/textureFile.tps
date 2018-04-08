@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.6.3</string>
         <key>fileName</key>
-        <string>C:/Game Practice/galaxy-cowboys/assets/sprites/textureFile.tps</string>
+        <string>C:/Game Practice/galaxy-cowboys - tex/assets/sprites/textureAssets.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -36,7 +36,7 @@
         <key>dataFormat</key>
         <string>easeljs</string>
         <key>textureFileName</key>
-        <filename>texture.png</filename>
+        <filename>../sprite.s/textureAssets.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
@@ -134,7 +134,7 @@
             <key>json</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>textureData.json</filename>
+                <filename>textureAssets.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -157,7 +157,7 @@
         <key>prependSmartFolderName</key>
         <false/>
         <key>autodetectAnimations</key>
-        <false/>
+        <true/>
         <key>globalSpriteSettings</key>
         <struct type="SpriteSettings">
             <key>scale</key>
@@ -169,7 +169,7 @@
             <key>trimThreshold</key>
             <uint>1</uint>
             <key>trimMargin</key>
-            <uint>0</uint>
+            <uint>1</uint>
             <key>trimMode</key>
             <enum type="SpriteSettings::TrimMode">None</enum>
             <key>tracerTolerance</key>
@@ -183,6 +183,159 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">../images/bombMedium.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>8,8,15,15</rect>
+                <key>scale9Paddings</key>
+                <rect>8,8,15,15</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../images/bombSmall.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>6,6,13,13</rect>
+                <key>scale9Paddings</key>
+                <rect>6,6,13,13</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../images/breaking1.png</key>
+            <key type="filename">../images/breaking2.png</key>
+            <key type="filename">../images/breaking5.png</key>
+            <key type="filename">../images/cowboy1.png</key>
+            <key type="filename">../images/wall.png</key>
+            <key type="filename">../images/wall2.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>13,13,25,25</rect>
+                <key>scale9Paddings</key>
+                <rect>13,13,25,25</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../images/breaking3.png</key>
+            <key type="filename">../images/breaking6.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>13,12,25,23</rect>
+                <key>scale9Paddings</key>
+                <rect>13,12,25,23</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../images/breaking4.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>13,12,25,25</rect>
+                <key>scale9Paddings</key>
+                <rect>13,12,25,25</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../images/breaking7.png</key>
+            <key type="filename">../images/breaking8.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>13,13,25,27</rect>
+                <key>scale9Paddings</key>
+                <rect>13,13,25,27</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../images/close.png</key>
+            <key type="filename">../images/pauseSmall.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>9,9,17,17</rect>
+                <key>scale9Paddings</key>
+                <rect>9,9,17,17</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../images/controlsIntroduck.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>30,26,60,53</rect>
+                <key>scale9Paddings</key>
+                <rect>30,26,60,53</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../images/enemyGuard.png</key>
+            <key type="filename">../images/enemyPatroller.png</key>
+            <key type="filename">../images/enemyWatcher.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>15,15,30,30</rect>
+                <key>scale9Paddings</key>
+                <rect>15,15,30,30</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../images/next.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>25,8,50,15</rect>
+                <key>scale9Paddings</key>
+                <rect>25,8,50,15</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../images/restart.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>25,24,49,47</rect>
+                <key>scale9Paddings</key>
+                <rect>25,24,49,47</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">../images/smallexplosion1.png</key>
             <key type="filename">../images/smallexplosion2.png</key>
             <key type="filename">../images/smallexplosion3.png</key>
@@ -201,15 +354,80 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">../images/startButton.png</key>
+            <key type="filename">../images/startButton2.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>50,15,100,30</rect>
+                <key>scale9Paddings</key>
+                <rect>50,15,100,30</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../images/tooltipBg.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>50,27,100,55</rect>
+                <key>scale9Paddings</key>
+                <rect>50,27,100,55</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../images/wall1.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>20,20,40,40</rect>
+                <key>scale9Paddings</key>
+                <rect>20,20,40,40</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
         </map>
         <key>fileList</key>
         <array>
-            <filename>../images/smallexplosion6.png</filename>
+            <filename>../images/next.png</filename>
+            <filename>../images/pauseSmall.png</filename>
+            <filename>../images/restart.png</filename>
             <filename>../images/smallexplosion1.png</filename>
             <filename>../images/smallexplosion2.png</filename>
             <filename>../images/smallexplosion3.png</filename>
             <filename>../images/smallexplosion4.png</filename>
             <filename>../images/smallexplosion5.png</filename>
+            <filename>../images/smallexplosion6.png</filename>
+            <filename>../images/startButton.png</filename>
+            <filename>../images/startButton2.png</filename>
+            <filename>../images/tooltipBg.png</filename>
+            <filename>../images/wall.png</filename>
+            <filename>../images/wall1.png</filename>
+            <filename>../images/wall2.png</filename>
+            <filename>../images/bombMedium.png</filename>
+            <filename>../images/bombSmall.png</filename>
+            <filename>../images/close.png</filename>
+            <filename>../images/controlsIntroduck.png</filename>
+            <filename>../images/cowboy1.png</filename>
+            <filename>../images/enemyGuard.png</filename>
+            <filename>../images/enemyPatroller.png</filename>
+            <filename>../images/enemyWatcher.png</filename>
+            <filename>../images/breaking6.png</filename>
+            <filename>../images/breaking7.png</filename>
+            <filename>../images/breaking8.png</filename>
+            <filename>../images/breaking2.png</filename>
+            <filename>../images/breaking3.png</filename>
+            <filename>../images/breaking4.png</filename>
+            <filename>../images/breaking5.png</filename>
+            <filename>../images/breaking1.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

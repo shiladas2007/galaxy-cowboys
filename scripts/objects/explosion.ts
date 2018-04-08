@@ -5,10 +5,8 @@ module objects {
       // public properties
   
       // constructors
-      constructor( px:number,py:number) {
-          console.log("t");
-          console.log(managers.Game.textureAtlas);
-        super(managers.Game.textureAtlas, "smallexplosion");
+      constructor( px:number,py:number,imageName:string) {         
+        super(managers.Game.textureAtlas, imageName);
         this.x=px;
         this.y=py;
         this.Start();

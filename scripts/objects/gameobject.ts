@@ -67,5 +67,7 @@ module objects {
         public update():void { }
 
         public collide(other:objects.GameObject):void { }
+
+        public destroy() {}
     }
 }

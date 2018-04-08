@@ -33,7 +33,6 @@ var animate;
         };
         Animate.prototype.move = function () { };
         Animate.prototype.attack = function () { };
-        Animate.prototype.die = function () { };
         Animate.prototype.collide = function (other) {
             if (other instanceof objects.GameObject) {
                 this.x = this.lastValidPosition.x;

@@ -26,6 +26,11 @@ module scenes {
             this._player = new animate.Player(config.Character.QUICKSILVER, 100, 420);
             console.log("Player initialized.");
 
+            this._obstra=[
+                new  objects.Destructible("crate",1,310,140),
+                new  objects.Destructible("crate",1,260,220),
+                new  objects.Destructible("crate",1,560,90)
+            ];
             this.main();
         }
 

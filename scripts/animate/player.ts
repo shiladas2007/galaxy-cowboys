@@ -60,8 +60,13 @@ module animate {
                 this.hp -= 1;
             }
             if (this.hp <= 0) {
-                managers.Game.currentScene = config.Scene.GAMEOVER;
+                this.destroy();
             }
+        }
+
+        public destroy() {
+            createjs.Sound.play("player_die");
+            managers.Game.currentScene = config.Scene.GAMEOVER;
         }
 
         public attack() {

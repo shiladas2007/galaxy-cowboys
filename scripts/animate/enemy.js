@@ -69,11 +69,12 @@ var animate;
                 this.reset();
             }
         };
-        Enemy.prototype.die = function () {
+        Enemy.prototype.destroy = function () {
             clearInterval(this.attackInterval);
-            var explosion = new objects.explosion(this.x, this.y);
+            var explosion = new objects.explosion(this.x, this.y, "smallexplosion");
             managers.Game.currentSceneObject.addChild(explosion);
-            createjs.Sound.play("dying");
+            createjs.Sound.play("monster_die");
+            managers.Game.scoreBoard.Score += 200;
         };
         Enemy.prototype.attack = function () {
             var currentPos = new math.Vec2(this.x, this.y);

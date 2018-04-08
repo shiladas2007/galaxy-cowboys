@@ -15,8 +15,10 @@ var objects;
         function Destructible(imageName, hp, px, py) {
             var _this = _super.call(this, imageName, px, py) || this;
             _this.hp = hp;
+            //this.x=px;
+            //this.y=py;  
+            _this.lastValidPosition = new math.Vec2(px, py);
             return _this;
-            //this.lastValidPosition = new math.Vec2(px, py);
         }
         Destructible.prototype.reset = function () { };
         Destructible.prototype.checkBounds = function (other) {
@@ -28,13 +30,18 @@ var objects;
             if (other instanceof objects.GameObject) {
                 console.log(this.lastValidPosition);
                 this.hp = 0;
-                //this.x = this.lastValidPosition.x;
-                //this.y = this.lastValidPosition.y;
+                this.x = this.lastValidPosition.x;
+                this.y = this.lastValidPosition.y;
             }
             else {
                 this.lastValidPosition.x = this.x;
                 this.lastValidPosition.y = this.y;
             }
+        };
+        Destructible.prototype.destroy = function () {
+            createjs.Sound.play("breaking");
+            var breaking = new objects.explosion(this.x, this.y, "breaking");
+            managers.Game.currentSceneObject.addChild(breaking);
         };
         return Destructible;
     }(objects.Obstacle));
