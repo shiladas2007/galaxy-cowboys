@@ -24,7 +24,8 @@ module ui {
             this.width = this._bgImg.width;
             this.height = this._bgImg.height;
 
-            this._tooltipLabel = new Label(this._messages[0], "12px","Sporting Grotesque", "#fff"); 
+            this._tooltipLabel = new Label(this._messages[0], "12px","Sporting Grotesque", "#fff");
+            this._tooltipLabel.shadow = new createjs.Shadow("#000", 1, 1, 0);
             this._nextButton = new Button("next");
             this._closeButton = new Button("close");
             this._arrange();
