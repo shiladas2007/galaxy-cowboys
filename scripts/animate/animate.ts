@@ -22,8 +22,6 @@ module animate {
 
         public attack() {}
 
-        public die() {}
-
         public collide(other:objects.GameObject) {
             if (other instanceof objects.GameObject) {
                 this.x = this.lastValidPosition.x;

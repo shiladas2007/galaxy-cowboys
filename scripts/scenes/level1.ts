@@ -2,6 +2,7 @@ module scenes {
     export class Level1 extends scenes.PlayScene {
         private _controlsIntroduck: ui.Image;
         private _hasPlayerMoved: boolean = false;
+        //private _scoreboard: managers.ScoreBoard;
 
         constructor() {
             super("mapLevel1");
@@ -10,6 +11,9 @@ module scenes {
 
         public start():void {
             super.start();
+          //  this._scoreboard = new managers.ScoreBoard();
+           
+           
             console.log("Initializing enemies...");            
             this._enemies = [
                 new animate.Enemy(config.Enemy.GUARD,310,40),
@@ -33,6 +37,8 @@ module scenes {
 
             this._controlsIntroduck = new ui.Image("controlsIntroduck", 120, 280);
             
+           
+                        
 
             this.main();
         }
@@ -51,6 +57,8 @@ module scenes {
 
             if (!this._enemies.length) {
                 managers.Game.currentScene = config.Scene.LEVEL2;
+               
+                console.log("ss"+managers.Game.scoreBoard.Score);
             }
 
             return managers.Game.currentScene;
@@ -58,7 +66,7 @@ module scenes {
 
         public main():void {
             super.main();
-            this.addChild(this._controlsIntroduck);
+            this.addChild(this._controlsIntroduck);           
         }
     }
 }

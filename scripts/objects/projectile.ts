@@ -13,6 +13,16 @@ module objects {
 
         public update() {
             this.move();
+            this._checkBounds();
+        }
+
+        private _checkBounds() {
+            if (this.y >= managers.Game.currentSceneObject.bottomBoundary + this.halfHeight ||
+                this.y <= managers.Game.currentSceneObject.topBoundary - this.halfHeight ||
+                this.x >= managers.Game.currentSceneObject.rightBoundary + this.halfWidth ||
+                this.x <= managers.Game.currentSceneObject.leftBoundary - this.halfWidth) {
+                    managers.Game.currentSceneObject.removeObject(this);
+            }
         }
 
         private getNextPosition():math.Vec2 {
@@ -54,6 +64,7 @@ module objects {
             } else if (other instanceof animate.Player && this.name == "laser") {
                 other.hp -= 1;
             }
+            managers.Game.currentSceneObject.removeObject(this);
         }
     }
 }

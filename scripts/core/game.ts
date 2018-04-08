@@ -17,16 +17,42 @@
             ],
             
             "frames": [
-                [0, 0, 32, 32, 0, 0, 0],
-                [32, 0, 32, 32, 0, 0, 0],
-                [64, 0, 32, 32, 0, 0, 0],
-                [96, 0, 32, 32, 0, 0, 0],
-                [128, 0, 32, 32, 0, 0, 0],
-                [160, 0, 32, 32, 0, 0, 0]
+                [0, 0, 30, 30, 0, 0, 0],
+    [30, 0, 25, 25, 0, 0, 0],
+    [55, 0, 50, 50, 0, 0, 0],
+    [105, 0, 50, 50, 0, 0, 0],
+    [155, 0, 50, 46, 0, 0, 0],
+    [0, 50, 50, 49, 0, 0, 0],
+    [50, 50, 50, 50, 0, 0, 0],
+    [100, 50, 50, 47, 0, 0, 0],
+    [150, 50, 50, 53, 0, 0, 0],
+    [0, 103, 50, 53, 0, 0, 0],
+    [50, 103, 35, 35, 0, 0, 0],
+    [85, 103, 120, 105, 0, 0, 0],
+    [0, 208, 50, 50, 0, 0, 0],
+    [50, 208, 60, 60, 0, 0, 0],
+    [110, 208, 60, 60, 0, 0, 0],
+    [170, 208, 60, 60, 0, 0, 0],
+    [0, 268, 100, 30, 0, 0, 0],
+    [100, 268, 35, 35, 0, 0, 0],
+    [135, 268, 99, 94, 0, 0, 0],
+    [0, 362, 32, 32, 0, 0, 0],
+    [32, 362, 32, 32, 0, 0, 0],
+    [64, 362, 32, 32, 0, 0, 0],
+    [96, 362, 32, 32, 0, 0, 0],
+    [128, 362, 32, 32, 0, 0, 0],
+    [160, 362, 32, 32, 0, 0, 0],
+    [0, 394, 200, 60, 0, 0, 0],
+    [0, 454, 200, 60, 0, 0, 0],
+    [0, 514, 200, 109, 0, 0, 0],
+    [0, 623, 50, 50, 0, 0, 0],
+    [50, 623, 80, 80, 0, 0, 0],
+    [130, 623, 50, 50, 0, 0, 0]
             ],
             
             "animations": {
-                "smallexplosion": { "frames": [0,1,2,3,4,5], "speed": 0.16 }
+                "breaking": { "frames": [2,3,4,5,6,7,8,9], "speed": 0.08 },
+                "smallexplosion": { "frames": [19,20,21,22,23,24], "speed": 0.16 }
             }
         };
     
@@ -37,9 +63,11 @@
         {id: "gameover", src:"./assets/images/gameover.png"},
         {id: "mapLevel1", src:"./assets/images/mapLevel1.png"},
         {id: "mapLevel2", src:"./assets/images/mapLevel2.png"},
+        {id: "mapLevel3", src:"./assets/images/mapLevel3.png"},
         {id: "enemyGuard", src:"./assets/images/enemyGuard.png"},
         {id: "enemyWatcher", src:"./assets/images/enemyWatcher.png"},
-        {id: "enemyPatroller", src:"./assets/images/enemyPatroller.png"},
+        {id: "enemyPatroller", src:"./assets/images/enemyPatroller.png"},        
+        {id: "crate", src:"./assets/images/crate.png"},
         {id: "cowboy1", src:"./assets/images/cowboy1.png"},
         {id: "controlsIntroduck", src:"./assets/images/controlsIntroduck.png"},
         {id: "bullet", src:"./assets/images/bombSmall.png"},
@@ -47,7 +75,10 @@
         {id: "close", src:"./assets/images/close.png"},
         {id: "next", src:"./assets/images/next.png"},
         {id: "tooltipBg", src:"./assets/images/tooltipBg.png"},
-        {id: "shot", src:"./assets/audio/Shoot.wav"},
+        {id: "shot", src:"./assets/audio/shoot.mp3"},
+        {id: "monster_die", src:"./assets/audio/monster_die.mp3"},
+        {id: "player_die", src:"./assets/audio/player_die.mp3"},
+        {id: "breaking", src:"./assets/audio/breaking.wav"},
         {id: "dying", src:"./assets/audio/dying.wav"}
     ];
 
@@ -94,6 +125,9 @@
                 break;
             case config.Scene.LEVEL2:
                 currentScene = new scenes.Level2();
+                break;
+            case config.Scene.LEVEL3:
+                currentScene = new scenes.Level3();
                 break;
             case config.Scene.GAMEOVER:
                 currentScene = new scenes.GameOverScene();

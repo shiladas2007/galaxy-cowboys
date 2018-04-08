@@ -82,6 +82,7 @@ var objects;
         GameObject.prototype.start = function () { };
         GameObject.prototype.update = function () { };
         GameObject.prototype.collide = function (other) { };
+        GameObject.prototype.destroy = function () { };
         return GameObject;
     }(createjs.Bitmap));
     objects.GameObject = GameObject;

@@ -12,6 +12,7 @@ var scenes;
 (function (scenes) {
     var Level2 = /** @class */ (function (_super) {
         __extends(Level2, _super);
+        // private _scoreboard: managers.ScoreBoard;
         function Level2() {
             var _this = _super.call(this, "mapLevel2") || this;
             _this.start();
@@ -34,7 +35,7 @@ var scenes;
         Level2.prototype.update = function () {
             _super.prototype.update.call(this);
             if (!this._enemies.length) {
-                //managers.Game.currentScene = config.Scene.LEVEL2;
+                managers.Game.currentScene = config.Scene.LEVEL3;
             }
             return managers.Game.currentScene;
         };

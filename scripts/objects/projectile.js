@@ -23,6 +23,15 @@ var objects;
         }
         Projectile.prototype.update = function () {
             this.move();
+            this._checkBounds();
+        };
+        Projectile.prototype._checkBounds = function () {
+            if (this.y >= managers.Game.currentSceneObject.bottomBoundary + this.halfHeight ||
+                this.y <= managers.Game.currentSceneObject.topBoundary - this.halfHeight ||
+                this.x >= managers.Game.currentSceneObject.rightBoundary + this.halfWidth ||
+                this.x <= managers.Game.currentSceneObject.leftBoundary - this.halfWidth) {
+                managers.Game.currentSceneObject.removeObject(this);
+            }
         };
         Projectile.prototype.getNextPosition = function () {
             var newX;
@@ -57,6 +66,7 @@ var objects;
             else if (other instanceof animate.Player && this.name == "laser") {
                 other.hp -= 1;
             }
+            managers.Game.currentSceneObject.removeObject(this);
         };
         return Projectile;
     }(objects.GameObject));

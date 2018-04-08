@@ -7,11 +7,14 @@ module scenes {
         private _rightAnchor: number;
         private _dx: number = 5;
         private _dy: number = 5;
+        private _scoreBoard: managers.ScoreBoard;
 
         protected _tooltips: ui.Tooltip[] = [];
         protected _enemies: animate.Enemy[];
         protected _projectiles: objects.Projectile[] = [];
+        protected _obstra:objects.Destructible[]=[]; //for handling multiple crate object
         protected _player: animate.Player;
+        protected _powerup:objects.Powerup;
 
         get topBoundary(): number {
             return this._topAnchor - managers.Game.TOP_ANCHOR;
@@ -77,6 +80,8 @@ module scenes {
             this._bottomAnchor = managers.Game.BOTTOM_ANCHOR;
             this._leftAnchor = managers.Game.LEFT_ANCHOR;
             this._rightAnchor = managers.Game.RIGHT_ANCHOR;
+            this._scoreBoard = new managers.ScoreBoard();
+            managers.Game.scoreBoard = this._scoreBoard;
         }
 
         public main():void {
@@ -88,6 +93,10 @@ module scenes {
             this._tooltips.forEach(tooltip => {
                 this.addChild(tooltip);
             });
+            this._obstra.forEach(obstr => {
+                this.addChild(obstr);
+            });
+            this.addChild(this._scoreBoard);
         }
 
         public addProjectile(projectile:objects.Projectile) {
@@ -129,6 +138,7 @@ module scenes {
             this.y += y;
             this._topAnchor -= y;
             this._bottomAnchor -= y;
+            this._scoreBoard.y -= y;
         }
 
         private _onClick() {
@@ -150,25 +160,18 @@ module scenes {
                 if (managers.Collision.check(this._player, enemy)) {
                     this._player.isColliding = true;
                 }
-
-                let pKeepers: objects.Projectile[] = [];
+             
                 this._projectiles.forEach(projectile => {
                     if (projectile.name == "bullet") {
                         if (managers.Collision.check(enemy, projectile)) {
-                            this.removeChild(projectile);
-                            projectile = null;
-                        } else {
-                            pKeepers.push(projectile);
+                            this.removeObject(projectile);
                         }
-                    } else {
-                        pKeepers.push(projectile);
                     }
                 });
-                this._projectiles = pKeepers;
 
                 if (enemy.hp <= 0) {
-                    enemy.die();
-                    this.removeChild(enemy);
+                    enemy.destroy();
+                    this.removeObject(enemy);
                 } else {
                     keepers.push(enemy);
                 }
@@ -183,14 +186,7 @@ module scenes {
                 this._projectiles.forEach(projectile => {
                     projectile.update();
 
-                    // If off-screen, remove projectile
-                    if (projectile.y >= this.bottomBoundary + projectile.halfHeight ||
-                        projectile.y <= this.topBoundary - projectile.halfHeight ||
-                        projectile.x >= this.rightBoundary + projectile.halfWidth ||
-                        projectile.x <= this.leftBoundary - projectile.halfWidth) {
-                            this.removeChild(projectile);
-                            projectile = null;
-                    } else {
+                    if (projectile != null) {
                         keepers.push(projectile);
                     }
                 });

@@ -12,6 +12,7 @@ var scenes;
 (function (scenes) {
     var Level1 = /** @class */ (function (_super) {
         __extends(Level1, _super);
+        //private _scoreboard: managers.ScoreBoard;
         function Level1() {
             var _this = _super.call(this, "mapLevel1") || this;
             _this._hasPlayerMoved = false;
@@ -20,6 +21,7 @@ var scenes;
         }
         Level1.prototype.start = function () {
             _super.prototype.start.call(this);
+            //  this._scoreboard = new managers.ScoreBoard();
             console.log("Initializing enemies...");
             this._enemies = [
                 new animate.Enemy(config.Enemy.GUARD, 310, 40),
@@ -53,6 +55,7 @@ var scenes;
             }
             if (!this._enemies.length) {
                 managers.Game.currentScene = config.Scene.LEVEL2;
+                console.log("ss" + managers.Game.scoreBoard.Score);
             }
             return managers.Game.currentScene;
         };

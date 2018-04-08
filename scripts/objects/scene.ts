@@ -42,5 +42,10 @@ module objects {
         public main():void { }
 
         public addProjectile(projectile:objects.Projectile) {}
+
+        public removeObject(o:objects.GameObject) {
+            this.removeChild(o);
+            o = null;
+        }
     }
 }

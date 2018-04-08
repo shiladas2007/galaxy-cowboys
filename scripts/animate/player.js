@@ -70,8 +70,12 @@ var animate;
                 this.hp -= 1;
             }
             if (this.hp <= 0) {
-                managers.Game.currentScene = config.Scene.GAMEOVER;
+                this.destroy();
             }
+        };
+        Player.prototype.destroy = function () {
+            createjs.Sound.play("player_die");
+            managers.Game.currentScene = config.Scene.GAMEOVER;
         };
         Player.prototype.attack = function () {
         };

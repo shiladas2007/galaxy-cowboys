@@ -79,6 +79,10 @@ var objects;
         };
         Scene.prototype.main = function () { };
         Scene.prototype.addProjectile = function (projectile) { };
+        Scene.prototype.removeObject = function (o) {
+            this.removeChild(o);
+            o = null;
+        };
         return Scene;
     }(createjs.Container));
     objects.Scene = Scene;

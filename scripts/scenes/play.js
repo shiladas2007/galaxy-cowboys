@@ -18,6 +18,7 @@ var scenes;
             _this._dy = 5;
             _this._tooltips = [];
             _this._projectiles = [];
+            _this._obstra = []; //for handling multiple crate object
             _this._map = new objects.Map(mapString);
             managers.Game.isPlaying = true;
             _this.on("click", _this._onClick);
@@ -104,6 +105,8 @@ var scenes;
             this._bottomAnchor = managers.Game.BOTTOM_ANCHOR;
             this._leftAnchor = managers.Game.LEFT_ANCHOR;
             this._rightAnchor = managers.Game.RIGHT_ANCHOR;
+            this._scoreBoard = new managers.ScoreBoard();
+            managers.Game.scoreBoard = this._scoreBoard;
         };
         PlayScene.prototype.main = function () {
             var _this = this;
@@ -115,6 +118,10 @@ var scenes;
             this._tooltips.forEach(function (tooltip) {
                 _this.addChild(tooltip);
             });
+            this._obstra.forEach(function (obstr) {
+                _this.addChild(obstr);
+            });
+            this.addChild(this._scoreBoard);
         };
         PlayScene.prototype.addProjectile = function (projectile) {
             this._projectiles.push(projectile);
@@ -152,6 +159,7 @@ var scenes;
             this.y += y;
             this._topAnchor -= y;
             this._bottomAnchor -= y;
+            this._scoreBoard.y -= y;
         };
         PlayScene.prototype._onClick = function () {
             var playerPos = new math.Vec2(this._player.x, this._player.y);
@@ -170,25 +178,16 @@ var scenes;
                 if (managers.Collision.check(_this._player, enemy)) {
                     _this._player.isColliding = true;
                 }
-                var pKeepers = [];
                 _this._projectiles.forEach(function (projectile) {
                     if (projectile.name == "bullet") {
                         if (managers.Collision.check(enemy, projectile)) {
-                            _this.removeChild(projectile);
-                            projectile = null;
+                            _this.removeObject(projectile);
                         }
-                        else {
-                            pKeepers.push(projectile);
-                        }
-                    }
-                    else {
-                        pKeepers.push(projectile);
                     }
                 });
-                _this._projectiles = pKeepers;
                 if (enemy.hp <= 0) {
-                    enemy.die();
-                    _this.removeChild(enemy);
+                    enemy.destroy();
+                    _this.removeObject(enemy);
                 }
                 else {
                     keepers.push(enemy);
@@ -197,20 +196,11 @@ var scenes;
             this._enemies = keepers;
         };
         PlayScene.prototype._updateProjectiles = function () {
-            var _this = this;
             if (this._projectiles.length) {
                 var keepers_1 = [];
                 this._projectiles.forEach(function (projectile) {
                     projectile.update();
-                    // If off-screen, remove projectile
-                    if (projectile.y >= _this.bottomBoundary + projectile.halfHeight ||
-                        projectile.y <= _this.topBoundary - projectile.halfHeight ||
-                        projectile.x >= _this.rightBoundary + projectile.halfWidth ||
-                        projectile.x <= _this.leftBoundary - projectile.halfWidth) {
-                        _this.removeChild(projectile);
-                        projectile = null;
-                    }
-                    else {
+                    if (projectile != null) {
                         keepers_1.push(projectile);
                     }
                 });
