@@ -12,6 +12,7 @@ var scenes;
 (function (scenes) {
     var Level2 = /** @class */ (function (_super) {
         __extends(Level2, _super);
+        // private _scoreboard: managers.ScoreBoard;
         function Level2() {
             var _this = _super.call(this, "mapLevel2") || this;
             _this.start();
@@ -19,6 +20,10 @@ var scenes;
         }
         Level2.prototype.start = function () {
             _super.prototype.start.call(this);
+            console.log("s" + managers.Game.scoreBoard.Score);
+            // create the scoreboard UI for the Scene
+            this._scoreboard = new managers.ScoreBoard();
+            this._scoreboard = managers.Game.scoreBoard;
             console.log("Initializing enemies...");
             this._enemies = [
                 new animate.Enemy(config.Enemy.GUARD, 120, 140),

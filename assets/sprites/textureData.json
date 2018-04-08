@@ -1,26 +1,80 @@
 {
 
 "images": [
-    "texture.png"
+    "textureAssets.png"
 ],
 
-
+"framerate": 20,
 "frames": [
-    [0, 0, 32, 32, 0, 0, 0],
-    [32, 0, 32, 32, 0, 0, 0],
-    [64, 0, 32, 32, 0, 0, 0],
-    [96, 0, 32, 32, 0, 0, 0],
-    [128, 0, 32, 32, 0, 0, 0],
-    [160, 0, 32, 32, 0, 0, 0]
+    [0, 0, 30, 30, 0, 0, 0],
+    [30, 0, 25, 25, 0, 0, 0],
+    [55, 0, 50, 50, 0, 0, 0],
+    [105, 0, 50, 50, 0, 0, 0],
+    [155, 0, 50, 46, 0, 0, 0],
+    [0, 50, 50, 49, 0, 0, 0],
+    [50, 50, 50, 50, 0, 0, 0],
+    [100, 50, 50, 47, 0, 0, 0],
+    [150, 50, 50, 53, 0, 0, 0],
+    [0, 103, 50, 53, 0, 0, 0],
+    [50, 103, 35, 35, 0, 0, 0],
+    [85, 103, 120, 105, 0, 0, 0],
+    [0, 208, 50, 50, 0, 0, 0],
+    [50, 208, 60, 60, 0, 0, 0],
+    [110, 208, 60, 60, 0, 0, 0],
+    [170, 208, 60, 60, 0, 0, 0],
+    [0, 268, 100, 30, 0, 0, 0],
+    [100, 268, 35, 35, 0, 0, 0],
+    [135, 268, 99, 94, 0, 0, 0],
+    [0, 362, 32, 32, 0, 0, 0],
+    [32, 362, 32, 32, 0, 0, 0],
+    [64, 362, 32, 32, 0, 0, 0],
+    [96, 362, 32, 32, 0, 0, 0],
+    [128, 362, 32, 32, 0, 0, 0],
+    [160, 362, 32, 32, 0, 0, 0],
+    [0, 394, 200, 60, 0, 0, 0],
+    [0, 454, 200, 60, 0, 0, 0],
+    [0, 514, 200, 109, 0, 0, 0],
+    [0, 623, 50, 50, 0, 0, 0],
+    [50, 623, 80, 80, 0, 0, 0],
+    [130, 623, 50, 50, 0, 0, 0]
 ],
 
 "animations": {
-    "smallexplosion": { "frames": [0,1,2,3,4,5], "speed": 0.16 }
-    
+    "bombMedium": { "frames": [0] },
+    "bombSmall": { "frames": [1] },
+    "breaking1": { "frames": [2] },
+    "breaking2": { "frames": [3] },
+    "breaking3": { "frames": [4] },
+    "breaking4": { "frames": [5] },
+    "breaking5": { "frames": [6] },
+    "breaking6": { "frames": [7] },
+    "breaking7": { "frames": [8] },
+    "breaking8": { "frames": [9] },
+    "close": { "frames": [10] },
+    "controlsIntroduck": { "frames": [11] },
+    "cowboy1": { "frames": [12] },
+    "enemyGuard": { "frames": [13] },
+    "enemyPatroller": { "frames": [14] },
+    "enemyWatcher": { "frames": [15] },
+    "next": { "frames": [16] },
+    "pauseSmall": { "frames": [17] },
+    "restart": { "frames": [18] },
+    "smallexplosion1": { "frames": [19] },
+    "smallexplosion2": { "frames": [20] },
+    "smallexplosion3": { "frames": [21] },
+    "smallexplosion4": { "frames": [22] },
+    "smallexplosion5": { "frames": [23] },
+    "smallexplosion6": { "frames": [24] },
+    "startButton": { "frames": [25] },
+    "startButton2": { "frames": [26] },
+    "tooltipBg": { "frames": [27] },
+    "wall": { "frames": [28] },
+    "wall1": { "frames": [29] },
+    "wall2": { "frames": [30] }
 },
 
 "texturepacker": [
-        "SmartUpdateHash: $TexturePacker:SmartUpdate:65c1dc4c488cbc0877a9dd21f08c2387:da1deb03759a1a0daa44f4499a700030:658dc78be165e93e229d48c461815c7c$",
+        "SmartUpdateHash: $TexturePacker:SmartUpdate:740652eb26c33abcb0cffd1b90b24d52:db3e86c649e65893826fbbd8a2f0dcdb:fa9652fae082ac71f7d0febe1cf76422$",
         "Created with TexturePacker (https://www.codeandweb.com/texturepacker) for EaselJS"
 ]
 

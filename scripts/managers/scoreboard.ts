@@ -41,7 +41,7 @@ module managers {
         this.ScoreLabel = new ui.Label("Score: 99999", "20px", "Dock51", "#FFFF00", 500, 10, false);
   
         this.Lives = 1;
-        this.Score = 0;
+        //this.Score = 0;
       }
   
     }

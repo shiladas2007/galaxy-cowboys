@@ -10,28 +10,37 @@ module managers {
                 object2.collide(object1);
                 if (!object2.isColliding) {
                     console.log("Collision with " + object2.name);
-                    if(object2.name=="bullet")
+                    if (object1.name=="cowboy1" && (object2.name=="enemyGuard"|| object2.name=="enemyPatroller" || object2.name=="enemyWatcher" ))
                     {
-                    let explosion = new objects.explosion(object1.x,object1.y);                      
-                    managers.Game.currentSceneObject.addChild(explosion);
-                    createjs.Sound.play("dying");                    
+                        createjs.Sound.play("player_die");                         
                     }
-                    else if (object2.name=="enemyWatcher")
+                    else if (object2.name=="bullet" && object1.name=="enemyWatcher")
                     {
-                        createjs.Sound.play("dying");    
+                        let explosion = new objects.explosion(object1.x,object1.y,"smallexplosion");                      
+                        managers.Game.currentSceneObject.addChild(explosion);
+                        createjs.Sound.play("monster_die"); 
+                        managers.Game.scoreBoard.Score += 200;   
                     }
-                    else if (object2.name=="enemyGuard")
+                    else if (object2.name=="bullet" && object1.name=="enemyGuard")
                     {
-                        createjs.Sound.play("dying");    
+                        let explosion = new objects.explosion(object1.x,object1.y,"smallexplosion");                      
+                        managers.Game.currentSceneObject.addChild(explosion);
+                        createjs.Sound.play("monster_die"); 
+                        managers.Game.scoreBoard.Score += 200;   
                     }
-                    else if (object2.name=="enemyPatroller")
+                    else if (object2.name=="bullet" && object1.name=="enemyPatroller")
                     {
-                        createjs.Sound.play("dying");    
+                        let explosion = new objects.explosion(object1.x,object1.y,"smallexplosion");                      
+                        managers.Game.currentSceneObject.addChild(explosion);
+                        createjs.Sound.play("monster_die"); 
+                        managers.Game.scoreBoard.Score += 200;   
                     }
-                    else if(object2.name=="crate")
+                    else if(object1.name=="crate" && object2.name=="bullet" )
                     {
-                        console.log("crate");
-                        createjs.Sound.play("dying");    
+                        //console.log("crate");
+                        createjs.Sound.play("breaking");   
+                        let breaking = new objects.explosion(object1.x,object1.y,"breaking");                      
+                        managers.Game.currentSceneObject.addChild(breaking); 
                         //add 25% chance to drop a powerup
                         //this._powerup=new objects.Powerup()
                        // managers.Game.currentSceneObject.

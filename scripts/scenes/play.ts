@@ -141,7 +141,7 @@ module scenes {
                         pKeepers.push(projectile);
                     }
                     this._obstra.forEach(obstra=>{
-                        if (managers.Collision.check(projectile,obstra)) {
+                        if (managers.Collision.check(obstra,projectile)) {
                             this.removeChild(projectile);
                             this.removeChild(obstra);                                                    
                         } 

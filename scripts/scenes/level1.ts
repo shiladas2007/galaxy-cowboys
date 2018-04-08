@@ -2,6 +2,7 @@ module scenes {
     export class Level1 extends scenes.PlayScene {
         private _controlsIntroduck: ui.Image;
         private _hasPlayerMoved: boolean = false;
+        //private _scoreboard: managers.ScoreBoard;
 
         constructor() {
             super("mapLevel1");
@@ -10,6 +11,9 @@ module scenes {
 
         public start():void {
             super.start();
+          //  this._scoreboard = new managers.ScoreBoard();
+           
+           
             console.log("Initializing enemies...");            
             this._enemies = [
                 new animate.Enemy(config.Enemy.GUARD,310,40),
@@ -32,12 +36,8 @@ module scenes {
             ];
 
             this._controlsIntroduck = new ui.Image("controlsIntroduck", 120, 280);
-            //this things should be on level 3
-            this._obstra=[
-                new  objects.Destructible("crate",1,310,140),
-                new  objects.Destructible("crate",1,260,220),
-                new  objects.Destructible("crate",1,560,90)
-            ];
+            
+           
                         
 
             this.main();
@@ -57,6 +57,8 @@ module scenes {
 
             if (!this._enemies.length) {
                 managers.Game.currentScene = config.Scene.LEVEL2;
+               
+                console.log("ss"+managers.Game.scoreBoard.Score);
             }
 
             return managers.Game.currentScene;

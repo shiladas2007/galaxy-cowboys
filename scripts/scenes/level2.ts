@@ -1,7 +1,7 @@
 module scenes {
     export class Level2 extends scenes.PlayScene {
         private _tooltip:ui.Tooltip;
-
+       // private _scoreboard: managers.ScoreBoard;
         constructor() {
             super("mapLevel2");
             this.start();
@@ -9,6 +9,12 @@ module scenes {
 
         public start():void {
             super.start();
+            console.log("s"+managers.Game.scoreBoard.Score);
+            // create the scoreboard UI for the Scene
+      
+            this._scoreboard = new managers.ScoreBoard();
+            this._scoreboard= managers.Game.scoreBoard;
+            
             console.log("Initializing enemies...");            
             this._enemies = [
                 new animate.Enemy(config.Enemy.GUARD,120,140),

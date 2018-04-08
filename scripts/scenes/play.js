@@ -137,7 +137,7 @@ var scenes;
                         pKeepers.push(projectile);
                     }
                     _this._obstra.forEach(function (obstra) {
-                        if (managers.Collision.check(projectile, obstra)) {
+                        if (managers.Collision.check(obstra, projectile)) {
                             _this.removeChild(projectile);
                             _this.removeChild(obstra);
                         }

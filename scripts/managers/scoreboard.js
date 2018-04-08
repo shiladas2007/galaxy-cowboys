@@ -35,7 +35,7 @@ var managers;
             this.LivesLabel = new ui.Label("Lives: 0", "20px", "Dock51", "#FFFF00", 10, 10, false);
             this.ScoreLabel = new ui.Label("Score: 99999", "20px", "Dock51", "#FFFF00", 500, 10, false);
             this.Lives = 1;
-            this.Score = 0;
+            //this.Score = 0;
         };
         return ScoreBoard;
     }());
