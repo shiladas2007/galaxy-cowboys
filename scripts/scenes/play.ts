@@ -32,6 +32,12 @@ module scenes {
         get player(): animate.Player {
             return this._player;
         }
+        get projectiles(): objects.Projectile[] {
+            return this._projectiles;
+        }
+        get tooltips(): ui.Tooltip[] {
+            return this._tooltips;
+        }
 
         constructor(mapString:string) {
             super();
@@ -82,6 +88,11 @@ module scenes {
             this._tooltips.forEach(tooltip => {
                 this.addChild(tooltip);
             });
+        }
+
+        public addProjectile(projectile:objects.Projectile) {
+            this._projectiles.push(projectile);
+            this.addChild(projectile);
         }
 
         private _checkBounds() {
@@ -142,8 +153,13 @@ module scenes {
 
                 let pKeepers: objects.Projectile[] = [];
                 this._projectiles.forEach(projectile => {
-                    if (managers.Collision.check(enemy, projectile)) {
-                        this.removeChild(projectile);
+                    if (projectile.name == "bullet") {
+                        if (managers.Collision.check(enemy, projectile)) {
+                            this.removeChild(projectile);
+                            projectile = null;
+                        } else {
+                            pKeepers.push(projectile);
+                        }
                     } else {
                         pKeepers.push(projectile);
                     }
@@ -151,6 +167,7 @@ module scenes {
                 this._projectiles = pKeepers;
 
                 if (enemy.hp <= 0) {
+                    enemy.die();
                     this.removeChild(enemy);
                 } else {
                     keepers.push(enemy);
@@ -172,6 +189,7 @@ module scenes {
                         projectile.x >= this.rightBoundary + projectile.halfWidth ||
                         projectile.x <= this.leftBoundary - projectile.halfWidth) {
                             this.removeChild(projectile);
+                            projectile = null;
                     } else {
                         keepers.push(projectile);
                     }

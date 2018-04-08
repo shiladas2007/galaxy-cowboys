@@ -15,6 +15,19 @@ module objects {
             return this.x + managers.Game.WIDTH;
         }
 
+        get player(): animate.Player {
+            return null;
+        }
+        get enemies(): animate.Enemy[] {
+            return null;
+        }
+        get projectiles(): objects.Projectile[] {
+            return null;
+        }
+        get tooltips(): ui.Tooltip[] {
+            return null;
+        }
+
         constructor() {
             super();
             this.assetManager = managers.Game.assetManager;
@@ -27,5 +40,7 @@ module objects {
         }
 
         public main():void { }
+
+        public addProjectile(projectile:objects.Projectile) {}
     }
 }

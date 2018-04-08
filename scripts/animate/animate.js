@@ -33,9 +33,9 @@ var animate;
         };
         Animate.prototype.move = function () { };
         Animate.prototype.attack = function () { };
+        Animate.prototype.die = function () { };
         Animate.prototype.collide = function (other) {
             if (other instanceof objects.GameObject) {
-                console.log(this.lastValidPosition);
                 this.x = this.lastValidPosition.x;
                 this.y = this.lastValidPosition.y;
             }

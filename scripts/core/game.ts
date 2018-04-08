@@ -43,6 +43,7 @@
         {id: "cowboy1", src:"./assets/images/cowboy1.png"},
         {id: "controlsIntroduck", src:"./assets/images/controlsIntroduck.png"},
         {id: "bullet", src:"./assets/images/bombSmall.png"},
+        {id: "laser", src:"./assets/images/laser.png"},
         {id: "close", src:"./assets/images/close.png"},
         {id: "next", src:"./assets/images/next.png"},
         {id: "tooltipBg", src:"./assets/images/tooltipBg.png"},

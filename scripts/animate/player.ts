@@ -57,7 +57,7 @@ module animate {
         public collide(other:objects.GameObject) {
             super.collide(other);
             if (other instanceof animate.Enemy) {
-                this.hp -= 1
+                this.hp -= 1;
             }
             if (this.hp <= 0) {
                 managers.Game.currentScene = config.Scene.GAMEOVER;

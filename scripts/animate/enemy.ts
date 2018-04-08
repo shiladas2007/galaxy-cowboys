@@ -5,6 +5,7 @@ module animate {
                 
         //for setting eneme is dead 
         private enemyIsDead: boolean;
+        private attackInterval;
         
         // public properties
         // Constructor
@@ -31,6 +32,7 @@ module animate {
             console.log("constructor of enemy");
             this.hp=hp;
             this.mvspd=mvspd;
+            this._weapon = new objects.Weapon(config.Weapon.BLASTER);
             this.start();
         }
         
@@ -42,7 +44,7 @@ module animate {
        
         // Initializes variables and creates new objects
         public start():void {
-            console.log("start of enemy");
+            //this.attackInterval = setInterval(() => {this.attack()}, this._weapon.fireRate * 1000);
         }
     
         // updates the game object every frame
@@ -69,8 +71,26 @@ module animate {
                 this.reset();
             }         
         }
+
+        public die() {
+            clearInterval(this.attackInterval);
+            let explosion = new objects.explosion(this.x, this.y);
+            managers.Game.currentSceneObject.addChild(explosion);
+            createjs.Sound.play("dying");
+        }
+
         public attack():void {
-            console.log("attack");
+            let currentPos: math.Vec2 = new math.Vec2(this.x, this.y);
+            let targetX: number;
+            let targetY: number;
+
+            // Shoot down
+            targetX = this.x;
+            targetY = this.y + 1;
+
+            let targetPos = new math.Vec2(targetX, targetY);
+            let newProjectile = new objects.Projectile("laser", currentPos, targetPos);
+            managers.Game.currentSceneObject.addProjectile(newProjectile);
         }
     }
 }

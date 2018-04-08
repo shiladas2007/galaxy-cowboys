@@ -36,6 +36,7 @@ var animate;
             console.log("constructor of enemy");
             _this.hp = hp;
             _this.mvspd = mvspd;
+            _this._weapon = new objects.Weapon(config.Weapon.BLASTER);
             _this.start();
             return _this;
         }
@@ -46,7 +47,7 @@ var animate;
         };
         // Initializes variables and creates new objects
         Enemy.prototype.start = function () {
-            console.log("start of enemy");
+            //this.attackInterval = setInterval(() => {this.attack()}, this._weapon.fireRate * 1000);
         };
         // updates the game object every frame
         Enemy.prototype.update = function () {
@@ -68,8 +69,22 @@ var animate;
                 this.reset();
             }
         };
+        Enemy.prototype.die = function () {
+            clearInterval(this.attackInterval);
+            var explosion = new objects.explosion(this.x, this.y);
+            managers.Game.currentSceneObject.addChild(explosion);
+            createjs.Sound.play("dying");
+        };
         Enemy.prototype.attack = function () {
-            console.log("attack");
+            var currentPos = new math.Vec2(this.x, this.y);
+            var targetX;
+            var targetY;
+            // Shoot down
+            targetX = this.x;
+            targetY = this.y + 1;
+            var targetPos = new math.Vec2(targetX, targetY);
+            var newProjectile = new objects.Projectile("laser", currentPos, targetPos);
+            managers.Game.currentSceneObject.addProjectile(newProjectile);
         };
         return Enemy;
     }(animate.Animate));

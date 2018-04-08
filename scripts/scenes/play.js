@@ -65,6 +65,20 @@ var scenes;
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(PlayScene.prototype, "projectiles", {
+            get: function () {
+                return this._projectiles;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(PlayScene.prototype, "tooltips", {
+            get: function () {
+                return this._tooltips;
+            },
+            enumerable: true,
+            configurable: true
+        });
         PlayScene.prototype.update = function () {
             if (managers.Game.keyboardManager.paused) {
                 return managers.Game.currentScene;
@@ -101,6 +115,10 @@ var scenes;
             this._tooltips.forEach(function (tooltip) {
                 _this.addChild(tooltip);
             });
+        };
+        PlayScene.prototype.addProjectile = function (projectile) {
+            this._projectiles.push(projectile);
+            this.addChild(projectile);
         };
         PlayScene.prototype._checkBounds = function () {
             var moveX = 0;
@@ -154,8 +172,14 @@ var scenes;
                 }
                 var pKeepers = [];
                 _this._projectiles.forEach(function (projectile) {
-                    if (managers.Collision.check(enemy, projectile)) {
-                        _this.removeChild(projectile);
+                    if (projectile.name == "bullet") {
+                        if (managers.Collision.check(enemy, projectile)) {
+                            _this.removeChild(projectile);
+                            projectile = null;
+                        }
+                        else {
+                            pKeepers.push(projectile);
+                        }
                     }
                     else {
                         pKeepers.push(projectile);
@@ -163,6 +187,7 @@ var scenes;
                 });
                 _this._projectiles = pKeepers;
                 if (enemy.hp <= 0) {
+                    enemy.die();
                     _this.removeChild(enemy);
                 }
                 else {
@@ -183,6 +208,7 @@ var scenes;
                         projectile.x >= _this.rightBoundary + projectile.halfWidth ||
                         projectile.x <= _this.leftBoundary - projectile.halfWidth) {
                         _this.removeChild(projectile);
+                        projectile = null;
                     }
                     else {
                         keepers_1.push(projectile);

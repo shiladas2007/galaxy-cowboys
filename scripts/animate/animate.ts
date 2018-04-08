@@ -1,5 +1,6 @@
 module animate {
     export abstract class Animate extends objects.GameObject {
+        protected _weapon: objects.Weapon;
         public hp: number;
 
         get movementAmount():number {
@@ -21,9 +22,10 @@ module animate {
 
         public attack() {}
 
+        public die() {}
+
         public collide(other:objects.GameObject) {
             if (other instanceof objects.GameObject) {
-                console.log(this.lastValidPosition);
                 this.x = this.lastValidPosition.x;
                 this.y = this.lastValidPosition.y;
             } else {

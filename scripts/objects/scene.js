@@ -45,11 +45,40 @@ var objects;
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(Scene.prototype, "player", {
+            get: function () {
+                return null;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Scene.prototype, "enemies", {
+            get: function () {
+                return null;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Scene.prototype, "projectiles", {
+            get: function () {
+                return null;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Scene.prototype, "tooltips", {
+            get: function () {
+                return null;
+            },
+            enumerable: true,
+            configurable: true
+        });
         Scene.prototype.start = function () { };
         Scene.prototype.update = function () {
             return 0;
         };
         Scene.prototype.main = function () { };
+        Scene.prototype.addProjectile = function (projectile) { };
         return Scene;
     }(createjs.Container));
     objects.Scene = Scene;
