@@ -39,6 +39,12 @@ var scenes;
                 new ui.Tooltip("tooltipBg", tooltipMessages, 430, 370)
             ];
             this._controlsIntroduck = new ui.Image("controlsIntroduck", 120, 280);
+            //this things should be on level 3
+            this._obstra = [
+                new objects.Destructible("crate", 1, 310, 140),
+                new objects.Destructible("crate", 1, 260, 220),
+                new objects.Destructible("crate", 1, 560, 90)
+            ];
             this.main();
         };
         Level1.prototype.update = function () {

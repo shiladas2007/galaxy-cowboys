@@ -18,6 +18,7 @@ var scenes;
             _this._dy = 5;
             _this._tooltips = [];
             _this._projectiles = [];
+            _this._obstra = []; //for handling multiple crate object
             _this._map = new objects.Map(mapString);
             managers.Game.isPlaying = true;
             _this.on("click", _this._onClick);
@@ -104,6 +105,8 @@ var scenes;
             this._bottomAnchor = managers.Game.BOTTOM_ANCHOR;
             this._leftAnchor = managers.Game.LEFT_ANCHOR;
             this._rightAnchor = managers.Game.RIGHT_ANCHOR;
+            this._scoreBoard = new managers.ScoreBoard();
+            managers.Game.scoreBoard = this._scoreBoard;
         };
         PlayScene.prototype.main = function () {
             var _this = this;
@@ -115,6 +118,11 @@ var scenes;
             this._tooltips.forEach(function (tooltip) {
                 _this.addChild(tooltip);
             });
+            this._obstra.forEach(function (obstr) {
+                _this.addChild(obstr);
+            });
+            this.addChild(this._scoreBoard.LivesLabel);
+            this.addChild(this._scoreBoard.ScoreLabel);
         };
         PlayScene.prototype.addProjectile = function (projectile) {
             this._projectiles.push(projectile);
@@ -184,6 +192,16 @@ var scenes;
                     else {
                         pKeepers.push(projectile);
                     }
+                    _this._obstra.forEach(function (obstra) {
+                        if (managers.Collision.check(projectile, obstra)) {
+                            _this.removeChild(projectile);
+                            _this.removeChild(obstra);
+                        }
+                        else if (managers.Collision.check(obstra, _this._player)) {
+                            //we need to reset the position of player
+                            console.log("player with crate");
+                        }
+                    });
                 });
                 _this._projectiles = pKeepers;
                 if (enemy.hp <= 0) {

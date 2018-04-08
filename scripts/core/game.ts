@@ -37,9 +37,11 @@
         {id: "gameover", src:"./assets/images/gameover.png"},
         {id: "mapLevel1", src:"./assets/images/mapLevel1.png"},
         {id: "mapLevel2", src:"./assets/images/mapLevel2.png"},
+        {id: "mapLevel3", src:"./assets/images/mapLevel3.png"},
         {id: "enemyGuard", src:"./assets/images/enemyGuard.png"},
         {id: "enemyWatcher", src:"./assets/images/enemyWatcher.png"},
-        {id: "enemyPatroller", src:"./assets/images/enemyPatroller.png"},
+        {id: "enemyPatroller", src:"./assets/images/enemyPatroller.png"},        
+        {id: "crate", src:"./assets/images/crate.png"},
         {id: "cowboy1", src:"./assets/images/cowboy1.png"},
         {id: "controlsIntroduck", src:"./assets/images/controlsIntroduck.png"},
         {id: "bullet", src:"./assets/images/bombSmall.png"},
@@ -94,6 +96,9 @@
                 break;
             case config.Scene.LEVEL2:
                 currentScene = new scenes.Level2();
+                break;
+            case config.Scene.LEVEL3:
+                currentScene = new scenes.Level3();
                 break;
             case config.Scene.GAMEOVER:
                 currentScene = new scenes.GameOverScene();

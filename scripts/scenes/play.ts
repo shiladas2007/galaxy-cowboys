@@ -7,11 +7,14 @@ module scenes {
         private _rightAnchor: number;
         private _dx: number = 5;
         private _dy: number = 5;
+        private _scoreBoard: managers.ScoreBoard;
 
         protected _tooltips: ui.Tooltip[] = [];
         protected _enemies: animate.Enemy[];
         protected _projectiles: objects.Projectile[] = [];
+        protected _obstra:objects.Destructible[]=[]; //for handling multiple crate object
         protected _player: animate.Player;
+        protected _powerup:objects.Powerup;
 
         get topBoundary(): number {
             return this._topAnchor - managers.Game.TOP_ANCHOR;
@@ -77,6 +80,8 @@ module scenes {
             this._bottomAnchor = managers.Game.BOTTOM_ANCHOR;
             this._leftAnchor = managers.Game.LEFT_ANCHOR;
             this._rightAnchor = managers.Game.RIGHT_ANCHOR;
+            this._scoreBoard = new managers.ScoreBoard();
+            managers.Game.scoreBoard = this._scoreBoard;
         }
 
         public main():void {
@@ -88,6 +93,11 @@ module scenes {
             this._tooltips.forEach(tooltip => {
                 this.addChild(tooltip);
             });
+            this._obstra.forEach(obstr => {
+                this.addChild(obstr);
+            });
+            this.addChild(this._scoreBoard.LivesLabel);
+            this.addChild(this._scoreBoard.ScoreLabel);
         }
 
         public addProjectile(projectile:objects.Projectile) {
@@ -151,7 +161,7 @@ module scenes {
                     this._player.isColliding = true;
                 }
 
-                let pKeepers: objects.Projectile[] = [];
+                let pKeepers: objects.Projectile[] = [];                
                 this._projectiles.forEach(projectile => {
                     if (projectile.name == "bullet") {
                         if (managers.Collision.check(enemy, projectile)) {
@@ -163,7 +173,19 @@ module scenes {
                     } else {
                         pKeepers.push(projectile);
                     }
+                    this._obstra.forEach(obstra=>{
+                        if (managers.Collision.check(projectile,obstra)) {
+                            this.removeChild(projectile);
+                            this.removeChild(obstra);                                                    
+                        } 
+                        else if(managers.Collision.check(obstra,this._player))
+                        {
+                            //we need to reset the position of player
+                            console.log("player with crate");
+                        }
+                    });
                 });
+              
                 this._projectiles = pKeepers;
 
                 if (enemy.hp <= 0) {

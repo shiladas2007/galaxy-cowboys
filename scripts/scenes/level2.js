@@ -34,7 +34,7 @@ var scenes;
         Level2.prototype.update = function () {
             _super.prototype.update.call(this);
             if (!this._enemies.length) {
-                //managers.Game.currentScene = config.Scene.LEVEL2;
+                managers.Game.currentScene = config.Scene.LEVEL3;
             }
             return managers.Game.currentScene;
         };
