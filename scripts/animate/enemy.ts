@@ -69,8 +69,6 @@ module animate {
         public destroy() {
             super.destroy();
             clearInterval(this.attackInterval);
-            let explosion = new objects.explosion(this.x, this.y, "smallexplosion");                      
-            managers.Game.currentSceneObject.addChild(explosion);
             createjs.Sound.play("monster_die"); 
             managers.Game.scoreBoard.Score += 200;  
         }

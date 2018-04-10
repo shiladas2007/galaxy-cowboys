@@ -90,5 +90,11 @@ module objects {
                 this.destroy();
             }
         }
+
+        public destroy() {
+            super.destroy();
+            let explosion = new objects.explosion(this.x - this.halfWidth, this.y - this.halfHeight, "smallexplosion");                      
+            managers.Game.currentSceneObject.addChild(explosion);
+        }
     }
 }

@@ -70,8 +70,6 @@ var animate;
         Enemy.prototype.destroy = function () {
             _super.prototype.destroy.call(this);
             clearInterval(this.attackInterval);
-            var explosion = new objects.explosion(this.x, this.y, "smallexplosion");
-            managers.Game.currentSceneObject.addChild(explosion);
             createjs.Sound.play("monster_die");
             managers.Game.scoreBoard.Score += 200;
         };
