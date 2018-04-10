@@ -12,12 +12,15 @@ var objects;
 (function (objects) {
     var Projectile = /** @class */ (function (_super) {
         __extends(Projectile, _super);
-        function Projectile(imageName, origin, destination, mvspd) {
+        function Projectile(imageName, shooter, destination, mvspd) {
             if (mvspd === void 0) { mvspd = 2; }
-            var _this = _super.call(this, imageName, origin.x, origin.y) || this;
-            _this._origin = origin;
+            var _this = _super.call(this, imageName, shooter.x, shooter.y) || this;
+            _this._origin = new math.Vec2(shooter.x, shooter.y);
             _this._destination = destination;
+            _this._shooter = shooter;
             _this.mvspd = mvspd;
+            // Move projectile in front of shooter
+            _this._spawnPosition();
             createjs.Sound.play("shot");
             return _this;
         }
@@ -30,18 +33,37 @@ var objects;
                 this.y <= managers.Game.currentSceneObject.topBoundary - this.halfHeight ||
                 this.x >= managers.Game.currentSceneObject.rightBoundary + this.halfWidth ||
                 this.x <= managers.Game.currentSceneObject.leftBoundary - this.halfWidth) {
-                managers.Game.currentSceneObject.removeObject(this);
+                this.destroy();
             }
         };
-        Projectile.prototype.getNextPosition = function () {
+        Projectile.prototype._spawnPosition = function () {
+            var run = Math.abs(math.Vec2.run(this._origin, this._destination));
+            var rise = Math.abs(math.Vec2.rise(this._origin, this._destination));
+            var mvAmt;
+            var margin = 10;
+            if (run < rise) {
+                // Path is more vertical than horizontal - use shooter's height to spawn bullet
+                mvAmt = this._shooter.halfHeight + margin;
+            }
+            else {
+                mvAmt = this._shooter.halfWidth + margin;
+            }
+            this.move(mvAmt);
+            managers.Game.currentSceneObject.addProjectile(this);
+        };
+        Projectile.prototype.getNextPosition = function (movementAmount) {
+            if (movementAmount === void 0) { movementAmount = null; }
             var newX;
             var newY;
             var run = math.Vec2.run(this._origin, this._destination);
             var rise = math.Vec2.rise(this._origin, this._destination);
             var c;
             var divisor;
+            if (movementAmount == null) {
+                movementAmount = this.movementAmount;
+            }
             c = Math.sqrt(Math.pow(run, 2) + Math.pow(rise, 2));
-            divisor = c / this.movementAmount;
+            divisor = c / movementAmount;
             run = Math.abs(run / divisor);
             rise = Math.abs(rise / divisor);
             if (this._destination.x < this._origin.x) {
@@ -54,8 +76,9 @@ var objects;
             newY = Math.round(this.y + rise);
             return new math.Vec2(newX, newY);
         };
-        Projectile.prototype.move = function () {
-            var newPosition = this.getNextPosition();
+        Projectile.prototype.move = function (movementAmount) {
+            if (movementAmount === void 0) { movementAmount = null; }
+            var newPosition = this.getNextPosition(movementAmount);
             this.x = newPosition.x;
             this.y = newPosition.y;
         };

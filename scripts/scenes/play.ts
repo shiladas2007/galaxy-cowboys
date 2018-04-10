@@ -142,14 +142,7 @@ module scenes {
         }
 
         private _onClick() {
-            let playerPos = new math.Vec2(this._player.x, this._player.y);
-            let targetX: number = this.stage.mouseX - this.x;
-            let targetY: number = this.stage.mouseY - this.y;
-            let targetPos = new math.Vec2(targetX, targetY);
-            
-            let newProjectile = new objects.Projectile("bullet", playerPos, targetPos);
-            this._projectiles.push(newProjectile);
-            this.addChild(newProjectile);
+            this._player.attack();
         }
 
         public destroyAll() {

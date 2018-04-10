@@ -162,13 +162,7 @@ var scenes;
             this._scoreBoard.y -= y;
         };
         PlayScene.prototype._onClick = function () {
-            var playerPos = new math.Vec2(this._player.x, this._player.y);
-            var targetX = this.stage.mouseX - this.x;
-            var targetY = this.stage.mouseY - this.y;
-            var targetPos = new math.Vec2(targetX, targetY);
-            var newProjectile = new objects.Projectile("bullet", playerPos, targetPos);
-            this._projectiles.push(newProjectile);
-            this.addChild(newProjectile);
+            this._player.attack();
         };
         PlayScene.prototype.destroyAll = function () {
             var _this = this;

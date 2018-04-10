@@ -79,6 +79,10 @@ var animate;
             managers.Game.currentScene = config.Scene.GAMEOVER;
         };
         Player.prototype.attack = function () {
+            var targetX = managers.Game.currentSceneObject.stage.mouseX - managers.Game.currentSceneObject.x;
+            var targetY = managers.Game.currentSceneObject.stage.mouseY - managers.Game.currentSceneObject.y;
+            var targetPos = new math.Vec2(targetX, targetY);
+            var newProjectile = new objects.Projectile("bullet", this, targetPos);
         };
         return Player;
     }(animate.Animate));

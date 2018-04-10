@@ -76,7 +76,6 @@ module animate {
         }
 
         public attack():void {
-            let currentPos: math.Vec2 = new math.Vec2(this.x, this.y);
             let targetX: number;
             let targetY: number;
 
@@ -85,8 +84,7 @@ module animate {
             targetY = this.y + 1;
 
             let targetPos = new math.Vec2(targetX, targetY);
-            let newProjectile = new objects.Projectile("laser", currentPos, targetPos);
-            managers.Game.currentSceneObject.addProjectile(newProjectile);
+            let newProjectile = new objects.Projectile("laser", this, targetPos);
         }
     }
 }

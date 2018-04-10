@@ -76,15 +76,13 @@ var animate;
             managers.Game.scoreBoard.Score += 200;
         };
         Enemy.prototype.attack = function () {
-            var currentPos = new math.Vec2(this.x, this.y);
             var targetX;
             var targetY;
             // Shoot down
             targetX = this.x;
             targetY = this.y + 1;
             var targetPos = new math.Vec2(targetX, targetY);
-            var newProjectile = new objects.Projectile("laser", currentPos, targetPos);
-            managers.Game.currentSceneObject.addProjectile(newProjectile);
+            var newProjectile = new objects.Projectile("laser", this, targetPos);
         };
         return Enemy;
     }(animate.Animate));
