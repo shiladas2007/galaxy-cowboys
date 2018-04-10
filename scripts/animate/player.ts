@@ -66,6 +66,7 @@ module animate {
 
         public destroy() {
             createjs.Sound.play("player_die");
+            managers.Game.currentSceneObject.destroyAll();
             managers.Game.currentScene = config.Scene.GAMEOVER;
         }
 

@@ -47,5 +47,7 @@ module objects {
             this.removeChild(o);
             o = null;
         }
+
+        public destroyAll() {}
     }
 }

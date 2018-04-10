@@ -61,10 +61,11 @@ var objects;
         };
         Projectile.prototype.collide = function (other) {
             if (other instanceof animate.Enemy && this.name == "bullet" ||
-                other instanceof animate.Player && this.name == "laser") {
+                other instanceof animate.Player && this.name == "laser" ||
+                other instanceof objects.Destructible && this.name == "bullet") {
                 other.hp -= 1; // TODO: Decrease according to damage
+                this.destroy();
             }
-            this.destroy();
         };
         return Projectile;
     }(objects.GameObject));

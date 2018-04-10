@@ -75,6 +75,7 @@ var animate;
         };
         Player.prototype.destroy = function () {
             createjs.Sound.play("player_die");
+            managers.Game.currentSceneObject.destroyAll();
             managers.Game.currentScene = config.Scene.GAMEOVER;
         };
         Player.prototype.attack = function () {

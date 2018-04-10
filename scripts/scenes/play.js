@@ -170,6 +170,21 @@ var scenes;
             this._projectiles.push(newProjectile);
             this.addChild(newProjectile);
         };
+        PlayScene.prototype.destroyAll = function () {
+            var _this = this;
+            this._projectiles.forEach(function (projectile) {
+                projectile.destroy();
+                _this.removeObject(projectile);
+            });
+            this._enemies.forEach(function (enemy) {
+                enemy.destroy();
+                _this.removeObject(enemy);
+            });
+            this._obstra.forEach(function (obstra) {
+                obstra.destroy();
+                _this.removeObject(obstra);
+            });
+        };
         PlayScene.prototype._updateEnemies = function () {
             var _this = this;
             var keepers = [];
@@ -201,6 +216,7 @@ var scenes;
                 var keepers_1 = [];
                 this._projectiles.forEach(function (projectile) {
                     projectile.update();
+                    managers.Collision.check(projectile, _this._player);
                     _this._obstra.forEach(function (obstra) {
                         if (projectile.name == "bullet") {
                             if (managers.Collision.check(obstra, projectile)) {

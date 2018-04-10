@@ -38,7 +38,7 @@ module animate {
         // public methods
         // Initializes variables and creates new objects
         public start():void {
-            //this.attackInterval = setInterval(() => {this.attack()}, this._weapon.fireRate * 1000);
+            this.attackInterval = setInterval(() => {this.attack()}, this._weapon.fireRate * 1000);
         }
     
         // updates the game object every frame

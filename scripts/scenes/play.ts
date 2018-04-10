@@ -152,6 +152,21 @@ module scenes {
             this.addChild(newProjectile);
         }
 
+        public destroyAll() {
+            this._projectiles.forEach(projectile => {
+                projectile.destroy();
+                this.removeObject(projectile);
+            });
+            this._enemies.forEach(enemy => {
+                enemy.destroy();
+                this.removeObject(enemy);
+            });
+            this._obstra.forEach(obstra => {
+                obstra.destroy();
+                this.removeObject(obstra);
+            });
+        }
+
         private _updateEnemies() {
             let keepers: animate.Enemy[] = [];
 
@@ -186,6 +201,7 @@ module scenes {
                 this._projectiles.forEach(projectile => {
                     projectile.update();
 
+                    managers.Collision.check(projectile, this._player);
                     this._obstra.forEach(obstra => {
                         if (projectile.name == "bullet") {
                             if (managers.Collision.check(obstra, projectile)) {

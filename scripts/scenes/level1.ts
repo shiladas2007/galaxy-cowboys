@@ -37,9 +37,6 @@ module scenes {
 
             this._controlsIntroduck = new ui.Image("controlsIntroduck", 120, 280);
             
-           
-                        
-
             this.main();
         }
 

@@ -44,7 +44,8 @@ var animate;
         // public methods
         // Initializes variables and creates new objects
         Enemy.prototype.start = function () {
-            //this.attackInterval = setInterval(() => {this.attack()}, this._weapon.fireRate * 1000);
+            var _this = this;
+            this.attackInterval = setInterval(function () { _this.attack(); }, this._weapon.fireRate * 1000);
         };
         // updates the game object every frame
         Enemy.prototype.update = function () {

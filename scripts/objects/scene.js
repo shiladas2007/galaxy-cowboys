@@ -83,6 +83,7 @@ var objects;
             this.removeChild(o);
             o = null;
         };
+        Scene.prototype.destroyAll = function () { };
         return Scene;
     }(createjs.Container));
     objects.Scene = Scene;
