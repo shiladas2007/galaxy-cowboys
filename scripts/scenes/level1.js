@@ -38,7 +38,7 @@ var scenes;
                 "Left-click to shoot. Shoot the aliens to move on."
             ];
             this._tooltips = [
-                new ui.Tooltip("tooltipBg", tooltipMessages, 430, 370)
+                new ui.Tooltip("tooltipBg", tooltipMessages)
             ];
             this._controlsIntroduck = new ui.Image("controlsIntroduck", 120, 280);
             this.main();

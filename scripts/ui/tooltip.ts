@@ -11,10 +11,8 @@ module ui {
         public width: number;
         public height: number;
         
-        constructor(imageString:string, messages:string[], x:number=0, y:number=0) {
+        constructor(imageString:string, messages:string[]) {
             super();
-            this.x = x;
-            this.y = y;
             this._messages = messages;
             this.start();
         }       
@@ -23,6 +21,11 @@ module ui {
 
             this.width = this._bgImg.width;
             this.height = this._bgImg.height;
+
+            let marginX = 10;
+            let marginY = 10;
+            this.x = managers.Game.WIDTH - this.width - marginX;
+            this.y = managers.Game.HEIGHT - this.height - marginY;
 
             this._tooltipLabel = new Label(this._messages[0], "12px","Sporting Grotesque", "#fff");
             this._tooltipLabel.shadow = new createjs.Shadow("#000", 1, 1, 0);
@@ -63,8 +66,8 @@ module ui {
         }
 
         private _arrange() {
-            let marginX: number = 5;
-            let marginY: number = 5;
+            let marginX: number = 10;
+            let marginY: number = 10;
             
             this._closeButton.x = this.width - this._closeButton.width - marginX;
             this._closeButton.y = marginY;
@@ -72,9 +75,9 @@ module ui {
             this._nextButton.x = this.width - this._nextButton.width - marginX;
             this._nextButton.y = this.height - this._nextButton.height - marginY;
 
-            this._tooltipLabel.x = marginX;
-            this._tooltipLabel.y = marginY;
-            this._tooltipLabel.lineWidth = this.width - this._closeButton.width - (marginX * 2);
+            this._tooltipLabel.x = 35;
+            this._tooltipLabel.y = 15 ;
+            this._tooltipLabel.lineWidth = this.width - this._closeButton.width - 35;
         }
 
         private displayPage(index:number) {

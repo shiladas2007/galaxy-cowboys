@@ -12,13 +12,9 @@ var ui;
 (function (ui) {
     var Tooltip = /** @class */ (function (_super) {
         __extends(Tooltip, _super);
-        function Tooltip(imageString, messages, x, y) {
-            if (x === void 0) { x = 0; }
-            if (y === void 0) { y = 0; }
+        function Tooltip(imageString, messages) {
             var _this = _super.call(this) || this;
             _this._currentIndex = 0;
-            _this.x = x;
-            _this.y = y;
             _this._messages = messages;
             _this.start();
             return _this;
@@ -27,6 +23,10 @@ var ui;
             this._bgImg = new ui.Image("tooltipBg");
             this.width = this._bgImg.width;
             this.height = this._bgImg.height;
+            var marginX = 10;
+            var marginY = 10;
+            this.x = managers.Game.WIDTH - this.width - marginX;
+            this.y = managers.Game.HEIGHT - this.height - marginY;
             this._tooltipLabel = new ui.Label(this._messages[0], "12px", "Sporting Grotesque", "#fff");
             this._tooltipLabel.shadow = new createjs.Shadow("#000", 1, 1, 0);
             this._nextButton = new ui.Button("next");
@@ -60,15 +60,15 @@ var ui;
             this._messages.push(message);
         };
         Tooltip.prototype._arrange = function () {
-            var marginX = 5;
-            var marginY = 5;
+            var marginX = 10;
+            var marginY = 10;
             this._closeButton.x = this.width - this._closeButton.width - marginX;
             this._closeButton.y = marginY;
             this._nextButton.x = this.width - this._nextButton.width - marginX;
             this._nextButton.y = this.height - this._nextButton.height - marginY;
-            this._tooltipLabel.x = marginX;
-            this._tooltipLabel.y = marginY;
-            this._tooltipLabel.lineWidth = this.width - this._closeButton.width - (marginX * 2);
+            this._tooltipLabel.x = 35;
+            this._tooltipLabel.y = 15;
+            this._tooltipLabel.lineWidth = this.width - this._closeButton.width - 35;
         };
         Tooltip.prototype.displayPage = function (index) {
             if (index >= this._messages.length) {

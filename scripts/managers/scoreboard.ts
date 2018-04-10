@@ -39,8 +39,8 @@ module managers {
       }
   
       private _initialize():void {
-          this.LivesLabel = new ui.Label("Lives: 0", "20px", "SportingGrotesque", "#FFFF00", 10, 10, false);
-          this.ScoreLabel = new ui.Label("Score: 0", "20px", "SportingGrotesque", "#FFFF00", 500, 10, false);
+          this.LivesLabel = new ui.Label("Lives: 0", "20px", "Sporting Grotesque", "#FFFF00", 20, 10, false);
+          this.ScoreLabel = new ui.Label("Score: 0", "20px", "Sporting Grotesque", "#FFFF00", 500, 10, false);
     
           this.Lives = 1;
           this.Score = 0;
