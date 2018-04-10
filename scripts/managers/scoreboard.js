@@ -49,8 +49,8 @@ var managers;
             this.addChild(this.ScoreLabel);
         };
         ScoreBoard.prototype._initialize = function () {
-            this.LivesLabel = new ui.Label("Lives: 0", "20px", "Sporting Grotesque", "#FFFF00", 20, 10, false);
-            this.ScoreLabel = new ui.Label("Score: 0", "20px", "Sporting Grotesque", "#FFFF00", 500, 10, false);
+            this.LivesLabel = new ui.Label("Lives: 0", "14pt", "Sporting Grotesque", "#FFFF00", 20, 10, false);
+            this.ScoreLabel = new ui.Label("Score: 0", "14pt", "Sporting Grotesque", "#FFFF00", 500, 10, false);
             this.Lives = 1;
             this.Score = 0;
             this.main();
