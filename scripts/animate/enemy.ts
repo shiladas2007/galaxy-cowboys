@@ -4,6 +4,7 @@ module animate {
         // private instance variables       
                  
         private attackInterval;
+        private _enemyType: config.Enemy;
         
         // public properties
         // Constructor
@@ -28,6 +29,7 @@ module animate {
 
             super(enemyImg, hp, mvspd, px, py);
             console.log("constructor of enemy");
+            this._enemyType = enemyType;
             this.hp=hp;
             this.mvspd=mvspd;
             this._weapon = new objects.Weapon(config.Weapon.BLASTER);
@@ -77,9 +79,17 @@ module animate {
             let targetX: number;
             let targetY: number;
 
-            // Shoot down
-            targetX = this.x;
-            targetY = this.y + 1;
+            switch (this._enemyType) {
+                case config.Enemy.GUARD:
+                    // Shoot down
+                    targetX = this.x;
+                    targetY = this.y + 1;
+                    break;
+                default:
+                    targetX = managers.Game.currentSceneObject.player.x;
+                    targetY = managers.Game.currentSceneObject.player.y;
+                    break;
+            }
 
             let targetPos = new math.Vec2(targetX, targetY);
             let newProjectile = new objects.Projectile("laser", this, targetPos);

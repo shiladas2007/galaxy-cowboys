@@ -34,6 +34,7 @@ var animate;
             }
             _this = _super.call(this, enemyImg, hp, mvspd, px, py) || this;
             console.log("constructor of enemy");
+            _this._enemyType = enemyType;
             _this.hp = hp;
             _this.mvspd = mvspd;
             _this._weapon = new objects.Weapon(config.Weapon.BLASTER);
@@ -76,9 +77,17 @@ var animate;
         Enemy.prototype.attack = function () {
             var targetX;
             var targetY;
-            // Shoot down
-            targetX = this.x;
-            targetY = this.y + 1;
+            switch (this._enemyType) {
+                case config.Enemy.GUARD:
+                    // Shoot down
+                    targetX = this.x;
+                    targetY = this.y + 1;
+                    break;
+                default:
+                    targetX = managers.Game.currentSceneObject.player.x;
+                    targetY = managers.Game.currentSceneObject.player.y;
+                    break;
+            }
             var targetPos = new math.Vec2(targetX, targetY);
             var newProjectile = new objects.Projectile("laser", this, targetPos);
         };
