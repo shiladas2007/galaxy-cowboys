@@ -27,15 +27,11 @@ var objects;
         Destructible.prototype.move = function () { };
         Destructible.prototype.attack = function () { };
         Destructible.prototype.collide = function (other) {
-            if (other instanceof objects.GameObject) {
-                console.log(this.lastValidPosition);
-                this.hp = 0;
-                this.x = this.lastValidPosition.x;
-                this.y = this.lastValidPosition.y;
+            if (other instanceof objects.Projectile) {
+                this.hp -= 1;
             }
-            else {
-                this.lastValidPosition.x = this.x;
-                this.lastValidPosition.y = this.y;
+            if (this.hp <= 0) {
+                this.destroy();
             }
         };
         Destructible.prototype.destroy = function () {

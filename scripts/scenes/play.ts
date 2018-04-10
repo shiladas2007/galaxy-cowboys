@@ -186,6 +186,14 @@ module scenes {
                 this._projectiles.forEach(projectile => {
                     projectile.update();
 
+                    this._obstra.forEach(obstra => {
+                        if (projectile.name == "bullet") {
+                            if (managers.Collision.check(obstra, projectile)) {
+                                this.removeObject(projectile);
+                            }
+                        }
+                    });
+
                     if (projectile != null) {
                         keepers.push(projectile);
                     }

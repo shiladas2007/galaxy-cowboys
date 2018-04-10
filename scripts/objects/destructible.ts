@@ -17,14 +17,11 @@ module objects {
         public attack() {}
 
         public collide(other:objects.GameObject) {
-            if (other instanceof objects.GameObject) {
-                console.log(this.lastValidPosition);
-                this.hp=0;
-                this.x = this.lastValidPosition.x;
-                this.y = this.lastValidPosition.y;
-            } else {
-                this.lastValidPosition.x = this.x;
-                this.lastValidPosition.y = this.y;
+            if (other instanceof objects.Projectile) {
+                this.hp -= 1;
+            }
+            if (this.hp <= 0) {
+                this.destroy();
             }
         }
 

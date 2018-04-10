@@ -196,10 +196,18 @@ var scenes;
             this._enemies = keepers;
         };
         PlayScene.prototype._updateProjectiles = function () {
+            var _this = this;
             if (this._projectiles.length) {
                 var keepers_1 = [];
                 this._projectiles.forEach(function (projectile) {
                     projectile.update();
+                    _this._obstra.forEach(function (obstra) {
+                        if (projectile.name == "bullet") {
+                            if (managers.Collision.check(obstra, projectile)) {
+                                _this.removeObject(projectile);
+                            }
+                        }
+                    });
                     if (projectile != null) {
                         keepers_1.push(projectile);
                     }
