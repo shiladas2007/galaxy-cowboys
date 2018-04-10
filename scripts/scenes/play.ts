@@ -194,7 +194,9 @@ module scenes {
                         }
                     });
 
-                    if (projectile != null) {
+                    if (projectile.isDestroyed) {
+                        this.removeObject(projectile);
+                    } else {
                         keepers.push(projectile);
                     }
                 });

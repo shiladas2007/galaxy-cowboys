@@ -42,9 +42,6 @@ var animate;
         }
         // private methods
         // public methods
-        Enemy.prototype.isDead = function () {
-            return this.enemyIsDead;
-        };
         // Initializes variables and creates new objects
         Enemy.prototype.start = function () {
             //this.attackInterval = setInterval(() => {this.attack()}, this._weapon.fireRate * 1000);
@@ -70,6 +67,7 @@ var animate;
             }
         };
         Enemy.prototype.destroy = function () {
+            _super.prototype.destroy.call(this);
             clearInterval(this.attackInterval);
             var explosion = new objects.explosion(this.x, this.y, "smallexplosion");
             managers.Game.currentSceneObject.addChild(explosion);

@@ -208,7 +208,10 @@ var scenes;
                             }
                         }
                     });
-                    if (projectile != null) {
+                    if (projectile.isDestroyed) {
+                        _this.removeObject(projectile);
+                    }
+                    else {
                         keepers_1.push(projectile);
                     }
                 });

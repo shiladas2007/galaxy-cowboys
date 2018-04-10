@@ -2,9 +2,7 @@ module animate {
     export class Enemy extends Animate {
         //specify the character image, hp, and mvspd
         // private instance variables       
-                
-        //for setting eneme is dead 
-        private enemyIsDead: boolean;
+                 
         private attackInterval;
         
         // public properties
@@ -38,10 +36,6 @@ module animate {
         
         // private methods
         // public methods
-        public isDead():boolean {
-            return this.enemyIsDead;
-        }
-       
         // Initializes variables and creates new objects
         public start():void {
             //this.attackInterval = setInterval(() => {this.attack()}, this._weapon.fireRate * 1000);
@@ -73,6 +67,7 @@ module animate {
         }
 
         public destroy() {
+            super.destroy();
             clearInterval(this.attackInterval);
             let explosion = new objects.explosion(this.x, this.y, "smallexplosion");                      
             managers.Game.currentSceneObject.addChild(explosion);

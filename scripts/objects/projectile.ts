@@ -59,12 +59,11 @@ module objects {
         }
 
         public collide(other:objects.GameObject) {
-            if (other instanceof animate.Enemy && this.name == "bullet") {
+            if (other instanceof animate.Enemy && this.name == "bullet" ||
+            other instanceof animate.Player && this.name == "laser") {
                 other.hp -= 1; // TODO: Decrease according to damage
-            } else if (other instanceof animate.Player && this.name == "laser") {
-                other.hp -= 1;
             }
-            managers.Game.currentSceneObject.removeObject(this);
+            this.destroy();
         }
     }
 }

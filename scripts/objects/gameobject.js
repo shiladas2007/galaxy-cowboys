@@ -14,6 +14,7 @@ var objects;
         __extends(GameObject, _super);
         function GameObject(imageName, px, py) {
             var _this = _super.call(this, managers.Game.textureAtlas, imageName) || this;
+            _this.isDestroyed = false;
             _this.name = imageName;
             _this.x = px;
             _this.y = py;
@@ -82,7 +83,9 @@ var objects;
         GameObject.prototype.start = function () { };
         GameObject.prototype.update = function () { };
         GameObject.prototype.collide = function (other) { };
-        GameObject.prototype.destroy = function () { };
+        GameObject.prototype.destroy = function () {
+            this.isDestroyed = true;
+        };
         return GameObject;
     }(createjs.Sprite));
     objects.GameObject = GameObject;

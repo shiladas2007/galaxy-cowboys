@@ -11,6 +11,7 @@ module objects {
         public lastValidPosition: math.Vec2; // last known x,y coords where object didn't collide with an obstacle
 
         public isColliding: boolean;
+        public isDestroyed: boolean = false;
 
         get leftX():number {
             return this.x - this.halfWidth;
@@ -68,6 +69,8 @@ module objects {
 
         public collide(other:objects.GameObject):void { }
 
-        public destroy() {}
+        public destroy() {
+            this.isDestroyed = true;
+        }
     }
 }
