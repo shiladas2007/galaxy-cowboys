@@ -24,12 +24,13 @@ var scenes;
             this._enemies = [
                 new animate.Enemy(config.Enemy.GUARD, 120, 140),
                 new animate.Enemy(config.Enemy.GUARD, 320, 240),
-                new animate.Enemy(config.Enemy.WATCHER, 500, 100),
-                new animate.Enemy(config.Enemy.GUARD, 237, -200)
+                new animate.Enemy(config.Enemy.GUARD, 500, 100),
+                new animate.Enemy(config.Enemy.GUARD, 237, -200),
+                new animate.Enemy(config.Enemy.WATCHER, 400, -270),
             ];
             console.log("Enemies initialized.");
             console.log("Initializing player...");
-            this._player = new animate.Player(config.Character.GUNSLINGER, 100, 420);
+            this._player = new animate.Player(config.Character.QUICKSILVER, 100, 420);
             console.log("Player initialized.");
             this.main();
         };
