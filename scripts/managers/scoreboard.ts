@@ -39,8 +39,11 @@ module managers {
       }
   
       private _initialize():void {
+          let shadowColour: string = "rgba(80,50,20,0.7)";
           this.LivesLabel = new ui.Label("Lives: 0", "14pt", "Sporting Grotesque", "#FFFF00", 20, 10, false);
+          this.LivesLabel.shadow = new createjs.Shadow(shadowColour, 1, 2, 0);
           this.ScoreLabel = new ui.Label("Score: 0", "14pt", "Sporting Grotesque", "#FFFF00", 500, 10, false);
+          this.ScoreLabel.shadow = new createjs.Shadow(shadowColour, 1, 2, 0);
     
           this.Lives = 1;
           this.Score = 0;

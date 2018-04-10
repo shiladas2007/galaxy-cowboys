@@ -74,6 +74,7 @@ var objects;
             this.regX = this.halfWidth;
             this.regY = this.halfHeight;
             this.isColliding = false;
+            this.shadow = new createjs.Shadow("rgba(80,30,0,0.6)", 0, 4, 4);
         };
         GameObject.prototype.reset = function () { };
         GameObject.prototype.checkBounds = function (other) {
