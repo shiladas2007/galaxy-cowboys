@@ -35,6 +35,7 @@ var objects;
             }
         };
         Destructible.prototype.destroy = function () {
+            _super.prototype.destroy.call(this);
             createjs.Sound.play("breaking");
             var breaking = new objects.explosion(this.x, this.y, "breaking");
             managers.Game.currentSceneObject.addChild(breaking);

@@ -26,9 +26,10 @@ module objects {
         }
 
         public destroy() {
+            super.destroy();
             createjs.Sound.play("breaking");   
             let breaking = new objects.explosion(this.x, this.y, "breaking");                      
-            managers.Game.currentSceneObject.addChild(breaking); 
+            managers.Game.currentSceneObject.addChild(breaking);
         }
     }
 }
