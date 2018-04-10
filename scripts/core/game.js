@@ -10,46 +10,60 @@
     var keyboardManager;
     var textureAtlasData;
     var textureAtlas;
+    var stats;
     textureAtlasData = {
         "images": [
-            "./assets/sprites/texture.png"
+            "./assets/sprites/textureData.png"
         ],
+        "framerate": 20,
         "frames": [
-            [0, 0, 30, 30, 0, 0, 0],
-            [30, 0, 25, 25, 0, 0, 0],
-            [55, 0, 50, 50, 0, 0, 0],
-            [105, 0, 50, 50, 0, 0, 0],
-            [155, 0, 50, 46, 0, 0, 0],
-            [0, 50, 50, 49, 0, 0, 0],
-            [50, 50, 50, 50, 0, 0, 0],
-            [100, 50, 50, 47, 0, 0, 0],
-            [150, 50, 50, 53, 0, 0, 0],
-            [0, 103, 50, 53, 0, 0, 0],
-            [50, 103, 35, 35, 0, 0, 0],
-            [85, 103, 120, 105, 0, 0, 0],
-            [0, 208, 50, 50, 0, 0, 0],
-            [50, 208, 60, 60, 0, 0, 0],
-            [110, 208, 60, 60, 0, 0, 0],
-            [170, 208, 60, 60, 0, 0, 0],
-            [0, 268, 100, 30, 0, 0, 0],
-            [100, 268, 35, 35, 0, 0, 0],
-            [135, 268, 99, 94, 0, 0, 0],
-            [0, 362, 32, 32, 0, 0, 0],
-            [32, 362, 32, 32, 0, 0, 0],
-            [64, 362, 32, 32, 0, 0, 0],
-            [96, 362, 32, 32, 0, 0, 0],
-            [128, 362, 32, 32, 0, 0, 0],
-            [160, 362, 32, 32, 0, 0, 0],
-            [0, 394, 200, 60, 0, 0, 0],
-            [0, 454, 200, 60, 0, 0, 0],
-            [0, 514, 200, 109, 0, 0, 0],
-            [0, 623, 50, 50, 0, 0, 0],
-            [50, 623, 80, 80, 0, 0, 0],
-            [130, 623, 50, 50, 0, 0, 0]
+            [1, 1, 23, 23, 0, -1, -1],
+            [26, 1, 50, 50, 0, 0, 0],
+            [78, 1, 50, 46, 0, 0, 0],
+            [130, 1, 50, 49, 0, 0, 0],
+            [182, 1, 50, 50, 0, 0, 0],
+            [1, 53, 50, 47, 0, 0, 0],
+            [53, 53, 50, 53, 0, 0, 0],
+            [105, 53, 50, 53, 0, 0, 0],
+            [157, 53, 34, 33, 0, -1, -1],
+            [1, 108, 114, 97, 0, -3, -1],
+            [117, 108, 48, 48, 0, -1, -2],
+            [167, 108, 50, 50, 0, 0, 0],
+            [1, 207, 55, 60, 0, 0, 0],
+            [58, 207, 45, 60, 0, 0, 0],
+            [105, 207, 59, 58, 0, 0, 0],
+            [166, 207, 28, 40, 0, 0, 0],
+            [1, 269, 100, 30, 0, 0, 0],
+            [103, 269, 35, 35, 0, 0, 0],
+            [140, 269, 85, 84, 0, -6, -7],
+            [1, 355, 31, 29, 0, 0, -2],
+            [34, 355, 31, 29, 0, 0, -2],
+            [67, 355, 31, 29, 0, 0, -2],
+            [100, 355, 31, 29, 0, 0, -2],
+            [133, 355, 29, 29, 0, -1, -2],
+            [164, 355, 31, 29, 0, 0, -2],
+            [1, 386, 199, 60, 0, -1, 0],
+            [1, 448, 199, 60, 0, -1, 0],
+            [1, 510, 250, 133, 0, 0, 0]
         ],
         "animations": {
-            "breaking": { "frames": [2, 3, 4, 5, 6, 7, 8, 9], "speed": 0.08 },
-            "smallexplosion": { "frames": [19, 20, 21, 22, 23, 24], "speed": 0.16 }
+            "bullet": { "frames": [0] },
+            "breaking": { "frames": [1, 2, 3, 4, 5, 6, 7] },
+            "close": { "frames": [8] },
+            "controlsIntroduck": { "frames": [9] },
+            "cowboy1": { "frames": [10] },
+            "crate": { "frames": [11] },
+            "enemyGuard": { "frames": [12] },
+            "enemyPatroller": { "frames": [13] },
+            "enemyWatcher": { "frames": [14] },
+            "laser": { "frames": [15] },
+            "next": { "frames": [16] },
+            "pauseSmall": { "frames": [17] },
+            "restart": { "frames": [18] },
+            "smallexplosion": { "frames": [19, 20, 21, 22, 23, 24] },
+            "startButton": { "frames": [25] },
+            "startButton2": { "frames": [26] },
+            "tooltipBg": { "frames": [27] }
         }
     };
     assetManifest = [
@@ -86,6 +100,9 @@
     }
     function start() {
         console.log("Starting application...");
+        stats = new Stats();
+        stats.showPanel(0);
+        document.body.appendChild(stats.dom);
         //textureAtlasData.images = [ assetManager.getResult("textureAtlas") ];
         textureAtlas = new createjs.SpriteSheet(textureAtlasData);
         stage = new createjs.Stage(canvas);
@@ -101,11 +118,13 @@
         main();
     }
     function update() {
+        stats.begin();
         if (currentState != managers.Game.currentScene) {
             main();
         }
         currentScene.update();
         stage.update();
+        stats.end();
     }
     function main() {
         stage.removeAllChildren();

@@ -13,7 +13,7 @@ var objects;
     var GameObject = /** @class */ (function (_super) {
         __extends(GameObject, _super);
         function GameObject(imageName, px, py) {
-            var _this = _super.call(this, managers.Game.assetManager.getResult(imageName)) || this;
+            var _this = _super.call(this, managers.Game.textureAtlas, imageName) || this;
             _this.name = imageName;
             _this.x = px;
             _this.y = py;
@@ -84,7 +84,7 @@ var objects;
         GameObject.prototype.collide = function (other) { };
         GameObject.prototype.destroy = function () { };
         return GameObject;
-    }(createjs.Bitmap));
+    }(createjs.Sprite));
     objects.GameObject = GameObject;
 })(objects || (objects = {}));
 //# sourceMappingURL=gameobject.js.map

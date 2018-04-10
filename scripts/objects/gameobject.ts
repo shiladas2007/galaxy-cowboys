@@ -1,5 +1,5 @@
 module objects {
-    export abstract class GameObject extends createjs.Bitmap {
+    export abstract class GameObject extends createjs.Sprite {
         protected _dy: number;
         protected _dx: number;
         private _mvspd: number; // multiplier; 1 = 100%
@@ -38,7 +38,7 @@ module objects {
         }
 
         constructor(imageName:string, px:number, py:number) {
-            super(managers.Game.assetManager.getResult(imageName));
+            super(managers.Game.textureAtlas, imageName);
             this.name = imageName;
             this.x = px;
             this.y = py;
