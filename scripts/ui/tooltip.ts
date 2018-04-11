@@ -67,7 +67,7 @@ module ui {
 
         private _arrange() {
             let marginX: number = 10;
-            let marginY: number = 10;
+            let marginY: number = 5;
             
             this._closeButton.x = this.width - this._closeButton.width - marginX;
             this._closeButton.y = marginY;

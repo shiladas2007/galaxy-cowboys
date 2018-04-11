@@ -61,7 +61,7 @@ var ui;
         };
         Tooltip.prototype._arrange = function () {
             var marginX = 10;
-            var marginY = 10;
+            var marginY = 5;
             this._closeButton.x = this.width - this._closeButton.width - marginX;
             this._closeButton.y = marginY;
             this._nextButton.x = this.width - this._nextButton.width - marginX;

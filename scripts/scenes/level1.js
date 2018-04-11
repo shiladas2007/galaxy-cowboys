@@ -34,7 +34,7 @@ var scenes;
             console.log("Player initialized.");
             // Initialize
             var tooltipMessages = [
-                "Use WASD and arrow keys to move. Press SPACE for the next tip.",
+                "Use WASD and arrow keys to move.\n\nPress SPACE for the next tip.",
                 "Left-click to shoot.\n\nUse your trusty revolver to shoot the aliens, Gunslinger Sam!"
             ];
             this._tooltips = [
