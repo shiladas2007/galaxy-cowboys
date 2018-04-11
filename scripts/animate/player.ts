@@ -17,6 +17,7 @@ module animate {
         }
 
         public checkBounds():void {
+            super.checkBounds();
             // Checking vertical boundaries
             let bottom: number = managers.Game.currentSceneObject.bottomBoundary - this.halfHeight;
             let top: number = managers.Game.currentSceneObject.topBoundary + this.halfHeight;

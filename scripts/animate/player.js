@@ -29,6 +29,7 @@ var animate;
             return _this;
         }
         Player.prototype.checkBounds = function () {
+            _super.prototype.checkBounds.call(this);
             // Checking vertical boundaries
             var bottom = managers.Game.currentSceneObject.bottomBoundary - this.halfHeight;
             var top = managers.Game.currentSceneObject.topBoundary + this.halfHeight;

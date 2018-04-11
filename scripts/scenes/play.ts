@@ -66,6 +66,7 @@ module scenes {
             // Check for collisions
             this._updateEnemies();
             this._updateProjectiles();
+            this._updateObstra();
 
             if (!this._player.isColliding) {
                 this._player.lastValidPosition.x = this._player.x;
@@ -211,6 +212,12 @@ module scenes {
                 });
                 this._projectiles = keepers;
             }
+        }
+
+        private _updateObstra() {
+            this._obstra.forEach(obstra => {
+                managers.Collision.check(obstra, this._player);
+            });
         }
     }
 }

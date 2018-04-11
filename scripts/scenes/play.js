@@ -94,6 +94,7 @@ var scenes;
             // Check for collisions
             this._updateEnemies();
             this._updateProjectiles();
+            this._updateObstra();
             if (!this._player.isColliding) {
                 this._player.lastValidPosition.x = this._player.x;
                 this._player.lastValidPosition.y = this._player.y;
@@ -227,6 +228,12 @@ var scenes;
                 });
                 this._projectiles = keepers_1;
             }
+        };
+        PlayScene.prototype._updateObstra = function () {
+            var _this = this;
+            this._obstra.forEach(function (obstra) {
+                managers.Collision.check(obstra, _this._player);
+            });
         };
         return PlayScene;
     }(objects.Scene));

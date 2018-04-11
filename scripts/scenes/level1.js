@@ -29,6 +29,9 @@ var scenes;
                 new animate.Enemy(config.Enemy.GUARD, 560, 190)
             ];
             console.log("Enemies initialized.");
+            this._obstra = [
+                new objects.Destructible("crate", 1, 100, 200)
+            ];
             console.log("Initializing player...");
             this._player = new animate.Player(config.Character.GUNSLINGER, 100, 420);
             console.log("Player initialized.");
