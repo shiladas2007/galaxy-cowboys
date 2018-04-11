@@ -51,6 +51,9 @@ module scenes {
 
         public update():number {
             if (managers.Game.keyboardManager.paused) {
+                this._enemies.forEach(enemy => {
+                    enemy.stop();
+                });
                 return managers.Game.currentScene;
             }
 

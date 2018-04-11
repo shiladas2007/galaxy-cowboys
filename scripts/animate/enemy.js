@@ -48,8 +48,15 @@ var animate;
             var _this = this;
             this.attackInterval = setInterval(function () { _this.attack(); }, this._weapon.fireRate * 1000);
         };
+        Enemy.prototype.stop = function () {
+            clearInterval(this.attackInterval);
+            this.attackInterval = null;
+        };
         // updates the game object every frame
         Enemy.prototype.update = function () {
+            if (!this.attackInterval) {
+                this.start();
+            }
             this.move();
             this.checkBounds();
         };
@@ -70,7 +77,7 @@ var animate;
         };
         Enemy.prototype.destroy = function () {
             _super.prototype.destroy.call(this);
-            clearInterval(this.attackInterval);
+            this.stop();
             createjs.Sound.play("monster_die");
             managers.Game.scoreBoard.Score += 200;
         };

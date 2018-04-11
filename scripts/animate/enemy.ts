@@ -42,9 +42,17 @@ module animate {
         public start():void {
             this.attackInterval = setInterval(() => {this.attack()}, this._weapon.fireRate * 1000);
         }
+
+        public stop() {
+            clearInterval(this.attackInterval);
+            this.attackInterval = null;
+        }
     
         // updates the game object every frame
         public update():void {
+            if (!this.attackInterval) {
+                this.start();
+            }
             this.move();
             this.checkBounds();
         }
@@ -70,7 +78,7 @@ module animate {
 
         public destroy() {
             super.destroy();
-            clearInterval(this.attackInterval);
+            this.stop();
             createjs.Sound.play("monster_die"); 
             managers.Game.scoreBoard.Score += 200;  
         }

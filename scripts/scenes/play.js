@@ -82,6 +82,9 @@ var scenes;
         });
         PlayScene.prototype.update = function () {
             if (managers.Game.keyboardManager.paused) {
+                this._enemies.forEach(function (enemy) {
+                    enemy.stop();
+                });
                 return managers.Game.currentScene;
             }
             // TODO: centralize collision check
