@@ -10,6 +10,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 var glm;
+/// <reference path="vector.ts"/>
 (function (glm) {
     /**
      * The vec2 class which represents a 2D Vector with x and y properties

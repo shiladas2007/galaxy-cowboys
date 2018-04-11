@@ -172,18 +172,6 @@ module objects {
                     this.shape = new createjs.Shape(this.graphics);
                     this._setStarCache();
                     break;
-                case "explosion":
-                    this.shape = new createjs.Bitmap(objects.Game.assetManager.getResult("explosionParticle"));
-                    this.shapeWidth = this.shape.getBounds().width;
-                    this.shapeHeight = this.shape.getBounds().height;
-                    this._setBitmapParticleCache();
-                    break;
-                case "flame":
-                    this.shape = new createjs.Bitmap(objects.Game.assetManager.getResult("flameParticle"));
-                    this.shapeWidth = this.shape.getBounds().width;
-                    this.shapeHeight = this.shape.getBounds().height;
-                    this._setBitmapParticleCache();
-                    break;
                 default:
                     this.shape = new createjs.Shape();
                     break;

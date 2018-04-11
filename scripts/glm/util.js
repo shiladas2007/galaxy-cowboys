@@ -1,5 +1,6 @@
 /// <reference path = "../objects/color.ts"/>
 var glm;
+/// <reference path = "../objects/color.ts"/>
 (function (glm) {
     glm.EPSILON = 0.000001;
     glm.Deg2Rad = Math.PI / 180.0;
