@@ -3680,8 +3680,8 @@ var managers;
             configurable: true
         });
         ScoreBoard.prototype.main = function () {
-            this.addChildAt(this.LivesLabel, managers.Game.INDEX_UI);
-            this.addChildAt(this.ScoreLabel, managers.Game.INDEX_UI);
+            this.addChildAt(this.LivesLabel, 0);
+            this.addChildAt(this.ScoreLabel, 0);
         };
         ScoreBoard.prototype._initialize = function () {
             var shadowColour = "rgba(80,50,20,0.7)";
@@ -4073,6 +4073,13 @@ var scenes;
             console.log("Initializing player...");
             this._player = new animate.Player(config.Character.QUICKSILVER, 100, 420);
             console.log("Player initialized.");
+            var tooltipMessages = [
+                "Use WASD and arrow keys to move.\n\nPress SPACE for the next tip.",
+                "Left-click to shoot.\n\nUse your trusty revolver to shoot the aliens, Gunslinger Sam!"
+            ];
+            this._tooltips = [
+                new ui.Tooltip("tooltipBg", tooltipMessages)
+            ];
             this.main();
         };
         Level2.prototype.update = function () {

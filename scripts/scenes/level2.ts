@@ -24,6 +24,14 @@ module scenes {
             this._player = new animate.Player(config.Character.QUICKSILVER, 100, 420);
             console.log("Player initialized.");
 
+            let tooltipMessages: string[] = [
+                "Use WASD and arrow keys to move.\n\nPress SPACE for the next tip.",
+                "Left-click to shoot.\n\nUse your trusty revolver to shoot the aliens, Gunslinger Sam!"
+            ]; 
+            this._tooltips = [
+                new ui.Tooltip("tooltipBg", tooltipMessages)
+            ];
+
             this.main();
         }
 

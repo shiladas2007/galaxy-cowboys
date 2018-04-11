@@ -34,8 +34,8 @@ module managers {
       }
 
       public main() {
-          this.addChildAt(this.LivesLabel, managers.Game.INDEX_UI);
-          this.addChildAt(this.ScoreLabel, managers.Game.INDEX_UI);
+          this.addChildAt(this.LivesLabel, 0);
+          this.addChildAt(this.ScoreLabel, 0);
       }
   
       private _initialize():void {
