@@ -4042,8 +4042,8 @@ var scenes;
             console.log("Player initialized.");
             // Initialize
             var tooltipMessages = [
-                "Use WASD and arrow keys to move.\n\nPress SPACE for the next tip.",
-                "Left-click to shoot.\n\nUse your trusty revolver to shoot the aliens, Gunslinger Sam!"
+                "This is Gunslinger Sam.\nUse WASD and arrow keys to move. Press SPACE for the next tip.",
+                "Left-click to shoot.\n\nUse your trusty revolver to shoot the aliens!"
             ];
             this._tooltips = [
                 new ui.Tooltip("tooltipBg", tooltipMessages)
@@ -4100,8 +4100,8 @@ var scenes;
             this._player = new animate.Player(config.Character.QUICKSILVER, 100, 420);
             console.log("Player initialized.");
             var tooltipMessages = [
-                "Use WASD and arrow keys to move.\n\nPress SPACE for the next tip.",
-                "Left-click to shoot.\n\nUse your trusty revolver to shoot the aliens, Gunslinger Sam!"
+                "This is Quicksilver Johnny. He's quicker than Sam and uses his shotgun to shoot.",
+                "His shotgun fires slower than Sam's revolver, but really packs a punch!"
             ];
             this._tooltips = [
                 new ui.Tooltip("tooltipBg", tooltipMessages)

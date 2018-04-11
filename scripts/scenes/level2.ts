@@ -25,8 +25,8 @@ module scenes {
             console.log("Player initialized.");
 
             let tooltipMessages: string[] = [
-                "Use WASD and arrow keys to move.\n\nPress SPACE for the next tip.",
-                "Left-click to shoot.\n\nUse your trusty revolver to shoot the aliens, Gunslinger Sam!"
+                "This is Quicksilver Johnny. He's quicker than Sam and uses his shotgun to shoot.",
+                "His shotgun fires slower than Sam's revolver, but really packs a punch!"
             ]; 
             this._tooltips = [
                 new ui.Tooltip("tooltipBg", tooltipMessages)
