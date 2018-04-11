@@ -115,7 +115,7 @@ module objects {
 
         public collide(other:objects.GameObject):void { }
 
-        public destroy() {
+        public destroy(silent:boolean=false) {
             this.isDestroyed = true;
         }
     }

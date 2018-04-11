@@ -2161,7 +2161,8 @@ var objects;
         GameObject.prototype.start = function () { };
         GameObject.prototype.update = function () { };
         GameObject.prototype.collide = function (other) { };
-        GameObject.prototype.destroy = function () {
+        GameObject.prototype.destroy = function (silent) {
+            if (silent === void 0) { silent = false; }
             this.isDestroyed = true;
         };
         return GameObject;
@@ -2205,9 +2206,11 @@ var objects;
                 this.destroy();
             }
         };
-        Destructible.prototype.destroy = function () {
-            _super.prototype.destroy.call(this);
-            createjs.Sound.play("breaking");
+        Destructible.prototype.destroy = function (silent) {
+            if (silent === void 0) { silent = false; }
+            _super.prototype.destroy.call(this, silent);
+            if (!silent)
+                createjs.Sound.play("breaking");
             var breaking = new objects.explosion(this.x, this.y, "breaking");
             managers.Game.currentSceneObject.addChildAt(breaking, managers.Game.INDEX_GAMEOBJECTS);
         };
@@ -3406,10 +3409,12 @@ var animate;
                 this.goBack();
             }
         };
-        Enemy.prototype.destroy = function () {
-            _super.prototype.destroy.call(this);
+        Enemy.prototype.destroy = function (silent) {
+            if (silent === void 0) { silent = false; }
+            _super.prototype.destroy.call(this, silent);
             this.stop();
-            createjs.Sound.play("monster_die");
+            if (!silent)
+                createjs.Sound.play("monster_die");
             managers.Game.scoreBoard.Score += 200;
         };
         Enemy.prototype.attack = function () {
@@ -3528,6 +3533,7 @@ var animate;
             }
         };
         Player.prototype.destroy = function () {
+            _super.prototype.destroy.call(this);
             createjs.Sound.play("player_die");
             managers.Game.currentSceneObject.destroyAll();
             managers.Game.currentScene = config.Scene.GAMEOVER;
@@ -3938,11 +3944,11 @@ var scenes;
                 _this.removeObject(projectile);
             });
             this._enemies.forEach(function (enemy) {
-                enemy.destroy();
+                enemy.destroy(true);
                 _this.removeObject(enemy);
             });
             this._obstra.forEach(function (obstra) {
-                obstra.destroy();
+                obstra.destroy(true);
                 _this.removeObject(obstra);
             });
         };

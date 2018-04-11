@@ -157,11 +157,11 @@ module scenes {
                 this.removeObject(projectile);
             });
             this._enemies.forEach(enemy => {
-                enemy.destroy();
+                enemy.destroy(true);
                 this.removeObject(enemy);
             });
             this._obstra.forEach(obstra => {
-                obstra.destroy();
+                obstra.destroy(true);
                 this.removeObject(obstra);
             });
         }

@@ -91,10 +91,12 @@ module animate {
             }
         }
 
-        public destroy() {
-            super.destroy();
+        public destroy(silent:boolean=false) {
+            super.destroy(silent);
             this.stop();
-            createjs.Sound.play("monster_die"); 
+
+            if (!silent)
+                createjs.Sound.play("monster_die"); 
             managers.Game.scoreBoard.Score += 200;  
         }
 
