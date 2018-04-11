@@ -1,19 +1,26 @@
 module animate {
     export class Player extends Animate {
+        private _canFire: boolean;
+
         constructor(character:config.Character, px:number, py:number) {
             let imageName: string = "cowboy1";
             let hp: number = 1;
             let mvspd: number;
+            let weapon: config.Weapon;
 
             switch (character) {
                 case config.Character.GUNSLINGER:
                     mvspd = 1;
+                    weapon = config.Weapon.REVOLVER;
                     break;
                 case config.Character.QUICKSILVER:
                     mvspd = 1.5;
+                    weapon = config.Weapon.SHOTGUN;
                     break;
             }
             super(imageName, hp, mvspd, px, py);
+            this._canFire = true;
+            this._weapon = new objects.Weapon(weapon);
         }
 
         public checkBounds():void {
@@ -72,11 +79,15 @@ module animate {
         }
 
         public attack() {
-            let targetX: number = managers.Game.currentSceneObject.stage.mouseX - managers.Game.currentSceneObject.x;
-            let targetY: number = managers.Game.currentSceneObject.stage.mouseY - managers.Game.currentSceneObject.y;
-            let targetPos = new glm.vec2(targetX, targetY);
-            
-            let newProjectile = new objects.Projectile("bullet", this, targetPos);
+            if (this._canFire) {
+                let targetX: number = managers.Game.currentSceneObject.stage.mouseX - managers.Game.currentSceneObject.x;
+                let targetY: number = managers.Game.currentSceneObject.stage.mouseY - managers.Game.currentSceneObject.y;
+                let targetPos = new glm.vec2(targetX, targetY);
+                
+                let newProjectile = new objects.Projectile("bullet", this, targetPos);
+                this._canFire = false;
+                setTimeout(() => {this._canFire = true}, this._weapon.fireRate * 1000);
+            }
         }
     }
 }

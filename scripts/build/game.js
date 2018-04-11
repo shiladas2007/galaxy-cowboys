@@ -3255,8 +3255,10 @@ var objects;
             switch (weaponType) {
                 // Set fire rate and projectile based on weapon type:
                 case config.Weapon.REVOLVER:
+                    fireRate = 0.5;
                     break;
                 case config.Weapon.SHOTGUN:
+                    fireRate = 1.2;
                     break;
                 case config.Weapon.BLASTER:
                     fireRate = 0.7;
@@ -3421,15 +3423,20 @@ var animate;
             var imageName = "cowboy1";
             var hp = 1;
             var mvspd;
+            var weapon;
             switch (character) {
                 case config.Character.GUNSLINGER:
                     mvspd = 1;
+                    weapon = config.Weapon.REVOLVER;
                     break;
                 case config.Character.QUICKSILVER:
                     mvspd = 1.5;
+                    weapon = config.Weapon.SHOTGUN;
                     break;
             }
             _this = _super.call(this, imageName, hp, mvspd, px, py) || this;
+            _this._canFire = true;
+            _this._weapon = new objects.Weapon(weapon);
             return _this;
         }
         Player.prototype.checkBounds = function () {
@@ -3484,10 +3491,15 @@ var animate;
             managers.Game.currentScene = config.Scene.GAMEOVER;
         };
         Player.prototype.attack = function () {
-            var targetX = managers.Game.currentSceneObject.stage.mouseX - managers.Game.currentSceneObject.x;
-            var targetY = managers.Game.currentSceneObject.stage.mouseY - managers.Game.currentSceneObject.y;
-            var targetPos = new glm.vec2(targetX, targetY);
-            var newProjectile = new objects.Projectile("bullet", this, targetPos);
+            var _this = this;
+            if (this._canFire) {
+                var targetX = managers.Game.currentSceneObject.stage.mouseX - managers.Game.currentSceneObject.x;
+                var targetY = managers.Game.currentSceneObject.stage.mouseY - managers.Game.currentSceneObject.y;
+                var targetPos = new glm.vec2(targetX, targetY);
+                var newProjectile = new objects.Projectile("bullet", this, targetPos);
+                this._canFire = false;
+                setTimeout(function () { _this._canFire = true; }, this._weapon.fireRate * 1000);
+            }
         };
         return Player;
     }(animate.Animate));
