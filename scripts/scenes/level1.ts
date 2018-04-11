@@ -29,7 +29,7 @@ module scenes {
             // Initialize
             let tooltipMessages: string[] = [
                 "Use WASD and arrow keys to move. Press SPACE for the next tip.",
-                "Left-click to shoot. Shoot the aliens to move on."
+                "Left-click to shoot.\n\nUse your trusty revolver to shoot the aliens, Gunslinger Sam!"
             ]; 
             this._tooltips = [
                 new ui.Tooltip("tooltipBg", tooltipMessages)
