@@ -35,7 +35,10 @@ module scenes {
                 new ui.Tooltip("tooltipBg", tooltipMessages)
             ];
 
-            this._controlsIntroduck = new ui.Image("controlsIntroduck", 120, 280);
+            this._controlsIntroduck = new ui.Image("controlsIntroduck",
+                this._player.x + this._player.halfWidth,
+                this._player.y);
+            this._controlsIntroduck.y -= this._controlsIntroduck.height + this._player.halfHeight;
             
             this.main();
         }
