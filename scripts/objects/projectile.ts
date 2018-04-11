@@ -9,7 +9,16 @@ module objects {
             
             // Move projectile in front of shooter
             this._spawnPosition();
-            createjs.Sound.play("shot");
+
+            switch (shooter.weapon.weaponType) {
+                case config.Weapon.BLASTER:
+                    createjs.Sound.play("blaster").volume = 0.2;
+                    break;
+                default:
+                    createjs.Sound.play("shot");
+                    break;
+            }
+            
         }
 
         public update() {

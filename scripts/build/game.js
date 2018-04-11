@@ -2106,6 +2106,13 @@ var objects;
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(GameObject.prototype, "weapon", {
+            get: function () {
+                return this._weapon;
+            },
+            enumerable: true,
+            configurable: true
+        });
         GameObject.prototype._initialize = function () {
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
@@ -3121,7 +3128,14 @@ var objects;
             _this.mvspd = mvspd;
             // Move projectile in front of shooter
             _this._spawnPosition();
-            createjs.Sound.play("shot");
+            switch (shooter.weapon.weaponType) {
+                case config.Weapon.BLASTER:
+                    createjs.Sound.play("blaster").volume = 0.2;
+                    break;
+                default:
+                    createjs.Sound.play("shot");
+                    break;
+            }
             return _this;
         }
         Projectile.prototype.update = function () {
@@ -3252,6 +3266,7 @@ var objects;
 (function (objects) {
     var Weapon = /** @class */ (function () {
         function Weapon(weaponType) {
+            this.weaponType = weaponType;
             var fireRate = 1; // Seconds to wait before firing again
             switch (weaponType) {
                 // Set fire rate and projectile based on weapon type:
@@ -4255,25 +4270,13 @@ var scenes;
         }
     };
     assetManifest = [
-        { id: "startButton", src: "./assets/images/startButton.png" },
-        { id: "startButton2", src: "./assets/images/startButton2.png" },
         { id: "background", src: "./assets/images/background.png" },
         { id: "gameover", src: "./assets/images/gameover.png" },
         { id: "mapLevel1", src: "./assets/images/mapLevel1.png" },
         { id: "mapLevel2", src: "./assets/images/mapLevel2.png" },
         { id: "mapLevel3", src: "./assets/images/mapLevel3.png" },
-        { id: "enemyGuard", src: "./assets/images/enemyGuard.png" },
-        { id: "enemyWatcher", src: "./assets/images/enemyWatcher.png" },
-        { id: "enemyPatroller", src: "./assets/images/enemyPatroller.png" },
-        { id: "crate", src: "./assets/images/crate.png" },
-        { id: "cowboy1", src: "./assets/images/cowboy1.png" },
-        { id: "controlsIntroduck", src: "./assets/images/controlsIntroduck.png" },
-        { id: "bullet", src: "./assets/images/bombSmall.png" },
-        { id: "laser", src: "./assets/images/laser.png" },
-        { id: "close", src: "./assets/images/close.png" },
-        { id: "next", src: "./assets/images/next.png" },
-        { id: "tooltipBg", src: "./assets/images/tooltipBg.png" },
         { id: "shot", src: "./assets/audio/shoot.mp3" },
+        { id: "blaster", src: "./assets/audio/blaster.mp3" },
         { id: "monster_die", src: "./assets/audio/monster_die.mp3" },
         { id: "player_die", src: "./assets/audio/player_die.mp3" },
         { id: "breaking", src: "./assets/audio/breaking.wav" },

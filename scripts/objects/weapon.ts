@@ -2,7 +2,7 @@ module objects {
     export class Weapon {
         public fireRate: number;
 
-        constructor(weaponType:config.Weapon) {
+        constructor(public weaponType:config.Weapon) {
             let fireRate: number = 1; // Seconds to wait before firing again
 
             switch (weaponType) {
@@ -17,7 +17,7 @@ module objects {
                     fireRate = 0.7;
                     break; 
             }
-
+            
             this.fireRate = fireRate;
         }
     }

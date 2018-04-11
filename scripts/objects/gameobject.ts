@@ -6,6 +6,8 @@ module objects {
         protected _origin: glm.vec2;
         protected _destination: glm.vec2;
 
+        protected _weapon: objects.Weapon;
+
         public width: number;
         public height: number;
         public halfWidth: number;
@@ -38,6 +40,10 @@ module objects {
 
         get movementAmount():number {
             return managers.Game.BASE_MVSPD * this.mvspd;
+        }
+
+        get weapon():objects.Weapon {
+            return this._weapon;
         }
 
         constructor(imageName:string, px:number, py:number, qx:number=0, qy:number=0) {

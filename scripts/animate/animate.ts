@@ -1,6 +1,5 @@
 module animate {
     export abstract class Animate extends objects.GameObject {
-        protected _weapon: objects.Weapon;
         public hp: number;
 
         get movementAmount():number {
