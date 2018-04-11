@@ -146,6 +146,8 @@ module scenes {
         }
 
         private _onClick() {
+            if (managers.Game.keyboardManager.paused)
+                return;
             this._player.attack();
         }
 

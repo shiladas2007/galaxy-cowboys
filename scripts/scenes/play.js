@@ -166,6 +166,8 @@ var scenes;
             this._scoreBoard.y -= y;
         };
         PlayScene.prototype._onClick = function () {
+            if (managers.Game.keyboardManager.paused)
+                return;
             this._player.attack();
         };
         PlayScene.prototype.destroyAll = function () {
