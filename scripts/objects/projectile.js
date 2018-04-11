@@ -15,7 +15,7 @@ var objects;
         function Projectile(imageName, shooter, destination, mvspd) {
             if (mvspd === void 0) { mvspd = 2; }
             var _this = _super.call(this, imageName, shooter.x, shooter.y) || this;
-            _this._origin = new math.Vec2(shooter.x, shooter.y);
+            _this._origin = new glm.vec2(shooter.x, shooter.y);
             _this._destination = destination;
             _this._shooter = shooter;
             _this.mvspd = mvspd;
@@ -37,8 +37,8 @@ var objects;
             }
         };
         Projectile.prototype._spawnPosition = function () {
-            var run = Math.abs(math.Vec2.run(this._origin, this._destination));
-            var rise = Math.abs(math.Vec2.rise(this._origin, this._destination));
+            var run = Math.abs(glm.vec2.run(this._origin, this._destination));
+            var rise = Math.abs(glm.vec2.rise(this._origin, this._destination));
             var mvAmt;
             var margin = 10;
             if (run < rise) {
@@ -55,8 +55,8 @@ var objects;
             if (movementAmount === void 0) { movementAmount = null; }
             var newX;
             var newY;
-            var run = math.Vec2.run(this._origin, this._destination);
-            var rise = math.Vec2.rise(this._origin, this._destination);
+            var run = glm.vec2.run(this._origin, this._destination);
+            var rise = glm.vec2.rise(this._origin, this._destination);
             var c;
             var divisor;
             if (movementAmount == null) {
@@ -74,7 +74,7 @@ var objects;
             }
             newX = Math.round(this.x + run);
             newY = Math.round(this.y + rise);
-            return new math.Vec2(newX, newY);
+            return new glm.vec2(newX, newY);
         };
         Projectile.prototype.move = function (movementAmount) {
             if (movementAmount === void 0) { movementAmount = null; }

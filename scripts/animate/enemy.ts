@@ -99,7 +99,7 @@ module animate {
                     break;
             }
 
-            let targetPos = new math.Vec2(targetX, targetY);
+            let targetPos = new glm.vec2(targetX, targetY);
             let newProjectile = new objects.Projectile("laser", this, targetPos);
         }
     }

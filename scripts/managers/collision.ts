@@ -4,11 +4,11 @@ module managers {
             if (object1 == null || object2 == null)
                 return;
                 
-            let pointA = new math.Vec2(object1.x, object1.y);
-            let pointB = new math.Vec2(object2.x, object2.y);
+            let pointA = new glm.vec2(object1.x, object1.y);
+            let pointB = new glm.vec2(object2.x, object2.y);
 
             // Check for collision
-            if (math.Vec2.distance(pointA, pointB) < (object1.halfHeight + object2.halfHeight)) {
+            if (glm.vec2.distance(pointA, pointB) < (object1.halfHeight + object2.halfHeight)) {
                 object1.collide(object2);
                 object2.collide(object1);
                 

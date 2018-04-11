@@ -1,12 +1,12 @@
 module objects {
     export class Projectile extends objects.GameObject {
-        private _origin: math.Vec2;
-        private _destination: math.Vec2;
+        private _origin: glm.vec2;
+        private _destination: glm.vec2;
         private _shooter: objects.GameObject;
 
-        constructor(imageName:string, shooter:objects.GameObject, destination:math.Vec2, mvspd:number=2) {
+        constructor(imageName:string, shooter:objects.GameObject, destination:glm.vec2, mvspd:number=2) {
             super(imageName, shooter.x, shooter.y);
-            this._origin = new math.Vec2(shooter.x, shooter.y);
+            this._origin = new glm.vec2(shooter.x, shooter.y);
             this._destination = destination;
             this._shooter = shooter;
             this.mvspd = mvspd;
@@ -31,8 +31,8 @@ module objects {
         }
 
         private _spawnPosition() {
-            let run: number = Math.abs(math.Vec2.run(this._origin, this._destination));
-            let rise: number = Math.abs(math.Vec2.rise(this._origin, this._destination));
+            let run: number = Math.abs(glm.vec2.run(this._origin, this._destination));
+            let rise: number = Math.abs(glm.vec2.rise(this._origin, this._destination));
             let mvAmt: number;
             let margin: number = 10;
 
@@ -46,11 +46,11 @@ module objects {
             managers.Game.currentSceneObject.addProjectile(this);
         }
 
-        private getNextPosition(movementAmount:number=null):math.Vec2 {
+        private getNextPosition(movementAmount:number=null):glm.vec2 {
             let newX: number;
             let newY: number;
-            let run: number = math.Vec2.run(this._origin, this._destination);
-            let rise: number = math.Vec2.rise(this._origin, this._destination);
+            let run: number = glm.vec2.run(this._origin, this._destination);
+            let rise: number = glm.vec2.rise(this._origin, this._destination);
             let c: number;
             let divisor: number;
             if (movementAmount == null) {
@@ -73,11 +73,11 @@ module objects {
             newX = Math.round(this.x + run);
             newY = Math.round(this.y + rise);
 
-            return new math.Vec2(newX, newY);
+            return new glm.vec2(newX, newY);
         }
 
         public move(movementAmount:number=null) {
-            let newPosition: math.Vec2 = this.getNextPosition(movementAmount);
+            let newPosition: glm.vec2 = this.getNextPosition(movementAmount);
             this.x = newPosition.x;
             this.y = newPosition.y;
         }

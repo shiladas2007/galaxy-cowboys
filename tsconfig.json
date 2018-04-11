@@ -6,7 +6,7 @@
     },
     "include": [
         "scripts/config/*.ts",
-        "scripts/math/*.ts",
+        "scripts/glm/*.ts",
         "scripts/ui/*.ts",
         "scripts/objects/*.ts",
         "scripts/animate/*.ts",

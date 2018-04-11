@@ -6,10 +6,10 @@ var managers;
         Collision.check = function (object1, object2) {
             if (object1 == null || object2 == null)
                 return;
-            var pointA = new math.Vec2(object1.x, object1.y);
-            var pointB = new math.Vec2(object2.x, object2.y);
+            var pointA = new glm.vec2(object1.x, object1.y);
+            var pointB = new glm.vec2(object2.x, object2.y);
             // Check for collision
-            if (math.Vec2.distance(pointA, pointB) < (object1.halfHeight + object2.halfHeight)) {
+            if (glm.vec2.distance(pointA, pointB) < (object1.halfHeight + object2.halfHeight)) {
                 object1.collide(object2);
                 object2.collide(object1);
                 if (!object2.isColliding) {

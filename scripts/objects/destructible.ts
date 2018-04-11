@@ -6,7 +6,7 @@ module objects {
             this.hp = hp;          
             //this.x=px;
             //this.y=py;  
-            this.lastValidPosition = new math.Vec2(px, py);
+            this.lastValidPosition = new glm.vec2(px, py);
         }
         public reset():void {}
 

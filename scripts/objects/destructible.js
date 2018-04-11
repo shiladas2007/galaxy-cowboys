@@ -17,7 +17,7 @@ var objects;
             _this.hp = hp;
             //this.x=px;
             //this.y=py;  
-            _this.lastValidPosition = new math.Vec2(px, py);
+            _this.lastValidPosition = new glm.vec2(px, py);
             return _this;
         }
         Destructible.prototype.reset = function () { };

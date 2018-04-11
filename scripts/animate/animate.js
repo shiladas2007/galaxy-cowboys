@@ -17,7 +17,7 @@ var animate;
             var _this = _super.call(this, imageName, px, py) || this;
             _this.hp = hp;
             _this.mvspd = mvspd;
-            _this.lastValidPosition = new math.Vec2(px, py);
+            _this.lastValidPosition = new glm.vec2(px, py);
             return _this;
         }
         Object.defineProperty(Animate.prototype, "movementAmount", {

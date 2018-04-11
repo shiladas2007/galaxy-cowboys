@@ -95,7 +95,7 @@ var animate;
                     targetY = managers.Game.currentSceneObject.player.y;
                     break;
             }
-            var targetPos = new math.Vec2(targetX, targetY);
+            var targetPos = new glm.vec2(targetX, targetY);
             var newProjectile = new objects.Projectile("laser", this, targetPos);
         };
         return Enemy;

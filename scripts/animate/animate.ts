@@ -11,7 +11,7 @@ module animate {
             super(imageName, px, py);
             this.hp = hp;
             this.mvspd = mvspd;
-            this.lastValidPosition = new math.Vec2(px, py);
+            this.lastValidPosition = new glm.vec2(px, py);
         }
 
         public reset():void {}

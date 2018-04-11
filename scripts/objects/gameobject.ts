@@ -8,7 +8,7 @@ module objects {
         public height: number;
         public halfWidth: number;
         public halfHeight: number;
-        public lastValidPosition: math.Vec2; // last known x,y coords where object didn't collide with an obstacle
+        public lastValidPosition: glm.vec2; // last known x,y coords where object didn't collide with an obstacle
 
         public isColliding: boolean;
         public isDestroyed: boolean = false;

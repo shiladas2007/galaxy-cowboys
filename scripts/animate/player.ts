@@ -74,7 +74,7 @@ module animate {
         public attack() {
             let targetX: number = managers.Game.currentSceneObject.stage.mouseX - managers.Game.currentSceneObject.x;
             let targetY: number = managers.Game.currentSceneObject.stage.mouseY - managers.Game.currentSceneObject.y;
-            let targetPos = new math.Vec2(targetX, targetY);
+            let targetPos = new glm.vec2(targetX, targetY);
             
             let newProjectile = new objects.Projectile("bullet", this, targetPos);
         }
