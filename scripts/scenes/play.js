@@ -233,6 +233,9 @@ var scenes;
             var _this = this;
             this._obstra.forEach(function (obstra) {
                 managers.Collision.check(obstra, _this._player);
+                _this._enemies.forEach(function (enemy) {
+                    managers.Collision.check(obstra, enemy);
+                });
             });
         };
         return PlayScene;

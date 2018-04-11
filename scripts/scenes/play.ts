@@ -217,6 +217,9 @@ module scenes {
         private _updateObstra() {
             this._obstra.forEach(obstra => {
                 managers.Collision.check(obstra, this._player);
+                this._enemies.forEach(enemy => {
+                    managers.Collision.check(obstra, enemy);
+                })
             });
         }
     }
