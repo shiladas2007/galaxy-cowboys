@@ -13,12 +13,9 @@ module scenes {
             this._enemies = [
                 new animate.Enemy(config.Enemy.GUARD,120,140),
                 new animate.Enemy(config.Enemy.WATCHER,500,340),
-                new animate.Enemy(config.Enemy.PATROLLER,100,100),
-                new animate.Enemy(config.Enemy.WATCHER,240,350),
-
+                new animate.Enemy(config.Enemy.PATROLLER,100,100,300,100),
+                new animate.Enemy(config.Enemy.WATCHER,240,-350)
             ];
-
-            
            
             console.log("Enemies initialized.");
 
@@ -36,18 +33,6 @@ module scenes {
 
         public update():number {
             super.update();
-
-            // Manage tooltip
-            // if (managers.Game.keyboardManager.nextTooltip)
-            // {               
-            //     this.removeChild(this._tooltip);
-            //     //this._tooltip = new ui.Tooltip("tooltipBg",430,370,"Use Left-click to shoot. Press 'c' for closing this tutorial",false);
-            //     this.addChild(this._tooltip);
-            // }
-            // if (managers.Game.keyboardManager.closeTooltip)
-            // {               
-            //     this.removeChild(this._tooltip);
-            // }
 
             if (!this._enemies.length) {
                 //managers.Game.currentScene = config.Scene.BOSS;

@@ -2048,12 +2048,16 @@ var objects;
 (function (objects) {
     var GameObject = /** @class */ (function (_super) {
         __extends(GameObject, _super);
-        function GameObject(imageName, px, py) {
+        function GameObject(imageName, px, py, qx, qy) {
+            if (qx === void 0) { qx = 0; }
+            if (qy === void 0) { qy = 0; }
             var _this = _super.call(this, managers.Game.textureAtlas, imageName) || this;
             _this.isDestroyed = false;
             _this.name = imageName;
             _this.x = px;
             _this.y = py;
+            _this._origin = new glm.vec2(px, py);
+            _this._destination = new glm.vec2(qx, qy);
             _this._initialize();
             return _this;
         }
@@ -2116,7 +2120,37 @@ var objects;
         GameObject.prototype.checkBounds = function (other) {
             if (other === void 0) { other = null; }
         };
-        GameObject.prototype.move = function () { };
+        GameObject.prototype.getNextPosition = function (movementAmount) {
+            if (movementAmount === void 0) { movementAmount = null; }
+            var newX;
+            var newY;
+            var run = glm.vec2.run(this._origin, this._destination);
+            var rise = glm.vec2.rise(this._origin, this._destination);
+            var c;
+            var divisor;
+            if (movementAmount == null) {
+                movementAmount = this.movementAmount;
+            }
+            c = Math.sqrt(Math.pow(run, 2) + Math.pow(rise, 2));
+            divisor = c / movementAmount;
+            run = Math.abs(run / divisor);
+            rise = Math.abs(rise / divisor);
+            if (this._destination.x < this._origin.x) {
+                run *= -1; // move left
+            }
+            if (this._destination.y < this._origin.y) {
+                rise *= -1; // move down
+            }
+            newX = Math.round(this.x + run);
+            newY = Math.round(this.y + rise);
+            return new glm.vec2(newX, newY);
+        };
+        GameObject.prototype.move = function (movementAmount) {
+            if (movementAmount === void 0) { movementAmount = null; }
+            var newPosition = this.getNextPosition(movementAmount);
+            this.x = newPosition.x;
+            this.y = newPosition.y;
+        };
         GameObject.prototype.start = function () { };
         GameObject.prototype.update = function () { };
         GameObject.prototype.collide = function (other) { };
@@ -3080,11 +3114,9 @@ var objects;
 (function (objects) {
     var Projectile = /** @class */ (function (_super) {
         __extends(Projectile, _super);
-        function Projectile(imageName, shooter, destination, mvspd) {
+        function Projectile(imageName, shooter, qx, qy, mvspd) {
             if (mvspd === void 0) { mvspd = 2; }
-            var _this = _super.call(this, imageName, shooter.x, shooter.y) || this;
-            _this._origin = new glm.vec2(shooter.x, shooter.y);
-            _this._destination = destination;
+            var _this = _super.call(this, imageName, shooter.x, shooter.y, qx, qy) || this;
             _this._shooter = shooter;
             _this.mvspd = mvspd;
             // Move projectile in front of shooter
@@ -3118,37 +3150,6 @@ var objects;
             }
             this.move(mvAmt);
             managers.Game.currentSceneObject.addProjectile(this);
-        };
-        Projectile.prototype.getNextPosition = function (movementAmount) {
-            if (movementAmount === void 0) { movementAmount = null; }
-            var newX;
-            var newY;
-            var run = glm.vec2.run(this._origin, this._destination);
-            var rise = glm.vec2.rise(this._origin, this._destination);
-            var c;
-            var divisor;
-            if (movementAmount == null) {
-                movementAmount = this.movementAmount;
-            }
-            c = Math.sqrt(Math.pow(run, 2) + Math.pow(rise, 2));
-            divisor = c / movementAmount;
-            run = Math.abs(run / divisor);
-            rise = Math.abs(rise / divisor);
-            if (this._destination.x < this._origin.x) {
-                run *= -1; // move left
-            }
-            if (this._destination.y < this._origin.y) {
-                rise *= -1; // move down
-            }
-            newX = Math.round(this.x + run);
-            newY = Math.round(this.y + rise);
-            return new glm.vec2(newX, newY);
-        };
-        Projectile.prototype.move = function (movementAmount) {
-            if (movementAmount === void 0) { movementAmount = null; }
-            var newPosition = this.getNextPosition(movementAmount);
-            this.x = newPosition.x;
-            this.y = newPosition.y;
         };
         Projectile.prototype.collide = function (other) {
             if (other instanceof animate.Enemy && this.name == "bullet" ||
@@ -3274,9 +3275,11 @@ var animate;
 (function (animate) {
     var Animate = /** @class */ (function (_super) {
         __extends(Animate, _super);
-        function Animate(imageName, hp, mvspd, px, py) {
+        function Animate(imageName, hp, mvspd, px, py, qx, qy) {
             if (mvspd === void 0) { mvspd = 1; }
-            var _this = _super.call(this, imageName, px, py) || this;
+            if (qx === void 0) { qx = 0; }
+            if (qy === void 0) { qy = 0; }
+            var _this = _super.call(this, imageName, px, py, qx, qy) || this;
             _this.hp = hp;
             _this.mvspd = mvspd;
             _this.lastValidPosition = new glm.vec2(px, py);
@@ -3289,11 +3292,6 @@ var animate;
             enumerable: true,
             configurable: true
         });
-        Animate.prototype.reset = function () { };
-        Animate.prototype.checkBounds = function (other) {
-            if (other === void 0) { other = null; }
-        };
-        Animate.prototype.move = function () { };
         Animate.prototype.attack = function () { };
         Animate.prototype.collide = function (other) {
             if (other instanceof objects.GameObject) {
@@ -3317,11 +3315,13 @@ var animate;
         // Constructor
         //here we can add heath point as 1 and speed as 0 for not moving in level1 and level2
         // but for for level3 and level4, we have to mention speed
-        function Enemy(enemyType, px, py) {
+        function Enemy(enemyType, px, py, qx, qy) {
+            if (qx === void 0) { qx = 0; }
+            if (qy === void 0) { qy = 0; }
             var _this = this;
             var enemyImg = "enemyGuard";
             var hp = 1;
-            var mvspd = 1;
+            var mvspd = 0;
             switch (enemyType) {
                 case config.Enemy.GUARD:
                     enemyImg = "enemyGuard";
@@ -3331,9 +3331,10 @@ var animate;
                     break;
                 case config.Enemy.PATROLLER:
                     enemyImg = "enemyPatroller";
+                    mvspd = 1;
                     break;
             }
-            _this = _super.call(this, enemyImg, hp, mvspd, px, py) || this;
+            _this = _super.call(this, enemyImg, hp, mvspd, px, py, qx, qy) || this;
             console.log("constructor of enemy");
             _this._enemyType = enemyType;
             _this.hp = hp;
@@ -3361,19 +3362,33 @@ var animate;
             this.move();
             this.checkBounds();
         };
-        // reset the object's location to some value
-        Enemy.prototype.reset = function () {
-            this.x = Math.floor((Math.random() * (managers.Game.WIDTH - this.width)) + this.halfWidth);
-            this.y = -this.height;
-        };
-        // move the object to some new location
-        Enemy.prototype.move = function () {
-        };
         // check to see if some boundary has been passed
         Enemy.prototype.checkBounds = function () {
             // check lower bounds
             if (this.y >= managers.Game.HEIGHT + this.height) {
                 this.reset();
+            }
+        };
+        Enemy.prototype.move = function (movementAmount) {
+            if (movementAmount === void 0) { movementAmount = null; }
+            var newPosition = this.getNextPosition(movementAmount);
+            this.x = newPosition.x;
+            this.y = newPosition.y;
+            var run = glm.vec2.run(this._origin, this._destination);
+            var rise = glm.vec2.rise(this._origin, this._destination);
+            var hasReachedX = false;
+            var hasReachedY = false;
+            if ((run <= 0 && this.x <= this._destination.x) ||
+                (run > 0 && this.x > this._destination.x)) {
+                hasReachedX = true;
+            }
+            if ((rise <= 0 && this.y <= this._destination.y) ||
+                (rise > 0 && this.y > this._destination.y)) {
+                hasReachedY = true;
+            }
+            // Go back and forth between the origin and destination
+            if (hasReachedX && hasReachedY) {
+                this.goBack();
             }
         };
         Enemy.prototype.destroy = function () {
@@ -3396,8 +3411,20 @@ var animate;
                     targetY = managers.Game.currentSceneObject.player.y;
                     break;
             }
-            var targetPos = new glm.vec2(targetX, targetY);
-            var newProjectile = new objects.Projectile("laser", this, targetPos);
+            var newProjectile = new objects.Projectile("laser", this, targetX, targetY);
+        };
+        Enemy.prototype.collide = function (other) {
+            if (other instanceof objects.GameObject) {
+                this.goBack();
+            }
+            else {
+                this.lastValidPosition.x = this.x;
+                this.lastValidPosition.y = this.y;
+            }
+        };
+        Enemy.prototype.goBack = function () {
+            this._destination = this._origin;
+            this._origin = new glm.vec2(this.x, this.y);
         };
         return Enemy;
     }(animate.Animate));
@@ -3495,8 +3522,7 @@ var animate;
             if (this._canFire) {
                 var targetX = managers.Game.currentSceneObject.stage.mouseX - managers.Game.currentSceneObject.x;
                 var targetY = managers.Game.currentSceneObject.stage.mouseY - managers.Game.currentSceneObject.y;
-                var targetPos = new glm.vec2(targetX, targetY);
-                var newProjectile = new objects.Projectile("bullet", this, targetPos);
+                var newProjectile = new objects.Projectile("bullet", this, targetX, targetY);
                 this._canFire = false;
                 setTimeout(function () { _this._canFire = true; }, this._weapon.fireRate * 1000);
             }
@@ -4008,7 +4034,7 @@ var scenes;
             this._enemies = [
                 new animate.Enemy(config.Enemy.GUARD, 310, 40),
                 new animate.Enemy(config.Enemy.GUARD, 260, 120),
-                new animate.Enemy(config.Enemy.GUARD, 560, 190)
+                new animate.Enemy(config.Enemy.GUARD, 560, 190),
             ];
             console.log("Enemies initialized.");
             console.log("Initializing player...");
@@ -4111,8 +4137,8 @@ var scenes;
             this._enemies = [
                 new animate.Enemy(config.Enemy.GUARD, 120, 140),
                 new animate.Enemy(config.Enemy.WATCHER, 500, 340),
-                new animate.Enemy(config.Enemy.PATROLLER, 100, 100),
-                new animate.Enemy(config.Enemy.WATCHER, 240, 350),
+                new animate.Enemy(config.Enemy.PATROLLER, 100, 100, 300, 100),
+                new animate.Enemy(config.Enemy.WATCHER, 240, -350)
             ];
             console.log("Enemies initialized.");
             console.log("Initializing player...");
@@ -4127,17 +4153,6 @@ var scenes;
         };
         Level3.prototype.update = function () {
             _super.prototype.update.call(this);
-            // Manage tooltip
-            // if (managers.Game.keyboardManager.nextTooltip)
-            // {               
-            //     this.removeChild(this._tooltip);
-            //     //this._tooltip = new ui.Tooltip("tooltipBg",430,370,"Use Left-click to shoot. Press 'c' for closing this tutorial",false);
-            //     this.addChild(this._tooltip);
-            // }
-            // if (managers.Game.keyboardManager.closeTooltip)
-            // {               
-            //     this.removeChild(this._tooltip);
-            // }
             if (!this._enemies.length) {
                 //managers.Game.currentScene = config.Scene.BOSS;
             }

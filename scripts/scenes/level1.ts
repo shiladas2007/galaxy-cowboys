@@ -18,7 +18,7 @@ module scenes {
             this._enemies = [
                 new animate.Enemy(config.Enemy.GUARD,310,40),
                 new animate.Enemy(config.Enemy.GUARD,260,120),
-                new animate.Enemy(config.Enemy.GUARD,560,190)
+                new animate.Enemy(config.Enemy.GUARD,560,190),
             ];
             console.log("Enemies initialized.");
 

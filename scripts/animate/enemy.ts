@@ -10,10 +10,10 @@ module animate {
         // Constructor
         //here we can add heath point as 1 and speed as 0 for not moving in level1 and level2
         // but for for level3 and level4, we have to mention speed
-        constructor(enemyType:config.Enemy, px:number,py:number) {
+        constructor(enemyType:config.Enemy, px:number, py:number, qx:number=0, qy:number=0) {
             let enemyImg: string = "enemyGuard";
             let hp: number = 1;
-            let mvspd: number = 1;
+            let mvspd: number = 0;
 
             switch (enemyType) {
                 case config.Enemy.GUARD:
@@ -24,10 +24,11 @@ module animate {
                     break;
                 case config.Enemy.PATROLLER:
                     enemyImg = "enemyPatroller";
+                    mvspd = 1;
                     break;
             }
 
-            super(enemyImg, hp, mvspd, px, py);
+            super(enemyImg, hp, mvspd, px, py, qx, qy);
             console.log("constructor of enemy");
             this._enemyType = enemyType;
             this.hp=hp;
@@ -56,17 +57,6 @@ module animate {
             this.move();
             this.checkBounds();
         }
-        
-        // reset the object's location to some value
-        public reset():void {
-            this.x = Math.floor((Math.random() * (managers.Game.WIDTH - this.width)) + this.halfWidth);
-            this.y = -this.height;
-        }
-    
-        // move the object to some new location
-        public move():void {
-                        
-        }
     
         // check to see if some boundary has been passed
         public checkBounds():void {
@@ -74,6 +64,31 @@ module animate {
             if (this.y >= managers.Game.HEIGHT + this.height) {
                 this.reset();
             }         
+        }
+
+        public move(movementAmount:number=null) {
+            let newPosition: glm.vec2 = this.getNextPosition(movementAmount);
+            this.x = newPosition.x;
+            this.y = newPosition.y;
+
+            let run: number = glm.vec2.run(this._origin, this._destination);
+            let rise: number = glm.vec2.rise(this._origin, this._destination);
+            let hasReachedX: boolean = false;
+            let hasReachedY: boolean = false;
+
+            if ((run <= 0 && this.x <= this._destination.x) ||
+            (run > 0 && this.x > this._destination.x)) {
+                hasReachedX = true;
+            }
+            if ((rise <= 0 && this.y <= this._destination.y) ||
+            (rise > 0 && this.y > this._destination.y)) {
+                hasReachedY = true;
+            }
+
+            // Go back and forth between the origin and destination
+            if (hasReachedX && hasReachedY) {
+                this.goBack();
+            }
         }
 
         public destroy() {
@@ -99,8 +114,21 @@ module animate {
                     break;
             }
 
-            let targetPos = new glm.vec2(targetX, targetY);
-            let newProjectile = new objects.Projectile("laser", this, targetPos);
+            let newProjectile = new objects.Projectile("laser", this, targetX, targetY);
+        }
+
+        public collide(other:objects.GameObject) {
+            if (other instanceof objects.GameObject) {
+                this.goBack();
+            } else {
+                this.lastValidPosition.x = this.x;
+                this.lastValidPosition.y = this.y;
+            }
+        }
+
+        private goBack() {
+            this._destination = this._origin;
+            this._origin = new glm.vec2(this.x, this.y);
         }
     }
 }

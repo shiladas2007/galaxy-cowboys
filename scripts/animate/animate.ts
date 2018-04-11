@@ -7,18 +7,12 @@ module animate {
             return managers.Game.BASE_MVSPD * this.mvspd;
         }
 
-        constructor(imageName:string, hp:number, mvspd:number=1, px:number, py:number) {
-            super(imageName, px, py);
+        constructor(imageName:string, hp:number, mvspd:number=1, px:number, py:number, qx:number=0, qy:number=0) {
+            super(imageName, px, py, qx, qy);
             this.hp = hp;
             this.mvspd = mvspd;
             this.lastValidPosition = new glm.vec2(px, py);
         }
-
-        public reset():void {}
-
-        public checkBounds(other:objects.GameObject=null):void {}
-
-        public move() {}
 
         public attack() {}
 
