@@ -37,7 +37,7 @@ module ui {
         }
 
         public main():void {
-            this.addChild(this._bgImg);
+            this.addChildAt(this._bgImg, managers.Game.INDEX_BACKGROUND);
             this.addChild(this._nextButton);
             this.addChild(this._closeButton);
             this.addChild(this._tooltipLabel);

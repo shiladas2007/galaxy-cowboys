@@ -19,6 +19,10 @@ var managers;
         Game.RIGHT_BOUNDARY = Game.WIDTH;
         // Measured in pixels
         Game.BASE_MVSPD = 3;
+        // Layer indices
+        Game.INDEX_BACKGROUND = 0;
+        Game.INDEX_GAMEOBJECTS = 1;
+        Game.INDEX_UI = 2;
         return Game;
     }());
     managers.Game = Game;

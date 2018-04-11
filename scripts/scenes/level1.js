@@ -61,7 +61,7 @@ var scenes;
         };
         Level1.prototype.main = function () {
             _super.prototype.main.call(this);
-            this.addChild(this._controlsIntroduck);
+            this.addChildAt(this._controlsIntroduck, managers.Game.INDEX_UI);
         };
         return Level1;
     }(scenes.PlayScene));

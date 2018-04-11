@@ -58,8 +58,6 @@ module scenes {
 
         public main():void {
             super.main();
-            //this._tooltip = new ui.Tooltip("tooltipBg", 430, 370, "Use WASD and arrow keys to move. Press 'n' for next tutorial. Or 'c' for closing this tutorial.");                    
-            //this.addChild(this._tooltip);
         }
     }
 }

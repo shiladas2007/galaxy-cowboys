@@ -36,7 +36,7 @@ var ui;
         };
         Tooltip.prototype.main = function () {
             var _this = this;
-            this.addChild(this._bgImg);
+            this.addChildAt(this._bgImg, managers.Game.INDEX_BACKGROUND);
             this.addChild(this._nextButton);
             this.addChild(this._closeButton);
             this.addChild(this._tooltipLabel);

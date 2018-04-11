@@ -63,7 +63,7 @@ module scenes {
 
         public main():void {
             super.main();
-            this.addChild(this._controlsIntroduck);           
+            this.addChildAt(this._controlsIntroduck, managers.Game.INDEX_UI);           
         }
     }
 }

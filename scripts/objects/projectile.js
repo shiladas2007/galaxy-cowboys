@@ -93,7 +93,7 @@ var objects;
         Projectile.prototype.destroy = function () {
             _super.prototype.destroy.call(this);
             var explosion = new objects.explosion(this.x - this.halfWidth, this.y - this.halfHeight, "smallexplosion");
-            managers.Game.currentSceneObject.addChild(explosion);
+            managers.Game.currentSceneObject.addChildAt(explosion, managers.Game.INDEX_GAMEOBJECTS);
         };
         return Projectile;
     }(objects.GameObject));

@@ -45,8 +45,8 @@ var managers;
             configurable: true
         });
         ScoreBoard.prototype.main = function () {
-            this.addChild(this.LivesLabel);
-            this.addChild(this.ScoreLabel);
+            this.addChildAt(this.LivesLabel, managers.Game.INDEX_UI);
+            this.addChildAt(this.ScoreLabel, managers.Game.INDEX_UI);
         };
         ScoreBoard.prototype._initialize = function () {
             var shadowColour = "rgba(80,50,20,0.7)";

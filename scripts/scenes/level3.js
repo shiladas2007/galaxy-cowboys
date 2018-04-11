@@ -57,8 +57,6 @@ var scenes;
         };
         Level3.prototype.main = function () {
             _super.prototype.main.call(this);
-            //this._tooltip = new ui.Tooltip("tooltipBg", 430, 370, "Use WASD and arrow keys to move. Press 'n' for next tutorial. Or 'c' for closing this tutorial.");                    
-            //this.addChild(this._tooltip);
         };
         return Level3;
     }(scenes.PlayScene));

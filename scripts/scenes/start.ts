@@ -21,9 +21,9 @@ module scenes {
         }
 
         public main():void {
-            this.addChild(this._background);
-            this.addChild(this._startButton2);
-            this.addChild(this._startButton);
+            this.addChildAt(this._background, managers.Game.INDEX_BACKGROUND);
+            this.addChildAt(this._startButton2, managers.Game.INDEX_GAMEOBJECTS);
+            this.addChildAt(this._startButton, managers.Game.INDEX_UI);
             this._startButton.on("click", this._startButtonClick);
         }
 

@@ -27,5 +27,10 @@ module managers {
 
         // Measured in pixels
         public static readonly BASE_MVSPD = 3;
+
+        // Layer indices
+        public static readonly INDEX_BACKGROUND = 0;
+        public static readonly INDEX_GAMEOBJECTS = 1;
+        public static readonly INDEX_UI = 2;
     }
 }

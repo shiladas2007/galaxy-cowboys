@@ -111,22 +111,22 @@ var scenes;
         };
         PlayScene.prototype.main = function () {
             var _this = this;
-            this.addChild(this._map);
+            this.addChildAt(this._map, managers.Game.INDEX_BACKGROUND);
             this._enemies.forEach(function (enemy) {
-                _this.addChild(enemy);
+                _this.addChildAt(enemy, managers.Game.INDEX_GAMEOBJECTS);
             });
-            this.addChild(this._player);
+            this.addChildAt(this._player, managers.Game.INDEX_GAMEOBJECTS);
             this._tooltips.forEach(function (tooltip) {
-                _this.addChild(tooltip);
+                _this.addChildAt(tooltip, managers.Game.INDEX_UI);
             });
             this._obstra.forEach(function (obstr) {
-                _this.addChild(obstr);
+                _this.addChildAt(obstr, managers.Game.INDEX_GAMEOBJECTS);
             });
-            this.addChild(this._scoreBoard);
+            this.addChildAt(this._scoreBoard, managers.Game.INDEX_UI);
         };
         PlayScene.prototype.addProjectile = function (projectile) {
             this._projectiles.push(projectile);
-            this.addChild(projectile);
+            this.addChildAt(projectile, managers.Game.INDEX_GAMEOBJECTS);
         };
         PlayScene.prototype._checkBounds = function () {
             var moveX = 0;

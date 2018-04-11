@@ -86,23 +86,23 @@ module scenes {
         }
 
         public main():void {
-            this.addChild(this._map);
+            this.addChildAt(this._map, managers.Game.INDEX_BACKGROUND);
             this._enemies.forEach(enemy => {
-                this.addChild(enemy);
+                this.addChildAt(enemy, managers.Game.INDEX_GAMEOBJECTS);
             });
-            this.addChild(this._player);
+            this.addChildAt(this._player, managers.Game.INDEX_GAMEOBJECTS);
             this._tooltips.forEach(tooltip => {
-                this.addChild(tooltip);
+                this.addChildAt(tooltip, managers.Game.INDEX_UI);
             });
             this._obstra.forEach(obstr => {
-                this.addChild(obstr);
+                this.addChildAt(obstr, managers.Game.INDEX_GAMEOBJECTS);
             });
-            this.addChild(this._scoreBoard);
+            this.addChildAt(this._scoreBoard, managers.Game.INDEX_UI);
         }
 
         public addProjectile(projectile:objects.Projectile) {
             this._projectiles.push(projectile);
-            this.addChild(projectile);
+            this.addChildAt(projectile, managers.Game.INDEX_GAMEOBJECTS);
         }
 
         private _checkBounds() {
