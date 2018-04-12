@@ -2089,6 +2089,20 @@ var objects;
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(GameObject.prototype, "origin", {
+            get: function () {
+                return this._origin;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(GameObject.prototype, "destination", {
+            get: function () {
+                return this._destination;
+            },
+            enumerable: true,
+            configurable: true
+        });
         Object.defineProperty(GameObject.prototype, "mvspd", {
             get: function () {
                 return this._mvspd;
@@ -3132,6 +3146,7 @@ var objects;
             switch (shooter.weapon.weaponType) {
                 case config.Weapon.BLASTER:
                     createjs.Sound.play("blaster").volume = 0.2;
+                    _this.rotation = -(glm.vec2.angleOfAttack(_this.origin, _this.destination) + 90);
                     break;
                 default:
                     createjs.Sound.play("shot");

@@ -31,6 +31,13 @@ module objects {
             return this.y + this.halfHeight;
         }
 
+        get origin():glm.vec2 {
+            return this._origin;
+        }
+        get destination():glm.vec2 {
+            return this._destination;
+        }
+
         get mvspd():number {
             return this._mvspd;
         }

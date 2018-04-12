@@ -15,6 +15,7 @@ module objects {
             switch (shooter.weapon.weaponType) {
                 case config.Weapon.BLASTER:
                     createjs.Sound.play("blaster").volume = 0.2;
+                    this.rotation = -(glm.vec2.angleOfAttack(this.origin, this.destination) + 90);
                     break;
                 default:
                     createjs.Sound.play("shot");
