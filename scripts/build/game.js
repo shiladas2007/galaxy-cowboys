@@ -3924,6 +3924,7 @@ var scenes;
             this.pause();
             var lblTitle = new ui.Label(this.title.toUpperCase(), "40pt", "Sporting Grotesque", "#FFFF00", 0, 0, true);
             lblTitle.y = (managers.Game.HEIGHT * 0.5) - 50;
+            lblTitle.shadow = new createjs.Shadow("rgba(40,10,10,0.8)", 2, 3, 0);
             this.addChild(lblTitle);
             // Animate title across the screen
             createjs.Tween.get(lblTitle, { loop: false })
