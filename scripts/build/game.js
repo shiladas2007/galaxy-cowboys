@@ -3129,6 +3129,7 @@ var objects;
             var _this = _super.call(this, imageName, shooter.x, shooter.y, qx, qy) || this;
             _this._shooter = shooter;
             _this.mvspd = mvspd;
+            _this._dmg = _this._shooter.weapon.dmg;
             // Move projectile in front of shooter
             _this._spawnPosition();
             switch (shooter.weapon.weaponType) {
@@ -3172,9 +3173,9 @@ var objects;
             if (other instanceof animate.Enemy && this.name == "bullet" ||
                 other instanceof animate.Player && this.name == "laser" ||
                 other instanceof objects.Destructible && this.name == "bullet") {
-                other.hp -= 1; // TODO: Decrease according to damage
-                this.destroy();
+                other.hp -= this._dmg;
             }
+            this.destroy();
         };
         Projectile.prototype.destroy = function () {
             _super.prototype.destroy.call(this);
@@ -3271,6 +3272,7 @@ var objects;
         function Weapon(weaponType) {
             this.weaponType = weaponType;
             var fireRate = 1; // Seconds to wait before firing again
+            var dmg = 1;
             switch (weaponType) {
                 // Set fire rate and projectile based on weapon type:
                 case config.Weapon.REVOLVER:
@@ -3278,13 +3280,22 @@ var objects;
                     break;
                 case config.Weapon.SHOTGUN:
                     fireRate = 1.2;
+                    dmg = 3;
                     break;
                 case config.Weapon.BLASTER:
                     fireRate = 0.7;
                     break;
             }
             this.fireRate = fireRate;
+            this._dmg = dmg;
         }
+        Object.defineProperty(Weapon.prototype, "dmg", {
+            get: function () {
+                return this._dmg;
+            },
+            enumerable: true,
+            configurable: true
+        });
         return Weapon;
     }());
     objects.Weapon = Weapon;
@@ -3985,10 +3996,8 @@ var scenes;
                     projectile.update();
                     managers.Collision.check(projectile, _this._player);
                     _this._obstra.forEach(function (obstra) {
-                        if (projectile.name == "bullet") {
-                            if (managers.Collision.check(obstra, projectile)) {
-                                _this.removeObject(projectile);
-                            }
+                        if (managers.Collision.check(obstra, projectile)) {
+                            _this.removeObject(projectile);
                         }
                     });
                     if (projectile.isDestroyed) {

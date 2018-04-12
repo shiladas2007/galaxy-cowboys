@@ -1,11 +1,13 @@
 module objects {
     export class Projectile extends objects.GameObject {
         private _shooter: objects.GameObject;
+        private _dmg: number;
 
         constructor(imageName:string, shooter:objects.GameObject, qx:number, qy:number, mvspd:number=2) {
             super(imageName, shooter.x, shooter.y, qx, qy);
             this._shooter = shooter;
             this.mvspd = mvspd;
+            this._dmg = this._shooter.weapon.dmg;
             
             // Move projectile in front of shooter
             this._spawnPosition();
@@ -55,9 +57,9 @@ module objects {
             if (other instanceof animate.Enemy && this.name == "bullet" ||
             other instanceof animate.Player && this.name == "laser" ||
             other instanceof objects.Destructible && this.name == "bullet") {
-                other.hp -= 1; // TODO: Decrease according to damage
-                this.destroy();
+                other.hp -= this._dmg;
             }
+            this.destroy();
         }
 
         public destroy() {

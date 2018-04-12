@@ -202,10 +202,8 @@ module scenes {
 
                     managers.Collision.check(projectile, this._player);
                     this._obstra.forEach(obstra => {
-                        if (projectile.name == "bullet") {
-                            if (managers.Collision.check(obstra, projectile)) {
-                                this.removeObject(projectile);
-                            }
+                        if (managers.Collision.check(obstra, projectile)) {
+                            this.removeObject(projectile);
                         }
                     });
 
