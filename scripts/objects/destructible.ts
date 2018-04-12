@@ -17,9 +17,6 @@ module objects {
         public attack() {}
 
         public collide(other:objects.GameObject) {
-            if (other instanceof objects.Projectile) {
-                this.hp -= 1;
-            }
             if (this.hp <= 0) {
                 this.destroy();
             }

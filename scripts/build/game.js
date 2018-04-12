@@ -2199,9 +2199,6 @@ var objects;
         Destructible.prototype.move = function () { };
         Destructible.prototype.attack = function () { };
         Destructible.prototype.collide = function (other) {
-            if (other instanceof objects.Projectile) {
-                this.hp -= 1;
-            }
             if (this.hp <= 0) {
                 this.destroy();
             }
