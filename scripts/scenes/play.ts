@@ -8,6 +8,7 @@ module scenes {
         private _dx: number = 5;
         private _dy: number = 5;
         private _scoreBoard: managers.ScoreBoard;
+        private _overlay: createjs.Shape;
 
         protected _tooltips: ui.Tooltip[] = [];
         protected _enemies: animate.Enemy[];
@@ -15,6 +16,8 @@ module scenes {
         protected _obstra:objects.Destructible[]=[]; //for handling multiple crate object
         protected _player: animate.Player;
         protected _powerup:objects.Powerup;
+
+        public title: string = "";
 
         get topBoundary(): number {
             return this._topAnchor - managers.Game.TOP_ANCHOR;
@@ -86,6 +89,12 @@ module scenes {
             this._rightAnchor = managers.Game.RIGHT_ANCHOR;
             this._scoreBoard = new managers.ScoreBoard();
             managers.Game.scoreBoard = this._scoreBoard;
+
+            this._overlay = new createjs.Shape(
+                new createjs.Graphics().beginFill("rgba(0,0,0,0.5)")
+                .drawRect(0, 0, managers.Game.WIDTH, managers.Game.HEIGHT)
+            );
+            this._displayTitle();
         }
 
         public main():void {
@@ -106,6 +115,32 @@ module scenes {
         public addProjectile(projectile:objects.Projectile) {
             this._projectiles.push(projectile);
             this.addChildAt(projectile, managers.Game.INDEX_GAMEOBJECTS);
+        }
+
+        public pause() {
+            managers.Game.keyboardManager.paused = true;
+            this.addChild(this._overlay);
+        }
+
+        public unpause() {
+            managers.Game.keyboardManager.paused = false;
+            // Gradually fade out the overlay
+            createjs.Tween.get(this._overlay).to({alpha: 0}, 1000);
+        }
+
+        private _displayTitle() {
+            this.pause();
+
+            let lblTitle: ui.Label = new ui.Label(this.title.toUpperCase(), "40pt", "Sporting Grotesque", "#FFFF00", 0, 0, true);
+            lblTitle.y = (managers.Game.HEIGHT * 0.5) - 50;
+            this.addChild(lblTitle);
+            
+            // Animate title across the screen
+            createjs.Tween.get(lblTitle, {loop: false})
+                .to({x:300}, 1500, createjs.Ease.get(3))
+                .to({alpha: 0}, 400)
+                .on("complete",
+                    () => { this.unpause(); });
         }
 
         private _checkBounds() {

@@ -4,6 +4,7 @@ module scenes {
        // private _scoreboard: managers.ScoreBoard;
         constructor() {
             super("mapLevel2");
+            this.title = "Level 2"
             this.start();
         }
 

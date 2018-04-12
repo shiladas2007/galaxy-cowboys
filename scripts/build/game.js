@@ -3794,6 +3794,7 @@ var scenes;
             _this._tooltips = [];
             _this._projectiles = [];
             _this._obstra = []; //for handling multiple crate object
+            _this.title = "";
             _this._map = new objects.Map(mapString);
             managers.Game.isPlaying = true;
             _this.on("click", _this._onClick);
@@ -3886,6 +3887,9 @@ var scenes;
             this._rightAnchor = managers.Game.RIGHT_ANCHOR;
             this._scoreBoard = new managers.ScoreBoard();
             managers.Game.scoreBoard = this._scoreBoard;
+            this._overlay = new createjs.Shape(new createjs.Graphics().beginFill("rgba(0,0,0,0.5)")
+                .drawRect(0, 0, managers.Game.WIDTH, managers.Game.HEIGHT));
+            this._displayTitle();
         };
         PlayScene.prototype.main = function () {
             var _this = this;
@@ -3905,6 +3909,27 @@ var scenes;
         PlayScene.prototype.addProjectile = function (projectile) {
             this._projectiles.push(projectile);
             this.addChildAt(projectile, managers.Game.INDEX_GAMEOBJECTS);
+        };
+        PlayScene.prototype.pause = function () {
+            managers.Game.keyboardManager.paused = true;
+            this.addChild(this._overlay);
+        };
+        PlayScene.prototype.unpause = function () {
+            managers.Game.keyboardManager.paused = false;
+            // Gradually fade out the overlay
+            createjs.Tween.get(this._overlay).to({ alpha: 0 }, 1000);
+        };
+        PlayScene.prototype._displayTitle = function () {
+            var _this = this;
+            this.pause();
+            var lblTitle = new ui.Label(this.title.toUpperCase(), "40pt", "Sporting Grotesque", "#FFFF00", 0, 0, true);
+            lblTitle.y = (managers.Game.HEIGHT * 0.5) - 50;
+            this.addChild(lblTitle);
+            // Animate title across the screen
+            createjs.Tween.get(lblTitle, { loop: false })
+                .to({ x: 300 }, 1500, createjs.Ease.get(3))
+                .to({ alpha: 0 }, 400)
+                .on("complete", function () { _this.unpause(); });
         };
         PlayScene.prototype._checkBounds = function () {
             var moveX = 0;
@@ -4051,12 +4076,12 @@ var scenes;
         function Level1() {
             var _this = _super.call(this, "mapLevel1") || this;
             _this._hasPlayerMoved = false;
+            _this.title = "Level 1";
             _this.start();
             return _this;
         }
         Level1.prototype.start = function () {
             _super.prototype.start.call(this);
-            //  this._scoreboard = new managers.ScoreBoard();
             console.log("Initializing enemies...");
             this._enemies = [
                 new animate.Enemy(config.Enemy.GUARD, 310, 40),
@@ -4110,6 +4135,7 @@ var scenes;
         // private _scoreboard: managers.ScoreBoard;
         function Level2() {
             var _this = _super.call(this, "mapLevel2") || this;
+            _this.title = "Level 2";
             _this.start();
             return _this;
         }
@@ -4156,6 +4182,7 @@ var scenes;
         __extends(Level3, _super);
         function Level3() {
             var _this = _super.call(this, "mapLevel3") || this;
+            _this.title = "Level 3";
             _this.start();
             return _this;
         }

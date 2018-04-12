@@ -6,13 +6,12 @@ module scenes {
 
         constructor() {
             super("mapLevel1");
+            this.title = "Level 1";
             this.start();
         }
 
         public start():void {
             super.start();
-          //  this._scoreboard = new managers.ScoreBoard();
-           
            
             console.log("Initializing enemies...");            
             this._enemies = [
