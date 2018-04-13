@@ -3,6 +3,10 @@ module objects {
         private _shooter: objects.GameObject;
         private _dmg: number;
 
+        get shooter():objects.GameObject {
+            return this._shooter;
+        }
+
         constructor(imageName:string, shooter:objects.GameObject, qx:number, qy:number, mvspd:number=2) {
             super(imageName, shooter.x, shooter.y, qx, qy);
             this._shooter = shooter;
@@ -17,6 +21,8 @@ module objects {
                     createjs.Sound.play("blaster").volume = 0.2;
                     this.rotation = -(glm.vec2.angleOfAttack(this.origin, this.destination) + 90);
                     break;
+                case config.Weapon.SHOTGUN:
+                    this.rotation = -(glm.vec2.angleOfAttack(this.origin, this.destination) - 90);
                 default:
                     createjs.Sound.play("shot");
                     break;
@@ -55,9 +61,9 @@ module objects {
         }
 
         public collide(other:objects.GameObject) {
-            if (other instanceof animate.Enemy && this.name == "bullet" ||
-            other instanceof animate.Player && this.name == "laser" ||
-            other instanceof objects.Destructible && this.name == "bullet") {
+            if (((other instanceof animate.Enemy) && (this._shooter instanceof animate.Player)) ||
+            (other instanceof animate.Player && this.name == "laser") ||
+            ((other instanceof objects.Destructible) && (this._shooter instanceof animate.Player))) {
                 other.hp -= this._dmg;
             }
             this.destroy();

@@ -212,7 +212,7 @@ module scenes {
                 }
              
                 this._projectiles.forEach(projectile => {
-                    if (projectile.name == "bullet") {
+                    if (projectile.shooter instanceof animate.Player) {
                         if (managers.Collision.check(enemy, projectile)) {
                             this.removeObject(projectile);
                         }

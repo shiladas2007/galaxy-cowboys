@@ -14,6 +14,7 @@
     let stats: Stats;
 
     textureAtlasData = {
+
         "images": [
             "./assets/sprites/textureData.png"
         ],
@@ -22,16 +23,18 @@
         "frames": [
             [1, 1, 23, 23, 0, -1, -1],
             [26, 1, 50, 50, 0, 0, 0],
-            [78, 1, 50, 46, 0, 0, 0],
-            [130, 1, 50, 49, 0, 0, 0],
-            [182, 1, 50, 50, 0, 0, 0],
-            [1, 53, 50, 47, 0, 0, 0],
-            [53, 53, 50, 53, 0, 0, 0],
+            [26, 1, 50, 50, 0, 0, 0],
+            [78, 1, 50, 50, 0, 0, 0],
+            [130, 1, 50, 46, 0, 0, 0],
+            [182, 1, 50, 49, 0, 0, 0],
+            [1, 53, 50, 50, 0, 0, 0],
+            [53, 53, 50, 47, 0, 0, 0],
             [105, 53, 50, 53, 0, 0, 0],
-            [157, 53, 34, 33, 0, -1, -1],
-            [1, 108, 114, 97, 0, -3, -1],
-            [117, 108, 48, 48, 0, -1, -2],
-            [167, 108, 50, 50, 0, 0, 0],
+            [157, 53, 50, 53, 0, 0, 0],
+            [209, 53, 20, 26, 0, 0, 0],
+            [1, 108, 34, 33, 0, -1, -1],
+            [37, 108, 114, 97, 0, -3, -1],
+            [153, 108, 50, 50, 0, 0, 0],
             [1, 207, 55, 60, 0, 0, 0],
             [58, 207, 45, 60, 0, 0, 0],
             [105, 207, 59, 58, 0, 0, 0],
@@ -52,23 +55,24 @@
         
         "animations": {
             "bullet": { "frames": [0] },
-            "breaking": { "frames": [1, 2, 3, 4, 5, 6, 7] },
-            "close": { "frames": [8] },
-            "controlsIntroduck": { "frames": [9] },
-            "cowboy1": { "frames": [10] },
-            "crate": { "frames": [11] },
-            "enemyGuard": { "frames": [12] },
-            "enemyPatroller": { "frames": [13] },
-            "enemyWatcher": { "frames": [14] },
-            "laser": { "frames": [15] },
-            "next": { "frames": [16] },
-            "pauseSmall": { "frames": [17] },
-            "restart": { "frames": [18] },
-            "smallexplosion": { "frames": [19, 20, 21, 22, 23, 24] },
-            "startButton": { "frames": [25] },
-            "startButton2": { "frames": [26] },
-            "tooltipBg": { "frames": [27] }
-        }        
+            "crate": { "frames": [1] },
+            "breaking": { "frames": [2, 3, 4, 5, 6, 7, 8, 9] },
+            "bullet2": { "frames": [10] },
+            "close": { "frames": [11] },
+            "controlsIntroduck": { "frames": [12] },
+            "cowboy1": { "frames": [13] },
+            "enemyGuard": { "frames": [14] },
+            "enemyPatroller": { "frames": [15] },
+            "enemyWatcher": { "frames": [16] },
+            "laser": { "frames": [17] },
+            "next": { "frames": [18] },
+            "pauseSmall": { "frames": [19] },
+            "restart": { "frames": [20] },
+            "smallexplosion": { "frames": [21, 22, 23, 24, 25, 26] },
+            "startButton": { "frames": [27] },
+            "startButton2": { "frames": [28] },
+            "tooltipBg": { "frames": [29] }
+        }             
     };
     
     assetManifest = [
