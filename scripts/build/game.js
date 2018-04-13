@@ -4071,7 +4071,6 @@ var scenes;
             return _this;
         }
         GameOverScene.prototype.start = function () {
-            _super.prototype.start.call(this);
             this._background = new ui.Background("gameover");
             this._startButton2 = new ui.Button("startButton2", managers.Game.WIDTH * 0.5, 320, 1, true);
             this._startButton = new ui.Button("startButton", managers.Game.WIDTH * 0.5, 320, 0.1, true);
