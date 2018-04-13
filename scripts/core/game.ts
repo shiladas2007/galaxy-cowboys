@@ -18,11 +18,10 @@
         "images": [
             "./assets/sprites/textureData.png"
         ],
-        
+
         "framerate": 20,
         "frames": [
             [1, 1, 23, 23, 0, -1, -1],
-            [26, 1, 50, 50, 0, 0, 0],
             [26, 1, 50, 50, 0, 0, 0],
             [78, 1, 50, 50, 0, 0, 0],
             [130, 1, 50, 46, 0, 0, 0],
@@ -35,6 +34,7 @@
             [1, 108, 34, 33, 0, -1, -1],
             [37, 108, 114, 97, 0, -3, -1],
             [153, 108, 50, 50, 0, 0, 0],
+            [205, 108, 43, 49, 0, -6, -1],
             [1, 207, 55, 60, 0, 0, 0],
             [58, 207, 45, 60, 0, 0, 0],
             [105, 207, 59, 58, 0, 0, 0],
@@ -55,12 +55,13 @@
         
         "animations": {
             "bullet": { "frames": [0] },
+            "breaking": { "frames": [2, 3, 4, 5, 6, 7, 8] },
+            "bullet2": { "frames": [9] },
+            "close": { "frames": [10] },
+            "controlsIntroduck": { "frames": [11] },
+            "cowboy1": { "frames": [12] },
+            "cowboy2": { "frames": [13] },
             "crate": { "frames": [1] },
-            "breaking": { "frames": [2, 3, 4, 5, 6, 7, 8, 9] },
-            "bullet2": { "frames": [10] },
-            "close": { "frames": [11] },
-            "controlsIntroduck": { "frames": [12] },
-            "cowboy1": { "frames": [13] },
             "enemyGuard": { "frames": [14] },
             "enemyPatroller": { "frames": [15] },
             "enemyWatcher": { "frames": [16] },
@@ -72,7 +73,7 @@
             "startButton": { "frames": [27] },
             "startButton2": { "frames": [28] },
             "tooltipBg": { "frames": [29] }
-        }             
+        }            
     };
     
     assetManifest = [

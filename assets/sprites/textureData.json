@@ -8,7 +8,6 @@
 "frames": [
     [1, 1, 23, 23, 0, -1, -1],
     [26, 1, 50, 50, 0, 0, 0],
-    [26, 1, 50, 50, 0, 0, 0],
     [78, 1, 50, 50, 0, 0, 0],
     [130, 1, 50, 46, 0, 0, 0],
     [182, 1, 50, 49, 0, 0, 0],
@@ -20,6 +19,7 @@
     [1, 108, 34, 33, 0, -1, -1],
     [37, 108, 114, 97, 0, -3, -1],
     [153, 108, 50, 50, 0, 0, 0],
+    [205, 108, 43, 49, 0, -6, -1],
     [1, 207, 55, 60, 0, 0, 0],
     [58, 207, 45, 60, 0, 0, 0],
     [105, 207, 59, 58, 0, 0, 0],
@@ -41,18 +41,18 @@
 "animations": {
     "bombSmall": { "frames": [0] },
     "breaking1": { "frames": [1] },
-    "crate": { "frames": [2] },
-    "breaking2": { "frames": [3] },
-    "breaking3": { "frames": [4] },
-    "breaking4": { "frames": [5] },
-    "breaking5": { "frames": [6] },
-    "breaking6": { "frames": [7] },
-    "breaking7": { "frames": [8] },
-    "breaking8": { "frames": [9] },
-    "bullet2": { "frames": [10] },
-    "close": { "frames": [11] },
-    "controlsIntroduck": { "frames": [12] },
-    "cowboy1": { "frames": [13] },
+    "breaking2": { "frames": [2] },
+    "breaking3": { "frames": [3] },
+    "breaking4": { "frames": [4] },
+    "breaking5": { "frames": [5] },
+    "breaking6": { "frames": [6] },
+    "breaking7": { "frames": [7] },
+    "breaking8": { "frames": [8] },
+    "bullet2": { "frames": [9] },
+    "close": { "frames": [10] },
+    "controlsIntroduck": { "frames": [11] },
+    "cowboy1": { "frames": [12] },
+    "cowboy2": { "frames": [13] },
     "enemyGuard": { "frames": [14] },
     "enemyPatroller": { "frames": [15] },
     "enemyWatcher": { "frames": [16] },
@@ -72,7 +72,7 @@
 },
 
 "texturepacker": [
-        "SmartUpdateHash: $TexturePacker:SmartUpdate:4e9d2e4d8667417f51eace2b2b7f8839:7d9b55c1772b9eb8c7c49da26d019a48:a69ec72bbf7a12989a30ea16c5b79614$",
+        "SmartUpdateHash: $TexturePacker:SmartUpdate:7d6fed86f31a23a9c9bcacaecfd91333:5848db5d56552aaaa73bbae91f40c589:a69ec72bbf7a12989a30ea16c5b79614$",
         "Created with TexturePacker (https://www.codeandweb.com/texturepacker) for EaselJS"
 ]
 
