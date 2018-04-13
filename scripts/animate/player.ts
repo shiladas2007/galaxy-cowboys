@@ -83,8 +83,12 @@ module animate {
             if (this._canFire) {
                 let targetX: number = managers.Game.currentSceneObject.stage.mouseX - managers.Game.currentSceneObject.x;
                 let targetY: number = managers.Game.currentSceneObject.stage.mouseY - managers.Game.currentSceneObject.y;
-                
-                let newProjectile = new objects.Projectile("bullet", this, targetX, targetY);
+                let projectileType: string = "bullet";
+
+                if (this.weapon.weaponType == config.Weapon.SHOTGUN) {
+                    projectileType = "bullet2"
+                }
+                let newProjectile = new objects.Projectile(projectileType, this, targetX, targetY);
                 this._canFire = false;
                 setTimeout(() => {this._canFire = true}, this._weapon.fireRate * 1000);
             }

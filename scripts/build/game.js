@@ -3148,12 +3148,21 @@ var objects;
                     createjs.Sound.play("blaster").volume = 0.2;
                     _this.rotation = -(glm.vec2.angleOfAttack(_this.origin, _this.destination) + 90);
                     break;
+                case config.Weapon.SHOTGUN:
+                    _this.rotation = -(glm.vec2.angleOfAttack(_this.origin, _this.destination) - 90);
                 default:
                     createjs.Sound.play("shot");
                     break;
             }
             return _this;
         }
+        Object.defineProperty(Projectile.prototype, "shooter", {
+            get: function () {
+                return this._shooter;
+            },
+            enumerable: true,
+            configurable: true
+        });
         Projectile.prototype.update = function () {
             this.move();
             this._checkBounds();
@@ -3182,9 +3191,9 @@ var objects;
             managers.Game.currentSceneObject.addProjectile(this);
         };
         Projectile.prototype.collide = function (other) {
-            if (other instanceof animate.Enemy && this.name == "bullet" ||
-                other instanceof animate.Player && this.name == "laser" ||
-                other instanceof objects.Destructible && this.name == "bullet") {
+            if (((other instanceof animate.Enemy) && (this._shooter instanceof animate.Player)) ||
+                (other instanceof animate.Player && this.name == "laser") ||
+                ((other instanceof objects.Destructible) && (this._shooter instanceof animate.Player))) {
                 other.hp -= this._dmg;
             }
             this.destroy();
@@ -3566,7 +3575,11 @@ var animate;
             if (this._canFire) {
                 var targetX = managers.Game.currentSceneObject.stage.mouseX - managers.Game.currentSceneObject.x;
                 var targetY = managers.Game.currentSceneObject.stage.mouseY - managers.Game.currentSceneObject.y;
-                var newProjectile = new objects.Projectile("bullet", this, targetX, targetY);
+                var projectileType = "bullet";
+                if (this.weapon.weaponType == config.Weapon.SHOTGUN) {
+                    projectileType = "bullet2";
+                }
+                var newProjectile = new objects.Projectile(projectileType, this, targetX, targetY);
                 this._canFire = false;
                 setTimeout(function () { _this._canFire = true; }, this._weapon.fireRate * 1000);
             }
@@ -4010,7 +4023,7 @@ var scenes;
                     _this._player.isColliding = true;
                 }
                 _this._projectiles.forEach(function (projectile) {
-                    if (projectile.name == "bullet") {
+                    if (projectile.shooter instanceof animate.Player) {
                         if (managers.Collision.check(enemy, projectile)) {
                             _this.removeObject(projectile);
                         }
@@ -4158,7 +4171,7 @@ var scenes;
             _super.prototype.start.call(this);
             console.log("Initializing enemies...");
             this._enemies = [
-                new animate.Enemy(config.Enemy.GUARD, 120, 140),
+                new animate.Enemy(config.Enemy.GUARD, 180, 140),
                 new animate.Enemy(config.Enemy.GUARD, 320, 240),
                 new animate.Enemy(config.Enemy.GUARD, 500, 100),
                 new animate.Enemy(config.Enemy.GUARD, 237, -200),
@@ -4276,16 +4289,18 @@ var scenes;
         "frames": [
             [1, 1, 23, 23, 0, -1, -1],
             [26, 1, 50, 50, 0, 0, 0],
-            [78, 1, 50, 46, 0, 0, 0],
-            [130, 1, 50, 49, 0, 0, 0],
-            [182, 1, 50, 50, 0, 0, 0],
-            [1, 53, 50, 47, 0, 0, 0],
-            [53, 53, 50, 53, 0, 0, 0],
+            [26, 1, 50, 50, 0, 0, 0],
+            [78, 1, 50, 50, 0, 0, 0],
+            [130, 1, 50, 46, 0, 0, 0],
+            [182, 1, 50, 49, 0, 0, 0],
+            [1, 53, 50, 50, 0, 0, 0],
+            [53, 53, 50, 47, 0, 0, 0],
             [105, 53, 50, 53, 0, 0, 0],
-            [157, 53, 34, 33, 0, -1, -1],
-            [1, 108, 114, 97, 0, -3, -1],
-            [117, 108, 48, 48, 0, -1, -2],
-            [167, 108, 50, 50, 0, 0, 0],
+            [157, 53, 50, 53, 0, 0, 0],
+            [209, 53, 20, 26, 0, 0, 0],
+            [1, 108, 34, 33, 0, -1, -1],
+            [37, 108, 114, 97, 0, -3, -1],
+            [153, 108, 50, 50, 0, 0, 0],
             [1, 207, 55, 60, 0, 0, 0],
             [58, 207, 45, 60, 0, 0, 0],
             [105, 207, 59, 58, 0, 0, 0],
@@ -4305,22 +4320,23 @@ var scenes;
         ],
         "animations": {
             "bullet": { "frames": [0] },
-            "breaking": { "frames": [1, 2, 3, 4, 5, 6, 7] },
-            "close": { "frames": [8] },
-            "controlsIntroduck": { "frames": [9] },
-            "cowboy1": { "frames": [10] },
-            "crate": { "frames": [11] },
-            "enemyGuard": { "frames": [12] },
-            "enemyPatroller": { "frames": [13] },
-            "enemyWatcher": { "frames": [14] },
-            "laser": { "frames": [15] },
-            "next": { "frames": [16] },
-            "pauseSmall": { "frames": [17] },
-            "restart": { "frames": [18] },
-            "smallexplosion": { "frames": [19, 20, 21, 22, 23, 24] },
-            "startButton": { "frames": [25] },
-            "startButton2": { "frames": [26] },
-            "tooltipBg": { "frames": [27] }
+            "crate": { "frames": [1] },
+            "breaking": { "frames": [2, 3, 4, 5, 6, 7, 8, 9] },
+            "bullet2": { "frames": [10] },
+            "close": { "frames": [11] },
+            "controlsIntroduck": { "frames": [12] },
+            "cowboy1": { "frames": [13] },
+            "enemyGuard": { "frames": [14] },
+            "enemyPatroller": { "frames": [15] },
+            "enemyWatcher": { "frames": [16] },
+            "laser": { "frames": [17] },
+            "next": { "frames": [18] },
+            "pauseSmall": { "frames": [19] },
+            "restart": { "frames": [20] },
+            "smallexplosion": { "frames": [21, 22, 23, 24, 25, 26] },
+            "startButton": { "frames": [27] },
+            "startButton2": { "frames": [28] },
+            "tooltipBg": { "frames": [29] }
         }
     };
     assetManifest = [
