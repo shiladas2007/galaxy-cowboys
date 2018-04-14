@@ -56,9 +56,7 @@ module scenes {
             }
 
             if (!this._enemies.length) {
-                managers.Game.currentScene = config.Scene.LEVEL2;
-               
-                console.log("ss"+managers.Game.scoreBoard.Score);
+                managers.Game.currentScene = config.Scene.LEVEL2;                
             }
 
             return managers.Game.currentScene;

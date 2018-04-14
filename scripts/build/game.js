@@ -3447,7 +3447,6 @@ var animate;
             this.stop();
             if (!silent)
                 createjs.Sound.play("monster_die");
-            managers.Game.scoreBoard.Score += 200;
         };
         Enemy.prototype.attack = function () {
             var targetX;
@@ -3467,6 +3466,11 @@ var animate;
         };
         Enemy.prototype.collide = function (other) {
             if (other instanceof objects.GameObject) {
+                console.log("colide" + other.name);
+                if (other.name == "bullet" || other.name == "bullet2") {
+                    managers.Game.scoreBoard.Score += 200;
+                    managers.Game.currentScore = managers.Game.scoreBoard.Score;
+                }
                 this.goBack();
             }
             else {
@@ -3793,6 +3797,8 @@ var scenes;
             this._background = new ui.Background("background");
             this._startButton2 = new ui.Button("startButton2", 300, 240);
             this._startButton = new ui.Button("startButton", 300, 240, 0.1);
+            this._finalScoreLabel = new ui.Label("Score: 0", "14pt", "Sporting Grotesque", "#FFFF00", 150, 250, false);
+            this._finalScoreLabel.visible = false;
             this.main();
         };
         StartScene.prototype.update = function () {
@@ -3802,6 +3808,7 @@ var scenes;
             this.addChildAt(this._background, managers.Game.INDEX_BACKGROUND);
             this.addChildAt(this._startButton2, managers.Game.INDEX_GAMEOBJECTS);
             this.addChildAt(this._startButton, managers.Game.INDEX_UI);
+            this.addChildAt(this._finalScoreLabel, managers.Game.INDEX_UI);
             this._startButton.on("click", this._startButtonClick);
         };
         StartScene.prototype._startButtonClick = function () {
@@ -4087,6 +4094,9 @@ var scenes;
             this._background = new ui.Background("gameover");
             this._startButton2 = new ui.Button("startButton2", managers.Game.WIDTH * 0.5, 320, 1, true);
             this._startButton = new ui.Button("startButton", managers.Game.WIDTH * 0.5, 320, 0.1, true);
+            this._finalScoreLabel = new ui.Label("Score: 0", "18pt", "Sporting Grotesque", "#FF00FF", 150, 250, false);
+            this._finalScoreLabel.text = "Final Score: " + managers.Game.currentScore;
+            managers.Game.currentScore = 0;
             this.main();
         };
         GameOverScene.prototype.Main = function () {
@@ -4148,7 +4158,6 @@ var scenes;
             }
             if (!this._enemies.length) {
                 managers.Game.currentScene = config.Scene.LEVEL2;
-                console.log("ss" + managers.Game.scoreBoard.Score);
             }
             return managers.Game.currentScene;
         };
@@ -4174,6 +4183,7 @@ var scenes;
         }
         Level2.prototype.start = function () {
             _super.prototype.start.call(this);
+            managers.Game.scoreBoard.Score = managers.Game.currentScore;
             console.log("Initializing enemies...");
             this._enemies = [
                 new animate.Enemy(config.Enemy.GUARD, 180, 140),
@@ -4222,6 +4232,7 @@ var scenes;
         }
         Level3.prototype.start = function () {
             _super.prototype.start.call(this);
+            managers.Game.scoreBoard.Score = managers.Game.currentScore;
             console.log("Initializing enemies...");
             this._enemies = [
                 new animate.Enemy(config.Enemy.GUARD, 120, 140),
@@ -4244,6 +4255,7 @@ var scenes;
             _super.prototype.update.call(this);
             if (!this._enemies.length) {
                 //managers.Game.currentScene = config.Scene.BOSS;
+                //managers.Game.currentScene=config.Scene.GAMEOVER;
             }
             return managers.Game.currentScene;
         };
@@ -4402,15 +4414,20 @@ var scenes;
                 currentScene = new scenes.StartScene();
                 break;
             case config.Scene.LEVEL1:
+                managers.Game.currentScore = 0;
                 currentScene = new scenes.Level1();
                 break;
             case config.Scene.LEVEL2:
+                managers.Game.currentScore = managers.Game.scoreBoard.Score;
                 currentScene = new scenes.Level2();
                 break;
             case config.Scene.LEVEL3:
+                managers.Game.currentScore = managers.Game.scoreBoard.Score;
+                console.log("s 3 " + managers.Game.currentScore);
                 currentScene = new scenes.Level3();
                 break;
             case config.Scene.GAMEOVER:
+                managers.Game.currentScore = managers.Game.scoreBoard.Score;
                 currentScene = new scenes.GameOverScene();
                 break;
         }

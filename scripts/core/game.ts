@@ -134,16 +134,21 @@
             case config.Scene.START:
                 currentScene = new scenes.StartScene();
                 break;
-            case config.Scene.LEVEL1:
-                currentScene = new scenes.Level1();
+            case config.Scene.LEVEL1:               
+                managers.Game.currentScore=0;                                            
+                currentScene = new scenes.Level1();                
                 break;
-            case config.Scene.LEVEL2:
+            case config.Scene.LEVEL2:            
+                managers.Game.currentScore=managers.Game.scoreBoard.Score;                
                 currentScene = new scenes.Level2();
                 break;
             case config.Scene.LEVEL3:
+                managers.Game.currentScore=managers.Game.scoreBoard.Score; 
+                console.log("s 3 "+managers.Game.currentScore);
                 currentScene = new scenes.Level3();
                 break;
-            case config.Scene.GAMEOVER:
+            case config.Scene.GAMEOVER:            
+                managers.Game.currentScore=managers.Game.scoreBoard.Score;                 
                 currentScene = new scenes.GameOverScene();
                 break;
         }
