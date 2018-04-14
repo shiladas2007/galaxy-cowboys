@@ -4092,6 +4092,9 @@ var scenes;
         GameOverScene.prototype.Main = function () {
             _super.prototype.main.call(this);
         };
+        GameOverScene.prototype._startButtonClick = function () {
+            managers.Game.currentScene = managers.Game.currentPlayScene;
+        };
         return GameOverScene;
     }(scenes.StartScene));
     scenes.GameOverScene = GameOverScene;
@@ -4104,6 +4107,7 @@ var scenes;
         function Level1() {
             var _this = _super.call(this, "mapLevel1") || this;
             _this._hasPlayerMoved = false;
+            managers.Game.currentPlayScene = config.Scene.LEVEL1;
             _this.title = "Level 1";
             _this.start();
             return _this;
@@ -4163,6 +4167,7 @@ var scenes;
         // private _scoreboard: managers.ScoreBoard;
         function Level2() {
             var _this = _super.call(this, "mapLevel2") || this;
+            managers.Game.currentPlayScene = config.Scene.LEVEL2;
             _this.title = "Level 2";
             _this.start();
             return _this;
@@ -4210,6 +4215,7 @@ var scenes;
         __extends(Level3, _super);
         function Level3() {
             var _this = _super.call(this, "mapLevel3") || this;
+            managers.Game.currentPlayScene = config.Scene.LEVEL3;
             _this.title = "Level 3";
             _this.start();
             return _this;

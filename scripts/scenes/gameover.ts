@@ -16,5 +16,9 @@ module scenes {
         public Main():void {
             super.main();
         }
+
+        protected _startButtonClick() {
+            managers.Game.currentScene = managers.Game.currentPlayScene;
+        }
     }
 }

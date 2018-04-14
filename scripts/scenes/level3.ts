@@ -4,6 +4,7 @@ module scenes {
 
         constructor() {
             super("mapLevel3");
+            managers.Game.currentPlayScene = config.Scene.LEVEL3;
             this.title = "Level 3";
             this.start();
         }

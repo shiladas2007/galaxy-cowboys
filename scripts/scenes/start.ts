@@ -27,7 +27,7 @@ module scenes {
             this._startButton.on("click", this._startButtonClick);
         }
 
-        private _startButtonClick():void {
+        protected _startButtonClick():void {
             managers.Game.currentScene = config.Scene.LEVEL1;
         }
     }
