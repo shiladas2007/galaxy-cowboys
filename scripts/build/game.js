@@ -1896,6 +1896,10 @@ var ui;
             }
             _this.x = x;
             _this.y = y;
+            _this.width = _this.getMeasuredWidth();
+            _this.height = _this.getMeasuredHeight();
+            _this.halfWidth = _this.width * 0.5;
+            _this.halfHeight = _this.height * 0.5;
             return _this;
         }
         return Label;
@@ -1960,6 +1964,61 @@ var ui;
         return ObjectiveMarker;
     }());
     ui.ObjectiveMarker = ObjectiveMarker;
+})(ui || (ui = {}));
+var ui;
+(function (ui) {
+    var Selection = /** @class */ (function (_super) {
+        __extends(Selection, _super);
+        function Selection(x, y, width, height, title, description, sprite) {
+            if (description === void 0) { description = ""; }
+            if (sprite === void 0) { sprite = null; }
+            var _this = _super.call(this) || this;
+            _this.width = width;
+            _this.height = height;
+            _this.title = title;
+            _this.x = x;
+            _this.y = y;
+            _this._description = description;
+            _this._sprite = sprite;
+            _this.start();
+            return _this;
+        }
+        Selection.prototype.start = function () {
+            this.halfWidth = this.width * 0.5;
+            this.halfHeight = this.height * 0.5;
+            ui.centreHorizontal(this, this._sprite);
+            ui.centreVertical(this, this._sprite);
+            this._lblTitle = new ui.Label(this.title, "18pt", "Sporting Grotesque", "#fff");
+            ui.centreHorizontal(this, this._lblTitle);
+            this._lblTitle.y = this._sprite.y + this._sprite.getBounds().height * 0.5 + 10;
+            this._lblDescription = new ui.Label(this._description, "11pt", "Sporting Grotesque", "rgb(240,240,240)");
+            this._lblDescription.lineWidth = this.width * 0.8;
+            ui.centreHorizontal(this, this._lblDescription);
+            this._lblDescription.y = this._lblTitle.y + this._lblTitle.height + 10;
+            this._overlay = new createjs.Shape(new createjs.Graphics().beginFill("rgba(0,0,0,0.5)")
+                .drawRoundRect(0, 0, this.width, this.height, 2));
+            this.main();
+        };
+        Selection.prototype.update = function () {
+            return managers.Game.currentScene;
+        };
+        Selection.prototype.main = function () {
+            this.addChild(this._overlay);
+            this.addChild(this._sprite);
+            this.addChild(this._lblTitle);
+            this.addChild(this._lblDescription);
+            this.on("mousehover", this._onHover);
+            this.on("mouseout", this._onOut);
+        };
+        Selection.prototype._onHover = function () {
+            createjs.Tween.get(this).to({ scaleX: 1.1, scaleY: 1.1 }, 300, createjs.Ease.get(2));
+        };
+        Selection.prototype._onOut = function () {
+            createjs.Tween.get(this).to({ scaleX: 1, scaleY: 1 }, 300, createjs.Ease.get(2));
+        };
+        return Selection;
+    }(createjs.Container));
+    ui.Selection = Selection;
 })(ui || (ui = {}));
 var ui;
 (function (ui) {
@@ -2043,6 +2102,17 @@ var ui;
         return Tooltip;
     }(createjs.Container));
     ui.Tooltip = Tooltip;
+})(ui || (ui = {}));
+var ui;
+(function (ui) {
+    function centreHorizontal(parent, child) {
+        child.x = parent.x + parent.getBounds().width * 0.5 - child.getBounds().width * 0.5;
+    }
+    ui.centreHorizontal = centreHorizontal;
+    function centreVertical(parent, child) {
+        child.y = parent.y + parent.getBounds().height * 0.5 - child.getBounds().height * 0.5;
+    }
+    ui.centreVertical = centreVertical;
 })(ui || (ui = {}));
 var objects;
 (function (objects) {
@@ -4277,6 +4347,23 @@ var scenes;
         return PauseScene;
     }(objects.Scene));
     scenes.PauseScene = PauseScene;
+})(scenes || (scenes = {}));
+var scenes;
+(function (scenes) {
+    var SelectScene = /** @class */ (function (_super) {
+        __extends(SelectScene, _super);
+        function SelectScene() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        SelectScene.prototype.start = function () {
+            this._background = new ui.Background("mapLevel3");
+            this._startButton2 = new ui.Button("startButton2", managers.Game.WIDTH * 0.5, 320, 1, true);
+            this._startButton = new ui.Button("startButton", managers.Game.WIDTH * 0.5, 320, 0.1, true);
+            this.main();
+        };
+        return SelectScene;
+    }(scenes.StartScene));
+    scenes.SelectScene = SelectScene;
 })(scenes || (scenes = {}));
 (function () {
     var canvas = document.getElementById("canvas");

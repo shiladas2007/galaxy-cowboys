@@ -1,5 +1,6 @@
 module objects {
     export abstract class Scene extends createjs.Container {
+        protected _overlay: createjs.Shape;
         public assetManager;
 
         get topBoundary(): number {
