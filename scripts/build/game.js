@@ -3191,6 +3191,9 @@ var objects;
             managers.Game.currentSceneObject.addProjectile(this);
         };
         Projectile.prototype.collide = function (other) {
+            if (other == this._shooter) {
+                return;
+            }
             if (((other instanceof animate.Enemy) && (this._shooter instanceof animate.Player)) ||
                 (other instanceof animate.Player && this.name == "laser") ||
                 ((other instanceof objects.Destructible) && (this._shooter instanceof animate.Player))) {
@@ -3511,6 +3514,7 @@ var animate;
                 case config.Character.QUICKSILVER:
                     mvspd = 1.5;
                     weapon = config.Weapon.SHOTGUN;
+                    imageName = "cowboy2";
                     break;
             }
             _this = _super.call(this, imageName, hp, mvspd, px, py) || this;

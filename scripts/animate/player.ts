@@ -16,6 +16,7 @@ module animate {
                 case config.Character.QUICKSILVER:
                     mvspd = 1.5;
                     weapon = config.Weapon.SHOTGUN;
+                    imageName = "cowboy2";
                     break;
             }
             super(imageName, hp, mvspd, px, py);

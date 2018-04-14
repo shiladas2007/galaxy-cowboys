@@ -61,6 +61,10 @@ module objects {
         }
 
         public collide(other:objects.GameObject) {
+            if (other == this._shooter) {
+                return;
+            }
+            
             if (((other instanceof animate.Enemy) && (this._shooter instanceof animate.Player)) ||
             (other instanceof animate.Player && this.name == "laser") ||
             ((other instanceof objects.Destructible) && (this._shooter instanceof animate.Player))) {
