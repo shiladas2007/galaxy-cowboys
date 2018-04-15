@@ -14,7 +14,8 @@ module scenes {
             this._background = new ui.Background("background");
             this._startButton2 = new ui.Button("startButton2", 300, 240);
             this._startButton = new ui.Button("startButton", 300, 240, 0.1);             
-            this._finalScoreLabel = new ui.Label("Score: 0", "14pt", "Sporting Grotesque", "#FFFF00", 150, 250, false);            
+            this._finalScoreLabel = new ui.Label("Score: 0", "14pt", managers.Style.FONT_FAMILY_PRIMARY,
+                managers.Style.FONT_COLOUR_PRIMARY, 150, 250, false);            
             this._finalScoreLabel.visible=false;
             this.main();
         }

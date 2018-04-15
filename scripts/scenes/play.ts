@@ -90,7 +90,7 @@ module scenes {
             managers.Game.scoreBoard = this._scoreBoard;
 
             this._overlay = new createjs.Shape(
-                new createjs.Graphics().beginFill("rgba(0,0,0,0.5)")
+                new createjs.Graphics().beginFill(managers.Style.SHADOW_COLOUR_PRIMARY)
                 .drawRect(0, 0, managers.Game.WIDTH, managers.Game.HEIGHT)
             );
             this._displayTitle();
@@ -131,9 +131,10 @@ module scenes {
         private _displayTitle() {
             this.pause();
 
-            let lblTitle: ui.Label = new ui.Label(this.title.toUpperCase(), "40pt", "Sporting Grotesque", "#FFFF00", 0, 0, true);
+            let lblTitle: ui.Label = new ui.Label(this.title.toUpperCase(), "40pt",
+                managers.Style.FONT_FAMILY_PRIMARY, managers.Style.FONT_COLOUR_PRIMARY, 0, 0, true);
             lblTitle.y = (managers.Game.HEIGHT * 0.5) - 50;
-            lblTitle.shadow = new createjs.Shadow("rgba(40,10,10,0.8)", 2, 3, 0);
+            lblTitle.shadow = new createjs.Shadow(managers.Style.SHADOW_COLOUR_WARM, 2, 3, 0);
             this.addChild(lblTitle);
             
             // Animate title across the screen

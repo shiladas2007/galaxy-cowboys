@@ -27,7 +27,7 @@ module scenes {
             console.log("Player initialized.");
 
             let tooltipMessages: string[] = [
-                "This is Quicksilver Johnny. He's quicker than Sam and uses his shotgun to shoot.",
+                "This is Quicksilver John. He's quicker than Sam and uses his shotgun to shoot.",
                 "His shotgun fires slower than Sam's revolver, but really packs a punch!"
             ]; 
             this._tooltips = [

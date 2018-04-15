@@ -26,18 +26,20 @@ module ui {
             this.halfWidth = this.width * 0.5;
             this.halfHeight = this.height * 0.5;
             this._overlay = new createjs.Shape(
-                new createjs.Graphics().beginFill("rgba(0,0,0,0.5)")
+                new createjs.Graphics().beginFill(managers.Style.SHADOW_COLOUR_PRIMARY)
                 .drawRoundRect(0, 0, this.width, this.height, 10)
             );
 
-            this._lblTitle = new ui.Label(this.title, "18pt", "Sporting Grotesque", "#FFFF00");
+            this._lblTitle = new ui.Label(this.title, "18pt", managers.Style.FONT_FAMILY_PRIMARY,
+                managers.Style.FONT_COLOUR_PRIMARY);
             ui.centreHorizontal(this._lblTitle, 0, this.width);
-            this._lblTitle.shadow = new createjs.Shadow("rgba(0,0,0,0.7)", 1, 2, 0);
+            this._lblTitle.shadow = new createjs.Shadow(managers.Style.SHADOW_COLOUR_PRIMARY, 1, 2, 0);
 
-            this._lblDescription = new ui.Label(this._description, "11pt", "Sporting Grotesque", "rgb(240,240,240)");
+            this._lblDescription = new ui.Label(this._description, "11pt", managers.Style.FONT_FAMILY_PRIMARY,
+                managers.Style.FONT_COLOUR_SECONDARY);
             this._lblDescription.lineWidth = this.width * 0.8;
             ui.centreHorizontal(this._lblDescription, 0, this.width);
-            this._lblDescription.shadow = new createjs.Shadow("rgba(0,0,0,0.7)", 1, 1, 0);
+            this._lblDescription.shadow = new createjs.Shadow(managers.Style.SHADOW_COLOUR_PRIMARY, 1, 1, 0);
 
             if (this._sprite) {
                 ui.centreHorizontal(this._sprite, 0, this.width);
@@ -51,7 +53,8 @@ module ui {
                 this._lblDescription.y = this._lblTitle.y + this._lblDescription.height + 10;
             }
 
-            this._lblQuote = new ui.Label(this._quote, "9pt", "Sporting Grotesque", "rgb(230,230,230)");
+            this._lblQuote = new ui.Label(this._quote, "9pt", managers.Style.FONT_FAMILY_PRIMARY,
+                managers.Style.FONT_COLOUR_SUBTITLE);
             ui.centreHorizontal(this._lblQuote, 0, this.width);
             this._lblQuote.y = this.height - this._lblQuote.height - 20;
 
@@ -73,7 +76,7 @@ module ui {
         }
 
         private _onHover() {
-            this._overlay.graphics.clear().beginFill("rgba(150,150,150,0.5)")
+            this._overlay.graphics.clear().beginFill(managers.Style.OVERLAY_COLOUR_HOVER)
                 .drawRoundRect(0, 0, this.width, this.height, 10);
             createjs.Tween.get(this).to({scaleX: 1.05, scaleY: 1.05}, 300, createjs.Ease.get(2));
         }

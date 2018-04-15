@@ -1989,15 +1989,15 @@ var ui;
         Selection.prototype.start = function () {
             this.halfWidth = this.width * 0.5;
             this.halfHeight = this.height * 0.5;
-            this._overlay = new createjs.Shape(new createjs.Graphics().beginFill("rgba(0,0,0,0.5)")
+            this._overlay = new createjs.Shape(new createjs.Graphics().beginFill(managers.Style.SHADOW_COLOUR_PRIMARY)
                 .drawRoundRect(0, 0, this.width, this.height, 10));
-            this._lblTitle = new ui.Label(this.title, "18pt", "Sporting Grotesque", "#FFFF00");
+            this._lblTitle = new ui.Label(this.title, "18pt", managers.Style.FONT_FAMILY_PRIMARY, managers.Style.FONT_COLOUR_PRIMARY);
             ui.centreHorizontal(this._lblTitle, 0, this.width);
-            this._lblTitle.shadow = new createjs.Shadow("rgba(0,0,0,0.7)", 1, 2, 0);
-            this._lblDescription = new ui.Label(this._description, "11pt", "Sporting Grotesque", "rgb(240,240,240)");
+            this._lblTitle.shadow = new createjs.Shadow(managers.Style.SHADOW_COLOUR_PRIMARY, 1, 2, 0);
+            this._lblDescription = new ui.Label(this._description, "11pt", managers.Style.FONT_FAMILY_PRIMARY, managers.Style.FONT_COLOUR_SECONDARY);
             this._lblDescription.lineWidth = this.width * 0.8;
             ui.centreHorizontal(this._lblDescription, 0, this.width);
-            this._lblDescription.shadow = new createjs.Shadow("rgba(0,0,0,0.7)", 1, 1, 0);
+            this._lblDescription.shadow = new createjs.Shadow(managers.Style.SHADOW_COLOUR_PRIMARY, 1, 1, 0);
             if (this._sprite) {
                 ui.centreHorizontal(this._sprite, 0, this.width);
                 ui.centreVertical(this._sprite, 0, this.height);
@@ -2009,7 +2009,7 @@ var ui;
                 ui.centreVertical(this._lblTitle, 0, this.height);
                 this._lblDescription.y = this._lblTitle.y + this._lblDescription.height + 10;
             }
-            this._lblQuote = new ui.Label(this._quote, "9pt", "Sporting Grotesque", "rgb(230,230,230)");
+            this._lblQuote = new ui.Label(this._quote, "9pt", managers.Style.FONT_FAMILY_PRIMARY, managers.Style.FONT_COLOUR_SUBTITLE);
             ui.centreHorizontal(this._lblQuote, 0, this.width);
             this._lblQuote.y = this.height - this._lblQuote.height - 20;
             this.main();
@@ -2028,7 +2028,7 @@ var ui;
             this._overlay.on("mouseout", function () { _this._onOut(); });
         };
         Selection.prototype._onHover = function () {
-            this._overlay.graphics.clear().beginFill("rgba(150,150,150,0.5)")
+            this._overlay.graphics.clear().beginFill(managers.Style.OVERLAY_COLOUR_HOVER)
                 .drawRoundRect(0, 0, this.width, this.height, 10);
             createjs.Tween.get(this).to({ scaleX: 1.05, scaleY: 1.05 }, 300, createjs.Ease.get(2));
         };
@@ -2060,8 +2060,8 @@ var ui;
             var marginY = 10;
             this.x = managers.Game.WIDTH - this.width - marginX;
             this.y = managers.Game.HEIGHT - this.height - marginY;
-            this._tooltipLabel = new ui.Label(this._messages[0], "12px", "Sporting Grotesque", "#fff");
-            this._tooltipLabel.shadow = new createjs.Shadow("rgba(40,10,10,0.8)", 1, 1, 0);
+            this._tooltipLabel = new ui.Label(this._messages[0], "9pt", managers.Style.FONT_FAMILY_PRIMARY, managers.Style.FONT_COLOUR_SECONDARY);
+            this._tooltipLabel.shadow = new createjs.Shadow(managers.Style.SHADOW_COLOUR_WARM, 1, 1, 0);
             this._nextButton = new ui.Button("next");
             this._closeButton = new ui.Button("close");
             this._arrange();
@@ -2238,7 +2238,7 @@ var objects;
             this.regX = this.halfWidth;
             this.regY = this.halfHeight;
             this.isColliding = false;
-            this.shadow = new createjs.Shadow("rgba(80,30,0,0.6)", 0, 4, 4);
+            this.shadow = new createjs.Shadow(managers.Style.SHADOW_COLOUR_WARM, 0, 4, 4);
         };
         GameObject.prototype.reset = function () { };
         GameObject.prototype.checkBounds = function (other) {
@@ -3912,6 +3912,23 @@ var managers;
     }(createjs.Container));
     managers.ScoreBoard = ScoreBoard;
 })(managers || (managers = {}));
+var managers;
+(function (managers) {
+    var Style = /** @class */ (function () {
+        function Style() {
+        }
+        Style.FONT_FAMILY_PRIMARY = "Sporting Grotesque";
+        Style.FONT_COLOUR_PRIMARY = config.Color.YELLOW;
+        Style.FONT_COLOUR_SECONDARY = config.Color.IVORY;
+        Style.FONT_COLOUR_SUBTITLE = "rgb(210,210,210)";
+        Style.SHADOW_COLOUR_PRIMARY = "rgba(0,0,0,0.5)";
+        Style.SHADOW_COLOUR_WARM = "rgba(80,30,0,0.6)";
+        Style.SHADOW_COLOUR_COOL = "rgba(0,30,80,0.6)";
+        Style.OVERLAY_COLOUR_HOVER = "rgba(170,170,170,0.5)";
+        return Style;
+    }());
+    managers.Style = Style;
+})(managers || (managers = {}));
 var scenes;
 (function (scenes) {
     var StartScene = /** @class */ (function (_super) {
@@ -3925,7 +3942,7 @@ var scenes;
             this._background = new ui.Background("background");
             this._startButton2 = new ui.Button("startButton2", 300, 240);
             this._startButton = new ui.Button("startButton", 300, 240, 0.1);
-            this._finalScoreLabel = new ui.Label("Score: 0", "14pt", "Sporting Grotesque", "#FFFF00", 150, 250, false);
+            this._finalScoreLabel = new ui.Label("Score: 0", "14pt", managers.Style.FONT_FAMILY_PRIMARY, managers.Style.FONT_COLOUR_PRIMARY, 150, 250, false);
             this._finalScoreLabel.visible = false;
             this.main();
         };
@@ -4050,7 +4067,7 @@ var scenes;
             this._rightAnchor = managers.Game.RIGHT_ANCHOR;
             this._scoreBoard = new managers.ScoreBoard();
             managers.Game.scoreBoard = this._scoreBoard;
-            this._overlay = new createjs.Shape(new createjs.Graphics().beginFill("rgba(0,0,0,0.5)")
+            this._overlay = new createjs.Shape(new createjs.Graphics().beginFill(managers.Style.SHADOW_COLOUR_PRIMARY)
                 .drawRect(0, 0, managers.Game.WIDTH, managers.Game.HEIGHT));
             this._displayTitle();
         };
@@ -4086,9 +4103,9 @@ var scenes;
         PlayScene.prototype._displayTitle = function () {
             var _this = this;
             this.pause();
-            var lblTitle = new ui.Label(this.title.toUpperCase(), "40pt", "Sporting Grotesque", "#FFFF00", 0, 0, true);
+            var lblTitle = new ui.Label(this.title.toUpperCase(), "40pt", managers.Style.FONT_FAMILY_PRIMARY, managers.Style.FONT_COLOUR_PRIMARY, 0, 0, true);
             lblTitle.y = (managers.Game.HEIGHT * 0.5) - 50;
-            lblTitle.shadow = new createjs.Shadow("rgba(40,10,10,0.8)", 2, 3, 0);
+            lblTitle.shadow = new createjs.Shadow(managers.Style.SHADOW_COLOUR_WARM, 2, 3, 0);
             this.addChild(lblTitle);
             // Animate title across the screen
             createjs.Tween.get(lblTitle, { loop: false })
@@ -4230,15 +4247,12 @@ var scenes;
             this._background = new ui.Background("gameover");
             this._startButton2 = new ui.Button("startButton2", managers.Game.WIDTH * 0.5, 320, 1, true);
             this._startButton = new ui.Button("startButton", managers.Game.WIDTH * 0.5, 320, 0.1, true);
-            this._finalScoreLabel = new ui.Label("Score: 0", "18pt", "Sporting Grotesque", "#FFFF00", 0, 250, false);
+            this._finalScoreLabel = new ui.Label("Score: 0", "18pt", managers.Style.FONT_FAMILY_PRIMARY, managers.Style.FONT_COLOUR_PRIMARY, 0, 250, false);
             this._finalScoreLabel.text = "Final Score: " + managers.Game.currentScore;
-            this._finalScoreLabel.shadow = new createjs.Shadow("rgba(0,0,0,0.5)", 1, 2, 0);
+            this._finalScoreLabel.shadow = new createjs.Shadow(managers.Style.SHADOW_COLOUR_PRIMARY, 1, 2, 0);
             ui.centreHorizontal(this._finalScoreLabel);
             managers.Game.currentScore = 0;
             this.main();
-        };
-        GameOverScene.prototype.Main = function () {
-            _super.prototype.main.call(this);
         };
         GameOverScene.prototype._startButtonClick = function () {
             managers.Game.currentScene = managers.Game.currentPlayScene;
@@ -4335,7 +4349,7 @@ var scenes;
             this._player = new animate.Player(config.Character.QUICKSILVER, 100, 420);
             console.log("Player initialized.");
             var tooltipMessages = [
-                "This is Quicksilver Johnny. He's quicker than Sam and uses his shotgun to shoot.",
+                "This is Quicksilver John. He's quicker than Sam and uses his shotgun to shoot.",
                 "His shotgun fires slower than Sam's revolver, but really packs a punch!"
             ];
             this._tooltips = [
@@ -4435,17 +4449,17 @@ var scenes;
         }
         SelectScene.prototype.start = function () {
             this._background = new ui.Background("mapLevel3");
-            this._overlay = new createjs.Shape(new createjs.Graphics().beginFill("rgba(0,0,0,0.5)")
+            this._overlay = new createjs.Shape(new createjs.Graphics().beginFill(managers.Style.SHADOW_COLOUR_PRIMARY)
                 .drawRect(0, 0, managers.Game.WIDTH, managers.Game.HEIGHT));
             var selectionWidth = managers.Game.WIDTH * 0.45;
             var selectionHeight = managers.Game.HEIGHT * 0.75;
             this._select1 = new ui.Selection(20, 20, selectionWidth, selectionHeight, "Gunslinger Sam", "- Quick fire rate\n- Slow", "\"Pew pew!\"", new createjs.Sprite(managers.Game.textureAtlas, "cowboy1"));
-            this._select2 = new ui.Selection(0, 20, selectionWidth, selectionHeight, "Quicksilver Johnny", "- Slow fire rate\n- Quick", "\"Zoom zoom!\"", new createjs.Sprite(managers.Game.textureAtlas, "cowboy2"));
+            this._select2 = new ui.Selection(0, 20, selectionWidth, selectionHeight, "Quicksilver John", "- Slow fire rate\n- Quick", "\"Zoom zoom!\"", new createjs.Sprite(managers.Game.textureAtlas, "cowboy2"));
             this._select2.x = managers.Game.WIDTH - this._select2.width - 20;
-            this._lblPrompt = new ui.Label("Choose your cowboy for level 3!", "16pt", "Sporting Grotesque", "#ffff00");
+            this._lblPrompt = new ui.Label("Choose your cowboy for level 3!", "16pt", managers.Style.FONT_FAMILY_PRIMARY, managers.Style.FONT_COLOUR_PRIMARY);
             ui.centreHorizontal(this._lblPrompt);
             this._lblPrompt.y = 420;
-            this._lblPrompt.shadow = new createjs.Shadow("rgba(0,30,80,0.7)", 1, 2, 0);
+            this._lblPrompt.shadow = new createjs.Shadow(managers.Style.SHADOW_COLOUR_COOL, 1, 2, 0);
             this.main();
         };
         SelectScene.prototype.main = function () {

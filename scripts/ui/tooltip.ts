@@ -27,8 +27,9 @@ module ui {
             this.x = managers.Game.WIDTH - this.width - marginX;
             this.y = managers.Game.HEIGHT - this.height - marginY;
 
-            this._tooltipLabel = new Label(this._messages[0], "12px","Sporting Grotesque", "#fff");
-            this._tooltipLabel.shadow = new createjs.Shadow("rgba(40,10,10,0.8)", 1, 1, 0);
+            this._tooltipLabel = new Label(this._messages[0], "9pt",
+                managers.Style.FONT_FAMILY_PRIMARY, managers.Style.FONT_COLOUR_SECONDARY);
+            this._tooltipLabel.shadow = new createjs.Shadow(managers.Style.SHADOW_COLOUR_WARM, 1, 1, 0);
             this._nextButton = new Button("next");
             this._closeButton = new Button("close");
             this._arrange();

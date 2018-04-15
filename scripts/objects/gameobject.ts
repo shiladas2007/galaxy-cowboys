@@ -73,7 +73,7 @@ module objects {
             this.regY = this.halfHeight;
             this.isColliding = false;
 
-            this.shadow = new createjs.Shadow("rgba(80,30,0,0.6)", 0, 4, 4);
+            this.shadow = new createjs.Shadow(managers.Style.SHADOW_COLOUR_WARM, 0, 4, 4);
         }
 
         public reset():void { }

@@ -13,7 +13,7 @@ module scenes {
         public start() {
             this._background = new ui.Background("mapLevel3");
             this._overlay = new createjs.Shape(
-                new createjs.Graphics().beginFill("rgba(0,0,0,0.5)")
+                new createjs.Graphics().beginFill(managers.Style.SHADOW_COLOUR_PRIMARY)
                 .drawRect(0, 0, managers.Game.WIDTH, managers.Game.HEIGHT)
             );
 
@@ -24,14 +24,15 @@ module scenes {
                 new createjs.Sprite(managers.Game.textureAtlas, "cowboy1"));
 
             this._select2 = new ui.Selection(0, 20, selectionWidth, selectionHeight,
-                "Quicksilver Johnny", "- Slow fire rate\n- Quick", "\"Zoom zoom!\"",
+                "Quicksilver John", "- Slow fire rate\n- Quick", "\"Zoom zoom!\"",
                 new createjs.Sprite(managers.Game.textureAtlas, "cowboy2"));
             this._select2.x = managers.Game.WIDTH - this._select2.width - 20;
 
-            this._lblPrompt = new ui.Label("Choose your cowboy for level 3!", "16pt", "Sporting Grotesque", "#ffff00");
+            this._lblPrompt = new ui.Label("Choose your cowboy for level 3!", "16pt",
+                managers.Style.FONT_FAMILY_PRIMARY, managers.Style.FONT_COLOUR_PRIMARY);
             ui.centreHorizontal(this._lblPrompt);
             this._lblPrompt.y = 420;
-            this._lblPrompt.shadow = new createjs.Shadow("rgba(0,30,80,0.7)", 1, 2, 0);
+            this._lblPrompt.shadow = new createjs.Shadow(managers.Style.SHADOW_COLOUR_COOL, 1, 2, 0);
 
             this.main();
         }
