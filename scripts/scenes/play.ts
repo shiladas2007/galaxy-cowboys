@@ -110,6 +110,9 @@ module scenes {
             });
             this.addChildAt(this._scoreBoard, managers.Game.INDEX_UI);
             managers.Game.scoreBoard.EnemyCount = this._enemies.length;
+
+            if (managers.Game.backgroundMusic != "bgm")
+                managers.Game.backgroundMusic = "bgm";
         }
 
         public addProjectile(projectile:objects.Projectile) {

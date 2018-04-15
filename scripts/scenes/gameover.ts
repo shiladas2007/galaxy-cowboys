@@ -19,6 +19,11 @@
             this.main();
         }
 
+        public main() {
+            super.main();
+            managers.Game.stopMusic();
+        }
+
         protected _startButtonClick() {
             managers.Game.currentScene = managers.Game.currentPlayScene;
         }

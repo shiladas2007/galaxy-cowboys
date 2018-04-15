@@ -3732,6 +3732,24 @@ var managers;
     var Game = /** @class */ (function () {
         function Game() {
         }
+        Object.defineProperty(Game, "backgroundMusic", {
+            // Setters
+            get: function () {
+                return managers.Game._currentMusicString;
+            },
+            set: function (music) {
+                if (managers.Game._currentMusic)
+                    managers.Game._currentMusic.stop();
+                managers.Game._currentMusicString = music;
+                managers.Game._currentMusic = createjs.Sound.play(music);
+                managers.Game._currentMusic.loop = -1;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Game.stopMusic = function () {
+            managers.Game._currentMusic.stop();
+        };
         Game.isPlaying = false;
         Game.WIDTH = 640;
         Game.HEIGHT = 480;
@@ -3954,6 +3972,7 @@ var scenes;
             this.addChildAt(this._startButton2, managers.Game.INDEX_GAMEOBJECTS);
             this.addChildAt(this._startButton, managers.Game.INDEX_UI);
             this.addChildAt(this._finalScoreLabel, managers.Game.INDEX_UI);
+            managers.Game.backgroundMusic = "menu";
             this._startButton.on("click", this._startButtonClick);
         };
         StartScene.prototype._startButtonClick = function () {
@@ -4086,6 +4105,8 @@ var scenes;
             });
             this.addChildAt(this._scoreBoard, managers.Game.INDEX_UI);
             managers.Game.scoreBoard.EnemyCount = this._enemies.length;
+            if (managers.Game.backgroundMusic != "bgm")
+                managers.Game.backgroundMusic = "bgm";
         };
         PlayScene.prototype.addProjectile = function (projectile) {
             this._projectiles.push(projectile);
@@ -4253,6 +4274,10 @@ var scenes;
             ui.centreHorizontal(this._finalScoreLabel);
             managers.Game.currentScore = 0;
             this.main();
+        };
+        GameOverScene.prototype.main = function () {
+            _super.prototype.main.call(this);
+            managers.Game.stopMusic();
         };
         GameOverScene.prototype._startButtonClick = function () {
             managers.Game.currentScene = managers.Game.currentPlayScene;
@@ -4564,7 +4589,9 @@ var scenes;
         { id: "monster_die", src: "./assets/audio/monster_die.mp3" },
         { id: "player_die", src: "./assets/audio/player_die.mp3" },
         { id: "breaking", src: "./assets/audio/breaking.wav" },
-        { id: "dying", src: "./assets/audio/dying.wav" }
+        { id: "dying", src: "./assets/audio/dying.wav" },
+        { id: "menu", src: "./assets/audio/menu.mp3" },
+        { id: "bgm", src: "./assets/audio/bgm.mp3" }
     ];
     function init() {
         console.log("Initializing...");

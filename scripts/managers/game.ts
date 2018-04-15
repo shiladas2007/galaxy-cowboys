@@ -1,5 +1,7 @@
 module managers {
     export class Game {
+        private static _currentMusicString: string;
+        private static _currentMusic: createjs.AbstractSoundInstance;
         public static stage: createjs.Stage;
         public static assetManager: createjs.LoadQueue;
         public static currentScene: number;
@@ -36,5 +38,22 @@ module managers {
         public static readonly INDEX_BACKGROUND = 0;
         public static readonly INDEX_GAMEOBJECTS = 1;
         public static readonly INDEX_UI = 2;
+
+        // Setters
+        static get backgroundMusic():string {
+            return managers.Game._currentMusicString;
+        }
+
+        static set backgroundMusic(music:string) {
+            if (managers.Game._currentMusic)
+                managers.Game._currentMusic.stop();
+            managers.Game._currentMusicString = music;
+            managers.Game._currentMusic = createjs.Sound.play(music);
+            managers.Game._currentMusic.loop = -1;
+        }
+
+        static stopMusic() {
+            managers.Game._currentMusic.stop();
+        }
     }
 }

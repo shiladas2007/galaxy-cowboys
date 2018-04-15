@@ -87,7 +87,9 @@
         {id: "monster_die", src:"./assets/audio/monster_die.mp3"},
         {id: "player_die", src:"./assets/audio/player_die.mp3"},
         {id: "breaking", src:"./assets/audio/breaking.wav"},
-        {id: "dying", src:"./assets/audio/dying.wav"}
+        {id: "dying", src:"./assets/audio/dying.wav"},
+        {id: "menu", src:"./assets/audio/menu.mp3"},
+        {id: "bgm", src:"./assets/audio/bgm.mp3"}
     ];
 
     function init():void {
