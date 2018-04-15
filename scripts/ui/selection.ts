@@ -3,17 +3,21 @@ module ui {
         private _overlay: createjs.Shape;
         private _sprite: createjs.Sprite;
         private _description: string;
+        private _quote: string;
         private _lblTitle: ui.Label;
         private _lblDescription: ui.Label;
+        private _lblQuote: ui.Label;
+
         public halfWidth: number;
         public halfHeight: number;
         
         constructor(x:number, y:number, public width:number, public height:number,
-        public title:string, description:string="", sprite:createjs.Sprite=null) {
+        public title:string, description:string="", quote:string="", sprite:createjs.Sprite=null) {
             super();
             this.x = x;
             this.y = y;
             this._description = description;
+            this._quote = quote;
             this._sprite = sprite;
             this.start();
         }
@@ -30,20 +34,26 @@ module ui {
             ui.centreHorizontal(this._lblTitle, 0, this.width);
             this._lblTitle.shadow = new createjs.Shadow("rgba(0,0,0,0.7)", 1, 2, 0);
 
+            this._lblDescription = new ui.Label(this._description, "11pt", "Sporting Grotesque", "rgb(240,240,240)");
+            this._lblDescription.lineWidth = this.width * 0.8;
+            ui.centreHorizontal(this._lblDescription, 0, this.width);
+            this._lblDescription.shadow = new createjs.Shadow("rgba(0,0,0,0.7)", 1, 1, 0);
+
             if (this._sprite) {
                 ui.centreHorizontal(this._sprite, 0, this.width);
                 ui.centreVertical(this._sprite, 0, this.height);
                 this._sprite.y -= managers.Game.HEIGHT * 0.1;
-                this._lblTitle.y = this._sprite.y + this._sprite.getBounds().height + 10;
+
+                this._lblTitle.y = this._sprite.y - this._sprite.getBounds().height - 5;
+                this._lblDescription.y = this._sprite.y + this._lblDescription.height + 20;
             } else {
                 ui.centreVertical(this._lblTitle, 0, this.height);
+                this._lblDescription.y = this._lblTitle.y + this._lblDescription.height + 10;
             }
 
-            this._lblDescription = new ui.Label(this._description, "11pt", "Sporting Grotesque", "rgb(240,240,240)");
-            this._lblDescription.lineWidth = this.width * 0.8;
-            ui.centreHorizontal(this._lblDescription, 0, this.width);
-            this._lblDescription.y = this._lblTitle.y + this._lblTitle.height + 10;
-            this._lblDescription.shadow = new createjs.Shadow("rgba(0,0,0,0.7)", 1, 1, 0);
+            this._lblQuote = new ui.Label(this._quote, "9pt", "Sporting Grotesque", "rgb(230,230,230)");
+            ui.centreHorizontal(this._lblQuote, 0, this.width);
+            this._lblQuote.y = this.height - this._lblQuote.height - 20;
 
             this.main();
         }
@@ -57,6 +67,7 @@ module ui {
             this.addChild(this._sprite);
             this.addChild(this._lblTitle);
             this.addChild(this._lblDescription);
+            this.addChild(this._lblQuote);
             this._overlay.on("mouseover", () => { this._onHover(); });
             this._overlay.on("mouseout", () => { this._onOut(); });
         }

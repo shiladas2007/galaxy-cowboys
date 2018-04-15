@@ -1970,8 +1970,9 @@ var ui;
 (function (ui) {
     var Selection = /** @class */ (function (_super) {
         __extends(Selection, _super);
-        function Selection(x, y, width, height, title, description, sprite) {
+        function Selection(x, y, width, height, title, description, quote, sprite) {
             if (description === void 0) { description = ""; }
+            if (quote === void 0) { quote = ""; }
             if (sprite === void 0) { sprite = null; }
             var _this = _super.call(this) || this;
             _this.width = width;
@@ -1980,6 +1981,7 @@ var ui;
             _this.x = x;
             _this.y = y;
             _this._description = description;
+            _this._quote = quote;
             _this._sprite = sprite;
             _this.start();
             return _this;
@@ -1992,20 +1994,24 @@ var ui;
             this._lblTitle = new ui.Label(this.title, "18pt", "Sporting Grotesque", "#FFFF00");
             ui.centreHorizontal(this._lblTitle, 0, this.width);
             this._lblTitle.shadow = new createjs.Shadow("rgba(0,0,0,0.7)", 1, 2, 0);
+            this._lblDescription = new ui.Label(this._description, "11pt", "Sporting Grotesque", "rgb(240,240,240)");
+            this._lblDescription.lineWidth = this.width * 0.8;
+            ui.centreHorizontal(this._lblDescription, 0, this.width);
+            this._lblDescription.shadow = new createjs.Shadow("rgba(0,0,0,0.7)", 1, 1, 0);
             if (this._sprite) {
                 ui.centreHorizontal(this._sprite, 0, this.width);
                 ui.centreVertical(this._sprite, 0, this.height);
                 this._sprite.y -= managers.Game.HEIGHT * 0.1;
-                this._lblTitle.y = this._sprite.y + this._sprite.getBounds().height + 10;
+                this._lblTitle.y = this._sprite.y - this._sprite.getBounds().height - 5;
+                this._lblDescription.y = this._sprite.y + this._lblDescription.height + 20;
             }
             else {
                 ui.centreVertical(this._lblTitle, 0, this.height);
+                this._lblDescription.y = this._lblTitle.y + this._lblDescription.height + 10;
             }
-            this._lblDescription = new ui.Label(this._description, "11pt", "Sporting Grotesque", "rgb(240,240,240)");
-            this._lblDescription.lineWidth = this.width * 0.8;
-            ui.centreHorizontal(this._lblDescription, 0, this.width);
-            this._lblDescription.y = this._lblTitle.y + this._lblTitle.height + 10;
-            this._lblDescription.shadow = new createjs.Shadow("rgba(0,0,0,0.7)", 1, 1, 0);
+            this._lblQuote = new ui.Label(this._quote, "9pt", "Sporting Grotesque", "rgb(230,230,230)");
+            ui.centreHorizontal(this._lblQuote, 0, this.width);
+            this._lblQuote.y = this.height - this._lblQuote.height - 20;
             this.main();
         };
         Selection.prototype.update = function () {
@@ -2017,6 +2023,7 @@ var ui;
             this.addChild(this._sprite);
             this.addChild(this._lblTitle);
             this.addChild(this._lblDescription);
+            this.addChild(this._lblQuote);
             this._overlay.on("mouseover", function () { _this._onHover(); });
             this._overlay.on("mouseout", function () { _this._onOut(); });
         };
@@ -4401,10 +4408,10 @@ var scenes;
                 .drawRect(0, 0, managers.Game.WIDTH, managers.Game.HEIGHT));
             var selectionWidth = managers.Game.WIDTH * 0.45;
             var selectionHeight = managers.Game.HEIGHT * 0.75;
-            this._select1 = new ui.Selection(20, 20, selectionWidth, selectionHeight, "Gunslinger Sam", "- Slow\n- Quick fire rate", new createjs.Sprite(managers.Game.textureAtlas, "cowboy1"));
-            this._select2 = new ui.Selection(0, 20, selectionWidth, selectionHeight, "Quicksilver Johnny", "- Quick\n- Slow fire rate", new createjs.Sprite(managers.Game.textureAtlas, "cowboy2"));
+            this._select1 = new ui.Selection(20, 20, selectionWidth, selectionHeight, "Gunslinger Sam", "- Quick fire rate\n- Slow", "\"Pew pew!\"", new createjs.Sprite(managers.Game.textureAtlas, "cowboy1"));
+            this._select2 = new ui.Selection(0, 20, selectionWidth, selectionHeight, "Quicksilver Johnny", "- Slow fire rate\n- Quick", "\"Zoom zoom!\"", new createjs.Sprite(managers.Game.textureAtlas, "cowboy2"));
             this._select2.x = managers.Game.WIDTH - this._select2.width - 20;
-            this._lblPrompt = new ui.Label("Choose your cowboy for level 3!", "16pt", "Sporting Grotesque", "#fff");
+            this._lblPrompt = new ui.Label("Choose your cowboy for level 3!", "16pt", "Sporting Grotesque", "#ffff00");
             ui.centreHorizontal(this._lblPrompt);
             this._lblPrompt.y = 420;
             this._lblPrompt.shadow = new createjs.Shadow("rgba(0,30,80,0.7)", 1, 2, 0);

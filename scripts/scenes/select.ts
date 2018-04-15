@@ -20,13 +20,15 @@ module scenes {
             let selectionWidth: number = managers.Game.WIDTH * 0.45;
             let selectionHeight: number = managers.Game.HEIGHT * 0.75;
             this._select1 = new ui.Selection(20, 20, selectionWidth, selectionHeight,
-                "Gunslinger Sam", "- Slow\n- Quick fire rate", new createjs.Sprite(managers.Game.textureAtlas, "cowboy1"));
+                "Gunslinger Sam", "- Quick fire rate\n- Slow", "\"Pew pew!\"",
+                new createjs.Sprite(managers.Game.textureAtlas, "cowboy1"));
 
             this._select2 = new ui.Selection(0, 20, selectionWidth, selectionHeight,
-                "Quicksilver Johnny", "- Quick\n- Slow fire rate", new createjs.Sprite(managers.Game.textureAtlas, "cowboy2"));
+                "Quicksilver Johnny", "- Slow fire rate\n- Quick", "\"Zoom zoom!\"",
+                new createjs.Sprite(managers.Game.textureAtlas, "cowboy2"));
             this._select2.x = managers.Game.WIDTH - this._select2.width - 20;
 
-            this._lblPrompt = new ui.Label("Choose your cowboy for level 3!", "16pt", "Sporting Grotesque", "#fff");
+            this._lblPrompt = new ui.Label("Choose your cowboy for level 3!", "16pt", "Sporting Grotesque", "#ffff00");
             ui.centreHorizontal(this._lblPrompt);
             this._lblPrompt.y = 420;
             this._lblPrompt.shadow = new createjs.Shadow("rgba(0,30,80,0.7)", 1, 2, 0);
