@@ -2031,6 +2031,7 @@ var ui;
             this._overlay.graphics.clear().beginFill(managers.Style.OVERLAY_COLOUR_HOVER)
                 .drawRoundRect(0, 0, this.width, this.height, 10);
             createjs.Tween.get(this).to({ scaleX: 1.05, scaleY: 1.05 }, 300, createjs.Ease.get(2));
+            createjs.Sound.play("select").duration = 500;
         };
         Selection.prototype._onOut = function () {
             this._overlay.graphics.clear().beginFill("rgba(0,0,0,0.5)")
@@ -3743,6 +3744,7 @@ var managers;
                 managers.Game._currentMusicString = music;
                 managers.Game._currentMusic = createjs.Sound.play(music);
                 managers.Game._currentMusic.loop = -1;
+                managers.Game._currentMusic.volume = 0.5;
             },
             enumerable: true,
             configurable: true
@@ -3968,14 +3970,25 @@ var scenes;
             return managers.Game.currentScene;
         };
         StartScene.prototype.main = function () {
+            var _this = this;
             this.addChildAt(this._background, managers.Game.INDEX_BACKGROUND);
             this.addChildAt(this._startButton2, managers.Game.INDEX_GAMEOBJECTS);
             this.addChildAt(this._startButton, managers.Game.INDEX_UI);
             this.addChildAt(this._finalScoreLabel, managers.Game.INDEX_UI);
             managers.Game.backgroundMusic = "menu";
-            this._startButton.on("click", this._startButtonClick);
+            this._startButton.on("click", function () { _this._startButtonClick(); });
+            this._startButton.on("mouseover", function () { createjs.Sound.play("select").duration = 500; });
         };
         StartScene.prototype._startButtonClick = function () {
+            var _this = this;
+            this._startButton.visible = false;
+            this._startButton.on("mouseover", function () { });
+            createjs.Sound.play("accept");
+            createjs.Tween.get(this._startButton2).to({ alpha: 0, y: 200 }, 3000, createjs.Ease.getPowOut(3));
+            createjs.Tween.get(this).to({ alpha: 0 }, 4000, createjs.Ease.getPowIn(2))
+                .on("complete", function () { _this._switchScene(); });
+        };
+        StartScene.prototype._switchScene = function () {
             managers.Game.currentScene = config.Scene.LEVEL1;
         };
         return StartScene;
@@ -4591,7 +4604,9 @@ var scenes;
         { id: "breaking", src: "./assets/audio/breaking.wav" },
         { id: "dying", src: "./assets/audio/dying.wav" },
         { id: "menu", src: "./assets/audio/menu.mp3" },
-        { id: "bgm", src: "./assets/audio/bgm.mp3" }
+        { id: "bgm", src: "./assets/audio/bgm.mp3" },
+        { id: "select", src: "./assets/audio/select.wav" },
+        { id: "accept", src: "./assets/audio/accept.mp3" }
     ];
     function init() {
         console.log("Initializing...");

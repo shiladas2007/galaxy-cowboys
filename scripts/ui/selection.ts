@@ -79,6 +79,7 @@ module ui {
             this._overlay.graphics.clear().beginFill(managers.Style.OVERLAY_COLOUR_HOVER)
                 .drawRoundRect(0, 0, this.width, this.height, 10);
             createjs.Tween.get(this).to({scaleX: 1.05, scaleY: 1.05}, 300, createjs.Ease.get(2));
+            createjs.Sound.play("select").duration = 500;
         }
 
         private _onOut() {

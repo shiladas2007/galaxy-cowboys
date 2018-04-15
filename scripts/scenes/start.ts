@@ -31,10 +31,20 @@ module scenes {
             this.addChildAt(this._finalScoreLabel, managers.Game.INDEX_UI);
 
             managers.Game.backgroundMusic = "menu";
-            this._startButton.on("click", this._startButtonClick);
+            this._startButton.on("click", () => { this._startButtonClick() });
+            this._startButton.on("mouseover", () => { createjs.Sound.play("select").duration = 500; });
         }
 
-        protected _startButtonClick():void {                        
+        protected _startButtonClick():void {
+            this._startButton.visible = false;
+            this._startButton.on("mouseover", () => {});
+            createjs.Sound.play("accept");
+            createjs.Tween.get(this._startButton2).to({alpha: 0, y: 200}, 3000, createjs.Ease.getPowOut(3));           
+            createjs.Tween.get(this).to({alpha: 0}, 4000, createjs.Ease.getPowIn(2))
+                .on("complete", () => { this._switchScene(); });
+        }
+
+        private _switchScene() {
             managers.Game.currentScene = config.Scene.LEVEL1;
         }
     }

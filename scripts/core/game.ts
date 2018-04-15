@@ -89,7 +89,9 @@
         {id: "breaking", src:"./assets/audio/breaking.wav"},
         {id: "dying", src:"./assets/audio/dying.wav"},
         {id: "menu", src:"./assets/audio/menu.mp3"},
-        {id: "bgm", src:"./assets/audio/bgm.mp3"}
+        {id: "bgm", src:"./assets/audio/bgm.mp3"},
+        {id: "select", src:"./assets/audio/select.wav"},
+        {id: "accept", src:"./assets/audio/accept.mp3"}
     ];
 
     function init():void {

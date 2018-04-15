@@ -50,6 +50,7 @@ module managers {
             managers.Game._currentMusicString = music;
             managers.Game._currentMusic = createjs.Sound.play(music);
             managers.Game._currentMusic.loop = -1;
+            managers.Game._currentMusic.volume = 0.5;
         }
 
         static stopMusic() {

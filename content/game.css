@@ -18,7 +18,7 @@ body {
 }
 
 canvas {
-    background: rgb(220,220,220);
+    background: rgb(10,30,60);
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
