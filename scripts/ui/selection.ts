@@ -28,6 +28,7 @@ module ui {
 
             this._lblTitle = new ui.Label(this.title, "18pt", "Sporting Grotesque", "#FFFF00");
             ui.centreHorizontal(this._lblTitle, 0, this.width);
+            this._lblTitle.shadow = new createjs.Shadow("rgba(0,0,0,0.7)", 1, 2, 0);
 
             if (this._sprite) {
                 ui.centreHorizontal(this._sprite, 0, this.width);
@@ -42,6 +43,7 @@ module ui {
             this._lblDescription.lineWidth = this.width * 0.8;
             ui.centreHorizontal(this._lblDescription, 0, this.width);
             this._lblDescription.y = this._lblTitle.y + this._lblTitle.height + 10;
+            this._lblDescription.shadow = new createjs.Shadow("rgba(0,0,0,0.7)", 1, 1, 0);
 
             this.main();
         }
@@ -60,7 +62,7 @@ module ui {
         }
 
         private _onHover() {
-            this._overlay.graphics.clear().beginFill("rgba(140,60,0,0.5)")
+            this._overlay.graphics.clear().beginFill("rgba(150,150,150,0.5)")
                 .drawRoundRect(0, 0, this.width, this.height, 10);
             createjs.Tween.get(this).to({scaleX: 1.05, scaleY: 1.05}, 300, createjs.Ease.get(2));
         }

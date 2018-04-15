@@ -1991,6 +1991,7 @@ var ui;
                 .drawRoundRect(0, 0, this.width, this.height, 10));
             this._lblTitle = new ui.Label(this.title, "18pt", "Sporting Grotesque", "#FFFF00");
             ui.centreHorizontal(this._lblTitle, 0, this.width);
+            this._lblTitle.shadow = new createjs.Shadow("rgba(0,0,0,0.7)", 1, 2, 0);
             if (this._sprite) {
                 ui.centreHorizontal(this._sprite, 0, this.width);
                 ui.centreVertical(this._sprite, 0, this.height);
@@ -2004,6 +2005,7 @@ var ui;
             this._lblDescription.lineWidth = this.width * 0.8;
             ui.centreHorizontal(this._lblDescription, 0, this.width);
             this._lblDescription.y = this._lblTitle.y + this._lblTitle.height + 10;
+            this._lblDescription.shadow = new createjs.Shadow("rgba(0,0,0,0.7)", 1, 1, 0);
             this.main();
         };
         Selection.prototype.update = function () {
@@ -2019,7 +2021,7 @@ var ui;
             this._overlay.on("mouseout", function () { _this._onOut(); });
         };
         Selection.prototype._onHover = function () {
-            this._overlay.graphics.clear().beginFill("rgba(140,60,0,0.5)")
+            this._overlay.graphics.clear().beginFill("rgba(150,150,150,0.5)")
                 .drawRoundRect(0, 0, this.width, this.height, 10);
             createjs.Tween.get(this).to({ scaleX: 1.05, scaleY: 1.05 }, 300, createjs.Ease.get(2));
         };
@@ -4395,17 +4397,25 @@ var scenes;
         }
         SelectScene.prototype.start = function () {
             this._background = new ui.Background("mapLevel3");
+            this._overlay = new createjs.Shape(new createjs.Graphics().beginFill("rgba(0,0,0,0.5)")
+                .drawRect(0, 0, managers.Game.WIDTH, managers.Game.HEIGHT));
             var selectionWidth = managers.Game.WIDTH * 0.45;
             var selectionHeight = managers.Game.HEIGHT * 0.75;
             this._select1 = new ui.Selection(20, 20, selectionWidth, selectionHeight, "Gunslinger Sam", "- Slow\n- Quick fire rate", new createjs.Sprite(managers.Game.textureAtlas, "cowboy1"));
             this._select2 = new ui.Selection(0, 20, selectionWidth, selectionHeight, "Quicksilver Johnny", "- Quick\n- Slow fire rate", new createjs.Sprite(managers.Game.textureAtlas, "cowboy2"));
             this._select2.x = managers.Game.WIDTH - this._select2.width - 20;
+            this._lblPrompt = new ui.Label("Choose your cowboy for level 3!", "16pt", "Sporting Grotesque", "#fff");
+            ui.centreHorizontal(this._lblPrompt);
+            this._lblPrompt.y = 420;
+            this._lblPrompt.shadow = new createjs.Shadow("rgba(0,30,80,0.7)", 1, 2, 0);
             this.main();
         };
         SelectScene.prototype.main = function () {
             this.addChildAt(this._background, managers.Game.INDEX_BACKGROUND);
+            this.addChild(this._overlay);
             this.addChild(this._select1);
             this.addChild(this._select2);
+            this.addChild(this._lblPrompt);
         };
         return SelectScene;
     }(objects.Scene));
