@@ -5,6 +5,8 @@ module managers {
         public static currentScene: number;
         public static currentPlayScene: number;
         public static currentSceneObject: objects.Scene;
+        public static currentPlayerType: number;
+
         public static keyboardManager: managers.Keyboard;
         public static textureAtlas: createjs.SpriteSheet;
         public static isPlaying: boolean = false;

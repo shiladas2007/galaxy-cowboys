@@ -4325,7 +4325,7 @@ var scenes;
         __extends(Level3, _super);
         function Level3() {
             var _this = _super.call(this, "mapLevel3") || this;
-            managers.Game.currentPlayScene = config.Scene.LEVEL3;
+            managers.Game.currentPlayScene = config.Scene.SELECT;
             _this.title = "Level 3";
             _this.start();
             return _this;
@@ -4342,7 +4342,7 @@ var scenes;
             ];
             console.log("Enemies initialized.");
             console.log("Initializing player...");
-            this._player = new animate.Player(config.Character.QUICKSILVER, 100, 420);
+            this._player = new animate.Player(managers.Game.currentPlayerType, 100, 420);
             console.log("Player initialized.");
             this._obstra = [
                 new objects.Destructible("crate", 1, 310, 140),
@@ -4416,6 +4416,14 @@ var scenes;
             this.addChild(this._select1);
             this.addChild(this._select2);
             this.addChild(this._lblPrompt);
+            this._select1.on("click", function () {
+                managers.Game.currentPlayerType = config.Character.GUNSLINGER;
+                managers.Game.currentScene = config.Scene.LEVEL3;
+            });
+            this._select2.on("click", function () {
+                managers.Game.currentPlayerType = config.Character.QUICKSILVER;
+                managers.Game.currentScene = config.Scene.LEVEL3;
+            });
         };
         return SelectScene;
     }(objects.Scene));

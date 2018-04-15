@@ -4,7 +4,7 @@ module scenes {
 
         constructor() {
             super("mapLevel3");
-            managers.Game.currentPlayScene = config.Scene.LEVEL3;
+            managers.Game.currentPlayScene = config.Scene.SELECT;
             this.title = "Level 3";
             this.start();
         }
@@ -23,7 +23,7 @@ module scenes {
             console.log("Enemies initialized.");
 
             console.log("Initializing player...");
-            this._player = new animate.Player(config.Character.QUICKSILVER, 100, 420);
+            this._player = new animate.Player(managers.Game.currentPlayerType, 100, 420);
             console.log("Player initialized.");
 
             this._obstra=[

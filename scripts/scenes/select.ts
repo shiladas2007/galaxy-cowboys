@@ -40,6 +40,14 @@ module scenes {
             this.addChild(this._select1);
             this.addChild(this._select2);
             this.addChild(this._lblPrompt);
+            this._select1.on("click", () => {
+                managers.Game.currentPlayerType = config.Character.GUNSLINGER;
+                managers.Game.currentScene = config.Scene.LEVEL3;
+            });
+            this._select2.on("click", () => {
+                managers.Game.currentPlayerType = config.Character.QUICKSILVER;
+                managers.Game.currentScene = config.Scene.LEVEL3;
+            });
         }
     }
 }
