@@ -242,6 +242,13 @@ module scenes {
                         }
                     });
 
+                    this._projectiles.forEach(p => {
+                        if (managers.Collision.check(p, projectile)) {
+                            this.removeObject(projectile);
+                            this.removeObject(p);
+                        }
+                    });
+
                     if (projectile.isDestroyed) {
                         this.removeObject(projectile);
                     } else {

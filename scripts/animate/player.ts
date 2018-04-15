@@ -10,7 +10,7 @@ module animate {
 
             switch (character) {
                 case config.Character.GUNSLINGER:
-                    mvspd = 1;
+                    mvspd = 0.8;
                     weapon = config.Weapon.REVOLVER;
                     break;
                 case config.Character.QUICKSILVER:

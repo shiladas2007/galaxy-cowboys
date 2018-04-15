@@ -3403,7 +3403,7 @@ var objects;
             switch (weaponType) {
                 // Set fire rate and projectile based on weapon type:
                 case config.Weapon.REVOLVER:
-                    fireRate = 0.5;
+                    fireRate = 0.3;
                     break;
                 case config.Weapon.SHOTGUN:
                     fireRate = 1.2;
@@ -3615,7 +3615,7 @@ var animate;
             var weapon;
             switch (character) {
                 case config.Character.GUNSLINGER:
-                    mvspd = 1;
+                    mvspd = 0.8;
                     weapon = config.Weapon.REVOLVER;
                     break;
                 case config.Character.QUICKSILVER:
@@ -3705,7 +3705,7 @@ var managers;
         function Collision() {
         }
         Collision.check = function (object1, object2) {
-            if (object1 == null || object2 == null)
+            if (object1 == null || object2 == null || object1 == object2)
                 return;
             var pointA = new glm.vec2(object1.x, object1.y);
             var pointB = new glm.vec2(object2.x, object2.y);
@@ -4163,6 +4163,12 @@ var scenes;
                     _this._obstra.forEach(function (obstra) {
                         if (managers.Collision.check(obstra, projectile)) {
                             _this.removeObject(projectile);
+                        }
+                    });
+                    _this._projectiles.forEach(function (p) {
+                        if (managers.Collision.check(p, projectile)) {
+                            _this.removeObject(projectile);
+                            _this.removeObject(p);
                         }
                     });
                     if (projectile.isDestroyed) {
