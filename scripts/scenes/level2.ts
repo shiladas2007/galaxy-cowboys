@@ -10,8 +10,8 @@ module scenes {
         }
 
         public start():void {
-            super.start();
-            
+            super.start();           
+            managers.Game.scoreBoard.Score=managers.Game.currentScore; 
             console.log("Initializing enemies...");            
             this._enemies = [
                 new animate.Enemy(config.Enemy.GUARD,180,140),

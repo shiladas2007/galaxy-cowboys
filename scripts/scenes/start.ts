@@ -3,6 +3,7 @@ module scenes {
         protected _startButton: ui.Button;
         protected _startButton2: ui.Button;
         protected _background: ui.Background;
+        protected _finalScoreLabel: ui.Label;
         
         constructor() {
             super();
@@ -12,7 +13,9 @@ module scenes {
         public start():void {
             this._background = new ui.Background("background");
             this._startButton2 = new ui.Button("startButton2", 300, 240);
-            this._startButton = new ui.Button("startButton", 300, 240, 0.1); 
+            this._startButton = new ui.Button("startButton", 300, 240, 0.1);             
+            this._finalScoreLabel = new ui.Label("Score: 0", "14pt", "Sporting Grotesque", "#FFFF00", 150, 250, false);            
+            this._finalScoreLabel.visible=false;
             this.main();
         }
 
@@ -24,10 +27,11 @@ module scenes {
             this.addChildAt(this._background, managers.Game.INDEX_BACKGROUND);
             this.addChildAt(this._startButton2, managers.Game.INDEX_GAMEOBJECTS);
             this.addChildAt(this._startButton, managers.Game.INDEX_UI);
+            this.addChildAt(this._finalScoreLabel, managers.Game.INDEX_UI);
             this._startButton.on("click", this._startButtonClick);
         }
 
-        protected _startButtonClick():void {
+        protected _startButtonClick():void {                        
             managers.Game.currentScene = config.Scene.LEVEL1;
         }
     }

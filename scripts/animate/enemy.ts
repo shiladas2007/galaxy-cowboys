@@ -94,10 +94,9 @@ module animate {
         public destroy(silent:boolean=false) {
             super.destroy(silent);
             this.stop();
-
             if (!silent)
                 createjs.Sound.play("monster_die"); 
-            managers.Game.scoreBoard.Score += 200;  
+           
         }
 
         public attack():void {
@@ -119,8 +118,14 @@ module animate {
             let newProjectile = new objects.Projectile("laser", this, targetX, targetY);
         }
 
-        public collide(other:objects.GameObject) {
+        public collide(other:objects.GameObject) {                        
             if (other instanceof objects.GameObject) {
+                console.log("colide"+other.name);
+                if(other.name=="bullet" || other.name=="bullet2")
+                {
+                    managers.Game.scoreBoard.Score += 200;  
+                    managers.Game.currentScore=managers.Game.scoreBoard.Score;
+                }
                 this.goBack();
             } else {
                 this.lastValidPosition.x = this.x;
