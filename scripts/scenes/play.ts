@@ -8,7 +8,6 @@ module scenes {
         private _dx: number = 5;
         private _dy: number = 5;
         private _scoreBoard: managers.ScoreBoard;
-        private _overlay: createjs.Shape;
 
         protected _tooltips: ui.Tooltip[] = [];
         protected _enemies: animate.Enemy[];

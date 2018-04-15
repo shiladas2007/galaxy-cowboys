@@ -6,6 +6,7 @@ module config {
         LEVEL3,
         BOSS,
         GAMEOVER,
+        SELECT,
         END
     }
 }

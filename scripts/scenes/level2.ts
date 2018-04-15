@@ -41,7 +41,7 @@ module scenes {
             super.update();
 
             if (!this._enemies.length) {
-                managers.Game.currentScene = config.Scene.LEVEL3;
+                managers.Game.currentScene = config.Scene.SELECT;
             }
 
             return managers.Game.currentScene;

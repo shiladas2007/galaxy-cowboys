@@ -139,7 +139,8 @@ var config;
         Scene[Scene["LEVEL3"] = 3] = "LEVEL3";
         Scene[Scene["BOSS"] = 4] = "BOSS";
         Scene[Scene["GAMEOVER"] = 5] = "GAMEOVER";
-        Scene[Scene["END"] = 6] = "END";
+        Scene[Scene["SELECT"] = 6] = "SELECT";
+        Scene[Scene["END"] = 7] = "END";
     })(Scene = config.Scene || (config.Scene = {}));
 })(config || (config = {}));
 var config;
@@ -1986,34 +1987,45 @@ var ui;
         Selection.prototype.start = function () {
             this.halfWidth = this.width * 0.5;
             this.halfHeight = this.height * 0.5;
-            ui.centreHorizontal(this, this._sprite);
-            ui.centreVertical(this, this._sprite);
-            this._lblTitle = new ui.Label(this.title, "18pt", "Sporting Grotesque", "#fff");
-            ui.centreHorizontal(this, this._lblTitle);
-            this._lblTitle.y = this._sprite.y + this._sprite.getBounds().height * 0.5 + 10;
+            this._overlay = new createjs.Shape(new createjs.Graphics().beginFill("rgba(0,0,0,0.5)")
+                .drawRoundRect(0, 0, this.width, this.height, 10));
+            this._lblTitle = new ui.Label(this.title, "18pt", "Sporting Grotesque", "#FFFF00");
+            ui.centreHorizontal(this._lblTitle, 0, this.width);
+            if (this._sprite) {
+                ui.centreHorizontal(this._sprite, 0, this.width);
+                ui.centreVertical(this._sprite, 0, this.height);
+                this._sprite.y -= managers.Game.HEIGHT * 0.1;
+                this._lblTitle.y = this._sprite.y + this._sprite.getBounds().height + 10;
+            }
+            else {
+                ui.centreVertical(this._lblTitle, 0, this.height);
+            }
             this._lblDescription = new ui.Label(this._description, "11pt", "Sporting Grotesque", "rgb(240,240,240)");
             this._lblDescription.lineWidth = this.width * 0.8;
-            ui.centreHorizontal(this, this._lblDescription);
+            ui.centreHorizontal(this._lblDescription, 0, this.width);
             this._lblDescription.y = this._lblTitle.y + this._lblTitle.height + 10;
-            this._overlay = new createjs.Shape(new createjs.Graphics().beginFill("rgba(0,0,0,0.5)")
-                .drawRoundRect(0, 0, this.width, this.height, 2));
             this.main();
         };
         Selection.prototype.update = function () {
             return managers.Game.currentScene;
         };
         Selection.prototype.main = function () {
+            var _this = this;
             this.addChild(this._overlay);
             this.addChild(this._sprite);
             this.addChild(this._lblTitle);
             this.addChild(this._lblDescription);
-            this.on("mousehover", this._onHover);
-            this.on("mouseout", this._onOut);
+            this._overlay.on("mouseover", function () { _this._onHover(); });
+            this._overlay.on("mouseout", function () { _this._onOut(); });
         };
         Selection.prototype._onHover = function () {
-            createjs.Tween.get(this).to({ scaleX: 1.1, scaleY: 1.1 }, 300, createjs.Ease.get(2));
+            this._overlay.graphics.clear().beginFill("rgba(140,60,0,0.5)")
+                .drawRoundRect(0, 0, this.width, this.height, 10);
+            createjs.Tween.get(this).to({ scaleX: 1.05, scaleY: 1.05 }, 300, createjs.Ease.get(2));
         };
         Selection.prototype._onOut = function () {
+            this._overlay.graphics.clear().beginFill("rgba(0,0,0,0.5)")
+                .drawRoundRect(0, 0, this.width, this.height, 10);
             createjs.Tween.get(this).to({ scaleX: 1, scaleY: 1 }, 300, createjs.Ease.get(2));
         };
         return Selection;
@@ -2105,12 +2117,24 @@ var ui;
 })(ui || (ui = {}));
 var ui;
 (function (ui) {
-    function centreHorizontal(parent, child) {
-        child.x = parent.x + parent.getBounds().width * 0.5 - child.getBounds().width * 0.5;
+    function centreHorizontal(child, startX, parentWidth) {
+        if (startX === void 0) { startX = 0; }
+        if (parentWidth === void 0) { parentWidth = -1; }
+        var centre = managers.Game.WIDTH * 0.5;
+        if (parentWidth != -1) {
+            centre = parentWidth * 0.5;
+        }
+        child.x = startX + centre - child.getBounds().width * 0.5;
     }
     ui.centreHorizontal = centreHorizontal;
-    function centreVertical(parent, child) {
-        child.y = parent.y + parent.getBounds().height * 0.5 - child.getBounds().height * 0.5;
+    function centreVertical(child, startY, parentHeight) {
+        if (startY === void 0) { startY = 0; }
+        if (parentHeight === void 0) { parentHeight = -1; }
+        var centre = managers.Game.HEIGHT * 0.5;
+        if (parentHeight != -1) {
+            centre = parentHeight * 0.5;
+        }
+        child.y = startY + centre - child.getBounds().height * 0.5;
     }
     ui.centreVertical = centreVertical;
 })(ui || (ui = {}));
@@ -4272,7 +4296,7 @@ var scenes;
         Level2.prototype.update = function () {
             _super.prototype.update.call(this);
             if (!this._enemies.length) {
-                managers.Game.currentScene = config.Scene.LEVEL3;
+                managers.Game.currentScene = config.Scene.SELECT;
             }
             return managers.Game.currentScene;
         };
@@ -4353,16 +4377,26 @@ var scenes;
     var SelectScene = /** @class */ (function (_super) {
         __extends(SelectScene, _super);
         function SelectScene() {
-            return _super !== null && _super.apply(this, arguments) || this;
+            var _this = _super.call(this) || this;
+            _this.start();
+            return _this;
         }
         SelectScene.prototype.start = function () {
             this._background = new ui.Background("mapLevel3");
-            this._startButton2 = new ui.Button("startButton2", managers.Game.WIDTH * 0.5, 320, 1, true);
-            this._startButton = new ui.Button("startButton", managers.Game.WIDTH * 0.5, 320, 0.1, true);
+            var selectionWidth = managers.Game.WIDTH * 0.45;
+            var selectionHeight = managers.Game.HEIGHT * 0.75;
+            this._select1 = new ui.Selection(20, 20, selectionWidth, selectionHeight, "Gunslinger Sam", "- Slow\n- Quick fire rate", new createjs.Sprite(managers.Game.textureAtlas, "cowboy1"));
+            this._select2 = new ui.Selection(0, 20, selectionWidth, selectionHeight, "Quicksilver Johnny", "- Quick\n- Slow fire rate", new createjs.Sprite(managers.Game.textureAtlas, "cowboy2"));
+            this._select2.x = managers.Game.WIDTH - this._select2.width - 20;
             this.main();
         };
+        SelectScene.prototype.main = function () {
+            this.addChildAt(this._background, managers.Game.INDEX_BACKGROUND);
+            this.addChild(this._select1);
+            this.addChild(this._select2);
+        };
         return SelectScene;
-    }(scenes.StartScene));
+    }(objects.Scene));
     scenes.SelectScene = SelectScene;
 })(scenes || (scenes = {}));
 (function () {
@@ -4503,6 +4537,9 @@ var scenes;
                 break;
             case config.Scene.GAMEOVER:
                 currentScene = new scenes.GameOverScene();
+                break;
+            case config.Scene.SELECT:
+                currentScene = new scenes.SelectScene();
                 break;
         }
         currentState = managers.Game.currentScene;

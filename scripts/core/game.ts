@@ -146,6 +146,9 @@
             case config.Scene.GAMEOVER:
                 currentScene = new scenes.GameOverScene();
                 break;
+            case config.Scene.SELECT:
+                currentScene = new scenes.SelectScene();
+                break;
         }
         currentState = managers.Game.currentScene;
         managers.Game.currentSceneObject = currentScene;

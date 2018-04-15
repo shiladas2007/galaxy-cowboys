@@ -21,23 +21,28 @@ module ui {
         public start():void {
             this.halfWidth = this.width * 0.5;
             this.halfHeight = this.height * 0.5;
+            this._overlay = new createjs.Shape(
+                new createjs.Graphics().beginFill("rgba(0,0,0,0.5)")
+                .drawRoundRect(0, 0, this.width, this.height, 10)
+            );
 
-            ui.centreHorizontal(this, this._sprite);
-            ui.centreVertical(this, this._sprite);
+            this._lblTitle = new ui.Label(this.title, "18pt", "Sporting Grotesque", "#FFFF00");
+            ui.centreHorizontal(this._lblTitle, 0, this.width);
 
-            this._lblTitle = new ui.Label(this.title, "18pt", "Sporting Grotesque", "#fff");
-            ui.centreHorizontal(this, this._lblTitle);
-            this._lblTitle.y = this._sprite.y + this._sprite.getBounds().height * 0.5 + 10;
+            if (this._sprite) {
+                ui.centreHorizontal(this._sprite, 0, this.width);
+                ui.centreVertical(this._sprite, 0, this.height);
+                this._sprite.y -= managers.Game.HEIGHT * 0.1;
+                this._lblTitle.y = this._sprite.y + this._sprite.getBounds().height + 10;
+            } else {
+                ui.centreVertical(this._lblTitle, 0, this.height);
+            }
 
             this._lblDescription = new ui.Label(this._description, "11pt", "Sporting Grotesque", "rgb(240,240,240)");
             this._lblDescription.lineWidth = this.width * 0.8;
-            ui.centreHorizontal(this, this._lblDescription);
+            ui.centreHorizontal(this._lblDescription, 0, this.width);
             this._lblDescription.y = this._lblTitle.y + this._lblTitle.height + 10;
 
-            this._overlay = new createjs.Shape(
-                new createjs.Graphics().beginFill("rgba(0,0,0,0.5)")
-                .drawRoundRect(0, 0, this.width, this.height, 2)
-            );
             this.main();
         }
 
@@ -50,15 +55,19 @@ module ui {
             this.addChild(this._sprite);
             this.addChild(this._lblTitle);
             this.addChild(this._lblDescription);
-            this.on("mousehover", this._onHover);
-            this.on("mouseout", this._onOut);
+            this._overlay.on("mouseover", () => { this._onHover(); });
+            this._overlay.on("mouseout", () => { this._onOut(); });
         }
 
         private _onHover() {
-            createjs.Tween.get(this).to({scaleX: 1.1, scaleY: 1.1}, 300, createjs.Ease.get(2));
+            this._overlay.graphics.clear().beginFill("rgba(140,60,0,0.5)")
+                .drawRoundRect(0, 0, this.width, this.height, 10);
+            createjs.Tween.get(this).to({scaleX: 1.05, scaleY: 1.05}, 300, createjs.Ease.get(2));
         }
 
         private _onOut() {
+            this._overlay.graphics.clear().beginFill("rgba(0,0,0,0.5)")
+                .drawRoundRect(0, 0, this.width, this.height, 10);
             createjs.Tween.get(this).to({scaleX: 1, scaleY: 1}, 300, createjs.Ease.get(2));
         }
     }
