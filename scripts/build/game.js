@@ -3847,6 +3847,7 @@ var managers;
             // private instance variables
             _this._lives = 1;
             _this._score = 0;
+            _this._enemies = 0;
             _this._initialize();
             return _this;
         }
@@ -3873,9 +3874,25 @@ var managers;
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(ScoreBoard.prototype, "EnemyCount", {
+            get: function () {
+                return this._enemies;
+            },
+            set: function (enemyCount) {
+                this._enemies = enemyCount;
+                this.EnemiesLabel.text = "Enemies left: " + this._enemies;
+            },
+            enumerable: true,
+            configurable: true
+        });
         ScoreBoard.prototype.main = function () {
-            this.addChildAt(this.LivesLabel, 0);
-            this.addChildAt(this.ScoreLabel, 0);
+            this.addChild(this.LivesLabel);
+            this.addChild(this.ScoreLabel);
+            this.addChild(this.EnemiesLabel);
+        };
+        ScoreBoard.prototype.updateEnemies = function () {
+            this._enemies = managers.Game.currentSceneObject.enemies.length;
+            this.EnemiesLabel.text = "Enemies left: " + this._enemies;
         };
         ScoreBoard.prototype._initialize = function () {
             var shadowColour = "rgba(80,50,20,0.7)";
@@ -3883,8 +3900,12 @@ var managers;
             this.LivesLabel.shadow = new createjs.Shadow(shadowColour, 1, 2, 0);
             this.ScoreLabel = new ui.Label("Score: 0", "14pt", "Sporting Grotesque", "#FFFF00", 500, 10, false);
             this.ScoreLabel.shadow = new createjs.Shadow(shadowColour, 1, 2, 0);
+            this.EnemiesLabel = new ui.Label("Enemies left: 0", "14pt", "Sporting Grotesque", "#FFFF00", 0, 10);
+            this.EnemiesLabel.shadow = new createjs.Shadow(shadowColour, 1, 2, 0);
+            ui.centreHorizontal(this.EnemiesLabel);
             this.Lives = 1;
             this.Score = 0;
+            this.EnemyCount = 0;
             this.main();
         };
         return ScoreBoard;
@@ -4047,6 +4068,7 @@ var scenes;
                 _this.addChildAt(obstr, managers.Game.INDEX_GAMEOBJECTS);
             });
             this.addChildAt(this._scoreBoard, managers.Game.INDEX_UI);
+            managers.Game.scoreBoard.EnemyCount = this._enemies.length;
         };
         PlayScene.prototype.addProjectile = function (projectile) {
             this._projectiles.push(projectile);
@@ -4145,6 +4167,7 @@ var scenes;
                 });
                 if (enemy.hp <= 0) {
                     enemy.destroy();
+                    managers.Game.scoreBoard.EnemyCount--;
                     _this.removeObject(enemy);
                 }
                 else {

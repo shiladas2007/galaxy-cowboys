@@ -109,6 +109,7 @@ module scenes {
                 this.addChildAt(obstr, managers.Game.INDEX_GAMEOBJECTS);
             });
             this.addChildAt(this._scoreBoard, managers.Game.INDEX_UI);
+            managers.Game.scoreBoard.EnemyCount = this._enemies.length;
         }
 
         public addProjectile(projectile:objects.Projectile) {
@@ -220,6 +221,7 @@ module scenes {
 
                 if (enemy.hp <= 0) {
                     enemy.destroy();
+                    managers.Game.scoreBoard.EnemyCount--;
                     this.removeObject(enemy);
                 } else {
                     keepers.push(enemy);
