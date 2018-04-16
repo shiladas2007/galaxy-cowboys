@@ -20,11 +20,11 @@ module scenes {
             let selectionWidth: number = managers.Game.WIDTH * 0.45;
             let selectionHeight: number = managers.Game.HEIGHT * 0.75;
             this._select1 = new ui.Selection(20, 20, selectionWidth, selectionHeight,
-                "Gunslinger Sam", "- Quick fire rate\n- Slow", "\"Pew pew!\"",
+                "Gunslinger Sam", "- Quick fire rate\n- Slow\n- Long range", "\"Pew pew!\"",
                 new createjs.Sprite(managers.Game.textureAtlas, "cowboy1"));
 
             this._select2 = new ui.Selection(0, 20, selectionWidth, selectionHeight,
-                "Quicksilver John", "- Slow fire rate\n- Quick", "\"Zoom zoom!\"",
+                "Quicksilver John", "- Slow fire rate\n- Quick\n- Short range\n- Bullets cut through lasers", "\"Zoom zoom!\"",
                 new createjs.Sprite(managers.Game.textureAtlas, "cowboy2"));
             this._select2.x = managers.Game.WIDTH - this._select2.width - 20;
 

@@ -2,6 +2,7 @@ module objects {
     export class Projectile extends objects.GameObject {
         private _shooter: objects.GameObject;
         private _dmg: number;
+        private _amountTravelled: number;
 
         get shooter():objects.GameObject {
             return this._shooter;
@@ -35,6 +36,17 @@ module objects {
             this._checkBounds();
         }
 
+        public move(movementAmount:number=null) {
+            super.move(movementAmount);
+
+            if (!movementAmount)
+                movementAmount = this.movementAmount;
+
+            this._amountTravelled += movementAmount;
+            if (this._shooter.weapon.weaponType == config.Weapon.SHOTGUN && this._amountTravelled >= 180)
+                this.destroy();
+        }
+
         private _checkBounds() {
             if (this.y >= managers.Game.currentSceneObject.bottomBoundary + this.halfHeight ||
                 this.y <= managers.Game.currentSceneObject.topBoundary - this.halfHeight ||
@@ -56,6 +68,8 @@ module objects {
             } else {
                 mvAmt = this._shooter.halfWidth + margin;
             }
+            this._amountTravelled = -mvAmt;
+
             this.move(mvAmt);
             managers.Game.currentSceneObject.addProjectile(this);
         }

@@ -28,7 +28,7 @@ module scenes {
 
             let tooltipMessages: string[] = [
                 "This is Quicksilver John. He's quicker than Sam and uses his shotgun to shoot.",
-                "His shotgun fires slower than Sam's revolver, but really packs a punch!"
+                "His shotgun fires slower than Sam's revolver and has a shorter range, but really packs a punch!"
             ]; 
             this._tooltips = [
                 new ui.Tooltip("tooltipBg", tooltipMessages)

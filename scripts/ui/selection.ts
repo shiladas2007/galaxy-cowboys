@@ -47,10 +47,10 @@ module ui {
                 this._sprite.y -= managers.Game.HEIGHT * 0.1;
 
                 this._lblTitle.y = this._sprite.y - this._sprite.getBounds().height - 5;
-                this._lblDescription.y = this._sprite.y + this._lblDescription.height + 20;
+                this._lblDescription.y = this._sprite.y + this._sprite.getBounds().height + 20;
             } else {
                 ui.centreVertical(this._lblTitle, 0, this.height);
-                this._lblDescription.y = this._lblTitle.y + this._lblDescription.height + 10;
+                this._lblDescription.y = this._lblTitle.y + this._lblTitle.height + 10;
             }
 
             this._lblQuote = new ui.Label(this._quote, "9pt", managers.Style.FONT_FAMILY_PRIMARY,

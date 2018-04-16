@@ -2003,11 +2003,11 @@ var ui;
                 ui.centreVertical(this._sprite, 0, this.height);
                 this._sprite.y -= managers.Game.HEIGHT * 0.1;
                 this._lblTitle.y = this._sprite.y - this._sprite.getBounds().height - 5;
-                this._lblDescription.y = this._sprite.y + this._lblDescription.height + 20;
+                this._lblDescription.y = this._sprite.y + this._sprite.getBounds().height + 20;
             }
             else {
                 ui.centreVertical(this._lblTitle, 0, this.height);
-                this._lblDescription.y = this._lblTitle.y + this._lblDescription.height + 10;
+                this._lblDescription.y = this._lblTitle.y + this._lblTitle.height + 10;
             }
             this._lblQuote = new ui.Label(this._quote, "9pt", managers.Style.FONT_FAMILY_PRIMARY, managers.Style.FONT_COLOUR_SUBTITLE);
             ui.centreHorizontal(this._lblQuote, 0, this.width);
@@ -3271,6 +3271,15 @@ var objects;
             this.move();
             this._checkBounds();
         };
+        Projectile.prototype.move = function (movementAmount) {
+            if (movementAmount === void 0) { movementAmount = null; }
+            _super.prototype.move.call(this, movementAmount);
+            if (!movementAmount)
+                movementAmount = this.movementAmount;
+            this._amountTravelled += movementAmount;
+            if (this._shooter.weapon.weaponType == config.Weapon.SHOTGUN && this._amountTravelled >= 180)
+                this.destroy();
+        };
         Projectile.prototype._checkBounds = function () {
             if (this.y >= managers.Game.currentSceneObject.bottomBoundary + this.halfHeight ||
                 this.y <= managers.Game.currentSceneObject.topBoundary - this.halfHeight ||
@@ -3291,6 +3300,7 @@ var objects;
             else {
                 mvAmt = this._shooter.halfWidth + margin;
             }
+            this._amountTravelled = -mvAmt;
             this.move(mvAmt);
             managers.Game.currentSceneObject.addProjectile(this);
         };
@@ -4385,7 +4395,7 @@ var scenes;
             console.log("Player initialized.");
             var tooltipMessages = [
                 "This is Quicksilver John. He's quicker than Sam and uses his shotgun to shoot.",
-                "His shotgun fires slower than Sam's revolver, but really packs a punch!"
+                "His shotgun fires slower than Sam's revolver and has a shorter range, but really packs a punch!"
             ];
             this._tooltips = [
                 new ui.Tooltip("tooltipBg", tooltipMessages)
@@ -4488,8 +4498,8 @@ var scenes;
                 .drawRect(0, 0, managers.Game.WIDTH, managers.Game.HEIGHT));
             var selectionWidth = managers.Game.WIDTH * 0.45;
             var selectionHeight = managers.Game.HEIGHT * 0.75;
-            this._select1 = new ui.Selection(20, 20, selectionWidth, selectionHeight, "Gunslinger Sam", "- Quick fire rate\n- Slow", "\"Pew pew!\"", new createjs.Sprite(managers.Game.textureAtlas, "cowboy1"));
-            this._select2 = new ui.Selection(0, 20, selectionWidth, selectionHeight, "Quicksilver John", "- Slow fire rate\n- Quick", "\"Zoom zoom!\"", new createjs.Sprite(managers.Game.textureAtlas, "cowboy2"));
+            this._select1 = new ui.Selection(20, 20, selectionWidth, selectionHeight, "Gunslinger Sam", "- Quick fire rate\n- Slow\n- Long range", "\"Pew pew!\"", new createjs.Sprite(managers.Game.textureAtlas, "cowboy1"));
+            this._select2 = new ui.Selection(0, 20, selectionWidth, selectionHeight, "Quicksilver John", "- Slow fire rate\n- Quick\n- Short range\n- Bullets cut through lasers", "\"Zoom zoom!\"", new createjs.Sprite(managers.Game.textureAtlas, "cowboy2"));
             this._select2.x = managers.Game.WIDTH - this._select2.width - 20;
             this._lblPrompt = new ui.Label("Choose your cowboy for level 3!", "16pt", managers.Style.FONT_FAMILY_PRIMARY, managers.Style.FONT_COLOUR_PRIMARY);
             ui.centreHorizontal(this._lblPrompt);
