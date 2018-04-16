@@ -3913,7 +3913,7 @@ var managers;
             configurable: true
         });
         ScoreBoard.prototype.main = function () {
-            this.addChild(this.LivesLabel);
+            //this.addChild(this.LivesLabel);
             this.addChild(this.ScoreLabel);
             this.addChild(this.EnemiesLabel);
         };
@@ -3927,9 +3927,8 @@ var managers;
             this.LivesLabel.shadow = new createjs.Shadow(shadowColour, 1, 2, 0);
             this.ScoreLabel = new ui.Label("Score: 0", "14pt", "Sporting Grotesque", "#FFFF00", 500, 10, false);
             this.ScoreLabel.shadow = new createjs.Shadow(shadowColour, 1, 2, 0);
-            this.EnemiesLabel = new ui.Label("Enemies left: 0", "14pt", "Sporting Grotesque", "#FFFF00", 0, 10);
+            this.EnemiesLabel = new ui.Label("Enemies left: 0", "14pt", "Sporting Grotesque", "#FFFF00", 20, 10);
             this.EnemiesLabel.shadow = new createjs.Shadow(shadowColour, 1, 2, 0);
-            ui.centreHorizontal(this.EnemiesLabel);
             this.Lives = 1;
             this.Score = 0;
             this.EnemyCount = 0;
