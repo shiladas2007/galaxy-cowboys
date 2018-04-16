@@ -4237,7 +4237,10 @@ var scenes;
                             _this.removeObject(p);
                         }
                     });
-                    if (!projectile.isDestroyed) {
+                    if (projectile.isDestroyed) {
+                        _this.removeObject(projectile);
+                    }
+                    else {
                         keepers_1.push(projectile);
                     }
                 });
