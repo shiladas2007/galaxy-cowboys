@@ -70,6 +70,10 @@ module objects {
             ((other instanceof objects.Destructible) && (this._shooter instanceof animate.Player))) {
                 other.hp -= this._dmg;
             }
+
+            if (this._shooter.weapon.weaponType == config.Weapon.SHOTGUN && other.name == "laser") {
+                return;
+            }
             this.destroy();
         }
 

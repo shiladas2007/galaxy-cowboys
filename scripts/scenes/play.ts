@@ -198,11 +198,11 @@ module scenes {
             });
             this._enemies.forEach(enemy => {
                 enemy.destroy(true);
-                this.removeObject(enemy);
+                this.removeObject(enemy, true);
             });
             this._obstra.forEach(obstra => {
                 obstra.destroy(true);
-                this.removeObject(obstra);
+                this.removeObject(obstra, true);
             });
         }
 
@@ -249,8 +249,9 @@ module scenes {
 
                     this._projectiles.forEach(p => {
                         if (managers.Collision.check(p, projectile)) {
-                            this.removeObject(projectile);
-                            this.removeObject(p);
+                            if (p.isDestroyed) {
+                                this.removeObject(p);
+                            }
                         }
                     });
 

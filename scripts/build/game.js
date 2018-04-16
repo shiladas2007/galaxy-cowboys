@@ -3303,6 +3303,9 @@ var objects;
                 ((other instanceof objects.Destructible) && (this._shooter instanceof animate.Player))) {
                 other.hp -= this._dmg;
             }
+            if (this._shooter.weapon.weaponType == config.Weapon.SHOTGUN && other.name == "laser") {
+                return;
+            }
             this.destroy();
         };
         Projectile.prototype.destroy = function () {
@@ -3385,8 +3388,9 @@ var objects;
         };
         Scene.prototype.main = function () { };
         Scene.prototype.addProjectile = function (projectile) { };
-        Scene.prototype.removeObject = function (o) {
-            o.destroy();
+        Scene.prototype.removeObject = function (o, silent) {
+            if (silent === void 0) { silent = false; }
+            o.destroy(silent);
             this.removeChild(o);
             o = null;
         };
@@ -4187,11 +4191,11 @@ var scenes;
             });
             this._enemies.forEach(function (enemy) {
                 enemy.destroy(true);
-                _this.removeObject(enemy);
+                _this.removeObject(enemy, true);
             });
             this._obstra.forEach(function (obstra) {
                 obstra.destroy(true);
-                _this.removeObject(obstra);
+                _this.removeObject(obstra, true);
             });
         };
         PlayScene.prototype._updateEnemies = function () {
@@ -4233,8 +4237,9 @@ var scenes;
                     });
                     _this._projectiles.forEach(function (p) {
                         if (managers.Collision.check(p, projectile)) {
-                            _this.removeObject(projectile);
-                            _this.removeObject(p);
+                            if (p.isDestroyed) {
+                                _this.removeObject(p);
+                            }
                         }
                     });
                     if (projectile.isDestroyed) {
