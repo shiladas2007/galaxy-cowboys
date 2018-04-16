@@ -14,7 +14,7 @@ module objects {
             switch (weaponType) {
                 // Set fire rate and projectile based on weapon type:
                 case config.Weapon.REVOLVER:
-                    fireRate = 0.3;
+                    fireRate = 0.4;
                     break;
                 case config.Weapon.SHOTGUN:
                     fireRate = 1.2;
