@@ -224,7 +224,6 @@ module scenes {
                 });
 
                 if (enemy.hp <= 0) {
-                    enemy.destroy();
                     managers.Game.scoreBoard.EnemyCount--;
                     this.removeObject(enemy);
                 } else {
@@ -255,9 +254,7 @@ module scenes {
                         }
                     });
 
-                    if (projectile.isDestroyed) {
-                        this.removeObject(projectile);
-                    } else {
+                    if (!projectile.isDestroyed) {
                         keepers.push(projectile);
                     }
                 });

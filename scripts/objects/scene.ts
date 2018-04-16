@@ -45,6 +45,7 @@ module objects {
         public addProjectile(projectile:objects.Projectile) {}
 
         public removeObject(o:objects.GameObject) {
+            o.destroy();
             this.removeChild(o);
             o = null;
         }

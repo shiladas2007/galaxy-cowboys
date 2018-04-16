@@ -51,19 +51,11 @@ module animate {
     
         // updates the game object every frame
         public update():void {
-            if (!this.attackInterval) {
+            if (!this.attackInterval && !this.isDestroyed) {
                 this.start();
             }
             this.move();
             this.checkBounds();
-        }
-    
-        // check to see if some boundary has been passed
-        public checkBounds():void {
-            // check lower bounds
-            if (this.y >= managers.Game.HEIGHT + this.height) {
-                this.reset();
-            }         
         }
 
         public move(movementAmount:number=null) {
@@ -92,11 +84,10 @@ module animate {
         }
 
         public destroy(silent:boolean=false) {
-            super.destroy(silent);
             this.stop();
+            super.destroy(silent);
             if (!silent)
                 createjs.Sound.play("monster_die"); 
-           
         }
 
         public attack():void {
@@ -118,19 +109,17 @@ module animate {
             let newProjectile = new objects.Projectile("laser", this, targetX, targetY);
         }
 
-        public collide(other:objects.GameObject) {                        
-            if (other instanceof objects.GameObject) {
-                console.log("colide"+other.name);
-                if(other.name=="bullet" || other.name=="bullet2")
-                {
-                    managers.Game.scoreBoard.Score += 200;  
-                    managers.Game.currentScore=managers.Game.scoreBoard.Score;
-                }
-                this.goBack();
-            } else {
-                this.lastValidPosition.x = this.x;
-                this.lastValidPosition.y = this.y;
+        public collide(other:objects.GameObject) {                      
+            if (other.name=="bullet" || other.name=="bullet2") {
+                managers.Game.scoreBoard.Score += 200;  
+                managers.Game.currentScore=managers.Game.scoreBoard.Score;
+                return;
+            } else if (other instanceof animate.Player) {
+                other.hp -= 1;
             }
+            this.lastValidPosition.x = this.x;
+            this.lastValidPosition.y = this.y;
+            this.goBack();
         }
 
         private goBack() {

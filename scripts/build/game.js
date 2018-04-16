@@ -3386,6 +3386,7 @@ var objects;
         Scene.prototype.main = function () { };
         Scene.prototype.addProjectile = function (projectile) { };
         Scene.prototype.removeObject = function (o) {
+            o.destroy();
             this.removeChild(o);
             o = null;
         };
@@ -3513,18 +3514,11 @@ var animate;
         };
         // updates the game object every frame
         Enemy.prototype.update = function () {
-            if (!this.attackInterval) {
+            if (!this.attackInterval && !this.isDestroyed) {
                 this.start();
             }
             this.move();
             this.checkBounds();
-        };
-        // check to see if some boundary has been passed
-        Enemy.prototype.checkBounds = function () {
-            // check lower bounds
-            if (this.y >= managers.Game.HEIGHT + this.height) {
-                this.reset();
-            }
         };
         Enemy.prototype.move = function (movementAmount) {
             if (movementAmount === void 0) { movementAmount = null; }
@@ -3550,8 +3544,8 @@ var animate;
         };
         Enemy.prototype.destroy = function (silent) {
             if (silent === void 0) { silent = false; }
-            _super.prototype.destroy.call(this, silent);
             this.stop();
+            _super.prototype.destroy.call(this, silent);
             if (!silent)
                 createjs.Sound.play("monster_die");
         };
@@ -3572,18 +3566,17 @@ var animate;
             var newProjectile = new objects.Projectile("laser", this, targetX, targetY);
         };
         Enemy.prototype.collide = function (other) {
-            if (other instanceof objects.GameObject) {
-                console.log("colide" + other.name);
-                if (other.name == "bullet" || other.name == "bullet2") {
-                    managers.Game.scoreBoard.Score += 200;
-                    managers.Game.currentScore = managers.Game.scoreBoard.Score;
-                }
-                this.goBack();
+            if (other.name == "bullet" || other.name == "bullet2") {
+                managers.Game.scoreBoard.Score += 200;
+                managers.Game.currentScore = managers.Game.scoreBoard.Score;
+                return;
             }
-            else {
-                this.lastValidPosition.x = this.x;
-                this.lastValidPosition.y = this.y;
+            else if (other instanceof animate.Player) {
+                other.hp -= 1;
             }
+            this.lastValidPosition.x = this.x;
+            this.lastValidPosition.y = this.y;
+            this.goBack();
         };
         Enemy.prototype.goBack = function () {
             this._destination = this._origin;
@@ -4217,7 +4210,6 @@ var scenes;
                     }
                 });
                 if (enemy.hp <= 0) {
-                    enemy.destroy();
                     managers.Game.scoreBoard.EnemyCount--;
                     _this.removeObject(enemy);
                 }
@@ -4245,10 +4237,7 @@ var scenes;
                             _this.removeObject(p);
                         }
                     });
-                    if (projectile.isDestroyed) {
-                        _this.removeObject(projectile);
-                    }
-                    else {
+                    if (!projectile.isDestroyed) {
                         keepers_1.push(projectile);
                     }
                 });
