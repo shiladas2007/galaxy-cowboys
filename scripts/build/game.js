@@ -3971,6 +3971,9 @@ var scenes;
             this._startButton = new ui.Button("startButton", 300, 240, 0.1);
             this._finalScoreLabel = new ui.Label("Score: 0", "14pt", managers.Style.FONT_FAMILY_PRIMARY, managers.Style.FONT_COLOUR_PRIMARY, 150, 250, false);
             this._finalScoreLabel.visible = false;
+            this._creditsButton = new ui.Button("creditsButton", 10, 10, 0.7);
+            this._creditsButton.x = managers.Game.WIDTH - this._creditsButton.width - 20;
+            this._creditsButton.y = managers.Game.HEIGHT - this._creditsButton.height - 20;
             this.main();
         };
         StartScene.prototype.update = function () {
@@ -3981,11 +3984,14 @@ var scenes;
             this.addChildAt(this._background, managers.Game.INDEX_BACKGROUND);
             this.addChildAt(this._startButton2, managers.Game.INDEX_GAMEOBJECTS);
             this.addChildAt(this._startButton, managers.Game.INDEX_UI);
+            this.addChildAt(this._creditsButton, managers.Game.INDEX_GAMEOBJECTS);
             this.addChildAt(this._finalScoreLabel, managers.Game.INDEX_UI);
             if (managers.Game.backgroundMusic != "menu")
                 managers.Game.backgroundMusic = "menu";
             this._startButton.on("click", function () { _this._startButtonClick(); });
             this._startButton.on("mouseover", function () { createjs.Sound.play("select").duration = 500; });
+            this._creditsButton.on("click", function () { managers.Game.currentScene = config.Scene.CREDITS; });
+            this._creditsButton.on("mouseover", function () { createjs.Sound.play("select").duration = 500; });
         };
         StartScene.prototype._startButtonClick = function () {
             var _this = this;
@@ -4650,49 +4656,54 @@ var scenes;
             [37, 108, 114, 97, 0, -3, -1],
             [153, 108, 50, 50, 0, 0, 0],
             [205, 108, 43, 49, 0, -6, -1],
-            [1, 207, 55, 60, 0, 0, 0],
-            [58, 207, 45, 60, 0, 0, 0],
-            [105, 207, 59, 58, 0, 0, 0],
-            [166, 207, 28, 40, 0, 0, 0],
-            [1, 269, 100, 30, 0, 0, 0],
-            [103, 269, 35, 35, 0, 0, 0],
-            [140, 269, 85, 84, 0, -6, -7],
-            [1, 355, 31, 29, 0, 0, -2],
-            [34, 355, 31, 29, 0, 0, -2],
-            [67, 355, 31, 29, 0, 0, -2],
-            [100, 355, 31, 29, 0, 0, -2],
-            [133, 355, 29, 29, 0, -1, -2],
-            [164, 355, 31, 29, 0, 0, -2],
-            [1, 386, 199, 60, 0, -1, 0],
-            [1, 448, 199, 60, 0, -1, 0],
-            [1, 510, 250, 133, 0, 0, 0]
+            [1, 207, 200, 60, 0, 0, 0],
+            [1, 269, 55, 60, 0, 0, 0],
+            [58, 269, 45, 60, 0, 0, 0],
+            [105, 269, 59, 58, 0, 0, 0],
+            [166, 269, 28, 40, 0, 0, 0],
+            [1, 331, 100, 30, 0, 0, 0],
+            [103, 331, 35, 35, 0, 0, 0],
+            [1, 368, 193, 55, 0, -4, 0],
+            [1, 425, 85, 84, 0, -6, -7],
+            [88, 425, 31, 29, 0, 0, -2],
+            [121, 425, 31, 29, 0, 0, -2],
+            [154, 425, 31, 29, 0, 0, -2],
+            [187, 425, 31, 29, 0, 0, -2],
+            [220, 425, 29, 29, 0, -1, -2],
+            [1, 511, 31, 29, 0, 0, -2],
+            [34, 511, 199, 60, 0, -1, 0],
+            [1, 573, 199, 60, 0, -1, 0],
+            [1, 635, 250, 133, 0, 0, 0]
         ],
         "animations": {
             "bullet": { "frames": [0] },
+            "crate": { "frames": [1] },
             "breaking": { "frames": [2, 3, 4, 5, 6, 7, 8] },
             "bullet2": { "frames": [9] },
             "close": { "frames": [10] },
             "controlsIntroduck": { "frames": [11] },
             "cowboy1": { "frames": [12] },
             "cowboy2": { "frames": [13] },
-            "crate": { "frames": [1] },
-            "enemyGuard": { "frames": [14] },
-            "enemyPatroller": { "frames": [15] },
-            "enemyWatcher": { "frames": [16] },
-            "laser": { "frames": [17] },
-            "next": { "frames": [18] },
-            "pauseSmall": { "frames": [19] },
-            "restart": { "frames": [20] },
-            "smallexplosion": { "frames": [21, 22, 23, 24, 25, 26] },
-            "startButton": { "frames": [27] },
-            "startButton2": { "frames": [28] },
-            "tooltipBg": { "frames": [29] }
+            "creditsButton": { "frames": [14] },
+            "enemyGuard": { "frames": [15] },
+            "enemyPatroller": { "frames": [16] },
+            "enemyWatcher": { "frames": [17] },
+            "laser": { "frames": [18] },
+            "next": { "frames": [19] },
+            "pauseSmall": { "frames": [20] },
+            "playagain": { "frames": [21] },
+            "restart": { "frames": [22] },
+            "smallexplosion": { "frames": [23, 24, 25, 26, 27, 28] },
+            "startButton": { "frames": [29] },
+            "startButton2": { "frames": [30] },
+            "tooltipBg": { "frames": [31] }
         }
     };
     assetManifest = [
         { id: "background", src: "./assets/images/background.png" },
         { id: "gameover", src: "./assets/images/gameover.png" },
         { id: "credits", src: "./assets/images/backgroundCredits.png" },
+        { id: "win", src: "./assets/images/backgroundWin.png" },
         { id: "mapLevel1", src: "./assets/images/mapLevel1.png" },
         { id: "mapLevel2", src: "./assets/images/mapLevel2.png" },
         { id: "mapLevel3", src: "./assets/images/mapLevel3.png" },
