@@ -30,7 +30,7 @@ module scenes {
         }
 
         public start():void {
-            this._background = new ui.Background("background");
+            this._background = new ui.Background("credits");
             this._closeButton = new ui.Button("close", managers.Game.WIDTH, 20, 0.7);
             this._closeButton.x -= this._closeButton.width + 20;
 

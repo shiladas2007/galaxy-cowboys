@@ -4308,7 +4308,7 @@ var scenes;
         }
         CreditsScene.prototype.start = function () {
             var _this = this;
-            this._background = new ui.Background("background");
+            this._background = new ui.Background("credits");
             this._closeButton = new ui.Button("close", managers.Game.WIDTH, 20, 0.7);
             this._closeButton.x -= this._closeButton.width + 20;
             this._makeLabel("Team", CreditType.TITLE);
@@ -4692,6 +4692,7 @@ var scenes;
     assetManifest = [
         { id: "background", src: "./assets/images/background.png" },
         { id: "gameover", src: "./assets/images/gameover.png" },
+        { id: "credits", src: "./assets/images/backgroundCredits.png" },
         { id: "mapLevel1", src: "./assets/images/mapLevel1.png" },
         { id: "mapLevel2", src: "./assets/images/mapLevel2.png" },
         { id: "mapLevel3", src: "./assets/images/mapLevel3.png" },
