@@ -3984,14 +3984,16 @@ var scenes;
             this.addChildAt(this._background, managers.Game.INDEX_BACKGROUND);
             this.addChildAt(this._startButton2, managers.Game.INDEX_GAMEOBJECTS);
             this.addChildAt(this._startButton, managers.Game.INDEX_UI);
-            this.addChildAt(this._creditsButton, managers.Game.INDEX_GAMEOBJECTS);
+            if (this._creditsButton) {
+                this.addChildAt(this._creditsButton, managers.Game.INDEX_GAMEOBJECTS);
+                this._creditsButton.on("click", function () { managers.Game.currentScene = config.Scene.CREDITS; });
+                this._creditsButton.on("mouseover", function () { createjs.Sound.play("select").duration = 500; });
+            }
             this.addChildAt(this._finalScoreLabel, managers.Game.INDEX_UI);
             if (managers.Game.backgroundMusic != "menu")
                 managers.Game.backgroundMusic = "menu";
             this._startButton.on("click", function () { _this._startButtonClick(); });
             this._startButton.on("mouseover", function () { createjs.Sound.play("select").duration = 500; });
-            this._creditsButton.on("click", function () { managers.Game.currentScene = config.Scene.CREDITS; });
-            this._creditsButton.on("mouseover", function () { createjs.Sound.play("select").duration = 500; });
         };
         StartScene.prototype._startButtonClick = function () {
             var _this = this;
