@@ -30,7 +30,8 @@ module scenes {
             this.addChildAt(this._startButton, managers.Game.INDEX_UI);
             this.addChildAt(this._finalScoreLabel, managers.Game.INDEX_UI);
 
-            managers.Game.backgroundMusic = "menu";
+            if (managers.Game.backgroundMusic != "menu")
+                managers.Game.backgroundMusic = "menu";
             this._startButton.on("click", () => { this._startButtonClick() });
             this._startButton.on("mouseover", () => { createjs.Sound.play("select").duration = 500; });
         }

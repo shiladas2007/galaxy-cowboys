@@ -7,6 +7,7 @@ module config {
         BOSS,
         GAMEOVER,
         SELECT,
-        END
+        END,
+        CREDITS
     }
 }

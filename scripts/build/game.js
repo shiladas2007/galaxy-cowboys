@@ -141,6 +141,7 @@ var config;
         Scene[Scene["GAMEOVER"] = 5] = "GAMEOVER";
         Scene[Scene["SELECT"] = 6] = "SELECT";
         Scene[Scene["END"] = 7] = "END";
+        Scene[Scene["CREDITS"] = 8] = "CREDITS";
     })(Scene = config.Scene || (config.Scene = {}));
 })(config || (config = {}));
 var config;
@@ -3981,7 +3982,8 @@ var scenes;
             this.addChildAt(this._startButton2, managers.Game.INDEX_GAMEOBJECTS);
             this.addChildAt(this._startButton, managers.Game.INDEX_UI);
             this.addChildAt(this._finalScoreLabel, managers.Game.INDEX_UI);
-            managers.Game.backgroundMusic = "menu";
+            if (managers.Game.backgroundMusic != "menu")
+                managers.Game.backgroundMusic = "menu";
             this._startButton.on("click", function () { _this._startButtonClick(); });
             this._startButton.on("mouseover", function () { createjs.Sound.play("select").duration = 500; });
         };
@@ -4273,6 +4275,96 @@ var scenes;
         return PlayScene;
     }(objects.Scene));
     scenes.PlayScene = PlayScene;
+})(scenes || (scenes = {}));
+var scenes;
+(function (scenes) {
+    var CreditType;
+    (function (CreditType) {
+        CreditType[CreditType["TITLE"] = 0] = "TITLE";
+        CreditType[CreditType["ROLE"] = 1] = "ROLE";
+        CreditType[CreditType["NAME"] = 2] = "NAME";
+    })(CreditType || (CreditType = {}));
+    var CreditsScene = /** @class */ (function (_super) {
+        __extends(CreditsScene, _super);
+        function CreditsScene() {
+            var _this = _super.call(this) || this;
+            _this._credits = {
+                "Team": [
+                    ["Software Engineer", "Angelica Catalan"],
+                    ["Producer & QA Tester", "Shila Rani Das"],
+                    ["Game Designer", "Peiran Liu"],
+                    ["Artist & Sound Engineer", "Liwen Qiao"],
+                ],
+                "Music & SFX": [
+                    ['"Happy Lullaby (song17)"', "cynicmusic"],
+                    ['"Happy Adventure"', "TinyWorlds"],
+                    ["SFX", "bart and ViRiX (David McKee)"]
+                ]
+            };
+            _this._labels = [];
+            _this._currentY = 80;
+            _this.start();
+            return _this;
+        }
+        CreditsScene.prototype.start = function () {
+            var _this = this;
+            this._background = new ui.Background("background");
+            this._closeButton = new ui.Button("close", managers.Game.WIDTH, 20, 0.7);
+            this._closeButton.x -= this._closeButton.width + 20;
+            this._makeLabel("Team", CreditType.TITLE);
+            this._credits.Team.forEach(function (credit) {
+                _this._makeLabel(credit[0], CreditType.ROLE);
+                _this._makeLabel(credit[1], CreditType.NAME);
+            });
+            this._makeLabel("Music & SFX", CreditType.TITLE);
+            this._credits["Music & SFX"].forEach(function (credit) {
+                _this._makeLabel(credit[0], CreditType.ROLE);
+                _this._makeLabel(credit[1], CreditType.NAME);
+            });
+            var footer = new ui.Label("Sound assets from OpenGameArt.org", "9pt", managers.Style.FONT_FAMILY_PRIMARY, managers.Style.FONT_COLOUR_SECONDARY);
+            ui.centreHorizontal(footer);
+            footer.y = managers.Game.HEIGHT - footer.height - 20;
+            this._labels.push(footer);
+            this.main();
+        };
+        CreditsScene.prototype.main = function () {
+            var _this = this;
+            this.addChildAt(this._background, managers.Game.INDEX_BACKGROUND);
+            this._labels.forEach(function (label) {
+                _this.addChildAt(label, managers.Game.INDEX_GAMEOBJECTS);
+            });
+            this.addChildAt(this._closeButton, managers.Game.INDEX_UI);
+            this._closeButton.on("click", function () { managers.Game.currentScene = config.Scene.START; });
+            this._closeButton.on("mouseover", function () { createjs.Sound.play("select").duration = 500; });
+        };
+        CreditsScene.prototype._makeLabel = function (text, type) {
+            var lblNew = new ui.Label(text, "11pt", managers.Style.FONT_FAMILY_PRIMARY, managers.Style.FONT_COLOUR_PRIMARY, 0, this._currentY, true);
+            lblNew.shadow = new createjs.Shadow(managers.Style.SHADOW_COLOUR_COOL, 1, 2, 0);
+            switch (type) {
+                case CreditType.TITLE:
+                    ui.centreHorizontal(lblNew);
+                    this._currentY += 15;
+                    lblNew.font = "18pt " + managers.Style.FONT_FAMILY_PRIMARY;
+                    lblNew.y = this._currentY;
+                    this._currentY += lblNew.height + 20;
+                    break;
+                case CreditType.ROLE:
+                    ui.centreHorizontal(lblNew);
+                    lblNew.color = managers.Style.FONT_COLOUR_SECONDARY;
+                    lblNew.x -= 20;
+                    break;
+                case CreditType.NAME:
+                    lblNew.color = managers.Style.FONT_COLOUR_SECONDARY;
+                    lblNew.regX = 0;
+                    lblNew.x = 340;
+                    this._currentY += lblNew.height + 4;
+                    break;
+            }
+            this._labels.push(lblNew);
+        };
+        return CreditsScene;
+    }(objects.Scene));
+    scenes.CreditsScene = CreditsScene;
 })(scenes || (scenes = {}));
 var scenes;
 (function (scenes) {
@@ -4675,6 +4767,9 @@ var scenes;
                 break;
             case config.Scene.SELECT:
                 currentScene = new scenes.SelectScene();
+                break;
+            case config.Scene.CREDITS:
+                currentScene = new scenes.CreditsScene();
                 break;
         }
         currentState = managers.Game.currentScene;

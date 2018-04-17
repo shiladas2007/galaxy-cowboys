@@ -158,6 +158,9 @@
             case config.Scene.SELECT:
                 currentScene = new scenes.SelectScene();
                 break;
+            case config.Scene.CREDITS:
+                currentScene = new scenes.CreditsScene();
+                break;
         }
         currentState = managers.Game.currentScene;
         managers.Game.currentSceneObject = currentScene;
