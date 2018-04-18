@@ -2,7 +2,6 @@ module scenes {
     export class Level1 extends scenes.PlayScene {
         private _controlsIntroduck: ui.Image;
         private _hasPlayerMoved: boolean = false;
-        //private _scoreboard: managers.ScoreBoard;
 
         constructor() {
             super("mapLevel1");

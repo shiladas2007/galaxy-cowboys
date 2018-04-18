@@ -1,7 +1,7 @@
 module scenes {
     export class Level2 extends scenes.PlayScene {
-        private _tooltip:ui.Tooltip;
-       // private _scoreboard: managers.ScoreBoard;
+        private _tooltip: ui.Tooltip;
+
         constructor() {
             super("mapLevel2");
             managers.Game.currentPlayScene = config.Scene.LEVEL2;

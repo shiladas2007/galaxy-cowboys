@@ -4,7 +4,7 @@ module config {
         LEVEL1,
         LEVEL2,
         LEVEL3,
-        BOSS,
+        TUTORIAL1,
         GAMEOVER,
         SELECT,
         END,

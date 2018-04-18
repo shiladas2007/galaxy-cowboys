@@ -14,7 +14,9 @@ module scenes {
         protected _projectiles: objects.Projectile[] = [];
         protected _obstra:objects.Destructible[]=[]; //for handling multiple crate object
         protected _player: animate.Player;
-        protected _powerup:objects.Powerup;
+        protected _powerup: objects.Powerup;
+        protected _tutorial: scenes.TutorialScene;
+        protected _tutorialPages: scenes.TutorialPage[];
 
         public title: string = "";
 

@@ -137,7 +137,7 @@ var config;
         Scene[Scene["LEVEL1"] = 1] = "LEVEL1";
         Scene[Scene["LEVEL2"] = 2] = "LEVEL2";
         Scene[Scene["LEVEL3"] = 3] = "LEVEL3";
-        Scene[Scene["BOSS"] = 4] = "BOSS";
+        Scene[Scene["TUTORIAL1"] = 4] = "TUTORIAL1";
         Scene[Scene["GAMEOVER"] = 5] = "GAMEOVER";
         Scene[Scene["SELECT"] = 6] = "SELECT";
         Scene[Scene["END"] = 7] = "END";
@@ -3708,6 +3708,70 @@ var animate;
     }(animate.Animate));
     animate.Player = Player;
 })(animate || (animate = {}));
+var animate;
+(function (animate) {
+    var PlayerDummy = /** @class */ (function (_super) {
+        __extends(PlayerDummy, _super);
+        function PlayerDummy(character, px, py) {
+            var _this = _super.call(this, character, px, py) || this;
+            _this._destinations = [];
+            return _this;
+        }
+        PlayerDummy.prototype.update = function () {
+            if (this._destinations)
+                this.moveAuto();
+            this.checkBounds();
+        };
+        PlayerDummy.prototype.destroy = function () {
+            this.isDestroyed = true;
+            createjs.Sound.play("player_die");
+        };
+        PlayerDummy.prototype.addPath = function (destination) {
+            if (!this._destinations)
+                this._destination = destination;
+            this._destinations.push(destination);
+        };
+        PlayerDummy.prototype.moveAuto = function () {
+            var newPosition = this.getNextPosition();
+            this.x = newPosition.x;
+            this.y = newPosition.y;
+            var run = glm.vec2.run(this._origin, this._destination);
+            var rise = glm.vec2.rise(this._origin, this._destination);
+            var hasReachedX = false;
+            var hasReachedY = false;
+            if ((run <= 0 && this.x <= this._destination.x) ||
+                (run > 0 && this.x > this._destination.x)) {
+                hasReachedX = true;
+            }
+            if ((rise <= 0 && this.y <= this._destination.y) ||
+                (rise > 0 && this.y > this._destination.y)) {
+                hasReachedY = true;
+            }
+            if (hasReachedX && hasReachedY) {
+                this._destinations.splice(0, 1);
+                if (this._destinations.length > 0)
+                    this._destination = this._destinations[0];
+            }
+        };
+        PlayerDummy.prototype.stopAuto = function () {
+            this._destinations = [];
+        };
+        PlayerDummy.prototype.attackManual = function (targetX, targetY) {
+            var _this = this;
+            if (this._canFire) {
+                var projectileType = "bullet";
+                if (this.weapon.weaponType == config.Weapon.SHOTGUN) {
+                    projectileType = "bullet2";
+                }
+                var newProjectile = new objects.Projectile(projectileType, this, targetX, targetY);
+                this._canFire = false;
+                setTimeout(function () { _this._canFire = true; }, this._weapon.fireRate * 1000);
+            }
+        };
+        return PlayerDummy;
+    }(animate.Player));
+    animate.PlayerDummy = PlayerDummy;
+})(animate || (animate = {}));
 var managers;
 (function (managers) {
     var Collision = /** @class */ (function () {
@@ -4419,7 +4483,6 @@ var scenes;
 (function (scenes) {
     var Level1 = /** @class */ (function (_super) {
         __extends(Level1, _super);
-        //private _scoreboard: managers.ScoreBoard;
         function Level1() {
             var _this = _super.call(this, "mapLevel1") || this;
             _this._hasPlayerMoved = false;
@@ -4479,7 +4542,6 @@ var scenes;
 (function (scenes) {
     var Level2 = /** @class */ (function (_super) {
         __extends(Level2, _super);
-        // private _scoreboard: managers.ScoreBoard;
         function Level2() {
             var _this = _super.call(this, "mapLevel2") || this;
             managers.Game.currentPlayScene = config.Scene.LEVEL2;
@@ -4634,6 +4696,104 @@ var scenes;
         return SelectScene;
     }(objects.Scene));
     scenes.SelectScene = SelectScene;
+})(scenes || (scenes = {}));
+var scenes;
+(function (scenes) {
+    var TutorialPage = /** @class */ (function () {
+        // text: text to display in the tutorial page
+        // func: function to call in the tutorial page (e.g. function with animation to play)
+        function TutorialPage(text, func) {
+            this.text = text;
+            this.func = func;
+        }
+        return TutorialPage;
+    }());
+    scenes.TutorialPage = TutorialPage;
+    var TutorialScene = /** @class */ (function (_super) {
+        __extends(TutorialScene, _super);
+        function TutorialScene(map, pages, nextScene) {
+            var _this = _super.call(this) || this;
+            _this._pageIndex = 0;
+            _this._background = new ui.Background(map);
+            _this._pages = pages;
+            return _this;
+        }
+        Object.defineProperty(TutorialScene.prototype, "pages", {
+            get: function () {
+                return this._pages;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        TutorialScene.prototype.start = function () {
+            this._overlay = new createjs.Shape(new createjs.Graphics().beginFill(managers.Style.SHADOW_COLOUR_PRIMARY)
+                .drawRect(0, 0, managers.Game.WIDTH, managers.Game.HEIGHT));
+            this._closeButton = new ui.Button("close", managers.Game.WIDTH, 20, 0.7);
+            this._closeButton.x -= this._closeButton.width + 20;
+            this._lblPrompt = new ui.Label(this._pages[0].text, "16pt", managers.Style.FONT_FAMILY_PRIMARY, managers.Style.FONT_COLOUR_SECONDARY);
+            ui.centreHorizontal(this._lblPrompt);
+            this._lblPrompt.y = 400;
+            this._lblPrompt.shadow = new createjs.Shadow(managers.Style.SHADOW_COLOUR_PRIMARY, 1, 2, 0);
+            this.main();
+        };
+        TutorialScene.prototype.main = function () {
+            var _this = this;
+            this.addChildAt(this._background, managers.Game.INDEX_BACKGROUND);
+            this.addChild(this._overlay);
+            this.addChild(this._lblPrompt);
+            this._closeButton.on("click", function () { _this.finish(); });
+            this._closeButton.on("mouseover", function () { createjs.Sound.play("select").duration = 500; });
+            this.displayNext();
+        };
+        TutorialScene.prototype.displayNext = function () {
+            if (this._pageIndex >= this._pages.length)
+                return;
+            this._lblPrompt.text = this._pages[this._pageIndex].text;
+            this._pages[this._pageIndex].func();
+        };
+        TutorialScene.prototype.finish = function () {
+            managers.Game.currentScene = this._nextScene;
+        };
+        return TutorialScene;
+    }(objects.Scene));
+    scenes.TutorialScene = TutorialScene;
+})(scenes || (scenes = {}));
+var scenes;
+(function (scenes) {
+    var Tutorial1 = /** @class */ (function (_super) {
+        __extends(Tutorial1, _super);
+        function Tutorial1() {
+            var _this = _super.call(this) || this;
+            var pages = [
+                new scenes.TutorialPage("This is Gunslinger Sam. Use WASD or arrow keys to move.", _this.page1),
+                new scenes.TutorialPage("He's slow, but shoots quickly. Left-click to shoot the aliens!", _this.page2),
+            ];
+            _this._tutorial = new scenes.TutorialScene("mapLevel1", pages, config.Scene.LEVEL1);
+            _this.start();
+            return _this;
+        }
+        Tutorial1.prototype.start = function () {
+            this._player = new animate.PlayerDummy(config.Character.GUNSLINGER, 0, 340);
+            this._enemy = new animate.Enemy(config.Enemy.GUARD, 0, 200);
+            ui.centreHorizontal(this._player);
+            ui.centreHorizontal(this._enemy);
+        };
+        Tutorial1.prototype.main = function () {
+            this._tutorial.start();
+        };
+        Tutorial1.prototype.page1 = function () {
+            var _this = this;
+            this.addChild(this._player);
+            setTimeout(function () {
+                _this._player.addPath(new glm.vec2(_this._player.x + 100, _this._player.y));
+                _this._player.addPath(new glm.vec2(_this._player.x - 100, _this._player.y));
+            }, 1500);
+        };
+        Tutorial1.prototype.page2 = function () {
+        };
+        return Tutorial1;
+    }(objects.Scene));
+    scenes.Tutorial1 = Tutorial1;
 })(scenes || (scenes = {}));
 (function () {
     var canvas = document.getElementById("canvas");
@@ -4794,6 +4954,9 @@ var scenes;
                 break;
             case config.Scene.CREDITS:
                 currentScene = new scenes.CreditsScene();
+                break;
+            case config.Scene.TUTORIAL1:
+                currentScene = new scenes.Tutorial1();
                 break;
         }
         currentState = managers.Game.currentScene;

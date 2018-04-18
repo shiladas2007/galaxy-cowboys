@@ -1,6 +1,6 @@
 module animate {
     export class Player extends Animate {
-        private _canFire: boolean;
+        protected _canFire: boolean;
 
         constructor(character:config.Character, px:number, py:number) {
             let imageName: string = "cowboy1";

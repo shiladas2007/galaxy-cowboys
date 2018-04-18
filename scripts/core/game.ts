@@ -167,6 +167,9 @@
             case config.Scene.CREDITS:
                 currentScene = new scenes.CreditsScene();
                 break;
+            case config.Scene.TUTORIAL1:
+                currentScene = new scenes.Tutorial1();
+                break;
         }
         currentState = managers.Game.currentScene;
         managers.Game.currentSceneObject = currentScene;
