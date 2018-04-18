@@ -4250,8 +4250,10 @@ var scenes;
                     projectile.update();
                     managers.Collision.check(projectile, _this._player);
                     _this._obstra.forEach(function (obstra) {
-                        if (managers.Collision.check(obstra, projectile)) {
+                        if (managers.Collision.check(projectile, obstra)) {
                             _this.removeObject(projectile);
+                            if (obstra.isDestroyed)
+                                _this.removeObject(obstra);
                         }
                     });
                     _this._projectiles.forEach(function (p) {
@@ -4273,12 +4275,20 @@ var scenes;
         };
         PlayScene.prototype._updateObstra = function () {
             var _this = this;
+            var keepers = [];
             this._obstra.forEach(function (obstra) {
                 managers.Collision.check(obstra, _this._player);
                 _this._enemies.forEach(function (enemy) {
                     managers.Collision.check(obstra, enemy);
                 });
+                if (obstra.isDestroyed) {
+                    _this.removeObject(obstra);
+                }
+                else {
+                    keepers.push(obstra);
+                }
             });
+            this._obstra = keepers;
         };
         return PlayScene;
     }(objects.Scene));

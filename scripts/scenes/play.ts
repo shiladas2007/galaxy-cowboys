@@ -242,8 +242,10 @@ module scenes {
 
                     managers.Collision.check(projectile, this._player);
                     this._obstra.forEach(obstra => {
-                        if (managers.Collision.check(obstra, projectile)) {
+                        if (managers.Collision.check(projectile, obstra)) {
                             this.removeObject(projectile);
+                            if (obstra.isDestroyed)
+                                this.removeObject(obstra);
                         }
                     });
 
@@ -266,12 +268,20 @@ module scenes {
         }
 
         private _updateObstra() {
+            let keepers: objects.Destructible[] = [];
             this._obstra.forEach(obstra => {
                 managers.Collision.check(obstra, this._player);
                 this._enemies.forEach(enemy => {
                     managers.Collision.check(obstra, enemy);
                 })
+
+                if (obstra.isDestroyed) {
+                    this.removeObject(obstra);
+                } else {
+                    keepers.push(obstra);
+                }
             });
+            this._obstra = keepers;
         }
     }
 }
