@@ -27,7 +27,7 @@ module objects {
 
             if (!silent)
                 createjs.Sound.play("breaking");
-            let breaking = new objects.explosion(this.x, this.y, "breaking");                      
+            let breaking = new objects.explosion(this.x - this.halfWidth, this.y - this.halfHeight, "breaking");                      
             managers.Game.currentSceneObject.addChildAt(breaking, managers.Game.INDEX_GAMEOBJECTS);
         }
     }

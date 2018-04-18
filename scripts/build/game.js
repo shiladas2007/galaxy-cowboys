@@ -2327,7 +2327,7 @@ var objects;
             _super.prototype.destroy.call(this, silent);
             if (!silent)
                 createjs.Sound.play("breaking");
-            var breaking = new objects.explosion(this.x, this.y, "breaking");
+            var breaking = new objects.explosion(this.x - this.halfWidth, this.y - this.halfHeight, "breaking");
             managers.Game.currentSceneObject.addChildAt(breaking, managers.Game.INDEX_GAMEOBJECTS);
         };
         return Destructible;
