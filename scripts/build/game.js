@@ -4961,10 +4961,9 @@ var scenes;
         function Tutorial2() {
             var _this = this;
             var pages = [
-                new scenes.TutorialPage("This is Quicksilver John. He uses a shotgun.", function () { _this.page1(); }),
-                new scenes.TutorialPage("He has a limited range and fires more slowly, but his bullets cut through lasers.", function () { _this.page2(); }),
-                new scenes.TutorialPage("This alien is a Watcher - it shoots directly at you, not just straight down!", function () { _this.page3(); }),
-                new scenes.TutorialPage("Use John's speed to quickly take aliens out!", function () { _this.page4(); }),
+                new scenes.TutorialPage("This is Quicksilver John. He has a limited range and fires more slowly, but moves more quickly, and his bullets cut through lasers.", function () { _this.page1(); }),
+                new scenes.TutorialPage("This alien is a Watcher - it shoots directly at you, not just straight down!", function () { _this.page2(); }),
+                new scenes.TutorialPage("Use John's speed to quickly take it out!", function () { _this.page3(); }),
             ];
             _this = _super.call(this, "mapLevel2", pages, config.Scene.LEVEL2) || this;
             _this.start();
@@ -4974,12 +4973,10 @@ var scenes;
             _super.prototype.start.call(this);
             this._player = new animate.PlayerDummy(config.Character.QUICKSILVER, 0, 300);
             this._enemies = [
-                new animate.EnemyDummy(config.Enemy.GUARD, 0, 100),
                 new animate.EnemyDummy(config.Enemy.WATCHER, 0, 150)
             ];
             this._obstra.push(new objects.DestructibleDummy("crate", 1, 0, 230));
             this._resetPlayer();
-            ui.centreHorizontal(this._enemies[0]);
             ui.centreHorizontal(this._enemies[1]);
             ui.centreHorizontal(this._obstra[0]);
             this.main();
@@ -4993,13 +4990,12 @@ var scenes;
         };
         Tutorial2.prototype.page2 = function () {
             this._resetPlayer();
-            this.addToScene(this._enemies[0], managers.Game.INDEX_UI);
-            this._enemies[0].start();
-            this.addToScene(this._obstra[0], managers.Game.INDEX_UI);
+            this.addToScene(this._enemies[1]);
+            this._enemies[1].hp = 9999;
         };
         Tutorial2.prototype.page3 = function () {
+            this._enemies[1].start();
         };
-        Tutorial2.prototype.page4 = function () { };
         Tutorial2.prototype._resetPlayer = function () {
             ui.centreHorizontal(this._player);
             this._player.y = 300;
