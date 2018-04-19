@@ -7,7 +7,7 @@ module config {
         TUTORIAL1,
         GAMEOVER,
         SELECT,
-        END,
-        CREDITS
+        CREDITS,
+        WIN
     }
 }

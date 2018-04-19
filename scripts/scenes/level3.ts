@@ -38,8 +38,7 @@ module scenes {
             super.update();
 
             if (!this._enemies.length) {
-                //managers.Game.currentScene = config.Scene.BOSS;
-                //managers.Game.currentScene=config.Scene.GAMEOVER;
+                managers.Game.currentScene = config.Scene.WIN;
             }
 
             return managers.Game.currentScene;
