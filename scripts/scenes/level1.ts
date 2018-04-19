@@ -1,11 +1,8 @@
 module scenes {
     export class Level1 extends scenes.PlayScene {
-        private _controlsIntroduck: ui.Image;
-        private _hasPlayerMoved: boolean = false;
-
         constructor() {
             super("mapLevel1");
-            managers.Game.currentPlayScene = config.Scene.LEVEL1;
+            managers.Game.currentPlayScene = config.Scene.TUTORIAL1;
             this.title = "Level 1";
             this.start();
         }
@@ -27,32 +24,17 @@ module scenes {
 
             // Initialize
             let tooltipMessages: string[] = [
-                "This is Gunslinger Sam.\nUse WASD and arrow keys to move. Press SPACE for the next tip.",
-                "Left-click to shoot.\n\nUse your trusty revolver to shoot the aliens!"
+                "Gunslinger Sam moves slowly, but fires quickly. This makes it easier to block lasers with his bullets!",
             ]; 
             this._tooltips = [
                 new ui.Tooltip("tooltipBg", tooltipMessages)
             ];
-
-            this._controlsIntroduck = new ui.Image("controlsIntroduck",
-                this._player.x + this._player.halfWidth,
-                this._player.y);
-            this._controlsIntroduck.y -= this._controlsIntroduck.height + this._player.halfHeight;
             
             this.main();
         }
 
         public update():number {
             super.update();
-
-            // Make controls intro bubble disappear when player moves
-            if (!this._hasPlayerMoved) {
-                if (managers.Game.keyboardManager.moveForward || managers.Game.keyboardManager.moveBackward
-                    || managers.Game.keyboardManager.moveLeft || managers.Game.keyboardManager.moveRight) {
-                    this._hasPlayerMoved = true;
-                    this.removeChild(this._controlsIntroduck);
-                }
-            }
 
             if (!this._enemies.length) {
                 managers.Game.currentScene = config.Scene.LEVEL2;                
@@ -62,8 +44,7 @@ module scenes {
         }
 
         public main():void {
-            super.main();
-            this.addChildAt(this._controlsIntroduck, managers.Game.INDEX_UI);           
+            super.main();         
         }
     }
 }

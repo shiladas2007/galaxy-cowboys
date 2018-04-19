@@ -75,7 +75,7 @@ module objects {
         }
 
         public collide(other:objects.GameObject) {
-            if (other == this._shooter) {
+            if (other == this._shooter || !other.isVisible()) {
                 return;
             }
             

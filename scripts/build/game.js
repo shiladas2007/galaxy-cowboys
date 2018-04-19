@@ -2336,6 +2336,23 @@ var objects;
 })(objects || (objects = {}));
 var objects;
 (function (objects) {
+    var DestructibleDummy = /** @class */ (function (_super) {
+        __extends(DestructibleDummy, _super);
+        function DestructibleDummy(imageName, hp, px, py) {
+            var _this = _super.call(this, imageName, hp, px, py) || this;
+            _this.visible = false;
+            return _this;
+        }
+        DestructibleDummy.prototype.collide = function (other) {
+            if (this.isVisible())
+                _super.prototype.collide.call(this, other);
+        };
+        return DestructibleDummy;
+    }(objects.Destructible));
+    objects.DestructibleDummy = DestructibleDummy;
+})(objects || (objects = {}));
+var objects;
+(function (objects) {
     var explosion = /** @class */ (function (_super) {
         __extends(explosion, _super);
         // private instance variables
@@ -3306,7 +3323,7 @@ var objects;
             managers.Game.currentSceneObject.addProjectile(this);
         };
         Projectile.prototype.collide = function (other) {
-            if (other == this._shooter) {
+            if (other == this._shooter || !other.isVisible()) {
                 return;
             }
             if (((other instanceof animate.Enemy) && (this._shooter instanceof animate.Player)) ||
@@ -3508,7 +3525,6 @@ var animate;
                     break;
             }
             _this = _super.call(this, enemyImg, hp, mvspd, px, py, qx, qy) || this;
-            console.log("constructor of enemy");
             _this._enemyType = enemyType;
             _this.hp = hp;
             _this.mvspd = mvspd;
@@ -3614,6 +3630,31 @@ var animate;
 })(animate || (animate = {}));
 var animate;
 (function (animate) {
+    var EnemyDummy = /** @class */ (function (_super) {
+        __extends(EnemyDummy, _super);
+        function EnemyDummy(enemyType, px, py, qx, qy) {
+            if (qx === void 0) { qx = 0; }
+            if (qy === void 0) { qy = 0; }
+            var _this = _super.call(this, enemyType, px, py, qx, qy) || this;
+            _this.stop();
+            _this.visible = false;
+            return _this;
+        }
+        EnemyDummy.prototype.update = function () {
+            if (!this.isVisible())
+                this.stop();
+            this.move();
+            this.checkBounds();
+        };
+        EnemyDummy.prototype.collide = function (other) {
+            return;
+        };
+        return EnemyDummy;
+    }(animate.Enemy));
+    animate.EnemyDummy = EnemyDummy;
+})(animate || (animate = {}));
+var animate;
+(function (animate) {
     var Player = /** @class */ (function (_super) {
         __extends(Player, _super);
         function Player(character, px, py) {
@@ -3713,48 +3754,12 @@ var animate;
     var PlayerDummy = /** @class */ (function (_super) {
         __extends(PlayerDummy, _super);
         function PlayerDummy(character, px, py) {
-            var _this = _super.call(this, character, px, py) || this;
-            _this._destinations = [];
-            return _this;
+            return _super.call(this, character, px, py) || this;
         }
-        PlayerDummy.prototype.update = function () {
-            if (this._destinations)
-                this.moveAuto();
-            this.checkBounds();
-        };
         PlayerDummy.prototype.destroy = function () {
-            this.isDestroyed = true;
+            var _this = this;
             createjs.Sound.play("player_die");
-        };
-        PlayerDummy.prototype.addPath = function (destination) {
-            if (!this._destinations)
-                this._destination = destination;
-            this._destinations.push(destination);
-        };
-        PlayerDummy.prototype.moveAuto = function () {
-            var newPosition = this.getNextPosition();
-            this.x = newPosition.x;
-            this.y = newPosition.y;
-            var run = glm.vec2.run(this._origin, this._destination);
-            var rise = glm.vec2.rise(this._origin, this._destination);
-            var hasReachedX = false;
-            var hasReachedY = false;
-            if ((run <= 0 && this.x <= this._destination.x) ||
-                (run > 0 && this.x > this._destination.x)) {
-                hasReachedX = true;
-            }
-            if ((rise <= 0 && this.y <= this._destination.y) ||
-                (rise > 0 && this.y > this._destination.y)) {
-                hasReachedY = true;
-            }
-            if (hasReachedX && hasReachedY) {
-                this._destinations.splice(0, 1);
-                if (this._destinations.length > 0)
-                    this._destination = this._destinations[0];
-            }
-        };
-        PlayerDummy.prototype.stopAuto = function () {
-            this._destinations = [];
+            createjs.Tween.get(this).to({ alpha: 0.6 }, 200).on("complete", function () { _this.alpha = 1; });
         };
         PlayerDummy.prototype.attackManual = function (targetX, targetY) {
             var _this = this;
@@ -3778,7 +3783,7 @@ var managers;
         function Collision() {
         }
         Collision.check = function (object1, object2) {
-            if (object1 == null || object2 == null || object1 == object2)
+            if (object1 == null || object2 == null || object1 == object2 || !object1.isVisible() || !object2.isVisible())
                 return;
             var pointA = new glm.vec2(object1.x, object1.y);
             var pointB = new glm.vec2(object2.x, object2.y);
@@ -4069,7 +4074,7 @@ var scenes;
                 .on("complete", function () { _this._switchScene(); });
         };
         StartScene.prototype._switchScene = function () {
-            managers.Game.currentScene = config.Scene.LEVEL1;
+            managers.Game.currentScene = config.Scene.TUTORIAL1;
         };
         return StartScene;
     }(objects.Scene));
@@ -4485,8 +4490,7 @@ var scenes;
         __extends(Level1, _super);
         function Level1() {
             var _this = _super.call(this, "mapLevel1") || this;
-            _this._hasPlayerMoved = false;
-            managers.Game.currentPlayScene = config.Scene.LEVEL1;
+            managers.Game.currentPlayScene = config.Scene.TUTORIAL1;
             _this.title = "Level 1";
             _this.start();
             return _this;
@@ -4505,26 +4509,15 @@ var scenes;
             console.log("Player initialized.");
             // Initialize
             var tooltipMessages = [
-                "This is Gunslinger Sam.\nUse WASD and arrow keys to move. Press SPACE for the next tip.",
-                "Left-click to shoot.\n\nUse your trusty revolver to shoot the aliens!"
+                "Gunslinger Sam moves slowly, but fires quickly. This makes it easier to block lasers with his bullets!",
             ];
             this._tooltips = [
                 new ui.Tooltip("tooltipBg", tooltipMessages)
             ];
-            this._controlsIntroduck = new ui.Image("controlsIntroduck", this._player.x + this._player.halfWidth, this._player.y);
-            this._controlsIntroduck.y -= this._controlsIntroduck.height + this._player.halfHeight;
             this.main();
         };
         Level1.prototype.update = function () {
             _super.prototype.update.call(this);
-            // Make controls intro bubble disappear when player moves
-            if (!this._hasPlayerMoved) {
-                if (managers.Game.keyboardManager.moveForward || managers.Game.keyboardManager.moveBackward
-                    || managers.Game.keyboardManager.moveLeft || managers.Game.keyboardManager.moveRight) {
-                    this._hasPlayerMoved = true;
-                    this.removeChild(this._controlsIntroduck);
-                }
-            }
             if (!this._enemies.length) {
                 managers.Game.currentScene = config.Scene.LEVEL2;
             }
@@ -4532,7 +4525,6 @@ var scenes;
         };
         Level1.prototype.main = function () {
             _super.prototype.main.call(this);
-            this.addChildAt(this._controlsIntroduck, managers.Game.INDEX_UI);
         };
         return Level1;
     }(scenes.PlayScene));
@@ -4714,10 +4706,29 @@ var scenes;
         function TutorialScene(map, pages, nextScene) {
             var _this = _super.call(this) || this;
             _this._pageIndex = 0;
+            _this._enemies = [];
+            _this._projectiles = [];
+            _this._obstra = [];
+            _this._canFire = false;
             _this._background = new ui.Background(map);
             _this._pages = pages;
+            _this._nextScene = nextScene;
             return _this;
         }
+        Object.defineProperty(TutorialScene.prototype, "topBoundary", {
+            get: function () {
+                return 0;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(TutorialScene.prototype, "bottomBoundary", {
+            get: function () {
+                return 350;
+            },
+            enumerable: true,
+            configurable: true
+        });
         Object.defineProperty(TutorialScene.prototype, "pages", {
             get: function () {
                 return this._pages;
@@ -4730,29 +4741,144 @@ var scenes;
                 .drawRect(0, 0, managers.Game.WIDTH, managers.Game.HEIGHT));
             this._closeButton = new ui.Button("close", managers.Game.WIDTH, 20, 0.7);
             this._closeButton.x -= this._closeButton.width + 20;
+            this._nextButton = new ui.Button("next", managers.Game.WIDTH, managers.Game.HEIGHT, 0.7);
+            this._nextButton.x -= this._nextButton.width + 20;
+            this._nextButton.y -= this._nextButton.height + 20;
             this._lblPrompt = new ui.Label(this._pages[0].text, "16pt", managers.Style.FONT_FAMILY_PRIMARY, managers.Style.FONT_COLOUR_SECONDARY);
+            this._lblPrompt.lineWidth = managers.Game.WIDTH * 0.9;
             ui.centreHorizontal(this._lblPrompt);
-            this._lblPrompt.y = 400;
+            this._lblPrompt.y = 360;
             this._lblPrompt.shadow = new createjs.Shadow(managers.Style.SHADOW_COLOUR_PRIMARY, 1, 2, 0);
-            this.main();
         };
         TutorialScene.prototype.main = function () {
             var _this = this;
             this.addChildAt(this._background, managers.Game.INDEX_BACKGROUND);
-            this.addChild(this._overlay);
-            this.addChild(this._lblPrompt);
+            this.addChildAt(this._overlay, managers.Game.INDEX_GAMEOBJECTS);
+            this.addChildAt(this._lblPrompt, managers.Game.INDEX_UI);
+            this.addChildAt(this._closeButton, managers.Game.INDEX_UI);
+            this.addChildAt(this._nextButton, managers.Game.INDEX_UI);
             this._closeButton.on("click", function () { _this.finish(); });
             this._closeButton.on("mouseover", function () { createjs.Sound.play("select").duration = 500; });
+            this._nextButton.on("click", function () { _this.displayNext(); });
+            this._nextButton.on("mouseover", function () { createjs.Sound.play("select").duration = 500; });
+            this.on("click", this._onClick);
+            if (managers.Game.backgroundMusic != "bgm")
+                managers.Game.backgroundMusic = "bgm";
             this.displayNext();
         };
+        TutorialScene.prototype.update = function () {
+            this._player.update();
+            this._updateEnemies();
+            this._updateProjectiles();
+            this._updateObstra();
+            if (!this._player.isColliding) {
+                this._player.lastValidPosition.x = this._player.x;
+                this._player.lastValidPosition.y = this._player.y;
+            }
+            return managers.Game.currentScene;
+        };
         TutorialScene.prototype.displayNext = function () {
-            if (this._pageIndex >= this._pages.length)
-                return;
             this._lblPrompt.text = this._pages[this._pageIndex].text;
             this._pages[this._pageIndex].func();
+            this._pageIndex++;
+            if (this._pageIndex >= this._pages.length) {
+                this.removeChild(this._nextButton);
+            }
+        };
+        TutorialScene.prototype.addProjectile = function (projectile) {
+            this._projectiles.push(projectile);
+            this.addChildAt(projectile, managers.Game.INDEX_UI);
         };
         TutorialScene.prototype.finish = function () {
+            this.destroyAll();
             managers.Game.currentScene = this._nextScene;
+        };
+        TutorialScene.prototype.destroyAll = function () {
+            var _this = this;
+            this._projectiles.forEach(function (projectile) {
+                projectile.destroy();
+                _this.removeObject(projectile);
+            });
+            this._enemies.forEach(function (enemy) {
+                enemy.destroy(true);
+                _this.removeObject(enemy, true);
+            });
+            this._obstra.forEach(function (obstra) {
+                obstra.destroy(true);
+                _this.removeObject(obstra, true);
+            });
+        };
+        TutorialScene.prototype.addToScene = function (child, index) {
+            if (index === void 0) { index = 0; }
+            child.visible = true;
+            this.addChildAt(child, index);
+        };
+        TutorialScene.prototype._onClick = function () {
+            if (this._canFire)
+                this._player.attack();
+        };
+        TutorialScene.prototype._updateEnemies = function () {
+            var _this = this;
+            this._enemies.forEach(function (enemy) {
+                enemy.update();
+                if (managers.Collision.check(_this._player, enemy)) {
+                    _this._player.isColliding = true;
+                }
+                _this._projectiles.forEach(function (projectile) {
+                    if (projectile.shooter instanceof animate.Player) {
+                        if (managers.Collision.check(enemy, projectile)) {
+                            if (projectile.isDestroyed)
+                                _this.removeObject(projectile);
+                        }
+                    }
+                });
+                if (enemy.hp <= 0)
+                    enemy.visible = false;
+            });
+        };
+        TutorialScene.prototype._updateProjectiles = function () {
+            var _this = this;
+            if (this._projectiles.length) {
+                var keepers_2 = [];
+                this._projectiles.forEach(function (projectile) {
+                    projectile.update();
+                    managers.Collision.check(projectile, _this._player);
+                    _this._obstra.forEach(function (obstra) {
+                        if (managers.Collision.check(projectile, obstra)) {
+                            if (projectile.isDestroyed)
+                                _this.removeObject(projectile);
+                            if (obstra.isDestroyed)
+                                obstra.visible = false;
+                        }
+                    });
+                    _this._projectiles.forEach(function (p) {
+                        if (managers.Collision.check(p, projectile)) {
+                            if (p.isDestroyed) {
+                                _this.removeObject(p);
+                            }
+                        }
+                    });
+                    if (projectile.isDestroyed) {
+                        _this.removeObject(projectile);
+                    }
+                    else {
+                        keepers_2.push(projectile);
+                    }
+                });
+                this._projectiles = keepers_2;
+            }
+        };
+        TutorialScene.prototype._updateObstra = function () {
+            var _this = this;
+            this._obstra.forEach(function (obstra) {
+                managers.Collision.check(obstra, _this._player);
+                _this._enemies.forEach(function (enemy) {
+                    managers.Collision.check(obstra, enemy);
+                });
+                if (obstra.isDestroyed) {
+                    obstra.visible = false;
+                }
+            });
         };
         return TutorialScene;
     }(objects.Scene));
@@ -4763,36 +4889,69 @@ var scenes;
     var Tutorial1 = /** @class */ (function (_super) {
         __extends(Tutorial1, _super);
         function Tutorial1() {
-            var _this = _super.call(this) || this;
+            var _this = this;
             var pages = [
-                new scenes.TutorialPage("This is Gunslinger Sam. Use WASD or arrow keys to move.", _this.page1),
-                new scenes.TutorialPage("He's slow, but shoots quickly. Left-click to shoot the aliens!", _this.page2),
+                new scenes.TutorialPage("This is Gunslinger Sam. Use WASD or arrow keys to move.", function () { _this.page1(); }),
+                new scenes.TutorialPage("Watch out for lasers! You can hide behind crates.", function () { _this.page2(); }),
+                new scenes.TutorialPage("Left-click to shoot the alien, but be careful: your bullets break crates!", function () { _this.page3(); }),
+                new scenes.TutorialPage("Ready to play? Click the close button on the top right.", function () { _this.page4(); }),
             ];
-            _this._tutorial = new scenes.TutorialScene("mapLevel1", pages, config.Scene.LEVEL1);
+            _this = _super.call(this, "mapLevel1", pages, config.Scene.LEVEL1) || this;
+            _this._hasPlayerMoved = false;
             _this.start();
             return _this;
         }
         Tutorial1.prototype.start = function () {
-            this._player = new animate.PlayerDummy(config.Character.GUNSLINGER, 0, 340);
-            this._enemy = new animate.Enemy(config.Enemy.GUARD, 0, 200);
-            ui.centreHorizontal(this._player);
-            ui.centreHorizontal(this._enemy);
+            _super.prototype.start.call(this);
+            this._player = new animate.PlayerDummy(config.Character.GUNSLINGER, 0, 300);
+            this._enemies = [
+                new animate.EnemyDummy(config.Enemy.GUARD, 0, 100),
+                new animate.EnemyDummy(config.Enemy.GUARD, 0, 150)
+            ];
+            this._obstra.push(new objects.DestructibleDummy("crate", 1, 0, 230));
+            this._resetPlayer();
+            ui.centreHorizontal(this._enemies[0]);
+            ui.centreHorizontal(this._enemies[1]);
+            ui.centreHorizontal(this._obstra[0]);
+            this._controlsIntroduck = new ui.Image("controlsIntroduck", this._player.x + this._player.halfWidth, this._player.y);
+            this._controlsIntroduck.y -= this._controlsIntroduck.height + this._player.halfHeight;
+            this.main();
         };
         Tutorial1.prototype.main = function () {
-            this._tutorial.start();
+            _super.prototype.main.call(this);
+        };
+        Tutorial1.prototype.update = function () {
+            // Make controls intro bubble disappear when player moves
+            if (!this._hasPlayerMoved) {
+                if (managers.Game.keyboardManager.moveForward || managers.Game.keyboardManager.moveBackward
+                    || managers.Game.keyboardManager.moveLeft || managers.Game.keyboardManager.moveRight) {
+                    this._hasPlayerMoved = true;
+                    this.removeChild(this._controlsIntroduck);
+                }
+            }
+            _super.prototype.update.call(this);
+            return managers.Game.currentScene;
         };
         Tutorial1.prototype.page1 = function () {
-            var _this = this;
-            this.addChild(this._player);
-            setTimeout(function () {
-                _this._player.addPath(new glm.vec2(_this._player.x + 100, _this._player.y));
-                _this._player.addPath(new glm.vec2(_this._player.x - 100, _this._player.y));
-            }, 1500);
+            this.addToScene(this._player, managers.Game.INDEX_UI);
+            this.addToScene(this._controlsIntroduck, managers.Game.INDEX_UI);
         };
         Tutorial1.prototype.page2 = function () {
+            this._resetPlayer();
+            this.addToScene(this._enemies[0], managers.Game.INDEX_UI);
+            this._enemies[0].start();
+            this.addToScene(this._obstra[0], managers.Game.INDEX_UI);
+        };
+        Tutorial1.prototype.page3 = function () {
+            this._canFire = true;
+        };
+        Tutorial1.prototype.page4 = function () { };
+        Tutorial1.prototype._resetPlayer = function () {
+            ui.centreHorizontal(this._player);
+            this._player.y = 300;
         };
         return Tutorial1;
-    }(objects.Scene));
+    }(scenes.TutorialScene));
     scenes.Tutorial1 = Tutorial1;
 })(scenes || (scenes = {}));
 (function () {

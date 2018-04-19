@@ -29,7 +29,6 @@ module animate {
             }
 
             super(enemyImg, hp, mvspd, px, py, qx, qy);
-            console.log("constructor of enemy");
             this._enemyType = enemyType;
             this.hp=hp;
             this.mvspd=mvspd;

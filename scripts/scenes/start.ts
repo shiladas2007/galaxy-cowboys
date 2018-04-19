@@ -59,7 +59,7 @@ module scenes {
         }
 
         private _switchScene() {
-            managers.Game.currentScene = config.Scene.LEVEL1;
+            managers.Game.currentScene = config.Scene.TUTORIAL1;
         }
     }
 }
