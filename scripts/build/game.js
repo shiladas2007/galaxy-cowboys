@@ -3830,6 +3830,8 @@ var managers;
             managers.Game._currentMusic.stop();
         };
         Game.isPlaying = false;
+        Game.previousScore = 0;
+        Game.currentScore = 0;
         Game.WIDTH = 640;
         Game.HEIGHT = 480;
         Game.FPS = 60;
@@ -4184,6 +4186,7 @@ var scenes;
             this._rightAnchor = managers.Game.RIGHT_ANCHOR;
             this._scoreBoard = new managers.ScoreBoard();
             managers.Game.scoreBoard = this._scoreBoard;
+            managers.Game.scoreBoard.Score = managers.Game.previousScore;
             this._overlay = new createjs.Shape(new createjs.Graphics().beginFill(managers.Style.SHADOW_COLOUR_PRIMARY)
                 .drawRect(0, 0, managers.Game.WIDTH, managers.Game.HEIGHT));
             this._displayTitle();
@@ -4218,6 +4221,10 @@ var scenes;
             managers.Game.keyboardManager.paused = false;
             // Gradually fade out the overlay
             createjs.Tween.get(this._overlay).to({ alpha: 0 }, 1000);
+        };
+        PlayScene.prototype.switchScene = function (scene) {
+            managers.Game.previousScore = managers.Game.currentScore;
+            managers.Game.currentScene = scene;
         };
         PlayScene.prototype._displayTitle = function () {
             var _this = this;
@@ -4478,6 +4485,7 @@ var scenes;
             managers.Game.stopMusic();
         };
         GameOverScene.prototype._startButtonClick = function () {
+            managers.Game.currentScore = managers.Game.previousScore;
             managers.Game.currentScene = managers.Game.currentPlayScene;
         };
         return GameOverScene;
@@ -4519,7 +4527,7 @@ var scenes;
         Level1.prototype.update = function () {
             _super.prototype.update.call(this);
             if (!this._enemies.length) {
-                managers.Game.currentScene = config.Scene.LEVEL2;
+                this.switchScene(config.Scene.LEVEL2);
             }
             return managers.Game.currentScene;
         };
@@ -4543,7 +4551,6 @@ var scenes;
         }
         Level2.prototype.start = function () {
             _super.prototype.start.call(this);
-            managers.Game.scoreBoard.Score = managers.Game.currentScore;
             console.log("Initializing enemies...");
             this._enemies = [
                 new animate.Enemy(config.Enemy.GUARD, 180, 140),
@@ -4568,7 +4575,7 @@ var scenes;
         Level2.prototype.update = function () {
             _super.prototype.update.call(this);
             if (!this._enemies.length) {
-                managers.Game.currentScene = config.Scene.SELECT;
+                this.switchScene(config.Scene.SELECT);
             }
             return managers.Game.currentScene;
         };
@@ -4592,7 +4599,6 @@ var scenes;
         }
         Level3.prototype.start = function () {
             _super.prototype.start.call(this);
-            managers.Game.scoreBoard.Score = managers.Game.currentScore;
             console.log("Initializing enemies...");
             this._enemies = [
                 new animate.Enemy(config.Enemy.GUARD, 120, 140),
@@ -4614,7 +4620,7 @@ var scenes;
         Level3.prototype.update = function () {
             _super.prototype.update.call(this);
             if (!this._enemies.length) {
-                managers.Game.currentScene = config.Scene.WIN;
+                this.switchScene(config.Scene.WIN);
             }
             return managers.Game.currentScene;
         };

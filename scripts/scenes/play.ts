@@ -90,6 +90,7 @@ module scenes {
             this._rightAnchor = managers.Game.RIGHT_ANCHOR;
             this._scoreBoard = new managers.ScoreBoard();
             managers.Game.scoreBoard = this._scoreBoard;
+            managers.Game.scoreBoard.Score = managers.Game.previousScore;
 
             this._overlay = new createjs.Shape(
                 new createjs.Graphics().beginFill(managers.Style.SHADOW_COLOUR_PRIMARY)
@@ -131,6 +132,11 @@ module scenes {
             managers.Game.keyboardManager.paused = false;
             // Gradually fade out the overlay
             createjs.Tween.get(this._overlay).to({alpha: 0}, 1000);
+        }
+
+        public switchScene(scene:config.Scene) {
+            managers.Game.previousScore = managers.Game.currentScore;
+            managers.Game.currentScene = scene;
         }
 
         private _displayTitle() {

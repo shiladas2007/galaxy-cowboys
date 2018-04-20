@@ -13,7 +13,8 @@ module managers {
         public static textureAtlas: createjs.SpriteSheet;
         public static isPlaying: boolean = false;
         public static scoreBoard: managers.ScoreBoard;
-        public static currentScore: number;
+        public static previousScore: number = 0;
+        public static currentScore: number = 0;
         
         public static readonly WIDTH = 640;
         public static readonly HEIGHT = 480;

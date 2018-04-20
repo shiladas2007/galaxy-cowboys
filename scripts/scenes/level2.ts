@@ -11,7 +11,6 @@ module scenes {
 
         public start():void {
             super.start();           
-            managers.Game.scoreBoard.Score=managers.Game.currentScore; 
             console.log("Initializing enemies...");            
             this._enemies = [
                 new animate.Enemy(config.Enemy.GUARD,180,140),
@@ -41,7 +40,7 @@ module scenes {
             super.update();
 
             if (!this._enemies.length) {
-                managers.Game.currentScene = config.Scene.SELECT;
+                this.switchScene(config.Scene.SELECT);
             }
 
             return managers.Game.currentScene;

@@ -4,7 +4,7 @@
             super();
             this.start();
         }
-       
+
         public start():void {
             this._background = new ui.Background("gameover");
             this._startButton2 = new ui.Button("startButton2", managers.Game.WIDTH * 0.5, 320, 1, true);
@@ -25,6 +25,7 @@
         }
 
         protected _startButtonClick() {
+            managers.Game.currentScore = managers.Game.previousScore;
             managers.Game.currentScene = managers.Game.currentPlayScene;
         }
     }
