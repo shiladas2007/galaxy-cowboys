@@ -1,5 +1,5 @@
 module objects {
-    export class Powerup extends createjs.Bitmap {
+    export class Powerup extends objects.GameObject {
         private activationTime: number;  // milliseconds
         private duration: number;  // seconds - if negative, then infinite
         private activationFunction: () => void;  // function to invoke when activating powerup
@@ -16,14 +16,14 @@ module objects {
             
             if (random < 0.5) {
                 randomType = config.Powerup.SUPERSPEED;
-            } else{
+            } else {
                 randomType = config.Powerup.SUPERARMOUR;
             }
 
             return randomType;
         }
 
-        constructor(powerupType: config.Powerup) {
+        constructor(powerupType: config.Powerup, px:number, py:number) {
             let imageString: string;
             switch (powerupType) {
                 case config.Powerup.SUPERSPEED:
@@ -34,7 +34,7 @@ module objects {
                     break;
             }
             
-            super(managers.Game.assetManager.getResult(imageString));
+            super(imageString, px, py);
             this.powerupType = powerupType;
             this.scene = managers.Game.currentSceneObject;
             this.start();
@@ -79,6 +79,11 @@ module objects {
             // Activate powerup
             this.activationTime = new Date().getMilliseconds();
             this.activationFunction();
+        }
+
+        public timeLeft():number {
+            // In seconds
+            return this.duration - (Date.now() - this.activationTime) * 0.001;
         }
     }
 }

@@ -3181,7 +3181,7 @@ var objects;
 (function (objects) {
     var Powerup = /** @class */ (function (_super) {
         __extends(Powerup, _super);
-        function Powerup(powerupType, scene) {
+        function Powerup(powerupType, px, py) {
             var _this = this;
             var imageString;
             switch (powerupType) {
@@ -3192,28 +3192,24 @@ var objects;
                 case config.Powerup.WARSHIP:
                     break;
             }
-            _this = _super.call(this, managers.Game.assetManager.getResult(imageString)) || this;
+            _this = _super.call(this, imageString, px, py) || this;
             _this.powerupType = powerupType;
-            _this.scene = scene;
+            _this.scene = managers.Game.currentSceneObject;
             _this.start();
             return _this;
         }
         Powerup.getRandomType = function () {
-            /* ======== Powerup chances ==========
-                        Super speed chance = 47.5%
-                       Super armour chance = 47.5%
-               Warship fire support chance = 5%
+            /* ======== Powerup chances ========
+                        Super speed chance = 50%
+                       Super armour chance = 50%
             */
             var randomType;
             var random = Math.random();
-            if (random < 0.475) {
+            if (random < 0.5) {
                 randomType = config.Powerup.SUPERSPEED;
             }
-            else if (random < 0.95) {
-                randomType = config.Powerup.SUPERARMOUR;
-            }
             else {
-                randomType = config.Powerup.WARSHIP;
+                randomType = config.Powerup.SUPERARMOUR;
             }
             return randomType;
         };
@@ -3249,8 +3245,12 @@ var objects;
             this.activationTime = new Date().getMilliseconds();
             this.activationFunction();
         };
+        Powerup.prototype.timeLeft = function () {
+            // In seconds
+            return this.duration - (Date.now() - this.activationTime) * 0.001;
+        };
         return Powerup;
-    }(createjs.Bitmap));
+    }(objects.GameObject));
     objects.Powerup = Powerup;
 })(objects || (objects = {}));
 var objects;
@@ -5080,9 +5080,9 @@ var scenes;
             [182, 1, 50, 49, 0, 0, 0],
             [1, 53, 50, 50, 0, 0, 0],
             [53, 53, 50, 47, 0, 0, 0],
-            [105, 53, 50, 53, 0, 0, 0],
-            [157, 53, 50, 53, 0, 0, 0],
-            [209, 53, 20, 26, 0, 0, 0],
+            [105, 53, 49, 52, 0, 0, 0],
+            [156, 53, 50, 53, 0, 0, 0],
+            [208, 53, 20, 26, 0, 0, 0],
             [1, 108, 34, 33, 0, -1, -1],
             [37, 108, 114, 97, 0, -3, -1],
             [153, 108, 50, 50, 0, 0, 0],
@@ -5092,19 +5092,22 @@ var scenes;
             [58, 269, 45, 60, 0, 0, 0],
             [105, 269, 59, 58, 0, 0, 0],
             [166, 269, 28, 40, 0, 0, 0],
+            [196, 269, 28, 40, 0, 0, 0],
             [1, 331, 100, 30, 0, 0, 0],
             [103, 331, 35, 35, 0, 0, 0],
             [1, 368, 193, 55, 0, -4, 0],
             [1, 425, 85, 84, 0, -6, -7],
-            [88, 425, 31, 29, 0, 0, -2],
-            [121, 425, 31, 29, 0, 0, -2],
-            [154, 425, 31, 29, 0, 0, -2],
-            [187, 425, 31, 29, 0, 0, -2],
-            [220, 425, 29, 29, 0, -1, -2],
+            [88, 425, 65, 65, 0, 0, 0],
+            [155, 425, 36, 40, 0, 0, 0],
+            [193, 425, 31, 29, 0, 0, -2],
             [1, 511, 31, 29, 0, 0, -2],
-            [34, 511, 199, 60, 0, -1, 0],
-            [1, 573, 199, 60, 0, -1, 0],
-            [1, 635, 250, 133, 0, 0, 0]
+            [34, 511, 31, 29, 0, 0, -2],
+            [67, 511, 31, 29, 0, 0, -2],
+            [100, 511, 29, 29, 0, -1, -2],
+            [131, 511, 31, 29, 0, 0, -2],
+            [1, 542, 199, 60, 0, -1, 0],
+            [1, 604, 199, 60, 0, -1, 0],
+            [1, 666, 250, 133, 0, 0, 0]
         ],
         "animations": {
             "bullet": { "frames": [0] },
@@ -5120,14 +5123,17 @@ var scenes;
             "enemyPatroller": { "frames": [16] },
             "enemyWatcher": { "frames": [17] },
             "laser": { "frames": [18] },
-            "next": { "frames": [19] },
-            "pauseSmall": { "frames": [20] },
-            "playagain": { "frames": [21] },
-            "restart": { "frames": [22] },
-            "smallexplosion": { "frames": [23, 24, 25, 26, 27, 28] },
-            "startButton": { "frames": [29] },
-            "startButton2": { "frames": [30] },
-            "tooltipBg": { "frames": [31] }
+            "lightning": { "frames": [19] },
+            "next": { "frames": [20] },
+            "pauseSmall": { "frames": [21] },
+            "playagain": { "frames": [22] },
+            "restart": { "frames": [23] },
+            "shield": { "frames": [24] },
+            "shieldPowerup": { "frames": [25] },
+            "smallexplosion": { "frames": [26, 27, 28, 29, 30, 31] },
+            "startButton": { "frames": [32] },
+            "startButton2": { "frames": [33] },
+            "tooltipBg": { "frames": [34] }
         }
     };
     assetManifest = [
