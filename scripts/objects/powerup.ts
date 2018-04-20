@@ -3,7 +3,7 @@ module objects {
         private activationTime: number;  // milliseconds
         private duration: number;  // seconds - if negative, then infinite
         private activationFunction: () => void;  // function to invoke when activating powerup
-        private scene: scenes.PlayScene;
+        private scene: objects.Scene;
         public powerupType: config.Powerup;
 
         public static getRandomType():config.Powerup {
@@ -23,7 +23,7 @@ module objects {
             return randomType;
         }
 
-        constructor(powerupType: config.Powerup, scene: scenes.PlayScene) {
+        constructor(powerupType: config.Powerup) {
             let imageString: string;
             switch (powerupType) {
                 case config.Powerup.SUPERSPEED:
@@ -36,7 +36,7 @@ module objects {
             
             super(managers.Game.assetManager.getResult(imageString));
             this.powerupType = powerupType;
-            this.scene = scene;
+            this.scene = managers.Game.currentSceneObject;
             this.start();
         }
 
