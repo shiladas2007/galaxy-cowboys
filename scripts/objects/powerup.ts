@@ -47,7 +47,7 @@ module objects {
             if (!this.scene.player.powerups.speed) {
                 this.scene.player.mvspd *= 1.5;
             }
-            
+            createjs.Sound.play("superspeed");
             this.scene.player.powerups.speed = this;
         }
 
@@ -55,7 +55,7 @@ module objects {
             if (!this.scene.player.powerups.armour) {
                 this.scene.addShield(new objects.Shield(this.scene.player));
             }
-            
+            createjs.Sound.play("superarmour");
             this.scene.player.powerups.armour = this;
         }
 
@@ -89,11 +89,6 @@ module objects {
 
         public destroy() {
             super.destroy();
-            if (this.powerupType == config.Powerup.SUPERSPEED) {
-                createjs.Sound.play("superspeed");
-            } else if (this.powerupType == config.Powerup.SUPERARMOUR) {
-                createjs.Sound.play("superarmour");
-            }
         }
 
         public activate() {

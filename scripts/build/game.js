@@ -3230,12 +3230,14 @@ var objects;
             if (!this.scene.player.powerups.speed) {
                 this.scene.player.mvspd *= 1.5;
             }
+            createjs.Sound.play("superspeed");
             this.scene.player.powerups.speed = this;
         };
         Powerup.prototype.activateSuperArmour = function () {
             if (!this.scene.player.powerups.armour) {
                 this.scene.addShield(new objects.Shield(this.scene.player));
             }
+            createjs.Sound.play("superarmour");
             this.scene.player.powerups.armour = this;
         };
         Powerup.prototype.activateWarship = function () {
@@ -3264,12 +3266,6 @@ var objects;
         };
         Powerup.prototype.destroy = function () {
             _super.prototype.destroy.call(this);
-            if (this.powerupType == config.Powerup.SUPERSPEED) {
-                createjs.Sound.play("superspeed");
-            }
-            else if (this.powerupType == config.Powerup.SUPERARMOUR) {
-                createjs.Sound.play("superarmour");
-            }
         };
         Powerup.prototype.activate = function () {
             // Activate powerup
