@@ -5,6 +5,8 @@ module config {
         LEVEL2,
         LEVEL3,
         TUTORIAL1,
+        TUTORIAL2,
+        TUTORIAL3,
         GAMEOVER,
         SELECT,
         CREDITS,

@@ -37,7 +37,7 @@ module scenes {
             super.update();
 
             if (!this._enemies.length) {
-                this.switchScene(config.Scene.LEVEL2);               
+                this.switchScene(config.Scene.TUTORIAL2);               
             }
 
             return managers.Game.currentScene;

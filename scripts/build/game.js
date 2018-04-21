@@ -138,10 +138,12 @@ var config;
         Scene[Scene["LEVEL2"] = 2] = "LEVEL2";
         Scene[Scene["LEVEL3"] = 3] = "LEVEL3";
         Scene[Scene["TUTORIAL1"] = 4] = "TUTORIAL1";
-        Scene[Scene["GAMEOVER"] = 5] = "GAMEOVER";
-        Scene[Scene["SELECT"] = 6] = "SELECT";
-        Scene[Scene["CREDITS"] = 7] = "CREDITS";
-        Scene[Scene["WIN"] = 8] = "WIN";
+        Scene[Scene["TUTORIAL2"] = 5] = "TUTORIAL2";
+        Scene[Scene["TUTORIAL3"] = 6] = "TUTORIAL3";
+        Scene[Scene["GAMEOVER"] = 7] = "GAMEOVER";
+        Scene[Scene["SELECT"] = 8] = "SELECT";
+        Scene[Scene["CREDITS"] = 9] = "CREDITS";
+        Scene[Scene["WIN"] = 10] = "WIN";
     })(Scene = config.Scene || (config.Scene = {}));
 })(config || (config = {}));
 var config;
@@ -3254,8 +3256,6 @@ var objects;
                     break;
             }
         };
-        Powerup.prototype.update = function () {
-        };
         Powerup.prototype.collide = function (other) {
             if (other instanceof animate.Player) {
                 this.activate();
@@ -3270,7 +3270,6 @@ var objects;
             else if (this.powerupType == config.Powerup.SUPERARMOUR) {
                 createjs.Sound.play("superarmour");
             }
-            createjs.Tween.get(this).to({ alpha: 0, y: this.y + 10 }, 500, createjs.Ease.getPowOut(2));
         };
         Powerup.prototype.activate = function () {
             // Activate powerup
@@ -3284,6 +3283,23 @@ var objects;
         return Powerup;
     }(objects.GameObject));
     objects.Powerup = Powerup;
+})(objects || (objects = {}));
+var objects;
+(function (objects) {
+    var PowerupDummy = /** @class */ (function (_super) {
+        __extends(PowerupDummy, _super);
+        function PowerupDummy(powerupType, px, py) {
+            var _this = _super.call(this, powerupType, px, py) || this;
+            _this.visible = false;
+            return _this;
+        }
+        PowerupDummy.prototype.collide = function (other) {
+            if (this.isVisible())
+                _super.prototype.collide.call(this, other);
+        };
+        return PowerupDummy;
+    }(objects.Powerup));
+    objects.PowerupDummy = PowerupDummy;
 })(objects || (objects = {}));
 var objects;
 (function (objects) {
@@ -3821,8 +3837,8 @@ var animate;
 (function (animate) {
     var PlayerDummy = /** @class */ (function (_super) {
         __extends(PlayerDummy, _super);
-        function PlayerDummy(character, px, py) {
-            return _super.call(this, character, px, py) || this;
+        function PlayerDummy() {
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         PlayerDummy.prototype.destroy = function () {
             var _this = this;
@@ -4642,7 +4658,7 @@ var scenes;
         Level1.prototype.update = function () {
             _super.prototype.update.call(this);
             if (!this._enemies.length) {
-                this.switchScene(config.Scene.LEVEL2);
+                this.switchScene(config.Scene.TUTORIAL2);
             }
             return managers.Game.currentScene;
         };
@@ -4659,7 +4675,7 @@ var scenes;
         __extends(Level2, _super);
         function Level2() {
             var _this = _super.call(this, "mapLevel2") || this;
-            managers.Game.currentPlayScene = config.Scene.LEVEL2;
+            managers.Game.currentPlayScene = config.Scene.TUTORIAL2;
             _this.title = "Level 2";
             _this.start();
             return _this;
@@ -4832,6 +4848,8 @@ var scenes;
             _this._enemies = [];
             _this._projectiles = [];
             _this._obstra = [];
+            _this._powerups = [];
+            _this._shields = [];
             _this._canFire = false;
             _this._background = new ui.Background(map);
             _this._pages = pages;
@@ -4848,6 +4866,27 @@ var scenes;
         Object.defineProperty(TutorialScene.prototype, "bottomBoundary", {
             get: function () {
                 return 350;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(TutorialScene.prototype, "enemies", {
+            get: function () {
+                return this._enemies;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(TutorialScene.prototype, "player", {
+            get: function () {
+                return this._player;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(TutorialScene.prototype, "projectiles", {
+            get: function () {
+                return this._projectiles;
             },
             enumerable: true,
             configurable: true
@@ -4890,10 +4929,13 @@ var scenes;
             this.displayNext();
         };
         TutorialScene.prototype.update = function () {
+            this._player.isColliding = false;
             this._player.update();
             this._updateEnemies();
             this._updateProjectiles();
             this._updateObstra();
+            this._updatePowerups();
+            this._updateShields();
             if (!this._player.isColliding) {
                 this._player.lastValidPosition.x = this._player.x;
                 this._player.lastValidPosition.y = this._player.y;
@@ -4910,7 +4952,15 @@ var scenes;
         };
         TutorialScene.prototype.addProjectile = function (projectile) {
             this._projectiles.push(projectile);
-            this.addChildAt(projectile, managers.Game.INDEX_UI);
+            this.addToScene(projectile, managers.Game.INDEX_UI);
+        };
+        TutorialScene.prototype.addPowerup = function (powerup) {
+            this._powerups.push(powerup);
+            this.addToScene(powerup, managers.Game.INDEX_UI);
+        };
+        TutorialScene.prototype.addShield = function (shield) {
+            this._shields.push(shield);
+            this.addToScene(shield, managers.Game.INDEX_UI);
         };
         TutorialScene.prototype.finish = function () {
             this.destroyAll();
@@ -5003,6 +5053,36 @@ var scenes;
                 }
             });
         };
+        TutorialScene.prototype._updatePowerups = function () {
+            var _this = this;
+            var keepers = [];
+            this._powerups.forEach(function (powerup) {
+                managers.Collision.check(powerup, _this._player);
+                if (powerup.isDestroyed) {
+                    createjs.Tween.get(powerup)
+                        .to({ alpha: 0, y: powerup.y - 10 }, 500, createjs.Ease.getPowOut(2))
+                        .on("complete", function () { _this.removeObject(powerup); });
+                }
+                else {
+                    keepers.push(powerup);
+                }
+            });
+            this._powerups = keepers;
+        };
+        TutorialScene.prototype._updateShields = function () {
+            var _this = this;
+            var keepers = [];
+            this._shields.forEach(function (shield) {
+                shield.update();
+                if (shield.isDestroyed) {
+                    _this.removeObject(shield);
+                }
+                else {
+                    keepers.push(shield);
+                }
+            });
+            this._shields = keepers;
+        };
         return TutorialScene;
     }(objects.Scene));
     scenes.TutorialScene = TutorialScene;
@@ -5084,9 +5164,11 @@ var scenes;
         function Tutorial2() {
             var _this = this;
             var pages = [
-                new scenes.TutorialPage("This is Quicksilver John. He has a limited range and fires more slowly, but moves more quickly, and his bullets cut through lasers.", function () { _this.page1(); }),
-                new scenes.TutorialPage("This alien is a Watcher - it shoots directly at you, not just straight down!", function () { _this.page2(); }),
-                new scenes.TutorialPage("Use John's speed to quickly take it out!", function () { _this.page3(); }),
+                new scenes.TutorialPage("Powerups spawn randomly from crates. This is super speed. It makes you faster.", function () { _this.page1(); }),
+                new scenes.TutorialPage("This is super armour. It gives you a shield that can block one laser.", function () { _this.page2(); }),
+                new scenes.TutorialPage("This is Quicksilver John. His range and fire rate is lower, but he's quicker, and his bullets cut through lasers.", function () { _this.page3(); }),
+                new scenes.TutorialPage("This alien is a Watcher - it shoots directly at you, not just straight down!", function () { _this.page4(); }),
+                new scenes.TutorialPage("Use John's speed to quickly take it out!", function () { _this.page5(); }),
             ];
             _this = _super.call(this, "mapLevel2", pages, config.Scene.LEVEL2) || this;
             _this.start();
@@ -5098,26 +5180,41 @@ var scenes;
             this._enemies = [
                 new animate.EnemyDummy(config.Enemy.WATCHER, 0, 150)
             ];
-            this._obstra.push(new objects.DestructibleDummy("crate", 1, 0, 230));
+            this._powerups = [
+                new objects.PowerupDummy(config.Powerup.SUPERSPEED, 270, 240),
+                new objects.PowerupDummy(config.Powerup.SUPERARMOUR, 370, 240)
+            ];
             this._resetPlayer();
-            ui.centreHorizontal(this._enemies[1]);
-            ui.centreHorizontal(this._obstra[0]);
+            ui.centreHorizontal(this._enemies[0]);
             this.main();
         };
         Tutorial2.prototype.main = function () {
             _super.prototype.main.call(this);
         };
         Tutorial2.prototype.page1 = function () {
+            var p = this._powerups[0];
+            p.alpha = 0;
+            this.addToScene(p, managers.Game.INDEX_UI);
+            createjs.Tween.get(p).to({ alpha: 1 }, 1000);
+        };
+        Tutorial2.prototype.page2 = function () {
+            var p = this._powerups[1];
+            p.alpha = 0;
+            this.addToScene(p, managers.Game.INDEX_UI);
+            createjs.Tween.get(p).to({ alpha: 1 }, 1000);
+        };
+        Tutorial2.prototype.page3 = function () {
             this.addToScene(this._player, managers.Game.INDEX_UI);
             this._canFire = true;
         };
-        Tutorial2.prototype.page2 = function () {
+        Tutorial2.prototype.page4 = function () {
             this._resetPlayer();
-            this.addToScene(this._enemies[1]);
-            this._enemies[1].hp = 9999;
+            this.addToScene(this._enemies[0], managers.Game.INDEX_UI);
+            this._enemies[0].hp = 9999;
         };
-        Tutorial2.prototype.page3 = function () {
-            this._enemies[1].start();
+        Tutorial2.prototype.page5 = function () {
+            this._enemies[0].hp = 1;
+            this._enemies[0].start();
         };
         Tutorial2.prototype._resetPlayer = function () {
             ui.centreHorizontal(this._player);
@@ -5327,7 +5424,6 @@ var scenes;
                 break;
             case config.Scene.LEVEL3:
                 managers.Game.currentScore = managers.Game.scoreBoard.Score;
-                console.log("s 3 " + managers.Game.currentScore);
                 currentScene = new scenes.Level3();
                 break;
             case config.Scene.GAMEOVER:
@@ -5345,6 +5441,9 @@ var scenes;
                 break;
             case config.Scene.TUTORIAL1:
                 currentScene = new scenes.Tutorial1();
+                break;
+            case config.Scene.TUTORIAL2:
+                currentScene = new scenes.Tutorial2();
                 break;
         }
         currentState = managers.Game.currentScene;

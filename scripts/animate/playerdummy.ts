@@ -1,9 +1,5 @@
 module animate {
     export class PlayerDummy extends animate.Player {
-        constructor(character:config.Character, px:number, py:number) {
-            super(character, px, py);
-        }
-
         public destroy() {
             createjs.Sound.play("player_die");
             createjs.Tween.get(this).to({alpha: 0.6}, 200).on("complete", () => { this.alpha = 1; });

@@ -161,8 +161,7 @@
                 currentScene = new scenes.Level2();
                 break;
             case config.Scene.LEVEL3:
-                managers.Game.currentScore=managers.Game.scoreBoard.Score; 
-                console.log("s 3 "+managers.Game.currentScore);
+                managers.Game.currentScore=managers.Game.scoreBoard.Score;
                 currentScene = new scenes.Level3();
                 break;
             case config.Scene.GAMEOVER:            
@@ -180,6 +179,9 @@
                 break;
             case config.Scene.TUTORIAL1:
                 currentScene = new scenes.Tutorial1();
+                break;
+            case config.Scene.TUTORIAL2:
+                currentScene = new scenes.Tutorial2();
                 break;
         }
         currentState = managers.Game.currentScene;

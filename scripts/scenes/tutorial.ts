@@ -18,6 +18,8 @@ module scenes {
         protected _enemies: animate.EnemyDummy[] = [];
         protected _projectiles: objects.Projectile[] = [];
         protected _obstra:objects.DestructibleDummy[] = [];
+        protected _powerups: objects.PowerupDummy[] = [];
+        protected _shields: objects.Shield[] = [];
         protected _player: animate.PlayerDummy;
         protected _canFire: boolean = false;
 
@@ -26,6 +28,16 @@ module scenes {
         }
         get bottomBoundary(): number {
             return 350;
+        }
+
+        get enemies(): animate.Enemy[] {
+            return this._enemies;
+        }
+        get player(): animate.Player {
+            return this._player;
+        }
+        get projectiles(): objects.Projectile[] {
+            return this._projectiles;
         }
 
         get pages(): TutorialPage[] {
@@ -80,10 +92,13 @@ module scenes {
         }
 
         public update():number {
+            this._player.isColliding = false;
             this._player.update();
             this._updateEnemies();
             this._updateProjectiles();
             this._updateObstra();
+            this._updatePowerups();
+            this._updateShields();
 
             if (!this._player.isColliding) {
                 this._player.lastValidPosition.x = this._player.x;
@@ -105,7 +120,17 @@ module scenes {
 
         public addProjectile(projectile:objects.Projectile) {
             this._projectiles.push(projectile);
-            this.addChildAt(projectile, managers.Game.INDEX_UI);
+            this.addToScene(projectile, managers.Game.INDEX_UI);
+        }
+
+        public addPowerup(powerup:objects.Powerup) {
+            this._powerups.push(powerup);
+            this.addToScene(powerup, managers.Game.INDEX_UI);
+        }
+
+        public addShield(shield:objects.Shield) {
+            this._shields.push(shield);
+            this.addToScene(shield, managers.Game.INDEX_UI);
         }
 
         public finish() {
@@ -204,6 +229,34 @@ module scenes {
                     obstra.visible = false;
                 }
             });
+        }
+
+        private _updatePowerups() {
+            let keepers: objects.PowerupDummy[] = [];
+            this._powerups.forEach(powerup => {
+                managers.Collision.check(powerup, this._player);
+                if (powerup.isDestroyed) {
+                    createjs.Tween.get(powerup)
+                        .to({alpha: 0, y: powerup.y - 10}, 500, createjs.Ease.getPowOut(2))
+                        .on("complete", () => { this.removeObject(powerup); });
+                } else {
+                    keepers.push(powerup);
+                }
+            });
+            this._powerups = keepers;
+        }
+
+        private _updateShields() {
+            let keepers: objects.Shield[] = [];
+            this._shields.forEach(shield => {
+                shield.update();
+                if (shield.isDestroyed) {
+                    this.removeObject(shield);
+                } else {
+                    keepers.push(shield);
+                }
+            });
+            this._shields = keepers;
         }
     }
 }

@@ -80,10 +80,6 @@ module objects {
             }
         }
 
-        public update():void {
-
-        }
-
         public collide(other:objects.GameObject) {
             if (other instanceof animate.Player) {
                 this.activate();
@@ -98,7 +94,6 @@ module objects {
             } else if (this.powerupType == config.Powerup.SUPERARMOUR) {
                 createjs.Sound.play("superarmour");
             }
-            createjs.Tween.get(this).to({alpha: 0, y: this.y + 10}, 500, createjs.Ease.getPowOut(2));
         }
 
         public activate() {
