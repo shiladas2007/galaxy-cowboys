@@ -3462,6 +3462,19 @@ var objects;
 })(objects || (objects = {}));
 var objects;
 (function (objects) {
+    var Shield = /** @class */ (function (_super) {
+        __extends(Shield, _super);
+        function Shield(px, py) {
+            return _super.call(this, "shield", px, py) || this;
+        }
+        Shield.prototype.collide = function (other) {
+        };
+        return Shield;
+    }(objects.GameObject));
+    objects.Shield = Shield;
+})(objects || (objects = {}));
+var objects;
+(function (objects) {
     var Weapon = /** @class */ (function () {
         function Weapon(weaponType) {
             this.weaponType = weaponType;
