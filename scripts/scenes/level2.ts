@@ -11,19 +11,21 @@ module scenes {
 
         public start():void {
             super.start();           
-            console.log("Initializing enemies...");            
+
             this._enemies = [
-                new animate.Enemy(config.Enemy.GUARD,180,140),
+                new animate.Enemy(config.Enemy.GUARD,100,140),
                 new animate.Enemy(config.Enemy.GUARD,320,240),
                 new animate.Enemy(config.Enemy.GUARD,500,100),
                 new animate.Enemy(config.Enemy.GUARD,237,-200),
                 new animate.Enemy(config.Enemy.WATCHER,400,-270),
             ];
-            console.log("Enemies initialized.");
+            this._obstra=[
+                new objects.Destructible("crate",1,100,300),
+                new objects.Destructible("crate",1,260,220),
+                new objects.Destructible("crate",1,560,90)
+            ];
 
-            console.log("Initializing player...");
             this._player = new animate.Player(config.Character.QUICKSILVER, 100, 420);
-            console.log("Player initialized.");
 
             let tooltipMessages: string[] = [
                 "This is Quicksilver John. He's quicker than Sam and uses his shotgun to shoot.",

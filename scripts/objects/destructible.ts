@@ -25,10 +25,20 @@ module objects {
         public destroy(silent:boolean=false) {
             super.destroy(silent);
 
-            if (!silent)
+            if (!silent) {
                 createjs.Sound.play("breaking");
+                this.spawnPowerup();
+            }
+                
             let breaking = new objects.explosion(this.x - this.halfWidth, this.y - this.halfHeight, "breaking");                      
             managers.Game.currentSceneObject.addChildAt(breaking, managers.Game.INDEX_GAMEOBJECTS);
+        }
+
+        public spawnPowerup() {
+            let random: number = Math.random();
+            if (random < 0.2) {
+                new objects.Powerup(objects.Powerup.getRandomType(), this.x, this.y);
+            }
         }
     }
 }

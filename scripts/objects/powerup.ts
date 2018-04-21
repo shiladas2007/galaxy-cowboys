@@ -27,8 +27,10 @@ module objects {
             let imageString: string;
             switch (powerupType) {
                 case config.Powerup.SUPERSPEED:
+                    imageString = "lightning";
                     break;
                 case config.Powerup.SUPERARMOUR:
+                    imageString = "shieldPowerup";
                     break;
                 case config.Powerup.WARSHIP:
                     break;
@@ -37,15 +39,24 @@ module objects {
             super(imageString, px, py);
             this.powerupType = powerupType;
             this.scene = managers.Game.currentSceneObject;
+            this.scene.addPowerup(this);
             this.start();
         }
 
         private activateSuperSpeed() {
-            this.scene.player.mvspd *= 2;
+            if (!this.scene.player.powerups.speed) {
+                this.scene.player.mvspd *= 1.5;
+            }
+            
+            this.scene.player.powerups.speed = this;
         }
 
         private activateSuperArmour() {
-            this.scene.player.hp += 1;
+            if (!this.scene.player.powerups.armour) {
+                this.scene.player.hp += 1;
+            }
+            
+            this.scene.player.powerups.armour = this;
         }
 
         private activateWarship() {
@@ -67,12 +78,26 @@ module objects {
                     this.duration = -1;
                     break;
             }
-
-            this.activate();
         }
 
         public update():void {
 
+        }
+
+        public collide(other:objects.GameObject) {
+            if (other instanceof animate.Player) {
+                this.activate();
+                this.destroy();
+            }
+        }
+
+        public destroy() {
+            super.destroy();
+            if (this.powerupType == config.Powerup.SUPERSPEED) {
+                createjs.Sound.play("superspeed");
+            } else if (this.powerupType == config.Powerup.SUPERARMOUR) {
+                createjs.Sound.play("superarmour");
+            }
         }
 
         public activate() {

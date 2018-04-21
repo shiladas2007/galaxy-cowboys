@@ -1,6 +1,7 @@
 module animate {
     export class Player extends Animate {
         protected _canFire: boolean;
+        public powerups; // {config.Powerup: objects.Powerup}
 
         constructor(character:config.Character, px:number, py:number) {
             let imageName: string = "cowboy1";
@@ -22,6 +23,10 @@ module animate {
             super(imageName, hp, mvspd, px, py);
             this._canFire = true;
             this._weapon = new objects.Weapon(weapon);
+            this.powerups = {
+                 "speed": null,
+                 "armour": null
+            };
         }
 
         public checkBounds():void {

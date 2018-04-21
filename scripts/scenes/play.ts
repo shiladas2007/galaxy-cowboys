@@ -12,9 +12,9 @@ module scenes {
         protected _tooltips: ui.Tooltip[] = [];
         protected _enemies: animate.Enemy[];
         protected _projectiles: objects.Projectile[] = [];
-        protected _obstra:objects.Destructible[]=[]; //for handling multiple crate object
+        protected _obstra:objects.Destructible[] = [];
+        protected _powerups: objects.Powerup[] = [];
         protected _player: animate.Player;
-        protected _powerup: objects.Powerup;
         protected _tutorial: scenes.TutorialScene;
         protected _tutorialPages: scenes.TutorialPage[];
 
@@ -74,6 +74,7 @@ module scenes {
             this._updateEnemies();
             this._updateProjectiles();
             this._updateObstra();
+            this._updatePowerups();
 
             if (!this._player.isColliding) {
                 this._player.lastValidPosition.x = this._player.x;
@@ -121,6 +122,11 @@ module scenes {
         public addProjectile(projectile:objects.Projectile) {
             this._projectiles.push(projectile);
             this.addChildAt(projectile, managers.Game.INDEX_GAMEOBJECTS);
+        }
+
+        public addPowerup(powerup:objects.Powerup) {
+            this._powerups.push(powerup);
+            this.addChildAt(powerup, managers.Game.INDEX_GAMEOBJECTS);
         }
 
         public pause() {
@@ -290,6 +296,19 @@ module scenes {
                 }
             });
             this._obstra = keepers;
+        }
+
+        private _updatePowerups() {
+            let keepers: objects.Powerup[] = []
+            this._powerups.forEach(powerup => {
+                managers.Collision.check(powerup, this._player);
+                if (powerup.isDestroyed) {
+                    this.removeObject(powerup);
+                } else {
+                    keepers.push(powerup);
+                }
+            });
+            this._powerups = keepers;
         }
     }
 }

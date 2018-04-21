@@ -2325,10 +2325,18 @@ var objects;
         Destructible.prototype.destroy = function (silent) {
             if (silent === void 0) { silent = false; }
             _super.prototype.destroy.call(this, silent);
-            if (!silent)
+            if (!silent) {
                 createjs.Sound.play("breaking");
+                this.spawnPowerup();
+            }
             var breaking = new objects.explosion(this.x - this.halfWidth, this.y - this.halfHeight, "breaking");
             managers.Game.currentSceneObject.addChildAt(breaking, managers.Game.INDEX_GAMEOBJECTS);
+        };
+        Destructible.prototype.spawnPowerup = function () {
+            var random = Math.random();
+            if (random < 0.2) {
+                new objects.Powerup(objects.Powerup.getRandomType(), this.x, this.y);
+            }
         };
         return Destructible;
     }(objects.Obstacle));
@@ -3186,8 +3194,10 @@ var objects;
             var imageString;
             switch (powerupType) {
                 case config.Powerup.SUPERSPEED:
+                    imageString = "lightning";
                     break;
                 case config.Powerup.SUPERARMOUR:
+                    imageString = "shieldPowerup";
                     break;
                 case config.Powerup.WARSHIP:
                     break;
@@ -3195,6 +3205,7 @@ var objects;
             _this = _super.call(this, imageString, px, py) || this;
             _this.powerupType = powerupType;
             _this.scene = managers.Game.currentSceneObject;
+            _this.scene.addPowerup(_this);
             _this.start();
             return _this;
         }
@@ -3214,10 +3225,16 @@ var objects;
             return randomType;
         };
         Powerup.prototype.activateSuperSpeed = function () {
-            this.scene.player.mvspd *= 2;
+            if (!this.scene.player.powerups.speed) {
+                this.scene.player.mvspd *= 1.5;
+            }
+            this.scene.player.powerups.speed = this;
         };
         Powerup.prototype.activateSuperArmour = function () {
-            this.scene.player.hp += 1;
+            if (!this.scene.player.powerups.armour) {
+                this.scene.player.hp += 1;
+            }
+            this.scene.player.powerups.armour = this;
         };
         Powerup.prototype.activateWarship = function () {
         };
@@ -3236,9 +3253,23 @@ var objects;
                     this.duration = -1;
                     break;
             }
-            this.activate();
         };
         Powerup.prototype.update = function () {
+        };
+        Powerup.prototype.collide = function (other) {
+            if (other instanceof animate.Player) {
+                this.activate();
+                this.destroy();
+            }
+        };
+        Powerup.prototype.destroy = function () {
+            _super.prototype.destroy.call(this);
+            if (this.powerupType == config.Powerup.SUPERSPEED) {
+                createjs.Sound.play("superspeed");
+            }
+            else if (this.powerupType == config.Powerup.SUPERARMOUR) {
+                createjs.Sound.play("superarmour");
+            }
         };
         Powerup.prototype.activate = function () {
             // Activate powerup
@@ -3416,9 +3447,11 @@ var objects;
         };
         Scene.prototype.main = function () { };
         Scene.prototype.addProjectile = function (projectile) { };
+        Scene.prototype.addPowerup = function (powerup) { };
         Scene.prototype.removeObject = function (o, silent) {
             if (silent === void 0) { silent = false; }
-            o.destroy(silent);
+            if (!o.isDestroyed)
+                o.destroy(silent);
             this.removeChild(o);
             o = null;
         };
@@ -3677,6 +3710,10 @@ var animate;
             _this = _super.call(this, imageName, hp, mvspd, px, py) || this;
             _this._canFire = true;
             _this._weapon = new objects.Weapon(weapon);
+            _this.powerups = {
+                "speed": null,
+                "armour": null
+            };
             return _this;
         }
         Player.prototype.checkBounds = function () {
@@ -4092,7 +4129,8 @@ var scenes;
             _this._dy = 5;
             _this._tooltips = [];
             _this._projectiles = [];
-            _this._obstra = []; //for handling multiple crate object
+            _this._obstra = [];
+            _this._powerups = [];
             _this.title = "";
             _this._map = new objects.Map(mapString);
             managers.Game.isPlaying = true;
@@ -4173,6 +4211,7 @@ var scenes;
             this._updateEnemies();
             this._updateProjectiles();
             this._updateObstra();
+            this._updatePowerups();
             if (!this._player.isColliding) {
                 this._player.lastValidPosition.x = this._player.x;
                 this._player.lastValidPosition.y = this._player.y;
@@ -4212,6 +4251,10 @@ var scenes;
         PlayScene.prototype.addProjectile = function (projectile) {
             this._projectiles.push(projectile);
             this.addChildAt(projectile, managers.Game.INDEX_GAMEOBJECTS);
+        };
+        PlayScene.prototype.addPowerup = function (powerup) {
+            this._powerups.push(powerup);
+            this.addChildAt(powerup, managers.Game.INDEX_GAMEOBJECTS);
         };
         PlayScene.prototype.pause = function () {
             managers.Game.keyboardManager.paused = true;
@@ -4365,6 +4408,20 @@ var scenes;
                 }
             });
             this._obstra = keepers;
+        };
+        PlayScene.prototype._updatePowerups = function () {
+            var _this = this;
+            var keepers = [];
+            this._powerups.forEach(function (powerup) {
+                managers.Collision.check(powerup, _this._player);
+                if (powerup.isDestroyed) {
+                    _this.removeObject(powerup);
+                }
+                else {
+                    keepers.push(powerup);
+                }
+            });
+            this._powerups = keepers;
         };
         return PlayScene;
     }(objects.Scene));
@@ -4551,18 +4608,19 @@ var scenes;
         }
         Level2.prototype.start = function () {
             _super.prototype.start.call(this);
-            console.log("Initializing enemies...");
             this._enemies = [
-                new animate.Enemy(config.Enemy.GUARD, 180, 140),
+                new animate.Enemy(config.Enemy.GUARD, 100, 140),
                 new animate.Enemy(config.Enemy.GUARD, 320, 240),
                 new animate.Enemy(config.Enemy.GUARD, 500, 100),
                 new animate.Enemy(config.Enemy.GUARD, 237, -200),
                 new animate.Enemy(config.Enemy.WATCHER, 400, -270),
             ];
-            console.log("Enemies initialized.");
-            console.log("Initializing player...");
+            this._obstra = [
+                new objects.Destructible("crate", 1, 100, 300),
+                new objects.Destructible("crate", 1, 260, 220),
+                new objects.Destructible("crate", 1, 560, 90)
+            ];
             this._player = new animate.Player(config.Character.QUICKSILVER, 100, 420);
-            console.log("Player initialized.");
             var tooltipMessages = [
                 "This is Quicksilver John. He's quicker than Sam and uses his shotgun to shoot.",
                 "His shotgun fires slower than Sam's revolver and has a shorter range, but really packs a punch!"
@@ -5153,7 +5211,9 @@ var scenes;
         { id: "menu", src: "./assets/audio/menu.mp3" },
         { id: "bgm", src: "./assets/audio/bgm.mp3" },
         { id: "select", src: "./assets/audio/select.wav" },
-        { id: "accept", src: "./assets/audio/accept.mp3" }
+        { id: "accept", src: "./assets/audio/accept.mp3" },
+        { id: "superspeed", src: "./assets/audio/superspeed.mp3" },
+        { id: "superarmour", src: "./assets/audio/superarmour.mp3" }
     ];
     function init() {
         console.log("Initializing...");

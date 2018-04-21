@@ -44,8 +44,11 @@ module objects {
 
         public addProjectile(projectile:objects.Projectile) {}
 
+        public addPowerup(powerup:objects.Powerup) {}
+
         public removeObject(o:objects.GameObject, silent:boolean=false) {
-            o.destroy(silent);
+            if (!o.isDestroyed)
+                o.destroy(silent);
             this.removeChild(o);
             o = null;
         }

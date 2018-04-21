@@ -103,7 +103,9 @@
         {id: "menu", src:"./assets/audio/menu.mp3"},
         {id: "bgm", src:"./assets/audio/bgm.mp3"},
         {id: "select", src:"./assets/audio/select.wav"},
-        {id: "accept", src:"./assets/audio/accept.mp3"}
+        {id: "accept", src:"./assets/audio/accept.mp3"},
+        {id: "superspeed", src:"./assets/audio/superspeed.mp3"},
+        {id: "superarmour", src:"./assets/audio/superarmour.mp3"}
     ];
 
     function init():void {
