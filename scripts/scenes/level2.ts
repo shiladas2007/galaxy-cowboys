@@ -13,16 +13,18 @@ module scenes {
             super.start();           
 
             this._enemies = [
-                new animate.Enemy(config.Enemy.GUARD,100,140),
+                new animate.Enemy(config.Enemy.GUARD,160,110),
                 new animate.Enemy(config.Enemy.GUARD,320,240),
                 new animate.Enemy(config.Enemy.GUARD,500,100),
                 new animate.Enemy(config.Enemy.GUARD,237,-200),
                 new animate.Enemy(config.Enemy.WATCHER,400,-270),
+                new animate.Enemy(config.Enemy.GUARD,470,-270),
             ];
             this._obstra=[
-                new objects.Destructible("crate",1,100,300),
-                new objects.Destructible("crate",1,260,220),
-                new objects.Destructible("crate",1,560,90)
+                new objects.Destructible("crate",1,60,80),
+                new objects.Destructible("crate",1,580,240),
+                new objects.Destructible("crate",1,580,300),
+                new objects.Destructible("crate",1,237,20),
             ];
 
             this._player = new animate.Player(config.Character.QUICKSILVER, 100, 420);
