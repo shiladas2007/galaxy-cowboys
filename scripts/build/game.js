@@ -3270,6 +3270,7 @@ var objects;
             else if (this.powerupType == config.Powerup.SUPERARMOUR) {
                 createjs.Sound.play("superarmour");
             }
+            createjs.Tween.get(this).to({ alpha: 0, y: this.y + 10 }, 500, createjs.Ease.getPowOut(2));
         };
         Powerup.prototype.activate = function () {
             // Activate powerup
@@ -4456,7 +4457,9 @@ var scenes;
             this._powerups.forEach(function (powerup) {
                 managers.Collision.check(powerup, _this._player);
                 if (powerup.isDestroyed) {
-                    _this.removeObject(powerup);
+                    createjs.Tween.get(powerup)
+                        .to({ alpha: 0, y: powerup.y - 10 }, 500, createjs.Ease.getPowOut(2))
+                        .on("complete", function () { _this.removeObject(powerup); });
                 }
                 else {
                     keepers.push(powerup);

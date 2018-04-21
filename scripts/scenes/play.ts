@@ -316,7 +316,9 @@ module scenes {
             this._powerups.forEach(powerup => {
                 managers.Collision.check(powerup, this._player);
                 if (powerup.isDestroyed) {
-                    this.removeObject(powerup);
+                    createjs.Tween.get(powerup)
+                        .to({alpha: 0, y: powerup.y - 10}, 500, createjs.Ease.getPowOut(2))
+                        .on("complete", () => { this.removeObject(powerup); });
                 } else {
                     keepers.push(powerup);
                 }
