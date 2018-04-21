@@ -46,6 +46,8 @@ module objects {
 
         public addPowerup(powerup:objects.Powerup) {}
 
+        public addShield(shield:objects.Shield) {}
+
         public removeObject(o:objects.GameObject, silent:boolean=false) {
             if (!o.isDestroyed)
                 o.destroy(silent);

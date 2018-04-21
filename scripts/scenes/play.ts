@@ -14,6 +14,7 @@ module scenes {
         protected _projectiles: objects.Projectile[] = [];
         protected _obstra:objects.Destructible[] = [];
         protected _powerups: objects.Powerup[] = [];
+        protected _shields: objects.Shield[] = [];
         protected _player: animate.Player;
         protected _tutorial: scenes.TutorialScene;
         protected _tutorialPages: scenes.TutorialPage[];
@@ -75,6 +76,7 @@ module scenes {
             this._updateProjectiles();
             this._updateObstra();
             this._updatePowerups();
+            this._updateShields();
 
             if (!this._player.isColliding) {
                 this._player.lastValidPosition.x = this._player.x;
@@ -127,6 +129,11 @@ module scenes {
         public addPowerup(powerup:objects.Powerup) {
             this._powerups.push(powerup);
             this.addChildAt(powerup, managers.Game.INDEX_GAMEOBJECTS);
+        }
+
+        public addShield(shield:objects.Shield) {
+            this._shields.push(shield);
+            this.addChildAt(shield, managers.Game.INDEX_GAMEOBJECTS);
         }
 
         public pause() {
@@ -263,6 +270,12 @@ module scenes {
                         }
                     });
 
+                    this._shields.forEach(shield => {
+                        managers.Collision.check(projectile, shield);
+                        if (shield.isDestroyed)
+                            this.removeObject(shield);
+                    });
+
                     this._projectiles.forEach(p => {
                         if (managers.Collision.check(p, projectile)) {
                             if (p.isDestroyed) {
@@ -299,7 +312,7 @@ module scenes {
         }
 
         private _updatePowerups() {
-            let keepers: objects.Powerup[] = []
+            let keepers: objects.Powerup[] = [];
             this._powerups.forEach(powerup => {
                 managers.Collision.check(powerup, this._player);
                 if (powerup.isDestroyed) {
@@ -309,6 +322,19 @@ module scenes {
                 }
             });
             this._powerups = keepers;
+        }
+
+        private _updateShields() {
+            let keepers: objects.Shield[] = [];
+            this._shields.forEach(shield => {
+                shield.update();
+                if (shield.isDestroyed) {
+                    this.removeObject(shield);
+                } else {
+                    keepers.push(shield);
+                }
+            });
+            this._shields = keepers;
         }
     }
 }

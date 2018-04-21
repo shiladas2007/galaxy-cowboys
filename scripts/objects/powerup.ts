@@ -53,7 +53,7 @@ module objects {
 
         private activateSuperArmour() {
             if (!this.scene.player.powerups.armour) {
-                this.scene.player.hp += 1;
+                this.scene.addShield(new objects.Shield(this.scene.player));
             }
             
             this.scene.player.powerups.armour = this;

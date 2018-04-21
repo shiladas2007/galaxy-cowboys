@@ -3232,7 +3232,7 @@ var objects;
         };
         Powerup.prototype.activateSuperArmour = function () {
             if (!this.scene.player.powerups.armour) {
-                this.scene.player.hp += 1;
+                this.scene.addShield(new objects.Shield(this.scene.player));
             }
             this.scene.player.powerups.armour = this;
         };
@@ -3448,6 +3448,7 @@ var objects;
         Scene.prototype.main = function () { };
         Scene.prototype.addProjectile = function (projectile) { };
         Scene.prototype.addPowerup = function (powerup) { };
+        Scene.prototype.addShield = function (shield) { };
         Scene.prototype.removeObject = function (o, silent) {
             if (silent === void 0) { silent = false; }
             if (!o.isDestroyed)
@@ -3464,10 +3465,26 @@ var objects;
 (function (objects) {
     var Shield = /** @class */ (function (_super) {
         __extends(Shield, _super);
-        function Shield(px, py) {
-            return _super.call(this, "shield", px, py) || this;
+        function Shield(anchor) {
+            var _this = _super.call(this, "shield", anchor.x, anchor.y) || this;
+            _this._anchor = anchor;
+            _this._anchor.hp += 1;
+            return _this;
         }
+        Shield.prototype.update = function () {
+            this.x = this._anchor.x;
+            if (this._anchor.weapon.weaponType == config.Weapon.SHOTGUN)
+                this.x += 5;
+            this.y = this._anchor.y;
+        };
         Shield.prototype.collide = function (other) {
+            if (other instanceof objects.Projectile && other.shooter != this._anchor) {
+                this.destroy();
+            }
+        };
+        Shield.prototype.destroy = function () {
+            _super.prototype.destroy.call(this);
+            this._anchor.hp -= 1;
         };
         return Shield;
     }(objects.GameObject));
@@ -4144,6 +4161,7 @@ var scenes;
             _this._projectiles = [];
             _this._obstra = [];
             _this._powerups = [];
+            _this._shields = [];
             _this.title = "";
             _this._map = new objects.Map(mapString);
             managers.Game.isPlaying = true;
@@ -4225,6 +4243,7 @@ var scenes;
             this._updateProjectiles();
             this._updateObstra();
             this._updatePowerups();
+            this._updateShields();
             if (!this._player.isColliding) {
                 this._player.lastValidPosition.x = this._player.x;
                 this._player.lastValidPosition.y = this._player.y;
@@ -4268,6 +4287,10 @@ var scenes;
         PlayScene.prototype.addPowerup = function (powerup) {
             this._powerups.push(powerup);
             this.addChildAt(powerup, managers.Game.INDEX_GAMEOBJECTS);
+        };
+        PlayScene.prototype.addShield = function (shield) {
+            this._shields.push(shield);
+            this.addChildAt(shield, managers.Game.INDEX_GAMEOBJECTS);
         };
         PlayScene.prototype.pause = function () {
             managers.Game.keyboardManager.paused = true;
@@ -4388,6 +4411,11 @@ var scenes;
                                 _this.removeObject(obstra);
                         }
                     });
+                    _this._shields.forEach(function (shield) {
+                        managers.Collision.check(projectile, shield);
+                        if (shield.isDestroyed)
+                            _this.removeObject(shield);
+                    });
                     _this._projectiles.forEach(function (p) {
                         if (managers.Collision.check(p, projectile)) {
                             if (p.isDestroyed) {
@@ -4435,6 +4463,20 @@ var scenes;
                 }
             });
             this._powerups = keepers;
+        };
+        PlayScene.prototype._updateShields = function () {
+            var _this = this;
+            var keepers = [];
+            this._shields.forEach(function (shield) {
+                shield.update();
+                if (shield.isDestroyed) {
+                    _this.removeObject(shield);
+                }
+                else {
+                    keepers.push(shield);
+                }
+            });
+            this._shields = keepers;
         };
         return PlayScene;
     }(objects.Scene));
