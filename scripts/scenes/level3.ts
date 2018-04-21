@@ -18,6 +18,7 @@ module scenes {
                 new animate.Enemy(config.Enemy.PATROLLER,100,100,300,100),
                 new animate.Enemy(config.Enemy.WATCHER,240,-350),
                 new animate.Enemy(config.Enemy.GUARD,470,-270),
+                new animate.Enemy(config.Enemy.GUARD,580,-270),
                 new animate.Enemy(config.Enemy.PATROLLER,500,-300,300,500)
             ];
            
@@ -30,6 +31,11 @@ module scenes {
             this._obstra=[
                 new  objects.Destructible("crate",1,310,140),
                 new  objects.Destructible("crate",1,260,220),
+                new  objects.Destructible("crate",1,100,320),
+                new  objects.Destructible("crate",1,150,320),
+                new  objects.Destructible("crate",1,250,400),
+                new  objects.Destructible("crate",1,250,-220),
+                new  objects.Destructible("crate",1,190,-220),
                 new  objects.Destructible("crate",1,560,90)
             ];
             this.main();
