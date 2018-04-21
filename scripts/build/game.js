@@ -3371,7 +3371,7 @@ var objects;
             managers.Game.currentSceneObject.addProjectile(this);
         };
         Projectile.prototype.collide = function (other) {
-            if (other == this._shooter || !other.isVisible()) {
+            if (other == this._shooter || !other.isVisible() || (other instanceof objects.Shield && other.anchor == this._shooter)) {
                 return;
             }
             if (((other instanceof animate.Enemy) && (this._shooter instanceof animate.Player)) ||
@@ -3488,6 +3488,13 @@ var objects;
             _this._anchor.hp += 1;
             return _this;
         }
+        Object.defineProperty(Shield.prototype, "anchor", {
+            get: function () {
+                return this._anchor;
+            },
+            enumerable: true,
+            configurable: true
+        });
         Shield.prototype.update = function () {
             this.x = this._anchor.x;
             if (this._anchor.weapon.weaponType == config.Weapon.SHOTGUN)
@@ -4737,7 +4744,9 @@ var scenes;
                 new animate.Enemy(config.Enemy.GUARD, 120, 140),
                 new animate.Enemy(config.Enemy.WATCHER, 500, 340),
                 new animate.Enemy(config.Enemy.PATROLLER, 100, 100, 300, 100),
-                new animate.Enemy(config.Enemy.WATCHER, 240, -350)
+                new animate.Enemy(config.Enemy.WATCHER, 240, -350),
+                new animate.Enemy(config.Enemy.GUARD, 470, -270),
+                new animate.Enemy(config.Enemy.PATROLLER, 500, -300, 300, 500)
             ];
             console.log("Enemies initialized.");
             console.log("Initializing player...");

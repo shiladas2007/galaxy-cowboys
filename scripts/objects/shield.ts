@@ -1,6 +1,9 @@
 module objects {
     export class Shield extends objects.GameObject {
         private _anchor: animate.Animate;
+        get anchor():animate.Animate {
+            return this._anchor;
+        }
 
         constructor(anchor:animate.Animate) {
             super("shield", anchor.x, anchor.y);
