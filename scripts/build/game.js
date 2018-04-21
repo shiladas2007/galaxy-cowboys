@@ -4698,8 +4698,7 @@ var scenes;
             ];
             this._player = new animate.Player(config.Character.QUICKSILVER, 100, 420);
             var tooltipMessages = [
-                "This is Quicksilver John. He's quicker than Sam and uses his shotgun to shoot.",
-                "His shotgun fires slower than Sam's revolver and has a shorter range, but really packs a punch!"
+                "Move up and around the map to discover more areas, but beware the enemies ahead!",
             ];
             this._tooltips = [
                 new ui.Tooltip("tooltipBg", tooltipMessages)
